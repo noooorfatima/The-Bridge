@@ -1,0 +1,62 @@
+{% include 'head.html' %}
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+
+<div id="navbar">
+    <ul id=kwicks-list class="kwicks kwicks-horizontal">
+        <a class=kwick1 href="/" >Home</a>
+        <a class="activator-about" target="_blank">About</a>
+        <a class="activator-help" target="_blank">Help</a>
+    </ul>
+</div>
+<br />
+<br />
+What are you reading:</B> <BR>
+<SELECT NAME="textlist" SIZE="4" ID="textlist" MULTIPLE >
+
+{% for each in booklist %}
+    <OPTION value="{{ each }}"> {{ each }}
+{% endfor %}
+</SELECT>
+
+<?xml version = "1.0"?> 
+
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+    <head> 
+        <script type="text/javascript"> 
+            function displayForm(c){ 
+                if(c.value == "All"){  
+                    document.getElementById("Book").style.visibility='hidden'; 
+                } 
+                else if(c.value =="Selection"){ 
+                   document.getElementById("Book").style.visibility='visible'; 
+                } 
+                else{ 
+                } 
+             
+            }         
+        </script>     
+    </head> 
+    <body>
+	{% include 'about.html' %}
+	{% include 'help.html' %} 
+        <form id="all_or_selection"> 
+            <input value="All" type="radio" name="formselector" checked ="checked" onclick="displayForm(this)"><label>All</label>     
+            <input value="Selection" type="radio" name="formselector" onclick="displayForm(this)"><label>Selection</label>     
+	</form> 
+     
+        <form style="visibility:hidden" id="Book"><label>Book<input type="text"/> </label></form>
+	What have you read:
+	<div class="container">
+		<form id="booklist">
+		{% for each in booklist %}
+			<input type="checkbox" name="book" id="{{ each }}" value="{{ each }}" /> "{{ each }}"<br /> 
+     		{% endfor %}
+	</div>
+	<form>
+		<input type="submit" value="Submit" id=textsubmit>
+	</form>
+    </body> 
+
+</html>
+

@@ -1,5 +1,5 @@
 """
-Django settings for bridge project.
+Django settings for new_bridge project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.6/topics/settings/
@@ -10,22 +10,22 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-
+#BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__name__))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
-
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'e6jlsorn^4h-ex2s#i5=(fcniz^^(@yzvvuyh-%-0_=y6cperc'
+SECRET_KEY = 'ov6veryafbbfnd%o!jr@^u+uwgs2*68rn$mvx74$mco_4+mrp^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.haverford.edu',
+		'.haverford.edu.']
 
 
 # Application definition
@@ -49,6 +49,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+
 ROOT_URLCONF = 'bridge.urls'
 
 WSGI_APPLICATION = 'bridge.wsgi.application'
@@ -59,11 +60,14 @@ WSGI_APPLICATION = 'bridge.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'new_bridge',
+        'USER': 'root',
+        'PASSWORD': 'safari77',
+        'HOST': 'libdev.haverford.edu',
+        'PORT': '3306'
     }
 }
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
@@ -78,15 +82,23 @@ USE_L10N = True
 
 USE_TZ = True
 
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'templates'),
-)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS=(
-  os.path.join(BASE_DIR,'static/'),
+STATICFILES_DIRS = (
+  os.path.join(PROJECT_ROOT, 'static/'),
 )
+
+TEMPLATE_DIRS=(
+  os.path.join(PROJECT_ROOT, 'templates/'),
+)
+
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+#     'django.template.loaders.eggs.Loader',
+)
+
