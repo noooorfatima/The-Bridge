@@ -28,25 +28,29 @@ class ContactView(generic.ListView):
 	model = BookTable
 
 #@csrf_exempt
-def latin_language_select(request):
+def book_select(request, language):
 	book_list = []
-	all_entries =  BookTitles.objects.all()
+	all_entries = 0
+	if language == "Greek":
+		all_entries =  BookTitles.objects.all()
+	else:
+		all_entries =  BookTitlesGreek.objects.all()
+
 	for each in all_entries:
 		book_list.append(each.title_of_book)
 	results = book_list
-	return render(request, 'textlist.html', {"booklist": results})
 
-def greek_language_select(request):
-        book_list = []
-        all_entries =  BookTitlesGreek.objects.all()
-        for each in all_entries:
-                book_list.append(each.title_of_book)
-        results = book_list
-        return render(request, 'greek_textlist.html', {"booklist": results})
+	return render(request, 'textlist.html', {"booklist": results, "language": language})
 
 
 @require_http_methods(["POST"])
-def words_page(request):
+def words_page(request, language):
+	if language == "Greek":
+		greek_words_page(request, language)
+	else:
+		latin_words_page(request, language)
+
+def latin_words_page(request, language):
         if request.method =="POST":
                 word_list = []
                 word_list2 = []
@@ -128,11 +132,11 @@ def words_page(request):
 			text_to = "to "+text_to
 
 		print final_list
-                return render(request, "words_page.html", {"text": text, "text_from": text_from, "text_to": text_to, "books": books, "wordcount":wordcount, "words" : actual_words})
+                return render(request, "words_page.html", {"language": language, "text": text, "text_from": text_from, "text_to": text_to, "books": books, "wordcount":wordcount, "words" : actual_words})
 
 
 @require_http_methods(["POST"])
-def greek_words_page(request):
+def greek_words_page(request, language):
         if request.method =="POST":
                 word_list = []
                 word_list2 = []
@@ -231,7 +235,7 @@ def greek_words_page(request):
                         text_from = "from "+text_from
                         text_to = "to "+text_to
 		
-                return render(request, "greek_words_page.html", {"text": text, "text_from": text_from, "text_to": text_to, "books": books, "wordcount":wordcount, "words" : actual_words})
+                return render(request, "words_page.html", {"language": language, "text": text, "text_from": text_from, "text_to": text_to, "books": books, "wordcount":wordcount, "words" : actual_words})
 
 
 
