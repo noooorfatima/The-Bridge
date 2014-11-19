@@ -1,4 +1,4 @@
-# from bridge.models import 'insert class/model names here' 
+# from new_bridge.models import 'insert class/model names here' 
 from django.views import generic
 from new_bridge.models import BookTable, WordTable, BookTitles, BookTableGreek, WordTableGreek, BookTitlesGreek
 from django.shortcuts import render
