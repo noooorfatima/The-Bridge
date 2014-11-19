@@ -32,9 +32,9 @@ def book_select(request, language):
 	book_list = []
 	all_entries = 0
 	if language == "Greek":
-		all_entries =  BookTitles.objects.all()
-	else:
 		all_entries =  BookTitlesGreek.objects.all()
+	else:
+		all_entries =  BookTitles.objects.all()
 
 	for each in all_entries:
 		book_list.append(each.title_of_book)
