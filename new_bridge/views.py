@@ -46,9 +46,9 @@ def book_select(request, language):
 @require_http_methods(["POST"])
 def words_page(request, language):
 	if language == "Greek":
-		greek_words_page(request, language)
+		return greek_words_page(request, language)
 	else:
-		latin_words_page(request, language)
+		return latin_words_page(request, language)
 
 def latin_words_page(request, language):
         if request.method =="POST":
@@ -99,7 +99,6 @@ def latin_words_page(request, language):
 	                	                                if word_in_core2 == k.title:
                                 		                        core_helper( k, k.dcc_frequency_rank, word_list2, from_sec, to_sec)
 		
-
                 for i in word_list:
                         if i not in word_list2:
                                 final_list.append(i)
