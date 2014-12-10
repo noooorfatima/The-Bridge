@@ -147,11 +147,11 @@ function showSpinner() {
         }).spin(document.getElementById("container2")); // Place in DOM node called "ajaxContentHolder"
 }
 
-$('.container2').click(function() {
+/*$('.container2').click(function() {
 	//showSpinner();
 	filters2();
 	//filters3();
-});
+});*/
 
 function filters2() {
 
@@ -330,9 +330,23 @@ function filters2() {
    };
 
 
-$('.container2_greek').click(function() {
+/*$('.container2_greek').click(function() {
         //showSpinner();
         filters2_greek();
+});*/
+
+$('.panel-body input:checkbox').click(function() {
+    var fin = []; 
+    $('.panel-body input:checkbox').each(function() {
+        if (!(this.checked)) {
+            console.log("Got id: " + $(this).attr("id"))
+            fin.push($(this).attr("id")); 
+        }   
+    }); 
+    var language = $("#language").text();
+    $.post('/filter/'+language+'/', { mine:fin }, function(data){
+        console.log(data);
+    }); 
 });
 
 function filters2_greek() {
@@ -510,16 +524,16 @@ function filters2_greek() {
    };
 
 
-$('.container3').click(function() {
+/*$('.container3').click(function() {
         //showSpinner();
 	filters2();
-});
+});*/
 
 
-$('.container3_greek').click(function() {
+/*$('.container3_greek').click(function() {
         //showSpinner();
         filters2_greek();
-});
+});*/
 
 
 $("#Verbs").on('click',function() {
