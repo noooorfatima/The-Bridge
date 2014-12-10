@@ -129,6 +129,7 @@ def greek_filter(request, unchecked):
 					del filtered_list[j]
 
 		else: # what is in unchecked at index i is merely a part of speech word like "Adjectives," "Particles," etc.
+			print "HERE: " + str(i)
 			filter_by = i[:-1]
 			for j in range(len(filtered_list)):
 				word = WordTableGreek.objects.get(TITLE == filtered_list[j])

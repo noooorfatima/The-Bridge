@@ -13,7 +13,7 @@ urlpatterns = patterns('',
     #url(r'^$', 'bridge.views
     url(r'^words_page/(?P<language>[a-zA-Z]+)/$', views.words_page),
     url(r'^book_select/(?P<language>[a-zA-Z]+)/$', views.book_select),
-    url(r'^filter/(?P<language>[a-zA-Z]+)/$', views_filter.filter),
+    url(r'^filter/(?P<language>[a-zA-Z]+)/$', views.filter),
 #    url(r'^books_page/?$', views.books_page),
     url(r'^about$', views.AboutView.as_view(), name='about'),
     url(r'^help$', views.HelpView.as_view(), name='help'),
