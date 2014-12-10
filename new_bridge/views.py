@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, render_to_response
-
+import json
 # defining global variables
 global_list = [] # final_list
 
@@ -486,7 +486,7 @@ def latin_filter(request, unchecked):
 				if word.part_of_speech == filter_by:
 					del filtered_list[j]
 	
-	return HttpResponse(json.dumps({"words": filtered_list}, content_type="application/json"))
+	return HttpResponse(json.dumps({"words": filtered_list}), content_type="application/json")
 
 			
 
@@ -542,4 +542,4 @@ def greek_filter(request, unchecked):
 				if word.part_of_speech == filter_by:
 					del filtered_list[j]
 
-	return HttpResponse(json.dumps({"words": filtered_list}, content_type="application/json"))
+	return HttpResponse(json.dumps({"words": filtered_list}), content_type="application/json")
