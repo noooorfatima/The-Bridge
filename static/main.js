@@ -343,9 +343,24 @@ $('.panel-body input:checkbox').click(function() {
             fin.push($(this).attr("id")); 
         }   
     }); 
+    $('.panel-body input:radio').each(function() {
+	if(!(this.checked)) {
+            console.log("Got id: " + $(this).attr("id"))
+            fin.push($(this).attr("id")); 
+        }   
+    }); 
+	    
     var language = $("#language").text();
     $.post('/filter/'+language+'/', { mine:fin }, function(data){
         console.log(data);
+	$('tbody').empty();
+	for(var i=0;i<data.words.length;i++) {
+	    var string = '<tr id='+i.toString()+'>';
+	    string = string +'<td>'+data.words[i].word+'</td>';
+	    string = string +'<td>'+data.words[i].definition+'</td>';
+	    string = string +'</tr>';
+	    $('tbody').append(string);
+	}
     }); 
 });
 

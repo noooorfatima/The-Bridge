@@ -498,62 +498,77 @@ def latin_filter(request, unchecked):
 			
 
 def greek_filter(request, unchecked):
-	filtered_list = request.session.get('global_list')
-	delete_list = []
-	for i in unchecked:
-		if i == "adj_1st" or i == "adj_3rd" or i == "adj_5th":
-			filter_by = i[4]
-			for j in range(len(filtered_list)):
-				word = WordTableGreek.objects.get(TITLE == filtered_list[j])
-				if word.decl == filter_by:
-					delete_list.append(filtered_list[j])
-
-		elif i == "noun_1st" or i == "noun_2nd" or i == "noun_3rd" or i == "noun_6th":
-			filter_by = i[5]
-			for j in range(len(filtered_list)):
-				word = WordTableGreek.objects.get(TITLE == filtered_list[j])
-				if word.decl == filter_by:
-					delete_list.append(filtered_list[j])
-
-		elif i == "Idioms":
-			filter_by = "1"
-			for j in range(len(filtered_list)):
-				word = WordTableGreek.objects.get(TITLE == filtered_list[j])
-				if word.idiom == filter_by:
-					delete_list.append(filtered_list[j])
-
-		elif i == "Numbers":
-			filter_by = "1"
-			for j in range(len(filtered_list)):
-				word = WordTableGreek.objects.get(TITLE == filtered_list[j])
-				if word.number == filter_by:
+	try:
+		filtered_list = request.session.get('global_list')
+		delete_list = []
+		for i in unchecked:
+			if (i == "adj_1st" or i == "adj_3rd" or i == "adj_5th") and "all_adj" in unchecked:
+				filter_by = i[4]
+				for j in range(len(filtered_list)):
+					word = WordTableGreek.objects.filter(title= filtered_list[j])
+					word = word[0]
+					if word.decl == filter_by:
 						delete_list.append(filtered_list[j])
 
-		elif i == "Proper nouns":
-			filter_by = "1"
-			for j in range(len(filtered_list)):
-				word = WordTableGreek.objects.get(TITLE == filtered_list[j])
-				if word.proper == filter_by:
-					delete_list.append(filtered_list[j])
+			elif (i == "noun_1st" or i == "noun_2nd" or i == "noun_3rd" or i == "noun_6th") and "all_nouns" in unchecked:
+				filter_by = i[5]
+				for j in range(len(filtered_list)):
+					word = WordTableGreek.objects.filter(title= filtered_list[j])
+					word = word[0]
+					if word.decl == filter_by:
+						delete_list.append(filtered_list[j])
 
-		elif i == "Reg_Adv":
-			filter_by = "1"
-			for j in range(len(filtered_list)):
-				word = WordTableGreek.objects.get(TITLE == filtered_list[j])
-				if word.reg_adject_adv_form == filter_by:
-					delete_list.append(filtered_list[j])
+			elif i == "Idioms":
+				filter_by = "1"
+				for j in range(len(filtered_list)):
+					word = WordTableGreek.objects.filter(title= filtered_list[j])
+					word = word[0]
+					if word.idiom == filter_by:
+						delete_list.append(filtered_list[j])
 
-		else: # what is in unchecked at index i is merely a part of speech word like "Adjectives," "Particles," etc.
-			filter_by = i[:-1]
-			for j in range(len(filtered_list)):
-				word = WordTableGreek.objects.filter(title = filtered_list[j])
-				word = word[0]
-				if word.part_of_speech == filter_by:
-					delete_list.append(filtered_list[j])
-	
-	final = []
-	for word in filtered_list:
-		if not word in delete_list:
-			final.append(word)
+			elif i == "Numbers":
+				filter_by = "1"
+				for j in range(len(filtered_list)):
+					word = WordTableGreek.objects.filter(title= filtered_list[j])
+					word = word[0]
+					if word.number == filter_by:
+							delete_list.append(filtered_list[j])
 
-	return HttpResponse(json.dumps({"words": final}), content_type="application/json")
+			elif i == "Proper nouns":
+				filter_by = "1"
+				for j in range(len(filtered_list)):
+					word = WordTableGreek.objects.filter(title= filtered_list[j])
+					word = word[0]
+					if word.proper == filter_by:
+						delete_list.append(filtered_list[j])
+
+			elif i == "Reg_Adv":
+				filter_by = "1"
+				for j in range(len(filtered_list)):
+					word = WordTableGreek.objects.filter(title= filtered_list[j])
+					word = word[0]
+					if word.reg_adject_adv_form == filter_by:
+						delete_list.append(filtered_list[j])
+
+			else: # what is in unchecked at index i is merely a part of speech word like "Adjectives," "Particles," etc.
+				filter_by = i[:-1]
+				for j in range(len(filtered_list)):
+					word = WordTableGreek.objects.filter(title = filtered_list[j])
+					word = word[0]
+					if word.part_of_speech == filter_by:
+						delete_list.append(filtered_list[j])
+		
+		final_words = []
+		for word in filtered_list:
+			if not word in delete_list:
+				final_words.append(word)
+		
+		final = []
+		for word in final_words:
+			temp_word = WordTableGreek.objects.filter(title = word)
+			temp_word = temp_word[0]
+			final.append({"word":temp_word.display_lemma,"definition":temp_word.english_definition})
+			
+		return HttpResponse(json.dumps({"words": final}), content_type="application/json")
+	except Exception as e:
+		print "ERROR: " + str(e)
