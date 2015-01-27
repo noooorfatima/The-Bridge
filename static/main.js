@@ -8,25 +8,25 @@ $(document).ready(function() {
     $("#giant_form_submit").on("click", function(e) {
 	listItems = $("#textlist");
 	if (validateText() == false) {
-		alert("Please choose a text.");
-		return false;
+	    alert("Please choose a text.");
+	    return false;
+	}
 	if (validateTextSelect() == false){
-		alert("Please submit a valid range.");
-		return false;
+	    alert("Please submit a valid range.");
+	    return false;
 	}
 	var pairs = [];
-	console.log($('#checkbox_inputs :input'));
-        $('#checkbox_inputs :input').each(function(i, div){
-        var i_over_2 = Math.floor(i / 2);
-        if (!pairs[i_over_2]) pairs[i_over_2] = $();
-                pairs[i_over_2] = pairs[i_over_2].add(div);
+	//console.log($('#checkbox_inputs :input'));
+	$('#checkbox_inputs :input').each(function(i, div){
+	var i_over_2 = Math.floor(i / 2);
+	if (!pairs[i_over_2]) pairs[i_over_2] = $();
+            pairs[i_over_2] = pairs[i_over_2].add(div);
 	});
 	if (checkbooklist(pairs) == false) {
-	  alert("Please submit a valid range.");
-	  return false;
+	    alert("Please submit a valid range.");
+	    return false;
 	}
-    }}
-);
+    });
  
 //Function that allows the print button on words page to work
 function printData()
@@ -113,6 +113,22 @@ $('#Selection').on('click',function(){
 
 // Filter Function
 $('.panel-body input:checkbox').click(function() {
+    var panel= $('#filters_panel_body')
+    var offset = panel.offset();
+    console.log('panel_size',offset)
+    var height = panel.height();
+    console.log('panel height',height)
+    var width = panel.width();
+    console.log('panel width',width)
+    $('#filters_panel').append('<div id=cover></div>');
+    var new_panel = $('#cover');
+    new_panel.offset({top:offset.top, left:offset.left});
+    new_panel.css("background-color","grey");
+    new_panel.css("opacity",".5");
+    new_panel.css("height",height);
+    new_panel.css("width",width);
+    new_panel.css({'cursor':'wait'});
+    
     var fin = []; 
     $('.panel-body input:checkbox').each(function() {
         if (!(this.checked)) {
@@ -138,6 +154,7 @@ $('.panel-body input:checkbox').click(function() {
 	    string = string +'</tr>';
 	    $('tbody').append(string);
 	}
+	$('#cover').remove();
     }); 
 });
 

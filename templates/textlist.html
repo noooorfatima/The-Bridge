@@ -8,9 +8,9 @@
 <!--LA removed class="pagewrap" Need to fix footer if we keep it this way 8/14/2014 -->
 <div class="container">
      {% if language == "Greek" %}
-	<form id="giant_form" action="/words_page/Greek/" method="POST" target="_self">
+	<form id="giant_form" action="/words_page_redirect/Greek/" method="POST" target="_self">
     {% else %} 
-	<form id="giant_form" action="/words_page/Latin/" method="POST" target="_self">
+	<form id="giant_form" action="/words_page_redirect/Latin/" method="POST" target="_self">
     {% endif %}
 	{% csrf_token %}
 	<div class="text_selection_box panel panel-default col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-4 col-md-offset-1 col-lg-4 col-lg-offset-1">

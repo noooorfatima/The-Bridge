@@ -46,202 +46,204 @@ def book_select(request, language):
 
 	return render(request, 'textlist.html', {"booklist": results, "language": language})
 
-
+# This function takes all of the information submitted through the form and creates a unique url for that query
+# this will allow the user to copy the url and come back to exactly the same place they were before
 @require_http_methods(["POST"])
-def words_page(request, language):
+def words_page_redirect(request, language):
+    text = request.POST["textlist"]
+    bookslist = request.POST.getlist("book")
+    bookslist = ",".join(bookslist)
+    text_from = request.POST["text_from"]
+    text_to = request.POST["text_to"]
+    print text
+    url = '/words_page/'+language+'/'+text+'/'+bookslist+'/'+text_from+'/'+text_to+'/'
+    return HttpResponseRedirect(url)
+
+# This function is now redirected to once the new url is constructed
+def words_page(request, language,text,bookslist,text_from,text_to):
 	if language == "Greek":
-		return greek_words_page(request, language)
+	    return greek_words_page(request, language,text,bookslist,text_from,text_to)
 	else:
-		return latin_words_page(request, language)
-
-def latin_words_page(request, language):
-        if request.method =="POST":
-                word_list = []
-                word_list2 = []
-                final_list = []
-                wordcount = 0
-                text = request.POST["textlist"]
-                bookslist = request.POST.getlist("book")
-                text_from = request.POST["text_from"]
-                text_to = request.POST["text_to"]
-                all_entries = BookTable.objects.all()
-		word_table_entries = WordTable.objects.all()
-                for each in all_entries: 
-                        if text_from == "" and text_to == "" and text == each.field_book_text:
-                            word_list.append(each.title)
-                        elif text == each.field_book_text:
-				if each.field_book_text.strip() == "DCC Latin Core":
-                                	word_in_core = each.title
-                                	for j in word_table_entries:
-                                        	if word_in_core == j.title:
-                                                	core_helper( j,j.dcc_frequency_rank, word_list,text_from, text_to)
-				else:
-                            		appearances = each.appearences
-                           		helper(appearances, each, word_list, text_from, text_to)
-
-                        for i in bookslist:
-                                if i[0:] == each.field_book_text:
-                                        appearances = each.appearences
-					if i != "DCC Latin Core": 
-						from_sec = request.POST[each.field_book_text + " from"]
-						to_sec = request.POST[each.field_book_text + " to"]
-						if from_sec == "":
-							word_list2.append(each.title)
-						else:
-							helper(appearances, each, word_list2, from_sec, to_sec)
-					else:
-						from_sec = request.POST[each.field_book_text + " from"]
-                                                to_sec = request.POST[each.field_book_text + " to"]
-						if from_sec == "":
-							word_list2.append(each.title)
-						else:
-							word_in_core2 = each.title
-        		                                for k in word_table_entries:
-	                	                                if word_in_core2 == k.title:
-                                		                        core_helper( k, k.dcc_frequency_rank, word_list2, from_sec, to_sec)
-		
-                for i in word_list:
-                        if i not in word_list2:
-                                final_list.append(i)
-		final_list.sort()
-		global_list = final_list[:]
-		request.session['global_list'] = global_list
-                wordcount = len(final_list)
-                actual_words = []
-                all_words = WordTable.objects.all()
-                for word in final_list:
-                        for each in all_words:
-                                if word == each.title:
-                                        actual_words.append(each)
-		if bookslist == []:
-			books = "nothing"
-	
-		elif bookslist != []:
-			books = ""
-			loop_counter = 1
-                        for i in bookslist:
-				print loop_counter
-                                if len(bookslist) > 1 and loop_counter != len(bookslist):
-                                        books = books + i + ", "
-					loop_counter+=1
-                                else:
-                                        books = books + i
-
-		if text_from == "":
-			text_from = "all"
-		
-		elif text_from != "":
-			text_from = "from "+text_from
-			text_to = "to "+text_to
-
-                return render(request, "words_page.html", {"language": language, "text": text, "text_from": text_from, "text_to": text_to, "books": books, "wordcount":wordcount, "words" : actual_words})
+	    return latin_words_page(request, language,text,bookslist,text_from,text_to)
 
 
-@require_http_methods(["POST"])
-def greek_words_page(request, language):
-        if request.method =="POST":
-                word_list = []
-                word_list2 = []
-                final_list = []
-                wordcount = 0
-                text = request.POST["textlist"]
-                bookslist = request.POST.getlist("book")
-                text_from = request.POST["text_from"]
-                text_to = request.POST["text_to"]
-                all_entries = BookTableGreek.objects.all()
-                word_table_entries = WordTableGreek.objects.all()
-                for each in all_entries:
-                        if text_from == "" and text_to == "" and text == each.field_book_text:
-				word_list.append(each.title)
-                        elif text == each.field_book_text:
-                                if each.field_book_text.strip() == "DCC Greek Core":
-                                        word_in_core = each.title
-                                        for j in word_table_entries:
-                                                if word_in_core == j.title:
-                                                        greek_core_helper( j,j.dcc_core_frequency, word_list,text_from, text_to)
-                                elif each.field_book_text.strip() == "Herodotus Book 1 Core (412 words > 10 times)":
-					word_in_core = each.title
-					for j in word_table_entries:
-						if word_in_core == j.title:
-							greek_core_helper( j,j.herodotus_1_frequency_rank, word_list,text_from, text_to)	
-				elif each.field_book_text.strip() == "Introduction to Ancient Greek (Luschnig)":
-					appearances = each.appearences
-					greek_helper(appearances, each, word_list, text_from, text_to)
-				elif each.field_book_text.strip() == "Reading Greek (JACT)":
-					appearances = each.appearences
-					greek_helper(appearances, each, word_list, text_from, text_to)
-				else:
-                                        appearances = each.appearences
-                                        helper(appearances, each, word_list, text_from, text_to)
+def latin_words_page(request, language,text,bookslist,text_from,text_to):
+    word_list = []
+    word_list2 = []
+    final_list = []
+    wordcount = 0
+    all_entries = BookTable.objects.all()
+    word_table_entries = WordTable.objects.all()
+    for each in all_entries: 
+        if text_from == "" and text_to == "" and text == each.field_book_text:
+            word_list.append(each.title)
+        elif text == each.field_book_text:
+            if each.field_book_text.strip() == "DCC Latin Core":
+                word_in_core = each.title
+                for j in word_table_entries:
+                    if word_in_core == j.title:
+                        core_helper( j,j.dcc_frequency_rank, word_list,text_from, text_to)
+            else:
+                appearances = each.appearences
+                helper(appearances, each, word_list, text_from, text_to)
 
-                        for i in bookslist:
-                                if i[0:] == each.field_book_text:
-                                        appearances = each.appearences
-                                        if i != "DCC Greek Core":
-                                                from_sec = request.POST[each.field_book_text + " from"]
-                                                to_sec = request.POST[each.field_book_text + " to"]
-                                                if from_sec == "":
-                                                        word_list2.append(each.title)
-                                                else:
-                                                        helper(appearances, each, word_list2, from_sec, to_sec)
-                                        elif i == "DCC Greek Core":
-                                                from_sec = request.POST[each.field_book_text + " from"]
-                                                to_sec = request.POST[each.field_book_text + " to"]
-						if from_sec == "":
-                                                        word_list2.append(each.title)
-                                                else:
-                                                        word_in_core2 = each.title
-                                                        for k in word_table_entries:
-                                                                if word_in_core2 == k.title:
-                                                                        greek_core_helper( k, k.dcc_core_frequency, word_list2, from_sec, to_sec)
-					else: # i is Herodotus Core
-						from_sec = request.POST[each.field_book_text + " from"]
-                                                to_sec = request.POST[each.field_book_text + " to"]
-                                                if from_sec == "":
-                                                        word_list2.append(each.title)
-                                                else:
-                                                        word_in_core2 = each.title
-                                                        for k in word_table_entries:
-                                                                if word_in_core2 == k.title:
-                                                                        core_helper( k, k.herodotus_1_frequency_rank, word_list2, from_sec, to_sec)
-	
+        for i in bookslist:
+            if i[0:] == each.field_book_text:
+                appearances = each.appearences
+                if i != "DCC Latin Core": 
+                    from_sec = request.POST[each.field_book_text + " from"]
+                    to_sec = request.POST[each.field_book_text + " to"]
+                    if from_sec == "":
+                        word_list2.append(each.title)
+                    else:
+                        helper(appearances, each, word_list2, from_sec, to_sec)
+                else:
+                    from_sec = request.POST[each.field_book_text + " from"]
+                    to_sec = request.POST[each.field_book_text + " to"]
+                    if from_sec == "":
+                        word_list2.append(each.title)
+                    else:
+                        word_in_core2 = each.title
+                        for k in word_table_entries:
+                            if word_in_core2 == k.title:
+                                core_helper( k, k.dcc_frequency_rank, word_list2, from_sec, to_sec)
+    
+    for i in word_list:
+        if i not in word_list2:
+            final_list.append(i)
+    final_list.sort()
+    global_list = final_list[:]
+    request.session['global_list'] = global_list
+    wordcount = len(final_list)
+    actual_words = []
+    all_words = WordTable.objects.all()
+    for word in final_list:
+        for each in all_words:
+            if word == each.title:
+                actual_words.append(each)
+    if bookslist == []:
+        books = "nothing"
+
+    elif bookslist != []:
+        books = ""
+        loop_counter = 1
+        for i in bookslist:
+            print loop_counter
+            if len(bookslist) > 1 and loop_counter != len(bookslist):
+                books = books + i + ", "
+                loop_counter+=1
+            else:
+                books = books + i
+
+    if text_from == "":
+        text_from = "all"
+    
+    elif text_from != "":
+        text_from = "from "+text_from
+        text_to = "to "+text_to
+
+    return render(request, "words_page.html", {"language": language, "text": text, "text_from": text_from, "text_to": text_to, "books": books, "wordcount":wordcount, "words" : actual_words})
 
 
-                for i in word_list:
-                        if i not in word_list2:
-                                final_list.append(i)
+def greek_words_page(request, language,text,bookslist,text_from,text_to):
+    word_list = []
+    word_list2 = []
+    final_list = []
+    wordcount = 0
+    all_entries = BookTableGreek.objects.all()
+    word_table_entries = WordTableGreek.objects.all()
+    for each in all_entries:
+        if text_from == "" and text_to == "" and text == each.field_book_text:
+            word_list.append(each.title)
+        elif text == each.field_book_text:
+            if each.field_book_text.strip() == "DCC Greek Core":
+                word_in_core = each.title
+                for j in word_table_entries:
+                    if word_in_core == j.title:
+                        greek_core_helper( j,j.dcc_core_frequency, word_list,text_from, text_to)
+            elif each.field_book_text.strip() == "Herodotus Book 1 Core (412 words > 10 times)":
+                word_in_core = each.title
+                for j in word_table_entries:
+                    if word_in_core == j.title:
+                        greek_core_helper( j,j.herodotus_1_frequency_rank, word_list,text_from, text_to)    
+            elif each.field_book_text.strip() == "Introduction to Ancient Greek (Luschnig)":
+                appearances = each.appearences
+                greek_helper(appearances, each, word_list, text_from, text_to)
+            elif each.field_book_text.strip() == "Reading Greek (JACT)":
+                appearances = each.appearences
+                greek_helper(appearances, each, word_list, text_from, text_to)
+            else:
+                appearances = each.appearences
+                helper(appearances, each, word_list, text_from, text_to)
 
-		final_list.sort()
-		global_list = final_list[:]
-		request.session['global_list'] = global_list
-                wordcount = len(final_list)
-                actual_words = []
-                all_words = WordTableGreek.objects.all()
-                for word in final_list:
-                        for each in all_words:
-                                if word == each.title:
-                                        actual_words.append(each)
-		
-		if bookslist == []:
-                        books = "nothing"
-	
-		elif bookslist != []:
-                        books = ""
-                        for i in bookslist:
-                                if len(bookslist) > 1:
-                                        books = books + i + ", "
-                                else:
-                                        books = books + i
+        for i in bookslist:
+            if i[0:] == each.field_book_text:
+                appearances = each.appearences
+                if i != "DCC Greek Core":
+                    from_sec = request.POST[each.field_book_text + " from"]
+                    to_sec = request.POST[each.field_book_text + " to"]
+                    if from_sec == "":
+                        word_list2.append(each.title)
+                    else:
+                        helper(appearances, each, word_list2, from_sec, to_sec)
+                elif i == "DCC Greek Core":
+                    from_sec = request.POST[each.field_book_text + " from"]
+                    to_sec = request.POST[each.field_book_text + " to"]
+                    if from_sec == "":
+                        word_list2.append(each.title)
+                    else:
+                        word_in_core2 = each.title
+                        for k in word_table_entries:
+                            if word_in_core2 == k.title:
+                                greek_core_helper( k, k.dcc_core_frequency, word_list2, from_sec, to_sec)
+                else: # i is Herodotus Core
+                    from_sec = request.POST[each.field_book_text + " from"]
+                    to_sec = request.POST[each.field_book_text + " to"]
+                    if from_sec == "":
+                        word_list2.append(each.title)
+                    else:
+                        word_in_core2 = each.title
+                        for k in word_table_entries:
+                            if word_in_core2 == k.title:
+                                core_helper( k, k.herodotus_1_frequency_rank, word_list2, from_sec, to_sec)
 
-			
-		if text_from == "":
-                        text_from = "all"
 
-                elif text_from != "":
-                        text_from = "from "+text_from
-                        text_to = "to "+text_to
-		
-                return render(request, "words_page.html", {"language": language, "text": text, "text_from": text_from, "text_to": text_to, "books": books, "wordcount":wordcount, "words" : actual_words})
+
+    for i in word_list:
+        if i not in word_list2:
+            final_list.append(i)
+
+    final_list.sort()
+    global_list = final_list[:]
+    request.session['global_list'] = global_list
+    wordcount = len(final_list)
+    actual_words = []
+    all_words = WordTableGreek.objects.all()
+    for word in final_list:
+        for each in all_words:
+            if word == each.title:
+                actual_words.append(each)
+    
+    if bookslist == []:
+        books = "nothing"
+
+    elif bookslist != []:
+        books = ""
+        for i in bookslist:
+            if len(bookslist) > 1:
+                books = books + i + ", "
+            else:
+                books = books + i
+
+        
+    if text_from == "":
+        text_from = "all"
+
+    elif text_from != "":
+        text_from = "from "+text_from
+        text_to = "to "+text_to
+    
+    return render(request, "words_page.html", {"language": language, "text": text, "text_from": text_from, "text_to": text_to, "books": books, "wordcount":wordcount, "words" : actual_words})
 
 
 
