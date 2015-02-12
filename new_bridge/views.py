@@ -55,19 +55,22 @@ def words_page_redirect(request, language):
     bookslist = ",".join(bookslist)
     text_from = request.POST["text_from"]
     text_to = request.POST["text_to"]
-    print text
-    url = '/words_page/'+language+'/'+text+'/'+bookslist+'/'+text_from+'/'+text_to+'/'
+    add_remove = request.POST["add_remove_selector"]
+    url = '/words_page/'+language+'/'+text+'/'+bookslist+'/'+text_from+'/'+text_to+'/'+add_remove+'/'
     return HttpResponseRedirect(url)
 
 # This function is now redirected to once the new url is constructed
-def words_page(request, language,text,bookslist,text_from,text_to):
+def words_page(request, language,text,bookslist,text_from,text_to,add_remove):
 	if language == "Greek":
-	    return greek_words_page(request, language,text,bookslist,text_from,text_to)
+	    return greek_words_page(request, language,text,bookslist,text_from,text_to,add_remove)
 	else:
-	    return latin_words_page(request, language,text,bookslist,text_from,text_to)
+	    return latin_words_page(request, language,text,bookslist,text_from,text_to,add_remove)
 
 
-def latin_words_page(request, language,text,bookslist,text_from,text_to):
+def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remove):
+    add_remove = False
+    if add_remove == "Remove":
+	toRemove = True
     word_list = []
     word_list2 = []
     final_list = []
@@ -141,11 +144,29 @@ def latin_words_page(request, language,text,bookslist,text_from,text_to):
     elif text_from != "":
         text_from = "from "+text_from
         text_to = "to "+text_to
+    
+    final_dict = {} 
+    error_count = 0
+    for word in actual_words:
+	try:
+	    temp = BookTable.objects.filter(title = word.title)
+	    #for each in temp:
+		#if each[' Book/Text'] == 
+	    app = temp.appearences.split(",")
+	    final_dict[word] = len(app)
+	except Exception as e:
+	    print "didn't get: " + str(word.title) + " ERROR: " + str(e)
+	    error_count += 1
 
-    return render(request, "words_page.html", {"language": language, "text": text, "text_from": text_from, "text_to": text_to, "books": books, "wordcount":wordcount, "words" : actual_words})
+	
+    print "ERRORS: " + str(error_count)
+    return render(request, "words_page.html", {"language": language, "text": text, "text_from": text_from, "text_to": text_to, "books": books, "wordcount":wordcount, "words" : final_dict})
 
 
-def greek_words_page(request, language,text,bookslist,text_from,text_to):
+def greek_words_page(request, language,text,bookslist,text_from,text_to,add_remove):
+    add_remove = False
+    if add_remove == "Remove":
+	toRemove = True
     word_list = []
     word_list2 = []
     final_list = []

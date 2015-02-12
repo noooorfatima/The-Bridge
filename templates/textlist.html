@@ -65,7 +65,10 @@
 	<div class="exclude_selection_box panel panel-default col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-4 col-md-offset-2 col-lg-4 col-lg-offset-2">
 	  <div class="panel-body">
 	    <h1> What have you read? </h1> 
-	    <p data-toggle="tooltip" data-placement="bottom" title="Choose a text/texts that you have read to remove words you already know."><span class="glyphicon glyphicon-info-sign"></span> Choose one or more texts to remove words from your vocabulary list (optional):<br /><br />Please enter ranges after choosing all of your texts.</p>
+	    <p data-toggle="tooltip" data-placement="bottom" title="Choose a text/texts that you have read to remove words you already know."><span class="glyphicon glyphicon-info-sign"></span> Choose one or more texts to remove words from your vocabulary list (optional):<br />
+	    	<input value="Remove" type="radio" name="add_remove_selector" checked ="checked" id="All"><label id="all_label">Remove</label></input>     
+            	<input value="Add" type="radio" name="add_remove_selector" id="Selection"><label id="selection_label">Add</label></input>
+		<br />Please enter ranges after choosing all of your texts.</p>
 	    <br />
 	    <div class="book_container col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1" id="booklist" data-toggle="tooltip" data-placement="bottom" title="Choose a text/texts that you have read to remove words you already know.">
 		{% for each in booklist %}
