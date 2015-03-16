@@ -9,12 +9,14 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, render_to_response
 import json
+
 # defining global variables
 
 # ending definition of global variables
 
 def IndexView(request):
-	return render(request, 'index.html')
+	t = "Test string from views.py"
+	return render(request, 'index.html', {"test": t })
 	
 def TextListView(request):
 	return render(request, 'textlist.html')
@@ -50,17 +52,39 @@ def book_select(request, language):
 # this will allow the user to copy the url and come back to exactly the same place they were before
 @require_http_methods(["POST"])
 def words_page_redirect(request, language):
-    text = request.POST["textlist"]
-    bookslist = request.POST.getlist("book")
-    bookslist = ",".join(bookslist)
-    text_from = request.POST["text_from"]
-    text_to = request.POST["text_to"]
-    add_remove = request.POST["add_remove_selector"]
+    text = "none"
+    bookslist = "none"
+    text_from = "none"
+    text_to = "none"
+    # Need to make sure all of the values are there, otherwise save as none
+    # This makes sure it does not mess up the url
+    if not request.POST["textlist"] == "":
+	text = request.POST["textlist"]
+    """
+    if "book" not in request.POST:
+	bookslist = request.POST.getlist("book")
+	bookslist = ",".join(bookslist)
+	bookslist = list_of_lists(bookslist)
+    if "text_from" not in request.POST:
+	text_from = request.POST["text_from"]
+    if "text_to" not in request.POST:
+	text_to = request.POST["text_to"]
+    """
+    add_remove = request.POST["add_remove_selector"]    
     url = '/words_page/'+language+'/'+text+'/'+bookslist+'/'+text_from+'/'+text_to+'/'+add_remove+'/'
     return HttpResponseRedirect(url)
 
 # This function is now redirected to once the new url is constructed
 def words_page(request, language,text,bookslist,text_from,text_to,add_remove):
+	# Replace the nones with empty strings
+	
+	#if bookslist == "none":
+	    #bookslist = ""
+	#if text_from == "none":
+	    #text_from = ""
+	#if text_to == "none":
+	    #text_to = ""
+
 	if language == "Greek":
 	    return greek_words_page(request, language,text,bookslist,text_from,text_to,add_remove)
 	else:
@@ -77,6 +101,15 @@ def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remo
     wordcount = 0
     all_entries = BookTable.objects.all()
     word_table_entries = WordTable.objects.all()
+
+    # Replace the nones with empty strings
+    if bookslist == "none":
+        bookslist = ""
+    if text_from == "none":
+        text_from = ""
+    if text_to == "none":
+        text_to = ""
+
     for each in all_entries: 
         if text_from == "" and text_to == "" and text == each.field_book_text:
             word_list.append(each.title)
@@ -131,7 +164,7 @@ def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remo
         books = ""
         loop_counter = 1
         for i in bookslist:
-            print loop_counter
+            # print loop_counter
             if len(bookslist) > 1 and loop_counter != len(bookslist):
                 books = books + i + ", "
                 loop_counter+=1
@@ -155,11 +188,11 @@ def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remo
 	    app = temp.appearences.split(",")
 	    final_dict[word] = len(app)
 	except Exception as e:
-	    print "didn't get: " + str(word.title) + " ERROR: " + str(e)
+	    # print "didn't get: " + str(word.title) + " ERROR: " + str(e)
 	    error_count += 1
 
 	
-    print "ERRORS: " + str(error_count)
+    # print "ERRORS: " + str(error_count)
     return render(request, "words_page.html", {"language": language, "text": text, "text_from": text_from, "text_to": text_to, "books": books, "wordcount":wordcount, "words" : final_dict})
 
 
@@ -439,7 +472,4 @@ def greek_helper(a, b, c, beg, end):
 	    if int(beg[0]) <= int(a[i][0]): 
 		if int(a[i][0]) <= int(end[0]):
 			return c.append(b.title) 
-	
-
-                        return c.append(b.title)
 	

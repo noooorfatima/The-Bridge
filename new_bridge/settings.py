@@ -52,6 +52,8 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'new_bridge.urls'
 
+FORCE_SCRIPT_NAME="/"
+
 WSGI_APPLICATION = 'new_bridge.wsgi.application'
 
 
@@ -84,9 +86,12 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
+"""STATICFILES_DIRS = (
   os.path.join(PROJECT_ROOT, 'static/'),
 )
+"""
 
 TEMPLATE_DIRS=(
   os.path.join(PROJECT_ROOT, 'templates/'),
