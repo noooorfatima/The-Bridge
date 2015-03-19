@@ -206,6 +206,15 @@ def greek_words_page(request, language,text,bookslist,text_from,text_to,add_remo
     wordcount = 0
     all_entries = BookTableGreek.objects.all()
     word_table_entries = WordTableGreek.objects.all()
+
+    # Replace the nones with empty strings
+    if bookslist == "none":
+        bookslist = ""
+    if text_from == "none":
+        text_from = ""
+    if text_to == "none":
+        text_to = ""
+
     for each in all_entries:
         if text_from == "" and text_to == "" and text == each.field_book_text:
             word_list.append(each.title)

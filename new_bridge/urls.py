@@ -22,3 +22,4 @@ urlpatterns = patterns('',
     url(r'^contact$', views.ContactView.as_view(), name='contact'),
     url(r'^admin/', include(admin.site.urls)),
 )
+
