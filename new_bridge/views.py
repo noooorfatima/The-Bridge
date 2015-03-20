@@ -1,4 +1,4 @@
-# from new_bridge.models import 'insert class/model names here' 
+#from new_bridge.models import 'insert class/model names here' 
 from django.views import generic
 import unicodedata
 from new_bridge.models import BookTable, WordTable, BookTitles, BookTableGreek, WordTableGreek, BookTitlesGreek
@@ -61,29 +61,21 @@ def words_page_redirect(request, language):
     if not request.POST["textlist"] == "":
 	text = request.POST["textlist"]
     """
-    if "book" not in request.POST:
+    if ('book' in request.POST) == False:
 	bookslist = request.POST.getlist("book")
 	bookslist = ",".join(bookslist)
 	bookslist = list_of_lists(bookslist)
-    if "text_from" not in request.POST:
+    if 'text_from' not in request.POST:
 	text_from = request.POST["text_from"]
-    if "text_to" not in request.POST:
+    if 'text_to' not in request.POST:
 	text_to = request.POST["text_to"]
     """
-    add_remove = request.POST["add_remove_selector"]    
+    add_remove = request.POST["add_remove_selector"]
     url = '/words_page/'+language+'/'+text+'/'+bookslist+'/'+text_from+'/'+text_to+'/'+add_remove+'/'
     return HttpResponseRedirect(url)
 
 # This function is now redirected to once the new url is constructed
 def words_page(request, language,text,bookslist,text_from,text_to,add_remove):
-	# Replace the nones with empty strings
-	
-	#if bookslist == "none":
-	    #bookslist = ""
-	#if text_from == "none":
-	    #text_from = ""
-	#if text_to == "none":
-	    #text_to = ""
 
 	if language == "Greek":
 	    return greek_words_page(request, language,text,bookslist,text_from,text_to,add_remove)
@@ -178,15 +170,14 @@ def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remo
         text_from = "from "+text_from
         text_to = "to "+text_to
     
-    final_dict = {} 
+    final_dict = [] 
     error_count = 0
     for word in actual_words:
 	try:
 	    temp = BookTable.objects.filter(title = word.title)
-	    #for each in temp:
-		#if each[' Book/Text'] == 
-	    app = temp.appearences.split(",")
-	    final_dict[word] = len(app)
+	    for each in temp:
+		#if each[' Book/Text'] == app = temp.appearences.split(","):
+	            final_dict[word] = len(app)
 	except Exception as e:
 	    # print "didn't get: " + str(word.title) + " ERROR: " + str(e)
 	    error_count += 1
