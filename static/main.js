@@ -571,6 +571,17 @@ function greek_def_function() {
         }
 }
 
+function lemma_function() {
+	if (document.getElementById("Dictionary Entry (macron)").checked == true) {
+		hide_column(2);
+		show_column(1);
+	}
+	else {
+		hide_column(1);
+		show_column(2);
+	}
+}
+
 
 function hide_column(a){
                 // if your table has header(th), use this
