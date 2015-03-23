@@ -564,10 +564,10 @@ function def_function() {
 
 function greek_def_function() {
         if (document.getElementById("No definitions").checked == true) {
-                hide_column(3);
+                hide_column(2);
         }
         else if (document.getElementById("English Definition").checked == true) {
-                show_column(3);
+                show_column(2);
         }
 }
 
