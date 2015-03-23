@@ -158,8 +158,14 @@ def greek_filter(request, unchecked):
 				for j in range(len(filtered_list)):
 					word = WordTableGreek.objects.filter(title = filtered_list[j])
 					word = word[0]
-					if word.part_of_speech == filter_by:
-						delete_list.append(filtered_list[j])
+					part_of_speech_list = word.part_of_speech.split(",")
+					
+					for each in part_of_speech_list:
+						each = each.replace(" ", "")
+						if each  == filter_by:
+							delete_list.append(filtered_list[j])
+							break
+
 		
 		final_words = []
 		for word in filtered_list:
