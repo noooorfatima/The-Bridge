@@ -4,5 +4,7 @@ bridge-repo_nginx.conf
 uwsgi_params
 new_bridge_uwsgi.ini
 /media
+*.pyc
+.DS_Store
 
 
