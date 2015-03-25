@@ -15,8 +15,7 @@ import json
 # ending definition of global variables
 
 def IndexView(request):
-	t = "Test string from views.py"
-	return render(request, 'index.html', {"test": t })
+	return render(request, 'index.html')
 	
 def TextListView(request):
 	return render(request, 'textlist.html')
