@@ -1,1 +1,1 @@
-Hello world! Insert text/code here.
+Refactored version of the Bridge.
