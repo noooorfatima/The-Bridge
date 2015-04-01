@@ -64,7 +64,7 @@ div.navbar.navbar-default::before {
 #banner {
   height: 8%;
   width: 100%;
-  background-color: #07325C;  
+  background-color: #07325C;
   font-family: Georgia, serif;
   text-align: center;
   vertical-align: middle;
@@ -74,7 +74,7 @@ div.navbar.navbar-default::before {
 
 #banner img {
   padding: 30px;
-  margin-bottom: 0%; 
+  margin-bottom: 0%;
 }
 
 #navbar{
@@ -183,7 +183,7 @@ background-color: #457798;
     border:2px solid #6393A9;
     /* For Firefox users*/
     border-radius: 20px 20px 20px 20px;
-    /*For other browsers */ 
+    /*For other browsers */
     -webkit-border-radius:20px;
     -khtml-border-radius:20px;
     -moz-box-shadow: 0 1px 5px #333;
@@ -204,7 +204,7 @@ a.boxclose-about{
     margin-right:-30px;
     cursor:pointer;
     padding: 1%;
-    background-color: #F1F1F1; 
+    background-color: #F1F1F1;
     text-align: center;
 }
 
@@ -224,13 +224,13 @@ a.boxclose-about{
     -khtml-border-top-right-radius: 20px;
 }
 
-/* Textlist */ 
+/* Textlist */
 
 #textlist {
     height: 150px;
     margin: auto;
     margin-bottom: 20px;
-    background-color: #F8F8F8; 
+    background-color: #F8F8F8;
 }
 
 #all_or_selection {
@@ -281,7 +281,7 @@ a.boxclose-about{
 }
 
 .popover{
-    display: block; 
+    display: block;
 }
 
 /* Booklist */
@@ -351,10 +351,25 @@ a.boxclose-about{
     padding-bottom: 10px;
 }
 
+.alert {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 #big_wrap {
    width: 100%;
    height: auto;
 }
+
+/* fixes sidebar to fit in generated pages */
+#big_wrap .row {
+  margin-right: 0;
+  margin-left: 0;
+}
+#big_wrap .row .col-lg-4.col-lg-push-8 {
+  left: 60%;
+}
+
 
 /* Generated Words Table */
 /*
@@ -381,12 +396,12 @@ a.boxclose-about{
 */
 
 #export_panel {
-   width: 500px;
+   width: 400px;
 }
 
 #words_generated::-webkit-scrollbar {
   display: none;
-}  
+}
 
 .hidden {
    display: none;
@@ -403,7 +418,7 @@ a.boxclose-about{
 }
 
 /* Parts of Speech Filter*/
-.container2 { 
+.container2 {
 
 }
 
@@ -495,7 +510,7 @@ a.boxclose-about{
    font-family: Georgia, serif;
    color:#07325C;
    text-align: center;
-} 
+}
 
 #welcome_blurb p {
    text-align: justify;
@@ -552,7 +567,7 @@ html, body {
   /* .push must be the same height as footer */
   height: 70px;
   width: 100%;
-  margin: auto; 
+  margin: auto;
 }
 .site-footer {
   margin-top: 100px;
@@ -618,4 +633,3 @@ html, body {
   width: 46px;
   cursor: pointer;
 }
-
