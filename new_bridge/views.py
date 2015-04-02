@@ -52,25 +52,54 @@ def book_select(request, language):
 @require_http_methods(["POST"])
 def words_page_redirect(request, language):
     text = "none"
-    bookslist = "none"
+    bookslist = []
     text_from = "none"
     text_to = "none"
+    bookslist_string = ""
     # Need to make sure all of the values are there, otherwise save as none
     # This makes sure it does not mess up the url
     if not request.POST["textlist"] == "":
 	text = request.POST["textlist"]
-    """
-    if ('book' in request.POST) == False:
+
+    if ('book' in request.POST) == True:
 	bookslist = request.POST.getlist("book")
-	bookslist = ",".join(bookslist)
-	bookslist = list_of_lists(bookslist)
-    if 'text_from' not in request.POST:
+	#bookslist = ",".join(bookslist)
+	#bookslist = list_of_lists(bookslist)
+	num_books = len(bookslist)
+	loop_count = 0
+	for i in bookslist:
+		loop_count +=1
+		if loop_count != num_books:
+		    i = i + str("-")
+		bookslist_string = bookslist_string + i
+    else:
+        bookslist_string = "none"
+
+    if ('text_from' in request.POST) == False:
+        print "THIS IS A TEST STRING"
+	print text_from in request.POST
 	text_from = request.POST["text_from"]
-    if 'text_to' not in request.POST:
+
+    if ('text_to' in request.POST) == False:
 	text_to = request.POST["text_to"]
+
+    print bookslist_string
+    print text_from
+    print text_to
+
+    bookslist_string = "fakebook"
+
     """
+    CHARACTERS THAT HAVE CAUSED ERRORS:
+    .
+    -
+    _
+    |
+    %
+    """
+
     add_remove = request.POST["add_remove_selector"]
-    url = '/words_page/'+language+'/'+text+'/'+bookslist+'/'+text_from+'/'+text_to+'/'+add_remove+'/'
+    url = '/words_page/'+language+'/'+text+'/'+bookslist_string+'/'+text_from+'/'+text_to+'/'+add_remove+'/'
     return HttpResponseRedirect(url)
 
 # This function is now redirected to once the new url is constructed
@@ -95,9 +124,14 @@ def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remo
 
     # Replace the nones with empty strings
     if bookslist == "none":
-        bookslist = ""
+        bookslist = []
+    else:
+    	bookslist = bookslist.split("_")
+	print "bookslist has stuff:" + bookslist
+
     if text_from == "none":
         text_from = ""
+
     if text_to == "none":
         text_to = ""
 
@@ -135,19 +169,35 @@ def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remo
                             if word_in_core2 == k.title:
                                 core_helper( k, k.dcc_frequency_rank, word_list2, from_sec, to_sec)
     
-    for i in word_list:
-        if i not in word_list2:
-            final_list.append(i)
+    if add_remove = False: # the user wants to remove words
+        for i in word_list:
+            if i not in word_list2:
+                final_list.append(i)
+    else: # the user wants to keep the words that are in both "reading" and "have read"
+        for i in word_list:
+	    if i in word_list2:
+	        final_list.append(i)
+    
+    # sort the list alphabetically
     final_list.sort()
+    
     global_list = final_list[:]
     request.session['global_list'] = global_list
+    
+    # number of words in the list
     wordcount = len(final_list)
+    
+    # list of actual display lemmas/dictionary entries
     actual_words = []
+
+    # grab the display lemmas
     all_words = WordTable.objects.all()
     for word in final_list:
         for each in all_words:
             if word == each.title:
                 actual_words.append(each)
+    
+    # setting what to say for results page
     if bookslist == []:
         books = "nothing"
 
@@ -155,7 +205,6 @@ def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remo
         books = ""
         loop_counter = 1
         for i in bookslist:
-            # print loop_counter
             if len(bookslist) > 1 and loop_counter != len(bookslist):
                 books = books + i + ", "
                 loop_counter+=1
@@ -169,6 +218,7 @@ def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remo
         text_from = "from "+text_from
         text_to = "to "+text_to
     
+    """
     final_dict = [] 
     error_count = 0
     for word in actual_words:
@@ -183,7 +233,9 @@ def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remo
 
 	
     # print "ERRORS: " + str(error_count)
-    return render(request, "words_page.html", {"language": language, "text": text, "text_from": text_from, "text_to": text_to, "books": books, "wordcount":wordcount, "words" : final_dict})
+    """
+
+    return render(request, "words_page.html", {"language": language, "text": text, "text_from": text_from, "text_to": text_to, "books": books, "wordcount":wordcount, "words" : actual_words})
 
 
 def greek_words_page(request, language,text,bookslist,text_from,text_to,add_remove):
