@@ -169,7 +169,7 @@ def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remo
                             if word_in_core2 == k.title:
                                 core_helper( k, k.dcc_frequency_rank, word_list2, from_sec, to_sec)
     
-    if add_remove = False: # the user wants to remove words
+    if add_remove == False: # the user wants to remove words
         for i in word_list:
             if i not in word_list2:
                 final_list.append(i)
