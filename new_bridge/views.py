@@ -139,14 +139,9 @@ def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remo
 	bookslist_temp = []
 	for i in bookslist:
             i = i.split("_")
-	    print i
 	    bookslist_temp.append(i)
-	    print bookslist_temp
         
-	print bookslist_temp[:]
 	bookslist = bookslist_temp[:]
-    
-    print bookslist
 
     if text_from == "none":
         text_from = ""
@@ -193,13 +188,15 @@ def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remo
                                 core_helper( k, k.dcc_frequency_rank, word_list2, from_sec, to_sec)
     
     print add_remove
-    if add_remove == "Remove": # the user wants to remove words
+    if add_remove == "Add": # the user wants to remove words
+        add_remove_new = "including"
         for i in word_list:
-            if i not in word_list2:
+            if i in word_list2:
                 final_list.append(i)
     else: # the user wants to keep the words that are in both "reading" and "have read"
+        add_remove_new = "excluding"
         for i in word_list:
-	    if i in word_list2:
+	    if i not in word_list2:
 	        final_list.append(i)
     
     # sort the list alphabetically
@@ -260,7 +257,7 @@ def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remo
     # print "ERRORS: " + str(error_count)
     """
 
-    return render(request, "words_page.html", {"language": language, "text": text, "text_from": text_from, "text_to": text_to, "books": books, "wordcount":wordcount, "words" : actual_words})
+    return render(request, "words_page.html", {"language": language, "text": text, "text_from": text_from, "text_to": text_to, "books": books, "wordcount":wordcount, "words" : actual_words, "add_remove_new": add_remove_new})
 
 
 def greek_words_page(request, language,text,bookslist,text_from,text_to,add_remove):
