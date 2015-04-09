@@ -9,6 +9,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, render_to_response
 import json
+import urllib
 
 # defining global variables
 
@@ -51,12 +52,16 @@ def book_select(request, language):
 # this will allow the user to copy the url and come back to exactly the same place they were before
 @require_http_methods(["POST"])
 def words_page_redirect(request, language):
+    
+    # Need to make sure all of the values are there, otherwise save as none
     text = "none"
     bookslist = []
     text_from = "none"
     text_to = "none"
     bookslist_string = ""
-    # Need to make sure all of the values are there, otherwise save as none
+    from_sec = ""
+    to_sec = ""
+
     # This makes sure it does not mess up the url
     if not request.POST["textlist"] == "":
 	text = request.POST["textlist"]
@@ -69,37 +74,38 @@ def words_page_redirect(request, language):
 	loop_count = 0
 	for i in bookslist:
 		loop_count +=1
+	
+                try:
+		    from_sec = request.POST[i + " from"]
+		    to_sec = request.POST[i + " to"]
+		except Exception as e:
+		    print "ERROR: " + str(e)
+
+		if from_sec != "":
+                    i = i + "_" + from_sec + "_" + to_sec
+		    #bookslist_string = bookslist_string + "_" + from_sec + "_" + to_sec
+		    print "new bookslist_string: " + bookslist_string
+
 		if loop_count != num_books:
-		    i = i + str("-")
+		    i = i + str("+")
+
 		bookslist_string = bookslist_string + i
+		
     else:
         bookslist_string = "none"
 
     if ('text_from' in request.POST) == False:
-        print "THIS IS A TEST STRING"
-	print text_from in request.POST
 	text_from = request.POST["text_from"]
 
     if ('text_to' in request.POST) == False:
 	text_to = request.POST["text_to"]
 
-    print bookslist_string
-    print text_from
-    print text_to
-
-    bookslist_string = "fakebook"
-
-    """
-    CHARACTERS THAT HAVE CAUSED ERRORS:
-    .
-    -
-    _
-    |
-    %
-    """
-
     add_remove = request.POST["add_remove_selector"]
+
     url = '/words_page/'+language+'/'+text+'/'+bookslist_string+'/'+text_from+'/'+text_to+'/'+add_remove+'/'
+
+    #url = urllib.quote_plus(url)
+    
     return HttpResponseRedirect(url)
 
 # This function is now redirected to once the new url is constructed
@@ -112,9 +118,7 @@ def words_page(request, language,text,bookslist,text_from,text_to,add_remove):
 
 
 def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remove):
-    add_remove = False
-    if add_remove == "Remove":
-	toRemove = True
+    
     word_list = []
     word_list2 = []
     final_list = []
@@ -122,12 +126,27 @@ def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remo
     all_entries = BookTable.objects.all()
     word_table_entries = WordTable.objects.all()
 
+    #bookslist = urllib.unquote_plus(bookslist)
+
+    # bookslist should be split into a list of lists here; index 0 is the book, 1 is "from_sec", 2 is "to_sec"
+    # hasn't been written yet because it depends on what we choose to be delimiters.
+
     # Replace the nones with empty strings
     if bookslist == "none":
         bookslist = []
     else:
-    	bookslist = bookslist.split("_")
-	print "bookslist has stuff:" + bookslist
+    	bookslist = bookslist.split("+")
+	bookslist_temp = []
+	for i in bookslist:
+            i = i.split("_")
+	    print i
+	    bookslist_temp.append(i)
+	    print bookslist_temp
+        
+	print bookslist_temp[:]
+	bookslist = bookslist_temp[:]
+    
+    print bookslist
 
     if text_from == "none":
         text_from = ""
@@ -135,7 +154,7 @@ def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remo
     if text_to == "none":
         text_to = ""
 
-    for each in all_entries: 
+    for each in all_entries:
         if text_from == "" and text_to == "" and text == each.field_book_text:
             word_list.append(each.title)
         elif text == each.field_book_text:
@@ -149,18 +168,22 @@ def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remo
                 helper(appearances, each, word_list, text_from, text_to)
 
         for i in bookslist:
-            if i[0:] == each.field_book_text:
+            if i[0] == each.field_book_text:
                 appearances = each.appearences
-                if i != "DCC Latin Core": 
-                    from_sec = request.POST[each.field_book_text + " from"]
-                    to_sec = request.POST[each.field_book_text + " to"]
+		from_sec = ""
+		to_sec = ""
+                if i[0] != "DCC Latin Core":
+		    if len(i) > 1:
+                        from_sec = i[1]
+                        to_sec = i[2]
                     if from_sec == "":
                         word_list2.append(each.title)
                     else:
                         helper(appearances, each, word_list2, from_sec, to_sec)
                 else:
-                    from_sec = request.POST[each.field_book_text + " from"]
-                    to_sec = request.POST[each.field_book_text + " to"]
+		    if len(i) > 1:
+                        from_sec = i[1]
+                        to_sec = i[2]
                     if from_sec == "":
                         word_list2.append(each.title)
                     else:
@@ -169,7 +192,8 @@ def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remo
                             if word_in_core2 == k.title:
                                 core_helper( k, k.dcc_frequency_rank, word_list2, from_sec, to_sec)
     
-    if add_remove == False: # the user wants to remove words
+    print add_remove
+    if add_remove == "Remove": # the user wants to remove words
         for i in word_list:
             if i not in word_list2:
                 final_list.append(i)
@@ -181,6 +205,7 @@ def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remo
     # sort the list alphabetically
     final_list.sort()
     
+    # set the global variable to be the list of words generated (the list is of TITLES, not display lemmas)
     global_list = final_list[:]
     request.session['global_list'] = global_list
     
@@ -197,7 +222,7 @@ def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remo
             if word == each.title:
                 actual_words.append(each)
     
-    # setting what to say for results page
+    # setting what to say for results page (what the user searched for, etc)
     if bookslist == []:
         books = "nothing"
 
@@ -206,10 +231,10 @@ def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remo
         loop_counter = 1
         for i in bookslist:
             if len(bookslist) > 1 and loop_counter != len(bookslist):
-                books = books + i + ", "
+                books = books + i[0] + ", "
                 loop_counter+=1
             else:
-                books = books + i
+                books = books + i[0]
 
     if text_from == "":
         text_from = "all"
