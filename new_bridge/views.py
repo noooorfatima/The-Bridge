@@ -94,11 +94,15 @@ def words_page_redirect(request, language):
     else:
         bookslist_string = "none"
 
-    if ('text_from' in request.POST) == False:
+    if request.POST['text_from'] != "":
 	text_from = request.POST["text_from"]
+    
+    print text_from
 
-    if ('text_to' in request.POST) == False:
+    if request.POST['text_to'] != "":
 	text_to = request.POST["text_to"]
+
+    print text_to
 
     add_remove = request.POST["add_remove_selector"]
 
@@ -126,15 +130,11 @@ def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remo
     all_entries = BookTable.objects.all()
     word_table_entries = WordTable.objects.all()
 
-    #bookslist = urllib.unquote_plus(bookslist)
-
-    # bookslist should be split into a list of lists here; index 0 is the book, 1 is "from_sec", 2 is "to_sec"
-    # hasn't been written yet because it depends on what we choose to be delimiters.
-
     # Replace the nones with empty strings
     if bookslist == "none":
         bookslist = []
     else:
+        # bookslist is split into a list of lists here; index 0 is the book, 1 is "from_sec", 2 is "to_sec"
     	bookslist = bookslist.split("+")
 	bookslist_temp = []
 	for i in bookslist:
@@ -187,13 +187,12 @@ def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remo
                             if word_in_core2 == k.title:
                                 core_helper( k, k.dcc_frequency_rank, word_list2, from_sec, to_sec)
     
-    print add_remove
-    if add_remove == "Add": # the user wants to remove words
+    if add_remove == "Add": # the user wants to keep only the words in both "reading" and "have read"
         add_remove_new = "including"
         for i in word_list:
             if i in word_list2:
                 final_list.append(i)
-    else: # the user wants to keep the words that are in both "reading" and "have read"
+    else: # the user wants to remove the words that are in both "reading" and "have read"
         add_remove_new = "excluding"
         for i in word_list:
 	    if i not in word_list2:
@@ -261,9 +260,6 @@ def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remo
 
 
 def greek_words_page(request, language,text,bookslist,text_from,text_to,add_remove):
-    add_remove = False
-    if add_remove == "Remove":
-	toRemove = True
     word_list = []
     word_list2 = []
     final_list = []
@@ -273,7 +269,16 @@ def greek_words_page(request, language,text,bookslist,text_from,text_to,add_remo
 
     # Replace the nones with empty strings
     if bookslist == "none":
-        bookslist = ""
+        bookslist = []
+    else:
+        bookslist = bookslist.split("+")
+	bookslist_temp = []
+	for i in bookslist:
+	    i = i.split("_")
+	    bookslist_temp.append(i)
+
+	bookslist = bookslist_temp[:]
+
     if text_from == "none":
         text_from = ""
     if text_to == "none":
@@ -304,18 +309,22 @@ def greek_words_page(request, language,text,bookslist,text_from,text_to,add_remo
                 helper(appearances, each, word_list, text_from, text_to)
 
         for i in bookslist:
-            if i[0:] == each.field_book_text:
+            if i[0] == each.field_book_text:
                 appearances = each.appearences
-                if i != "DCC Greek Core":
-                    from_sec = request.POST[each.field_book_text + " from"]
-                    to_sec = request.POST[each.field_book_text + " to"]
+		from_sec = ""
+		to_sec = ""
+                if i[0] != "DCC Greek Core":
+                    if len(i) > 1:
+		        from_sec = i[1]
+                        to_sec = i[2]
                     if from_sec == "":
                         word_list2.append(each.title)
                     else:
                         helper(appearances, each, word_list2, from_sec, to_sec)
-                elif i == "DCC Greek Core":
-                    from_sec = request.POST[each.field_book_text + " from"]
-                    to_sec = request.POST[each.field_book_text + " to"]
+                elif i[0] == "DCC Greek Core":
+		    if len(i) > 1:
+                        from_sec = i[1]
+                        to_sec = i[2]
                     if from_sec == "":
                         word_list2.append(each.title)
                     else:
@@ -324,8 +333,9 @@ def greek_words_page(request, language,text,bookslist,text_from,text_to,add_remo
                             if word_in_core2 == k.title:
                                 greek_core_helper( k, k.dcc_core_frequency, word_list2, from_sec, to_sec)
                 else: # i is Herodotus Core
-                    from_sec = request.POST[each.field_book_text + " from"]
-                    to_sec = request.POST[each.field_book_text + " to"]
+		    if len(i) > 1:
+                        from_sec = i[1]
+                        to_sec = i[2]
                     if from_sec == "":
                         word_list2.append(each.title)
                     else:
@@ -335,33 +345,50 @@ def greek_words_page(request, language,text,bookslist,text_from,text_to,add_remo
                                 core_helper( k, k.herodotus_1_frequency_rank, word_list2, from_sec, to_sec)
 
 
+    if add_remove == "Add": # the user wants to keep only words in both "reading" and "have read"
+        add_remove_new = "including"
+        for i in word_list:
+            if i in word_list2:
+                final_list.append(i)
+    else: # the user wants to remove words in both "reading" and "have read"
+        add_remove_new = "excluding"
+	for i in word_list:
+	    if i not in word_list2:
+	        final_list.append(i)
 
-    for i in word_list:
-        if i not in word_list2:
-            final_list.append(i)
-
+    # sort the list alphabetically
     final_list.sort()
+
+    # set the global variable to be the list of words generated (the list is of TITLES, not display lemmas)
     global_list = final_list[:]
     request.session['global_list'] = global_list
+
+    # number of words in the final list
     wordcount = len(final_list)
+
+    # list of the actual display lemmas/dictionary entries
     actual_words = []
+
+    # grab display lemmas
     all_words = WordTableGreek.objects.all()
     for word in final_list:
         for each in all_words:
             if word == each.title:
                 actual_words.append(each)
     
+    # setting what to say for results page (what the user searched for, etc)
     if bookslist == []:
         books = "nothing"
 
     elif bookslist != []:
         books = ""
+	loop_counter = 1
         for i in bookslist:
-            if len(bookslist) > 1:
-                books = books + i + ", "
+            if len(bookslist) > 1 and loop_counter != len(bookslist):
+                books = books + i[0] + ", "
+		loop_counter+=1
             else:
-                books = books + i
-
+                books = books + i[0]
         
     if text_from == "":
         text_from = "all"
@@ -370,7 +397,7 @@ def greek_words_page(request, language,text,bookslist,text_from,text_to,add_remo
         text_from = "from "+text_from
         text_to = "to "+text_to
     
-    return render(request, "words_page.html", {"language": language, "text": text, "text_from": text_from, "text_to": text_to, "books": books, "wordcount":wordcount, "words" : actual_words})
+    return render(request, "words_page.html", {"language": language, "text": text, "text_from": text_from, "text_to": text_to, "books": books, "wordcount":wordcount, "words" : actual_words, "add_remove_new": add_remove_new})
 
 
 
