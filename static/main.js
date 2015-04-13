@@ -78,7 +78,7 @@ function checkbooklist(list) {
 	    if($(this).attr('type')=="checkbox") {
 		if($(this).is(':checked')) {
 		    console.log(this.value);
-		    my_html = my_html + "<label>"+this.value+ " from: <input type=\"text\" name=\""+this.value+" from\" value=\"\" onkeypress=\"return isNumberKey(event)\"/></label> <label>"+this.value+" to: <input type=\"text\" name=\""+this.value+" to\" value=\"\" onkeypress=\"return isNumberKey(event)\" /></label> </br>";
+		    my_html = my_html + "<label>"+this.value+ " from: <input type=\"text\" name=\""+this.value+" from\" value=\"\" /></label> <label>"+this.value+" to: <input type=\"text\" name=\""+this.value+" to\" value=\"\" /></label> </br>";
   	    		}		
 		}
 	});
@@ -436,15 +436,15 @@ function validateBookSelect(a) {
     else if (x.split(".").length > 3){
         return false;
     }
-    else if (x.split(".")[0] > y.split(".")[0]){
+    else if (parseInt(x.split(".")[0]) > parseInt(y.split(".")[0])){
         return false;
     }
-    else if (x.split(".")[0] == y.split(".")[0]){
-         if (x.split(".")[1] > y.split(".")[1]){
+    else if (parseInt(x.split(".")[0]) == (parseInt(y.split(".")[0]))){
+         if (parseInt(x.split(".")[1]) > parseInt(y.split(".")[1])){
                 return false;
          }
-         else if (x.split(".")[1] == y.split(".")[1]){
-                if (x.split(".")[2] > y.split(".")[2]){
+         else if ((parseInt(x.split(".")[1]) == parseInt(y.split(".")[1]))){
+                if (parseInt(x.split(".")[2]) > parseInt(y.split(".")[2])){
                         return false;
     }}}
 }

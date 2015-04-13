@@ -84,7 +84,6 @@ def words_page_redirect(request, language):
 		if from_sec != "":
                     i = i + "_" + from_sec + "_" + to_sec
 		    #bookslist_string = bookslist_string + "_" + from_sec + "_" + to_sec
-		    print "new bookslist_string: " + bookslist_string
 
 		if loop_count != num_books:
 		    i = i + str("+")
@@ -96,13 +95,9 @@ def words_page_redirect(request, language):
 
     if request.POST['text_from'] != "":
 	text_from = request.POST["text_from"]
-    
-    print text_from
 
     if request.POST['text_to'] != "":
 	text_to = request.POST["text_to"]
-
-    print text_to
 
     add_remove = request.POST["add_remove_selector"]
 
@@ -122,7 +117,7 @@ def words_page(request, language,text,bookslist,text_from,text_to,add_remove):
 
 
 def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remove):
-    
+   
     word_list = []
     word_list2 = []
     final_list = []
