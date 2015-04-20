@@ -9,7 +9,6 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, render_to_response
 import json
-import urllib
 
 # defining global variables
 
@@ -103,8 +102,6 @@ def words_page_redirect(request, language):
 
     url = '/words_page/'+language+'/'+text+'/'+bookslist_string+'/'+text_from+'/'+text_to+'/'+add_remove+'/'
 
-    #url = urllib.quote_plus(url)
-    
     return HttpResponseRedirect(url)
 
 # This function is now redirected to once the new url is constructed
@@ -255,6 +252,7 @@ def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remo
 
 
 def greek_words_page(request, language,text,bookslist,text_from,text_to,add_remove):
+
     word_list = []
     word_list2 = []
     final_list = []
@@ -308,18 +306,25 @@ def greek_words_page(request, language,text,bookslist,text_from,text_to,add_remo
                 appearances = each.appearences
 		from_sec = ""
 		to_sec = ""
-                if i[0] != "DCC Greek Core":
-                    if len(i) > 1:
-		        from_sec = i[1]
-                        to_sec = i[2]
-                    if from_sec == "":
-                        word_list2.append(each.title)
-                    else:
-                        helper(appearances, each, word_list2, from_sec, to_sec)
+
+		#setting from_sec and to_sec if user specifies them
+		if len(i) > 1:
+		    from_sec = i[1]
+		    to_sec = i[2]
+
+		if i[0] == "Introduction to Ancient Greek (Luschnig)":
+		    if from_sec == "":
+		        word_list2.append(each.title)
+	            else:
+		        greek_helper(appearances, each, word_list2, from_sec, to_sec)
+
+		elif i[0] == "Reading Greek (JACT)":
+		    if from_sec == "":
+		        word_list2.append(each.title)
+		    else:
+		        greek_helper(appearances, each, word_list2, from_sec, to_sec)
+
                 elif i[0] == "DCC Greek Core":
-		    if len(i) > 1:
-                        from_sec = i[1]
-                        to_sec = i[2]
                     if from_sec == "":
                         word_list2.append(each.title)
                     else:
@@ -327,10 +332,8 @@ def greek_words_page(request, language,text,bookslist,text_from,text_to,add_remo
                         for k in word_table_entries:
                             if word_in_core2 == k.title:
                                 greek_core_helper( k, k.dcc_core_frequency, word_list2, from_sec, to_sec)
-                else: # i is Herodotus Core
-		    if len(i) > 1:
-                        from_sec = i[1]
-                        to_sec = i[2]
+
+                elif i[0] == "Herodotus Book 1 Core (412 words > 10 times)":
                     if from_sec == "":
                         word_list2.append(each.title)
                     else:
@@ -339,6 +342,11 @@ def greek_words_page(request, language,text,bookslist,text_from,text_to,add_remo
                             if word_in_core2 == k.title:
                                 core_helper( k, k.herodotus_1_frequency_rank, word_list2, from_sec, to_sec)
 
+		else: # any other text
+		    if from_sec == "":
+		        word_list2.append(each.title)
+		    else:
+		        helper(appearances, each, word_list2, from_sec, to_sec)
 
     if add_remove == "Add": # the user wants to keep only words in both "reading" and "have read"
         add_remove_new = "including"
