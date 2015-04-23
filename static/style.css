@@ -329,6 +329,14 @@ a.boxclose-about{
    margin-bottom: 15px;
 }
 
+#remove_add_container {
+   border: 1px solid #ccc;
+   background-color: #f8f8f8;
+   margin-bottom:5%;
+   margin-top: 2%;
+   padding:2%;
+}
+
 #checkbox_inputs {
     float:right;
     margin: auto;

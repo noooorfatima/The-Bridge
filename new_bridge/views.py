@@ -180,7 +180,7 @@ def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remo
                                 core_helper( k, k.dcc_frequency_rank, word_list2, from_sec, to_sec)
     
     if add_remove == "Add": # the user wants to keep only the words in both "reading" and "have read"
-        add_remove_new = "including"
+        add_remove_new = "also appearing in"
         for i in word_list:
             if i in word_list2:
                 final_list.append(i)
@@ -349,7 +349,7 @@ def greek_words_page(request, language,text,bookslist,text_from,text_to,add_remo
 		        helper(appearances, each, word_list2, from_sec, to_sec)
 
     if add_remove == "Add": # the user wants to keep only words in both "reading" and "have read"
-        add_remove_new = "including"
+        add_remove_new = "also appearing in"
         for i in word_list:
             if i in word_list2:
                 final_list.append(i)
