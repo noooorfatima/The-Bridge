@@ -18,6 +18,7 @@ body {
 }
 
 .masthead img {
+   transform: rotateX(150deg);
    padding: 20px;
    padding-bottom: 0px;
 }
