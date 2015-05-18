@@ -3,8 +3,7 @@ html {
 }
 
 body {
-  background-color: #8FBC8F;
-  /*background-color: #F1F1F1;*/
+  background-color: #F1F1F1;
   margin: 0px;
   overflow: auto;
   padding: 0px;
@@ -18,7 +17,6 @@ body {
 }
 
 .masthead img {
-   transform: rotateX(150deg);
    padding: 20px;
    padding-bottom: 0px;
 }
