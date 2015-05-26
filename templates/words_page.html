@@ -246,8 +246,8 @@
           {% else %}
           <thead>
             <tr>
-                 <th style="width:50%">Dictionary Entry</th>
-		 <th style="display:none; width: 50%">Dictionary Entry (Macronless)</th>
+                 <th id="dictionary_entry_macron" style="width:50%">Dictionary Entry</th>
+		 <th id="dictionary_entry_macronless" style="display:none; width: 50%">Dictionary Entry (Macronless)</th>
                  <th id="english_core_def" style="display:none">Basic English Definition</th>
                  <th id="english_extended_def">Full English Definition</th>
             </tr>
@@ -256,7 +256,7 @@
             {% for each in words %}
               <tr id={{ forloop.counter }} >
                 <td style="width:50%">{{ each.display_lemma }}</td>
-		<td style="display:none">{{each.display_lemma_macronless }}</td>
+		<td style="display:none">{{ each.display_lemma_macronless }}</td>
                 <td style="display:none">{{ each.english_core }}</td>
                 <td>{{ each.english_extended }}</td>
               </tr>

@@ -61,10 +61,23 @@ WSGI_APPLICATION = 'new_bridge.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+"""
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'bridge',
+        'USER': 'bridge',
+        'PASSWORD': 'Br1dg3',
+        'HOST': '',
+        'PORT': ''
     }
 }
 
