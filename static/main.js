@@ -5,7 +5,7 @@ $(document).ready(function() {
     var books = []
 
 //This is the spot where we check to make sure there are valid inputs or else the form does not submit on book_select
-    $("#giant_form_submit").on("click", function(e) {
+$("#giant_form_submit").on("click", function(e) {
 	listItems = $("#textlist");
 	if (validateText() == false) {
 	    alert("Please choose a text.");
@@ -18,15 +18,15 @@ $(document).ready(function() {
 	var pairs = [];
 	//console.log($('#checkbox_inputs :input'));
 	$('#checkbox_inputs :input').each(function(i, div){
-	var i_over_2 = Math.floor(i / 2);
-	if (!pairs[i_over_2]) pairs[i_over_2] = $();
-            pairs[i_over_2] = pairs[i_over_2].add(div);
-	});
+        var i_over_2 = Math.floor(i / 2);
+        if (!pairs[i_over_2]) pairs[i_over_2] = $();
+        pairs[i_over_2] = pairs[i_over_2].add(div);
+    });
 	if (checkbooklist(pairs) == false) {
 	    alert("Please submit a valid range.");
 	    return false;
 	}
-    });
+});
  
 //Function that allows the print button on words page to work
 function printData()
@@ -71,8 +71,10 @@ function checkbooklist(list) {
     }
     return true;
 }      	
+
+/*
 //This is where the to/from boxes are generated in the booklist page.
-    $('#booklist').on("click", function() {
+$('#booklist').on("click", function() {
 	var my_html = "";
 	$('#booklist input').each(function () {
 		if($(this).is(':checked')) {
@@ -82,7 +84,8 @@ function checkbooklist(list) {
 	});
 	document.getElementById('checkbox_inputs').innerHTML=my_html
 
-   });
+});
+*/
 
     // For the navbar
     $('.kwicks').kwicks({
@@ -361,7 +364,7 @@ $('#checkAllExcludes_greek').click(function() {
 
 	
 
-function show_tip() {
+function showTip() {
         var selects = document.getElementById('textlist')
         var selectedValue = selects.options[selects.selectedIndex].value
 	//Shows all or selection under textlist
@@ -475,32 +478,21 @@ function displayForm2(c){
         }      
 }  
 
-// Shows notes under booklist
-function show_booklist_notes() {
-	$("#booklist input").each(function() {
-		if ($( this ).is(":checked")) {
-			document.getElementById("booklist_notes").style.display="block";
-			return false;
-		}
-		else {
-			document.getElementById("booklist_notes").style.display="none";
-		}
-	});
-}	
 
-// Show notes under book thumbnail
-function show_book_notes() {
-	$("#booklist a div div").each(function() {
-	    if ($(this).attr("class")=="booknote") {
-            if ($(this).css("display")=="none") {
-                $(this).show();
-            }
-            else {
-                $(this).hide();
-            }
-        }
-    });
+// Show/hide text range inputs in a booklist thumbnial.
+function selectBookThumbnail(book) {
+    var thumbnail = $(".thumbnail[value='"+book+"']")[0];
+    var div = $(thumbnail).find(".range_select_box");
+    if (div.css("display")=="none") {
+        div.show();
+        $(thumbnail).css("background","#418CAE");
+    }
+    else {
+        div.hide();
+        $(thumbnail).css("background","#FFFFFF");
+    }
 }
+
 
 // Shows all or selection for Nouns
 function displayFormNoun(c) {

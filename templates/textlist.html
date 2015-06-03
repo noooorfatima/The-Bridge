@@ -25,7 +25,7 @@
 	    <select class="form-control" name="textlist" size="4" id="textlist" select-one required data-toggle="tooltip" data-placement="bottom" title="Choose a text that you are currently reading to generate words you will need to know for that text." >
 	    <option value="" selected disabled>Select a text:</option>
 	    {% for each in booklist %}
-	        <option value="{{ each }}" onclick="show_tip()"> {{ each }} </option>
+	        <option value="{{ each }}" onclick="showTip()"> {{ each }} </option>
 	    {% endfor %}
 	    </select>
 	</div>
@@ -78,14 +78,23 @@
     <div class="row" id="booklist" data-toggle="tooltip" data-placement="bottom" title="Choose a text/texts that you have read to remove words you already know.">
         {% for each in booklist %}
         <div class="col-xs-6 col-md-3">
-            <a href="#" class="thumbnail">
-                <div name="book" id="{{ each }}" value="{{ each }}" onclick="show_book_notes()" >
-                    <div>{{ each }}</div>
-                    <div class="booknote">
-                        <p>TEST</p>
+            <div class="thumbnail", value="{{ each }}">
+                <button class='btn btn-default' type='button' onclick="selectBookThumbnail('{{ each }}')">
+                    <div> 
+                        {{ each }}
                     </div>
+                </button>
+                <div class="range_select_box">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon3">From</span>
+                        <input type="text" class="form-control" placeholder="[start]" aria-describedby="sizing-addon3">
+                    </div> 
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon3">To</span>
+                        <input type="text" class="form-control" placeholder="[end]" aria-describedby="sizing-addon3">
+                    </div> 
                 </div>
-            </a>
+            </div>
         </div>
         {% endfor %}
     </div>
