@@ -63,7 +63,8 @@
 	</div>
 
 	<div class="exclude_selection_box panel panel-default col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-4 col-md-offset-2 col-lg-4 col-lg-offset-2">
-	  <div class="panel-body">
+        <div class="panel-body">
+
 	    <h1> What have you studied? </h1> 
 	    <p data-toggle="tooltip" data-placement="bottom" title="Choose a text/texts that you have read to remove words you already know."><span class="glyphicon glyphicon-info-sign"></span> Choose one or more texts to filter your results (optional):
 	        <br />Please enter ranges after choosing all of your texts.
@@ -72,17 +73,34 @@
             	    <br />
 		    <input value="Add" type="radio" name="add_remove_selector" id="Selection">&nbsp Keep only words that are also in the following texts</input>
 		</div>
-	    </p>
-	    <div class="book_container col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1" id="booklist" data-toggle="tooltip" data-placement="bottom" title="Choose a text/texts that you have read to remove words you already know.">
-		{% for each in booklist %}
-		
-		<input type="checkbox" name="book" id="{{ each }}" value="{{ each }}" onclick="show_booklist_notes()" /> {{ each }}<br /> 
+    </p>
+    
+    <div class="row" id="booklist" data-toggle="tooltip" data-placement="bottom" title="Choose a text/texts that you have read to remove words you already know.">
+        {% for each in booklist %}
+        <div class="col-xs-6 col-md-3">
+            <a href="#" class="thumbnail">
+                <div name="book" id="{{ each }}" value="{{ each }}" onclick="show_book_notes()" >
+                    <div>{{ each }}</div>
+                    <div class="booknote">
+                        <p>TEST</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    <!--
+        <div class="book_container col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1" id="booklist" data-toggle="tooltip" data-placement="bottom" title="Choose a text/texts that you have read to remove words you already know.">
+        {% for each in booklist %}
+        
+        -<input type="checkbox" name="book" id="{{ each }}" value="{{ each }}" onclick="show_booklist_notes()" /> {{ each }}<br /> 
      		{% endfor %}
 	    	
-		</div>
+        </div>
+        -->
 	    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" id="booklist_notes" style="display:none">
-		<p>Note: Leave fields below blank to indicate that you have read all of the chosen text(s).</p>
-		<button type="button" id="booklist_note_button" class="btn btn-sm btn-info" data-toggle="popover" data-placement="left" data-container="body" title="How to Choose a Selection"
+		    <p>Note: Leave fields below blank to indicate that you have read all of the chosen text(s).</p>
+		    <button type="button" id="booklist_note_button" class="btn btn-sm btn-info" data-toggle="popover" data-placement="left" data-container="body" title="How to Choose a Selection"
                 data-content='<ul><b>For works divided only into chapters, poems, or other sections:</b>
                 <br /><br />You can select a single unit...</br/>
                 <img id="selection_tip_1" src="/static/images/selection_tip_1.jpg">

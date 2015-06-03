@@ -75,11 +75,9 @@ function checkbooklist(list) {
     $('#booklist').on("click", function() {
 	var my_html = "";
 	$('#booklist input').each(function () {
-	    if($(this).attr('type')=="checkbox") {
 		if($(this).is(':checked')) {
 		    console.log(this.value);
 		    my_html = my_html + "<label>"+this.value+ " from: <input type=\"text\" name=\""+this.value+" from\" value=\"\" /></label> <label>"+this.value+" to: <input type=\"text\" name=\""+this.value+" to\" value=\"\" /></label> </br>";
-  	    		}		
 		}
 	});
 	document.getElementById('checkbox_inputs').innerHTML=my_html
@@ -489,6 +487,20 @@ function show_booklist_notes() {
 		}
 	});
 }	
+
+// Show notes under book thumbnail
+function show_book_notes() {
+	$("#booklist a div div").each(function() {
+	    if ($(this).attr("class")=="booknote") {
+            if ($(this).css("display")=="none") {
+                $(this).show();
+            }
+            else {
+                $(this).hide();
+            }
+        }
+    });
+}
 
 // Shows all or selection for Nouns
 function displayFormNoun(c) {

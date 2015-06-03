@@ -317,6 +317,10 @@ a.boxclose-about{
    margin-left: -200px !important;
 }
 
+.booknote {
+    display : none;
+}
+
 #booklist_notes {
    margin-top: 20px;
    padding-bottom: 5px;
