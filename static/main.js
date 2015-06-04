@@ -16,8 +16,8 @@ $("#giant_form_submit").on("click", function(e) {
 	    return false;
 	}
 	var pairs = [];
-	//console.log($('#checkbox_inputs :input'));
-	$('#checkbox_inputs :input').each(function(i, div){
+    console.log($('.range_select_box :input'));
+	$('.range_select_box :input').each(function(i, div){
         var i_over_2 = Math.floor(i / 2);
         if (!pairs[i_over_2]) pairs[i_over_2] = $();
         pairs[i_over_2] = pairs[i_over_2].add(div);

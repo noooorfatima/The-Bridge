@@ -87,26 +87,26 @@
                 <div class="range_select_box">
                     <div class="input-group">
                         <span class="input-group-addon" id="sizing-addon3">From</span>
-                        <input type="text" class="form-control" placeholder="[start]" aria-describedby="sizing-addon3">
+                        <input type="text" class="form-control" name="{{ each }}" placeholder="[start]" aria-describedby="sizing-addon3">
                     </div> 
                     <div class="input-group">
                         <span class="input-group-addon" id="sizing-addon3">To</span>
-                        <input type="text" class="form-control" placeholder="[end]" aria-describedby="sizing-addon3">
-                    </div> 
+                        <input type="text" class="form-control" name="{{ each }}" placeholder="[end]" aria-describedby="sizing-addon3">
+                    </div>
                 </div>
             </div>
         </div>
         {% endfor %}
+        <script>
+            document.write("<div id='temp' style='display: none'></div>");
+            $("#temp").parent().find(".range_select_box").each(function(){
+                var inpts = $(this).find(":input");
+                console.log(inpts);
+                $(inpts[0]).attr("name",$(inpts[0]).attr("name")+" from");
+                $(inpts[1]).attr("name",$(inpts[1]).attr("name")+" to");
+            });
+        </script>
     </div>
-    <!--
-        <div class="book_container col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1" id="booklist" data-toggle="tooltip" data-placement="bottom" title="Choose a text/texts that you have read to remove words you already know.">
-        {% for each in booklist %}
-        
-        -<input type="checkbox" name="book" id="{{ each }}" value="{{ each }}" onclick="show_booklist_notes()" /> {{ each }}<br /> 
-     		{% endfor %}
-	    	
-        </div>
-        -->
 	    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" id="booklist_notes" style="display:none">
 		    <p>Note: Leave fields below blank to indicate that you have read all of the chosen text(s).</p>
 		    <button type="button" id="booklist_note_button" class="btn btn-sm btn-info" data-toggle="popover" data-placement="left" data-container="body" title="How to Choose a Selection"
