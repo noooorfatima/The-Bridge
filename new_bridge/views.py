@@ -51,7 +51,6 @@ def book_select(request, language):
 # this will allow the user to copy the url and come back to exactly the same place they were before
 @require_http_methods(["POST"])
 def words_page_redirect(request, language):
-    
     # Need to make sure all of the values are there, otherwise save as none
     text = "none"
     bookslist = []

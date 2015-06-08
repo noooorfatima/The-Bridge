@@ -78,13 +78,14 @@
     <div class="row" id="booklist" data-toggle="tooltip" data-placement="bottom" title="Choose a text/texts that you have read to remove words you already know.">
         {% for each in booklist %}
         <div class="col-xs-6 col-md-3">
-            <div class="thumbnail", value="{{ each }}">
-                <button class='btn btn-default' type='button' onclick="selectBookThumbnail('{{ each }}')">
+            <div class="thumbnail" id="{{ each }}">
+                <button class='btn btn-default' type='button' name="book" value="{{ each }}" >
                     <div> 
                         {{ each }}
                     </div>
                 </button>
                 <div class="range_select_box">
+                    <p><em>text range:</em></p>
                     <div class="input-group">
                         <span class="input-group-addon" id="sizing-addon3">From</span>
                         <input type="text" class="form-control" name="{{ each }}" placeholder="[start]" aria-describedby="sizing-addon3">
@@ -101,7 +102,6 @@
             document.write("<div id='temp' style='display: none'></div>");
             $("#temp").parent().find(".range_select_box").each(function(){
                 var inpts = $(this).find(":input");
-                console.log(inpts);
                 $(inpts[0]).attr("name",$(inpts[0]).attr("name")+" from");
                 $(inpts[1]).attr("name",$(inpts[1]).attr("name")+" to");
             });

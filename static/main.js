@@ -360,6 +360,32 @@ $('#checkAllExcludes_greek').click(function() {
         $(".Excludes").prop("checked",$("#checkAllExcludes_greek").prop("checked"));
     });
 
+
+// Show/hide text range inputs in a booklist thumbnial.
+$("#booklist .thumbnail :button").on("click",function() {
+    var div = $(this).parent().find(".range_select_box");
+    var val = $(this).attr("value");
+    if (div.css("display")=="none") {
+        div.show();
+        $(this).parent().css("background","#418CAE");
+        //add a hidden checkbox to include this book in the form:
+        $('<input>').attr({
+            type: 'checkbox',
+            checked: "checked",
+            class: "hiddencheck",
+            name: "book",
+            value: val,
+            style: "display: none"  
+        }).appendTo(this);
+    }
+    else {
+        div.hide();
+        $(this).parent().css("background","#FFFFFF");
+        //remove any hidden checkboxes to exclude this book from the form:
+        $(".hiddencheck",this).remove();
+   }
+});
+
 });
 
 	
@@ -477,21 +503,6 @@ function displayForm2(c){
         } else{ 
         }      
 }  
-
-
-// Show/hide text range inputs in a booklist thumbnial.
-function selectBookThumbnail(book) {
-    var thumbnail = $(".thumbnail[value='"+book+"']")[0];
-    var div = $(thumbnail).find(".range_select_box");
-    if (div.css("display")=="none") {
-        div.show();
-        $(thumbnail).css("background","#418CAE");
-    }
-    else {
-        div.hide();
-        $(thumbnail).css("background","#FFFFFF");
-    }
-}
 
 
 // Shows all or selection for Nouns
