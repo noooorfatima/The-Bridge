@@ -15,7 +15,12 @@ import json
 # ending definition of global variables
 
 def IndexView(request):
-	return render(request, 'index.html')
+        booklist_latin= [book.title_of_book 
+                for book in BookTitles.objects.all()]
+        booklist_greek= [book.title_of_book 
+                for book in BookTitlesGreek.objects.all()]
+	return render(request, 'index.html', 
+                {"booklist_latin":booklist_latin,"booklist_greek":booklist_greek})
 	
 def TextListView(request):
 	return render(request, 'textlist.html')

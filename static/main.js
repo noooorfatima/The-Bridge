@@ -339,7 +339,7 @@ B
         // We actually need this to be a typical hyperlink
     });
 
-    //"#checkAll").click(function () {
+    //$("#checkAll").click(function () {
     //"input:checkbox").prop('checked', $(this).prop("checked"));
     // });
  
@@ -386,8 +386,31 @@ $("#booklist .thumbnail :button").on("click",function() {
    }
 });
 
+$("#latin").on("click",{language:"latin"},configureForm);
+
+$("#greek").on("click",{language:"greek"},configureForm);
+
 });
 
+
+
+function configureForm(e) {
+    var lang = e.data.language;
+    // Set the redirect page to the appropriate lang:
+    $("#giant_form").attr("action","words_page_redirect/"+lang+"/");
+    
+    // Configure SOURCE TEXT TAB to only show texts from specified lang:
+    var books = $("#textlist").find("[class$='book']");
+    books = books.add($("#booklist").find("[class$='bookthumb']"));
+    // Hide all text/book elements NOT part of the selected language:
+    books.not("[class*='"+lang+"']").css("display","none");
+    // Show all which are part of the selected language:
+    books.filter("[class*='"+lang+"']").css("display","block");
+    
+    // Make the text select accordion divs expand+collapsible: 
+    $("#readtextaccordion").attr("data-toggle","collapse");
+    $("#sourcetextaccordion").attr("data-toggle","collapse");
+}
 	
 
 function showTip() {
