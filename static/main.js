@@ -1,8 +1,30 @@
+//id of currently selected accordion form tab:
+var active_form_tab = "tabOne";  
+
 $(document).ready(function() {
     var global_true = true;
 //not sure what these two variable do
      var text = ""
     var books = []
+
+/*Monitor for changes in screen width:*/
+//set up media query objects:
+var mediaQueries = [
+    window.matchMedia("screen and (min-width: 320px)"), //very narrow
+    window.matchMedia("screen and (max-width: 500px)"),
+    window.matchMedia("screen and (min-width: 501px)"), //narrow
+    window.matchMedia("screen and (max-width: 700px)"),
+    window.matchMedia("screen and (min-width: 701px)"), //medium
+    window.matchMedia("screen and (max-width: 1000px)"),
+    window.matchMedia("screen and (min-width: 1001px)") //large
+    ];
+
+//bind those media query objects to a listener:
+for (var i=0; i<mediaQueries.length; i++) {
+    handleMediaQuery(mediaQueries[i]); //run once at initialization.
+    mediaQueries[i].addListener(handleMediaQuery);  //bind to listener.
+}
+
 
 //This is the spot where we check to make sure there are valid inputs or else the form does not submit on book_select
 $("#giant_form_submit").on("click", function(e) {
@@ -71,21 +93,6 @@ function checkbooklist(list) {
     }
     return true;
 }      	
-
-/*
-//This is where the to/from boxes are generated in the booklist page.
-$('#booklist').on("click", function() {
-	var my_html = "";
-	$('#booklist input').each(function () {
-		if($(this).is(':checked')) {
-		    console.log(this.value);
-		    my_html = my_html + "<label>"+this.value+ " from: <input type=\"text\" name=\""+this.value+" from\" value=\"\" /></label> <label>"+this.value+" to: <input type=\"text\" name=\""+this.value+" to\" value=\"\" /></label> </br>";
-		}
-	});
-	document.getElementById('checkbox_inputs').innerHTML=my_html
-
-});
-*/
 
     // For the navbar
     $('.kwicks').kwicks({
@@ -339,9 +346,6 @@ B
         // We actually need this to be a typical hyperlink
     });
 
-    //$("#checkAll").click(function () {
-    //"input:checkbox").prop('checked', $(this).prop("checked"));
-    // });
  
 
 $('#checkAll').click(function() {
@@ -361,13 +365,15 @@ $('#checkAllExcludes_greek').click(function() {
     });
 
 
+/* EVENT HANDLERS FOR THE GIANT_FORM: */
+
 // Show/hide text range inputs in a booklist thumbnial.
 $("#booklist .thumbnail :button").on("click",function() {
     var div = $(this).parent().find(".range_select_box");
     var val = $(this).attr("value");
     if (div.css("display")=="none") {
         div.show();
-        $(this).parent().css("background","#418CAE");
+        $(this).parent().css("background","#07325C");
         //add a hidden checkbox to include this book in the form:
         $('<input>').attr({
             type: 'checkbox',
@@ -384,15 +390,109 @@ $("#booklist .thumbnail :button").on("click",function() {
         //remove any hidden checkboxes to exclude this book from the form:
         $(".hiddencheck",this).remove();
    }
+
+   // Build a list of selected book titles and insert into panel-contents:
+   var headerStr = "";
+   $(".thumbnail :button :input").each(function() {
+       var bookTitle = $(this).parent().attr("value");
+       // Shorted book titles to first 7 characters:
+       if (bookTitle.length >= 7) {
+           headerStr = headerStr + bookTitle.substr(0,7) + "..., ";
+       }
+       else {
+           headerStr = headerStr + bookTitle+ ", ";
+       }
+   });
+   $("#headingThree .panel-contents").text(headerStr);
+
+   // Hide panel-contents div if empty. Avoids showing a big empty box:
+   if (headerStr == "") {
+       $("#headingThree .panel-contents").css("display","none");
+   }
+   else {
+       $("#headingThree .panel-contents").css("display","inline-block");
+   }
+
 });
 
+
+//LANGUAGE SELECT BUTTONS:
 $("#latin").on("click",{language:"latin"},configureForm);
 
 $("#greek").on("click",{language:"greek"},configureForm);
 
+//TEXT ALL/SELECTION TOGGLE:
+$("#all_or_selection").on("click",function(e) {
+    displayForm2(e.target);
+});
+
+$("#Selection").on("click", function(e) {
+    displayForm2(e.target);
 });
 
 
+//ACCORDION FORM TABS:
+$("[id^='tab']").on("click", function(e) {
+    userFormInteract(e)
+});
+
+$("[id^='tab']").on("keyup", function(e) {
+    if (e.which == 13) {
+        userFormInteract(e);
+    }
+});
+
+//READ-TEXT EXCLUDE/INCLUDE TOGGLE:
+/*
+$("#headingThree .btn-group").on("click", function() {
+    // If user clicks on toggle button, keep the accordion div's current state:
+    var display;
+    console.log(active_form_tab);
+    if (active_form_tab == "tabThree") {
+        pr
+    }
+    else {
+        display = "hide";
+    }
+    $("#collapseThree").collapse(display);
+
+});
+*/
+
+// TEXT SELECT LIST:
+$("#textlist").on("click", function() {
+    selectedText = $("#textlist").val();
+    if ($("#tabTwo .panel-contents").text() != selectedText.text) {
+        $("#tabTwo .panel-contents").text(selectedText);
+    }
+});
+
+});
+
+function handleMediaQuery(mq) {
+    /* Reconfigures site appearance based on CSS media queries.
+     * mediaQuery objects are declared and bound in $(document).ready.*/ 
+    console.log("MEDIA QUERY: "+mq.media); 
+    // if "screen and (max-width: 500px)":
+    if (/screen and \(max-width:\s*400px\)/.test(mq.media)) {
+       console.log("REAL SMALL" + Math.random()); 
+    }
+    // if "screen and (max-width: 700px)":
+    else if (/screen and \(min-width:\s*401px\)/.test(mq.media) || 
+            /screen and \(max-width:\s*700px\)/.test(mq.media)) {
+        console.log("KINDA SMALL!" + Math.random());
+    }
+    // if "screen and (max-width: 1000px)":
+    else if (/screen and \(min-width:\s*701px\)/.test(mq.media) || 
+            /screen and \(max-width:\s*1000px\)/.test(mq.media)) {
+        console.log("MIDDLIN\'"+Math.random());
+    }
+    // if "screen and (min-width: 1001px)":
+    else if (/screen and \(min-width:\s*1001px\)/.test(mq.media)) {
+        console.log("MERCY!"+Math.random());
+    }
+}
+    
 
 function configureForm(e) {
     var lang = e.data.language;
@@ -406,10 +506,75 @@ function configureForm(e) {
     books.not("[class*='"+lang+"']").css("display","none");
     // Show all which are part of the selected language:
     books.filter("[class*='"+lang+"']").css("display","block");
+
+    //Erase any panel-contents in the SOURCE TEXT TAB:
+    $("#headingTwo .panel-contents").text("");
+
+    //Deselect any texts in the READ TEXT TAB: 
+    //(selected texts have a checkbox :input child to their :button)
+    $(".thumbnail :button :input").each(function() {
+        thumbnail = $(this).parent().parent()
+        // Remove the hidden checkbox:
+        $(".hiddencheck",this).remove();
+        //Hide range select box:
+        thumbnail.css("background","#FFFFFF");
+        thumbnail.find(".range_select_box").css("display","none");
+    });
+
+    //Modify language select accordion tab to reflect selected lang.:
+    $("#headingOne .panel-title").css("text-align","left");
+    //capitalize language and att it to lang select tab: 
+    $("#headingOne .panel-contents").text(lang.charAt(0).toUpperCase() +
+            lang.slice(1));
+
+    switchFormTabs($("#tabOne"),$("#tabTwo"));
+
+    // Make the text select accordion tab expand+collapsible: 
+    $("#tabThree").attr("data-toggle","collapse");
+    $("#tabTwo").attr("data-toggle","collapse");
+}
+
+function userFormInteract(e) {
+    var clickedTab = $(e.target).parents("[id^='tab']");
+    if ((clickedTab.attr("id") != active_form_tab) &&
+        ($("#giant_form").attr("action") != "")) {
+            switchFormTabs($("#"+active_form_tab),clickedTab);
+        }
+    else {
+        console.log("PLEASE SELECT A LANGUAGE FIRST!");
+        $("headingOne").animate({
+            opacity: 0.25
+        },1000,function(){});
+    }
+}
+
+function switchFormTabs(current, next) {
+    /* Formats and hides/shows accordion tabs in the main form.
+     *
+     * current and next are both <a> elements, the clickable part of an 
+     *  accordion tab.
+     */
     
-    // Make the text select accordion divs expand+collapsible: 
-    $("#readtextaccordion").attr("data-toggle","collapse");
-    $("#sourcetextaccordion").attr("data-toggle","collapse");
+    //Change current's tab header to look "inactive", and COLLAPSE it:
+    current.find(".panel-heading").css("background-color","#FFFFFF");
+    current.find(".panel-title").css("color","#428BCA");
+    current.find(".panel-title").css("font-weight" , "normal");
+    current.find(".panel-contents").css("color","#428BCA");
+    current.find(".panel-contents").css("font-weight" , "normal");
+    current.find(".panel-contents").css("border","1px solid #428BCA");
+    current.siblings(".collapse").collapse("hide");
+    
+    //Change next's tab header to look "active", and EXPAND it:
+    next.find(".panel-heading").css("background-color","#07325C");
+    next.find(".panel-title").css("color" , "#F1F1F1");
+    next.find(".panel-title").css("font-weight" , "bold");
+    next.find(".panel-contents").css("color","#F1F1F1");
+    next.find(".panel-contents").css("font-weight" , "bold");
+    next.find(".panel-contents").css("border","1px solid #F1F1F1");
+    next.siblings(".collapse").collapse("show");
+    
+    //Reflect this change in the active form tracking variable:
+    active_form_tab = next.attr("id");
 }
 	
 
@@ -513,18 +678,22 @@ function isNumberKey(evt)
 
 // Displays all or selection for textlist
 function displayForm2(c){ 
-	if(c.value == "All"){  
-            document.getElementById("text_selection").style.visibility='hidden'; 
-	    document.getElementById("text_from").value = "";
-	    document.getElementById("text_to").value = "";
-	    document.getElementById("text_from").required = false;
-	    document.getElementById("text_to").required = false;
-        } else if(c.value =="Selection"){ 
-            document.getElementById("text_selection").style.visibility='visible';
-	    document.getElementById("text_from").required = true;
-	    document.getElementById("text_to").required = true; 
-        } else{ 
-        }      
+    var btnText = $(c).attr("value");
+	if(btnText == "All"){  
+        console.log("YUPPA!");
+        $("#text_selection").css("display","none");
+        $("text_from").val("");
+        $("text_to").val("");
+        $("text_from").required = false;
+        $("#text_to").required = false;
+        }
+    else if(btnText =="Selection") {
+        console.log("NUPPA!");
+        $("#text_selection").css("display","block");
+	    $("#text_from").required = true;
+	    $("#text_to").required = true; 
+        } 
+    else{ }      
 }  
 
 
