@@ -228,7 +228,7 @@ a.boxclose-about{
 
 #textlist {
     height: 150px;
-    margin: 12px auto 20px;
+    margin: 10px auto 20px;
     background-color: #F8F8F8;
 }
 
@@ -281,6 +281,14 @@ a.boxclose-about{
 
 #text_selection {
     display: none;
+    margin-bottom: 0px;
+    text-align: center;
+}
+
+.input-group-container {
+    display: inline-block;
+    max-width: 200px;
+    margin: 8px 3px 0px 3px;
 }
 
 .text_selection_box {
@@ -371,7 +379,7 @@ a.boxclose-about{
     background-color: #20466C;
     color: white;
     display: block;
-    margin: 0 auto;
+    margin: 5px auto 20px;;
     font-family: arial narrow;
     padding-bottom: 10px;
 }
@@ -576,6 +584,10 @@ a.boxclose-about{
 
 /* Accordion form stuff: */
 
+#accordion {
+    margin-bottom:0px;
+}
+
 .panel-heading .row {
     text-align: center;
     white-space: pre-line;
@@ -653,19 +665,19 @@ a.boxclose-about{
 
 /* Styles for medium-sized screens: */
 @media 
-screen and (min-width: 701px){
+screen and (min-width: 635px){
     /* ONLY panel-contents can wrap to own line.
      * panel-contents ONLY GETS ONE LINE.
      * #headingTwo .panel-contents is INLINE.
      */
    #headingTwo .panel-title {
        float: left;
-       max-width: 50%;
+       max-width: 270px;
    }
 
    #headingOne .panel-title {
        float: left;
-       max-width: 50%;
+       max-width: 208px;
    }
 
    #headingThree .panel-toggle {
@@ -675,7 +687,7 @@ screen and (min-width: 701px){
    
   #headingThree .panel-title {
        float: left;
-       max-width: 120px;
+       max-width: 140px;
        padding-left: 5px;
    }
   

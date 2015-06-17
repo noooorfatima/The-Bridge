@@ -53,7 +53,7 @@ $("#giant_form_submit").on("click", function(e) {
 //Function that allows the print button on words page to work
 function printData()
 {
-   var divToPrint=document.getElementById("words_generated");
+   var divToPrint=$("#words_generated");
    newWin= window.open("");
    newWin.document.write(divToPrint.outerHTML);
    newWin.print();
@@ -107,15 +107,16 @@ function checkbooklist(list) {
 
 //Shows the correct tip to choose boxes
 $('#Selection').on('click',function(){
-        var selects = document.getElementById('textlist')
-        var selectedValue = selects.options[selects.selectedIndex].value
+        var selects = $('#textlist')
+        var selectedValue = selects.val();
+        console.log(selectedValue);
         if (selectedValue == "DCC Latin Core" || selectedValue == "DCC Greek Core" || selectedValue == "Herodotus Book 1 Core (412 words > 10 times)") {
-                document.getElementById("core_tip").style.display='block';
-		document.getElementById("other_tip").style.display='none';
+                $("#core_tip").css("display","block");
+                $("#other_tip").css("display","none");
                 }
         else{
-                document.getElementById("core_tip").style.display='none';
-		document.getElementById("other_tip").style.display='block';
+                $("#core_tip").css("display","none");
+	            $("other_tip").css("display","block");
         }
 });
 
@@ -168,7 +169,7 @@ $('.panel-body input:checkbox').click(function() {
 
 
 $("#Verbs").on('click',function() {
-	if (document.getElementById("Verbs").checked == true) {
+	if ($("#Verbs").checked == true) {
 		 $('#verb_1st').prop('checked', true);
 		 $('#verb_2nd').prop('checked', true);
 		 $('#verb_3rd').prop('checked', true);
@@ -185,7 +186,7 @@ $("#Verbs").on('click',function() {
 });			
 
 $("#Nouns").on('click',function() {
-        if (document.getElementById("Verbs").checked == true) {
+        if ($("#Verbs").checked == true) {
                  $('#noun_1st').prop('checked', true);
                  $('#noun_2nd').prop('checked', true);
                  $('#noun_3rd').prop('checked', true);
@@ -204,7 +205,7 @@ $("#Nouns").on('click',function() {
 });
 
 $("#Adjectives").on('click',function() {
-        if (document.getElementById("Verbs").checked == true) {
+        if ($("#Verbs").checked == true) {
                  $('#adj_1st').prop('checked', true);
                  $('#adj_3rd').prop('checked', true);
                  $('#adj_defective').prop('checked', true);
@@ -284,7 +285,7 @@ B
         var a = document.createElement('a');
         //getting data from our div that contains the HTML table
         var data_type = 'data:application/vnd.ms-excel';
-        var table_div = document.getElementById('words_generated');
+        var table_div = $('words_generated');
         var table_html = table_div.outerHTML.replace(/ /g, '%20');
         a.href = data_type + ', ' + table_html;
         //setting the file name
@@ -372,8 +373,6 @@ $("#booklist .thumbnail :button").on("click",function() {
     var div = $(this).parent().find(".range_select_box");
     var val = $(this).attr("value");
     if (div.css("display")=="none") {
-        div.show();
-        $(this).parent().css("background","#07325C");
         //add a hidden checkbox to include this book in the form:
         $('<input>').attr({
             type: 'checkbox',
@@ -383,6 +382,9 @@ $("#booklist .thumbnail :button").on("click",function() {
             value: val,
             style: "display: none"  
         }).appendTo(this);
+        //Show the div:
+        div.slideDown(60);
+        $(this).parent().css("background","#07325C");
     }
     else {
         div.hide();
@@ -393,16 +395,23 @@ $("#booklist .thumbnail :button").on("click",function() {
 
    // Build a list of selected book titles and insert into panel-contents:
    var headerStr = "";
-   $(".thumbnail :button :input").each(function() {
-       var bookTitle = $(this).parent().attr("value");
-       // Shorted book titles to first 7 characters:
-       if (bookTitle.length >= 7) {
-           headerStr = headerStr + bookTitle.substr(0,7) + "..., ";
-       }
-       else {
-           headerStr = headerStr + bookTitle+ ", ";
-       }
-   });
+   var books =  $(".thumbnail :button :input");
+   console.log(books.length);
+   if (books.length == 1) {
+       headerStr = $(books[0]).parent().attr("value");
+   }
+   else {
+       books.each(function() {
+           var bookTitle = $(this).parent().attr("value");
+           // Shorted book titles to first 7 characters:
+           if (bookTitle.length >= 20) {
+               headerStr = headerStr + bookTitle.substr(0,20) + "...";
+           }
+           else {
+               headerStr = headerStr + bookTitle+ ", ";
+           }
+       });
+   }
    $("#headingThree .panel-contents").text(headerStr);
 
    // Hide panel-contents div if empty. Avoids showing a big empty box:
@@ -442,23 +451,6 @@ $("[id^='tab']").on("keyup", function(e) {
     }
 });
 
-//READ-TEXT EXCLUDE/INCLUDE TOGGLE:
-/*
-$("#headingThree .btn-group").on("click", function() {
-    // If user clicks on toggle button, keep the accordion div's current state:
-    var display;
-    console.log(active_form_tab);
-    if (active_form_tab == "tabThree") {
-        pr
-    }
-    else {
-        display = "hide";
-    }
-    $("#collapseThree").collapse(display);
-
-});
-*/
-
 // TEXT SELECT LIST:
 $("#textlist").on("click", function() {
     selectedText = $("#textlist").val();
@@ -472,7 +464,6 @@ $("#textlist").on("click", function() {
 function handleMediaQuery(mq) {
     /* Reconfigures site appearance based on CSS media queries.
      * mediaQuery objects are declared and bound in $(document).ready.*/ 
-    console.log("MEDIA QUERY: "+mq.media); 
     // if "screen and (max-width: 500px)":
     if (/screen and \(max-width:\s*400px\)/.test(mq.media)) {
        console.log("REAL SMALL" + Math.random()); 
@@ -558,18 +549,14 @@ function switchFormTabs(current, next) {
     //Change current's tab header to look "inactive", and COLLAPSE it:
     current.find(".panel-heading").css("background-color","#FFFFFF");
     current.find(".panel-title").css("color","#428BCA");
-    current.find(".panel-title").css("font-weight" , "normal");
     current.find(".panel-contents").css("color","#428BCA");
-    current.find(".panel-contents").css("font-weight" , "normal");
     current.find(".panel-contents").css("border","1px solid #428BCA");
     current.siblings(".collapse").collapse("hide");
     
     //Change next's tab header to look "active", and EXPAND it:
     next.find(".panel-heading").css("background-color","#07325C");
     next.find(".panel-title").css("color" , "#F1F1F1");
-    next.find(".panel-title").css("font-weight" , "bold");
     next.find(".panel-contents").css("color","#F1F1F1");
-    next.find(".panel-contents").css("font-weight" , "bold");
     next.find(".panel-contents").css("border","1px solid #F1F1F1");
     next.siblings(".collapse").collapse("show");
     
@@ -579,22 +566,20 @@ function switchFormTabs(current, next) {
 	
 
 function showTip() {
-        var selects = document.getElementById('textlist')
-        var selectedValue = selects.options[selects.selectedIndex].value
+        var selects = $('textlist');
+        var selectedValue = selects.val();
 	//Shows all or selection under textlist
-                document.getElementById('all_or_selection').style.display='block';
+                $('#all_or_selection').css("display","block");
 
-        if (selectedValue == "DCC Latin Core" || selectedValue == "DCC Greek Core" || selectedValue == "Herodotus Book 1 Core (412 words > 10 times)" && document.getElementById("Selection").checked == true) {
-                document.getElementById("core_tip").style.display='block';
-		document.getElementById("other_tip").style.display='none';
+        if (selectedValue == "DCC Latin Core" || selectedValue == "DCC Greek Core" || selectedValue == "Herodotus Book 1 Core (412 words > 10 times)" && $("#Selection").checked == true) {
+                $("#core_tip").css("display","block");
+		$("#other_tip").css("display","none");
 		$("#core_tip").popover('hide');
                 $("#other_tip").popover('hide');
-
-
                 }
-        else if (document.getElementById("Selection").checked==true) {
-                document.getElementById("core_tip").style.display='none';
-		document.getElementById("other_tip").style.display='block';
+        else if ($("#Selection").checked==true) {
+                $("#core_tip").css("display","none");
+		$("#other_tip").css("display","block");
 		$("#core_tip").popover('hide');
                 $("#other_tip").popover('hide');
 
@@ -603,8 +588,8 @@ function showTip() {
 
 // Makes sure that user selects a target text
 function validateText() {
-	var selects = document.getElementById('textlist')
-        var selectedValue = selects.options[selects.selectedIndex].value
+	var selects = $('textlist')
+        var selectedValue = selects.val();
 	if (selectedValue == "") {
 		return false;
    }
@@ -612,8 +597,8 @@ function validateText() {
 
 // Makes sure that selection input is correct
 function validateTextSelect() {
-    var x = document.getElementById("text_from").value;
-    var y = document.getElementById("text_to").value; 
+    var x = $("#text_from").value;
+    var y = $("#text_to").value; 
 
     if (x[0] == "." || y[0] == "."){
 	return false;
@@ -680,16 +665,14 @@ function isNumberKey(evt)
 function displayForm2(c){ 
     var btnText = $(c).attr("value");
 	if(btnText == "All"){  
-        console.log("YUPPA!");
-        $("#text_selection").css("display","none");
+        $("#text_selection").slideUp(60);
         $("text_from").val("");
         $("text_to").val("");
         $("text_from").required = false;
         $("#text_to").required = false;
         }
     else if(btnText =="Selection") {
-        console.log("NUPPA!");
-        $("#text_selection").css("display","block");
+        $("#text_selection").slideDown(60);
 	    $("#text_from").required = true;
 	    $("#text_to").required = true; 
         } 
@@ -700,86 +683,86 @@ function displayForm2(c){
 // Shows all or selection for Nouns
 function displayFormNoun(c) {
         if (c.checked){
-            document.getElementById("noun_box").style.display = 'inline';
+            $("#noun_box").css("display","inline");
         } else {
-            document.getElementById("noun_box").style.display = 'none';
-            document.getElementById("noun_decl_box").style.display = 'none';
+            $("#noun_box").css("display","none");
+            $("#noun_decl_box").css("display","none");
         }
     }
 
 // Shows all or selection for Adjectives
 function displayFormAdj(c) {
         if (c.checked) {
-            document.getElementById("adj_box").style.display = 'inline';
+            $("#adj_box").css("display","inline");
         } else {
-            document.getElementById("adj_box").style.display = 'none';
-            document.getElementById("adj_decl_box").style.display = 'none';
+            $("#adj_box").css("display","none");
+            $("#adj_decl_box").css("display","none");
         }
     }
 
 // Shows all or selection for Verbs
 function displayFormVerb(c) {
         if (c.checked) {
-            document.getElementById("verb_box").style.display = 'inline';
+            $("#verb_box").css("display","inline");
         } else {
-            document.getElementById("verb_box").style.display = 'none';
-	    document.getElementById("verb_conj_box").style.display = 'none';
+            $("#verb_box").css("display","none");
+	    $("#verb_conj_box").css("display","none");
         }
     }
 
 // Shows declension options for Nouns
 function displayFormNounDecl(c) {
         if (c.value == "select_nouns") {
-            document.getElementById("noun_decl_box").style.display = 'block';
+            $("#noun_decl_box").css("display","block");
         } else if (c.value == "all_nouns") {
-            document.getElementById("noun_decl_box").style.display = 'none';
+            $("#noun_decl_box").css("display","none");
         }
     }
 
 // Shows declension options for Adjectives
 function displayFormAdjDecl(c) {
         if (c.value == "select_adj") {
-            document.getElementById("adj_decl_box").style.display = 'block';
+            $("#adj_decl_box").css("display","block");
         } else if (c.value == "all_adj") {
-            document.getElementById("adj_decl_box").style.display = 'none';
+            $("#adj_decl_box").css("display","none");
         }
     }
 
 // Shows conjugation options for Verbs
 function displayFormVerbConj(c) {
 	if (c.value == "all_verbs"){
-		document.getElementById("verb_conj_box").style.display = 'none';
+		$("#verb_conj_box").css("display","none");
 	} else if (c.value == "select_verbs"){
-		document.getElementById("verb_conj_box").style.display = 'block';
+		$("#verb_conj_box").css("display","block");
 	}
     }
 
 function def_function() {
-	if (document.getElementById("No definitions").checked == true) {
+	if ($("#No definitions").checked == true) {
 		hide_column(3);
 		hide_column(4);
 	}
-	else if (document.getElementById("English-Core Definition").checked == true) {
+	else if ($("#English-Core Definition").checked == true) {
 		hide_column(4);
 		show_column(3);
 	}
-	else if (document.getElementById("English-Extended Definition").checked == true) {
+	else if ($("#English-Extended Definition").checked == true) {
 		hide_column(3);
 		show_column(4);
 	}
 }
 
 function greek_def_function() {
-        if (document.getElementById("No definitions").checked == true) {
+        if ($("#No definitions").checked == true) {
                 hide_column(2);
         }
-        else if (document.getElementById("English Definition").checked == true) {
+        else if ($("#English Definition").checked == true) {
                 show_column(2);
         }
 }
 
 function lemma_function() {
-	if (document.getElementById("Dictionary Entry (macron)").checked == true) {
+	if ($("#Dictionary Entry (macron)").checked == true) {
 		hide_column(2);
 		show_column(1);
 	}
@@ -814,12 +797,12 @@ var tableToExcel = (function () {
         , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
         , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
         return function (table, name, filename) {
-            if (!table.nodeType) table = document.getElementById("words_generated")
+            if (!table.nodeType) table = $("#words_generated")
             var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
 
-            document.getElementById("dlink").href = uri + base64(format(template, ctx));
-            document.getElementById("dlink").download = filename;
-            document.getElementById("dlink").click();
+            $("#dlink").href = uri + base64(format(template, ctx));
+            $("#dlink").download = filename;
+            $("#dlink").click();
 
         }
     })()
