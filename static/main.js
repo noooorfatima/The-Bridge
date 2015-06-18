@@ -2,6 +2,9 @@
 var active_form_tab = "tabOne";  
 
 $(document).ready(function() {
+    if ($("#giant_form").length > 0) {
+        $("#giant_form")[0].reset(); // Purge all form data on reload
+    }
     var global_true = true;
 //not sure what these two variable do
      var text = ""
@@ -368,27 +371,27 @@ $('#checkAllExcludes_greek').click(function() {
 
 /* EVENT HANDLERS FOR THE GIANT_FORM: */
 
-// Show/hide text range inputs in a booklist thumbnial.
+// Show/hide range select TOGGLE in a booklist thumbnail:
 $("#booklist .thumbnail :button").on("click",function() {
-    var div = $(this).parent().find(".range_select_box");
-    var val = $(this).attr("value");
+    var div = $(this).parent().find(".range-select-toggle");
     if (div.css("display")=="none") {
+        div.slideDown(100);
+        $(this).parent().css("border","3px solid #07315B");
         //add a hidden checkbox to include this book in the form:
+        var val = 
         $('<input>').attr({
             type: 'checkbox',
             checked: "checked",
             class: "hiddencheck",
             name: "book",
-            value: val,
+            value: $(this).attr("value"),
             style: "display: none"  
         }).appendTo(this);
-        //Show the div:
-        div.slideDown(60);
-        $(this).parent().css("background","#07325C");
     }
     else {
-        div.hide();
-        $(this).parent().css("background","#FFFFFF");
+        div.slideUp(100,function() {
+            $(this).parent().css("border","none");
+        });
         //remove any hidden checkboxes to exclude this book from the form:
         $(".hiddencheck",this).remove();
    }
@@ -396,7 +399,7 @@ $("#booklist .thumbnail :button").on("click",function() {
    // Build a list of selected book titles and insert into panel-contents:
    var headerStr = "";
    var books =  $(".thumbnail :button :input");
-   console.log(books.length);
+   
    if (books.length == 1) {
        headerStr = $(books[0]).parent().attr("value");
    }
@@ -405,13 +408,14 @@ $("#booklist .thumbnail :button").on("click",function() {
            var bookTitle = $(this).parent().attr("value");
            // Shorted book titles to first 7 characters:
            if (bookTitle.length >= 20) {
-               headerStr = headerStr + bookTitle.substr(0,20) + "...";
+               headerStr = headerStr + bookTitle.substr(0,20) + "...,";
            }
            else {
                headerStr = headerStr + bookTitle+ ", ";
            }
        });
    }
+   headerStr = headerStr.substr(0,headerStr.length-4); //rmv trailing "...,"
    $("#headingThree .panel-contents").text(headerStr);
 
    // Hide panel-contents div if empty. Avoids showing a big empty box:
@@ -421,8 +425,27 @@ $("#booklist .thumbnail :button").on("click",function() {
    else {
        $("#headingThree .panel-contents").css("display","inline-block");
    }
-
+    
 });
+
+//Show/hide range select FIELDS in a booklist thumbnail:
+$(".range-select-toggle .btn-group").on("click", function(e) {
+    var clicked = $(e.target);
+    //Only do something if inactive button is clicked:
+    if (clicked.attr("class").indexOf("active") === -1) {
+        var thumbnail = clicked.parents(".thumbnail");
+        console.log(clicked.attr("val"));
+        if (clicked.attr("value") === "Selection") {
+            console.log(thumbnail.find(".range_select_box"));//.slideDown(100)
+            thumbnail.find(".range_select_box").slideDown(100);
+        }
+        else {
+            thumbnail.find(".range_select_box").slideUp(100)
+        }
+    }
+});
+/*
+*/
 
 
 //LANGUAGE SELECT BUTTONS:
@@ -439,6 +462,16 @@ $("#Selection").on("click", function(e) {
     displayForm2(e.target);
 });
 
+//READ TEXT INCLUDE/EXCLUDE TOGGLE:
+$("#include_or_exclude .btn-group").on("click", function(e) {
+    var clicked = $(e.target);
+    //Only do something if inactive button is clicked:
+    if (clicked.attr("class").indexOf("active") === -1) {
+        //Extract "Includ" or "Exclud" from button text:
+        var text = clicked.text().trim().substr(0,6);
+        $("#headingThree .panel-title").text(text+"ing words from");
+    }
+});
 
 //ACCORDION FORM TABS:
 $("[id^='tab']").on("click", function(e) {
@@ -456,6 +489,11 @@ $("#textlist").on("click", function() {
     selectedText = $("#textlist").val();
     if ($("#tabTwo .panel-contents").text() != selectedText.text) {
         $("#tabTwo .panel-contents").text(selectedText);
+    }
+    //Show panel-contents if it's hidden and contains text:
+    if ($("#tabTwo .panel-contents").text() !== "" && 
+        $("#tabTwo .panel-contents").css("display") === "none") {
+            $("#tabTwo .panel-contents").css("display","inline-block");
     }
 });
 
@@ -484,7 +522,7 @@ function handleMediaQuery(mq) {
     }
 }
     
-
+/*Configures giant_form to match the language selected by the user. */
 function configureForm(e) {
     var lang = e.data.language;
     // Set the redirect page to the appropriate lang:
@@ -498,8 +536,9 @@ function configureForm(e) {
     // Show all which are part of the selected language:
     books.filter("[class*='"+lang+"']").css("display","block");
 
-    //Erase any panel-contents in the SOURCE TEXT TAB:
+    //Clear and hide panel-contents in SOURCE TEXT TAB:
     $("#headingTwo .panel-contents").text("");
+    $("#headingTwo .panel-contents").css("display","none");
 
     //Deselect any texts in the READ TEXT TAB: 
     //(selected texts have a checkbox :input child to their :button)
@@ -517,6 +556,7 @@ function configureForm(e) {
     //capitalize language and att it to lang select tab: 
     $("#headingOne .panel-contents").text(lang.charAt(0).toUpperCase() +
             lang.slice(1));
+    $("#headingOne .panel-contents").css("display","inline-block");
 
     switchFormTabs($("#tabOne"),$("#tabTwo"));
 

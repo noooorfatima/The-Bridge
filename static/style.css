@@ -232,12 +232,12 @@ a.boxclose-about{
     background-color: #F8F8F8;
 }
 
-#all_or_selection .btn-group {
+.toggle-container .btn-group {
     width: 40%;
     min-width: 200px;
 }
 
-#all_or_selection .btn {
+.toggle-container .btn {
     font-family: Georgia, serif;
     font-size: 1.5em;
     padding: 1px 8px 1px 8px;
@@ -285,7 +285,7 @@ a.boxclose-about{
     text-align: center;
 }
 
-.input-group-container {
+#text_selection .input-group-container {
     display: inline-block;
     max-width: 200px;
     margin: 8px 3px 0px 3px;
@@ -308,6 +308,10 @@ a.boxclose-about{
 
 .panel {
    padding: 0px;
+}
+
+#include_or_exclude .btn-group {
+    margin-bottom: 10px;
 }
 
 .exclude_selection_box {
@@ -337,11 +341,53 @@ a.boxclose-about{
    margin-left: -200px !important;
 }
 
+.latinbookthumb {
+    min-width: 220px;
+}
+
+.greekbookthumb {
+    min-width: 220px;
+}
+
+.thumbnail {
+    padding:3px;
+}
+
+.range-select-toggle {
+    display: none;
+    padding: 5px 5px 0px 5px;
+}
+
+.range-select-toggle .btn-group{
+    width: 90%;
+    margin-top: 2px;
+}
+
+.range-select-toggle .btn {
+    font-family: Georgia, serif;
+    font-size: 1.25em;
+    line-height: 100%;
+    width: 50%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .range_select_box {
     display : none;
-    padding: 0px 2px 2px 2px;
+    padding: 0px 2px 0px 2px;
+}
+
+.range_select_box .input-group-container {
+    display: inline-block;
+    width: 51%;
+    min-width: 162px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+    
+.range_select_box input {
     text-align: center;
-    background-color: #F1F1F1;
 }
 
 #booklist_notes {
@@ -597,33 +643,44 @@ a.boxclose-about{
 .panel-heading .row  * {
    font-family: Georgia,serif;
    font-size: 1.5em;
-   text-align: center;
    white-space: nowrap; 
    overflow: hidden;
    display: inline-block;
-   padding-right: 0px;
 }
 
 .panel-title {
     display: inline-block;
-    line-height: 120%;
+    line-height: 1.5em;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-align: left;
+    margin-left: 10px;
 }
 
 .panel-contents {
     margin-right: 5px;
-    display: inline-block;
-    line-height: 100%;
+    line-height: 1.5em;
     border: 1px solid #428BCA;
     border-radius: 3px;
-    padding-left: 2px;
-    padding-right: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
     color: #428BCA;
     float: none;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+#headingOne .panel-contents {
+    display: none;
+}
+
+#headingTwo .panel-contents {
+    display: none;
+}
+
+#headingThree .panel-contents {
+    display: none;
 }
 
 .panel-body {
@@ -639,9 +696,6 @@ a.boxclose-about{
     font-weight: "bold";
 }
 
-#headingThree .panel-title {
-}
-
 .panel-toggle {
    float: none;
    line-height: 100%;
@@ -650,18 +704,8 @@ a.boxclose-about{
 #headingThree .panel-contents {
     white-space: pre-wrap;
     float: none;
-    display: none; /* otherwise there's a big empty block by default.*/
 }
 
-
-#headingThree .btn-group {
-    font-size: 1em;
-}
-
-#headingThree .btn {
-    padding: 0px 5px 0px 5px;
-    font-size: 1em;
-}
 
 /* Styles for medium-sized screens: */
 @media 
@@ -687,7 +731,7 @@ screen and (min-width: 635px){
    
   #headingThree .panel-title {
        float: left;
-       max-width: 140px;
+       max-width: 295px;
        padding-left: 5px;
    }
   
@@ -750,28 +794,6 @@ button > div {
     text-overflow: ellipsis;
 }
 
-.range_select_box > div {
-    text-align:center;
-    border: 2px solid #07325C;
-}
-
-.range-label {
-    width: 100px;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 3px;
-    border-bottom: 0px solid #FFFFFF;
-}
-
-.range-inputs {
-    padding: 1px;
-    border-radius: 5px;
-}
-
-.range-inputs > div{
-    margin: 5px;
-}
-
 /* Sticky footer */
 * {
   margin: 0;
@@ -785,7 +807,6 @@ html, body {
   margin-bottom: 100px;
   height: auto;
   overflow: auto;
-  padding-top: 40px;
 }
 
 .page-wrap::-webkit-scrollbar {

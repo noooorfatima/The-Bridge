@@ -6,8 +6,8 @@
                 <a class="collapsed" id="tabOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                     <div class="panel-heading" role="tab" id="headingOne">
                         <div class="row">
-                            <div class="panel-title col-md-4">
-                                Select a language:
+                            <div class="panel-title">
+                                Select a language
                             </div>
                             <div class="panel-contents">
                             </div>
@@ -23,12 +23,11 @@
                     </div>
                 </div>
             </div>
-
             <div class="panel panel-default">
                 <a class="collapsed" id="tabTwo" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                     <div class="panel-heading" role="tab" id="headingTwo">
                         <div class="row">
-                            <div class="panel-title col-md-4">
+                            <div class="panel-title">
                                 What are you studying?
                             </div>
                             <div class="panel-contents">
@@ -42,7 +41,7 @@
                             <span class="glyphicon glyphicon-info-sign"></span>
                             Please choose one text (required): 
                         </p>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" id="all_or_selection">
+                        <div class="toggle-container col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" id="all_or_selection">
                             <div class="btn-group" data-toggle="buttons">
                                 <label class="btn btn-primary active" value="All">
                                     <input type="radio" name="formselector" value="All" id="All" checked>All
@@ -55,14 +54,14 @@
                         <div id="text_selection">
                             <div class="input-group-container">
                                 <div class="input-group">
-                                        <span class="input-group-addon" id="sizing-addon3">From</span>
-                                        <input type="text" class="form-control" name="text_from" id="text_from" placeholder="ex: 1.2.30" aria-describedby="sizing-addon3">
+                                    <span class="input-group-addon" id="sizing-addon3">From</span>
+                                    <input type="text" class="form-control" name="text_from" id="text_from" placeholder="ex: 1.2.30" aria-describedby="sizing-addon3">
                                 </div> 
                             </div>
                             <div class="input-group-container">
                                 <div class="input-group">
-                                        <span class="input-group-addon" id="sizing-addon3">To</span>
-                                        <input type="text" class="form-control" name="text_to" id="text_to" aria-describedby="sizing-addon3">
+                                    <span class="input-group-addon" id="sizing-addon3">To</span>
+                                    <input type="text" class="form-control" name="text_to" id="text_to" aria-describedby="sizing-addon3">
                                 </div>
                             </div>
                         </div>
@@ -78,63 +77,64 @@
                             </select>
                         </div>
                         <!--
-                            <br />
-                            <button type="button" id="core_tip" class="btn btn-sm btn-info" data-toggle="popover" data-placement="right" data-container="body" title="How to Choose a Frequency Range"
-                                data-content='<ul><img id="core_selection_tip_img" src="/static/images/core_selection_tip.jpg">This selection would yield a list of the 100 most commonly used words.</ul>'
-                                data-html="true" style="display:none"><span class="glyphicon glyphicon-question-sign"  style="padding-right: 5px"></span>Choosing a Frequency Range</button>
+                        <br />
+                        <button type="button" id="core_tip" class="btn btn-sm btn-info" data-toggle="popover" data-placement="right" data-container="body" title="How to Choose a Frequency Range"
+                            data-content='<ul><img id="core_selection_tip_img" src="/static/images/core_selection_tip.jpg">This selection would yield a list of the 100 most commonly used words.</ul>'
+                            data-html="true" style="display:none"><span class="glyphicon glyphicon-question-sign"  style="padding-right: 5px"></span>Choosing a Frequency Range</button>
 
-                            <button type="button" id="other_tip" class="btn btn-sm btn-info" data-toggle="popover" data-placement="right" data-container="body" title="How to Choose a Selection" 
-                                data-content='<ul><b>For works divided only into chapters, poems, or other sections:</b>
-                                    <br /><br />You can select a single unit...</br/>
-                                    <img id="selection_tip_1" src="/static/images/selection_tip_1.jpg">
-                                    <br /><br />Or a range of units...<br />
-                                    <img id="selection_tip_2" src="/static/images/selection_tip_2.jpg">
-                                    <br /><br /> <b>For works whose sections are subdivided:</b>
-                                    <br /><br />You can select a single sub-division...<br />
-                                    <img id="selection_tip_3" src="/static/images/selection_tip_3.jpg">
-                                    <br /><br /> Or a range within a section:<br/ >
-                                    <img id="selection_tip_4" src="/static/images/selection_tip_4.jpg">
-                                    <br /><br /> Or a range with the whole work:<br />
-                                    <img id="selection_tip_5" src="/static/images/selection_tip_5.jpg">
-                                    <br /><br />It is easy to indicate the start of a section or its end. Just omit the sub-divisions:<br />
-                                    <img id="selection_tip_6" src="/static/images/selection_tip_6.jpg"><br /><br />
-                                    <img id="selection_tip_7" src="/static/images/selection_tip_7.jpg"></ul>'
-                                data-html="true" style="display: none"><span class="glyphicon glyphicon-question-sign" style="padding-right: 5px"></span>Choosing a Selection</button>
-                        </div>
-                        -->
+                        <button type="button" id="other_tip" class="btn btn-sm btn-info" data-toggle="popover" data-placement="right" data-container="body" title="How to Choose a Selection" 
+                            data-content='<ul><b>For works divided only into chapters, poems, or other sections:</b>
+                                <br /><br />You can select a single unit...</br/>
+                                <img id="selection_tip_1" src="/static/images/selection_tip_1.jpg">
+                                <br /><br />Or a range of units...<br />
+                                <img id="selection_tip_2" src="/static/images/selection_tip_2.jpg">
+                                <br /><br /> <b>For works whose sections are subdivided:</b>
+                                <br /><br />You can select a single sub-division...<br />
+                                <img id="selection_tip_3" src="/static/images/selection_tip_3.jpg">
+                                <br /><br /> Or a range within a section:<br/ >
+                                <img id="selection_tip_4" src="/static/images/selection_tip_4.jpg">
+                                <br /><br /> Or a range with the whole work:<br />
+                                <img id="selection_tip_5" src="/static/images/selection_tip_5.jpg">
+                                <br /><br />It is easy to indicate the start of a section or its end. Just omit the sub-divisions:<br />
+                                <img id="selection_tip_6" src="/static/images/selection_tip_6.jpg"><br /><br />
+                                <img id="selection_tip_7" src="/static/images/selection_tip_7.jpg"></ul>'
+                            data-html="true" style="display: none"><span class="glyphicon glyphicon-question-sign" style="padding-right: 5px"></span>Choosing a Selection</button>
                     </div>
+                    -->
                 </div>
             </div>
+        </div>
 
-            <div class="panel panel-default">
-                <a class="collapsed" id="tabThree" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    <div class="panel-heading" role="tab" id="headingThree">
-                        <div class="row">
-                            <div class="panel-toggle col-md-4">
-                                <div class="btn-group" data-toggle="buttons">
-                                    <label class="btn btn-primary active">
-                                        <input type="radio" name="add_remove_selector" value="Remove" id="All" autocomplete="off" checked>Excluding
-                                    </label>
-                                    <label class="btn btn-primary">
-                                        <input type="radio" name="add_remove_selector" value="Add" id="Selection" autocomplete="off">Including
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="panel-title col-md-4">
-                               words from: 
-                           </div>
-                            <div class="panel-contents col-md-4">
-                            </div>
+        <div class="panel panel-default">
+            <a class="collapsed" id="tabThree" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                <div class="panel-heading" role="tab" id="headingThree">
+                    <div class="row">
+                        <div class="panel-title">
+                            Include/Exclude words from: 
+                        </div>
+                        <div class="panel-contents">
                         </div>
                     </div>
-                </a>
-                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                    <div class="panel-body">
-                        <p data-toggle="tooltip" data-placement="bottom" title="Choose a text/texts that you have read to remove words you already know."><span class="glyphicon glyphicon-info-sign"></span> Choose one or more texts to filter your results (optional):
-                            <br />Please enter ranges after choosing all of your texts.
-                        </p>
+                </div>
+            </a>
+            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                <div class="panel-body">
+                    <p data-toggle="tooltip" data-placement="bottom" title="Choose a text/texts that you have read to remove words you already know."><span class="glyphicon glyphicon-info-sign"></span> Choose one or more texts to filter your results (optional):
+                        <br />Please enter ranges after choosing all of your texts.
+                    </p>
+                    <div class="toggle-container col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" id="include_or_exclude">
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-primary active">
+                                <input type="radio" name="add_remove_selector" value="Remove" id="All" autocomplete="off" checked>Exclude
+                            </label>
+                            <label class="btn btn-primary">
+                                <input type="radio" name="add_remove_selector" value="Add" id="Selection" autocomplete="off">Include
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row" id="booklist" data-toggle="tooltip" data-placement="bottom" title="Choose a text/texts that you have read to remove words you already know.">
 
-                        <div class="row" id="booklist" data-toggle="tooltip" data-placement="bottom" title="Choose a text/texts that you have read to remove words you already know.">
+                        <div id="booklist_container">
                             {% for each in booklist_latin %}
                             <div class="col-xs-6 col-md-3 latinbookthumb">
                                 <div class="thumbnail" id="{{ each }}">
@@ -143,18 +143,22 @@
                                             {{ each }}
                                         </div>
                                     </button>
-                                    <div class="range_select_box">
-                                        <div class="range-label"> 
-                                            <strong><em>text range:</em></strong>
+                                    <div class="range-select-toggle text-center" id="all_or_selection">
+                                        <div class="btn-group" data-toggle="buttons">
+                                            <label class="btn btn-primary active" value="All">
+                                                <input type="radio" checked>All
+                                            </label>
+                                            <label class="btn btn-primary" value="Selection">
+                                                <input type="radio">Selection
+                                            </label>
                                         </div>
-                                        <div class="range-inputs">
-                                            <div class="input-group">
-                                                <span class="input-group-addon" id="sizing-addon3">From</span>
-                                                <input type="text" class="form-control" name="{{ each }}" placeholder="[start]" aria-describedby="sizing-addon3">
-                                            </div> 
-                                            <div class="input-group">
-                                                <span class="input-group-addon" id="sizing-addon3">To</span>
-                                                <input type="text" class="form-control" name="{{ each }}" placeholder="[end]" aria-describedby="sizing-addon3">
+                                        <div class="range_select_box">
+                                            <div class="input-group-container">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" name="{{ each }}" placeholder="[start]" aria-describedby="sizing-addon3">
+                                                    <span class="input-group-addon" id="sizing-addon3">to</span>
+                                                    <input type="text" class="form-control" name="{{ each }}" placeholder="[end]" aria-describedby="sizing-addon3">
+                                                </div> 
                                             </div>
                                         </div>
                                     </div>
@@ -169,18 +173,22 @@
                                             {{ each }}
                                         </div>
                                     </button>
-                                    <div class="range_select_box">
-                                        <div class="range-label">
-                                            <strong><em>text range:</em></strong>
+                                    <div class="range-select-toggle text-center" id="all_or_selection">
+                                        <div class="btn-group" data-toggle="buttons">
+                                            <label class="btn btn-primary active" value="All">
+                                                <input type="radio" checked>All
+                                            </label>
+                                            <label class="btn btn-primary" value="Selection">
+                                                <input type="radio">Selection
+                                            </label>
                                         </div>
-                                        <div class="range-inputs">
-                                            <div class="input-group">
-                                                <span class="input-group-addon" id="sizing-addon3">From</span>
-                                                <input type="text" class="form-control" name="{{ each }}" placeholder="[start]" aria-describedby="sizing-addon3">
-                                            </div> 
-                                            <div class="input-group">
-                                                <span class="input-group-addon" id="sizing-addon3">To</span>
-                                                <input type="text" class="form-control" name="{{ each }}" placeholder="[end]" aria-describedby="sizing-addon3">
+                                        <div class="range_select_box">
+                                            <div class="input-group-container">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" name="{{ each }}" placeholder="[start]" aria-describedby="sizing-addon3">
+                                                    <span class="input-group-addon" id="sizing-addon3">to</span>
+                                                    <input type="text" class="form-control" name="{{ each }}" placeholder="[end]" aria-describedby="sizing-addon3">
+                                                </div> 
                                             </div>
                                         </div>
                                     </div>
@@ -201,9 +209,10 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-xs-8 col-xs-offset-2 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
-            <button class="btn btn-lg btn-block" type="submit" value="Submit" id="giant_form_submit">Submit &nbsp<span class="glyphicon glyphicon-share-alt"></span></button>
-        </div>
+</div>
+<div class="row">
+    <div class="col-xs-8 col-xs-offset-2 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
+        <button class="btn btn-lg btn-block" type="submit" value="Submit" id="giant_form_submit">Submit &nbsp<span class="glyphicon glyphicon-share-alt"></span></button>
     </div>
-</form>
+</div>
+    </form>
