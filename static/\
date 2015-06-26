@@ -228,21 +228,13 @@ a.boxclose-about{
 
 #textlist {
     height: 150px;
-    margin: 10px auto 20px;
+    margin: auto;
+    margin-bottom: 20px;
     background-color: #F8F8F8;
 }
 
-.toggle-container .btn-group {
-    width: 40%;
-    min-width: 200px;
-}
-
-.toggle-container .btn {
-    font-family: Georgia, serif;
-    font-size: 1.5em;
-    padding: 1px 8px 1px 8px;
-    width: 50%;
-    text-align: center;
+#all_or_selection {
+   text-align: center;
 }
 
 #core_tip {
@@ -279,18 +271,6 @@ a.boxclose-about{
    background-color: #E69C53;
 }
 
-#text_selection {
-    display: none;
-    margin-bottom: 0px;
-    text-align: center;
-}
-
-#text_selection .input-group-container {
-    display: inline-block;
-    max-width: 200px;
-    margin: 8px 3px 0px 3px;
-}
-
 .text_selection_box {
     text-align: center;
 }
@@ -308,10 +288,6 @@ a.boxclose-about{
 
 .panel {
    padding: 0px;
-}
-
-#include_or_exclude .btn-group {
-    margin-bottom: 10px;
 }
 
 .exclude_selection_box {
@@ -341,52 +317,9 @@ a.boxclose-about{
    margin-left: -200px !important;
 }
 
-.latinbookthumb {
-    min-width: 220px;
-}
-
-.greekbookthumb {
-    min-width: 220px;
-}
-
-.thumbnail {
-    padding:3px;
-}
-
-.range-select-toggle {
-    display: none;
-    padding: 5px 5px 0px 5px;
-}
-
-.range-select-toggle .btn-group{
-    width: 90%;
-    margin-top: 2px;
-}
-
-.range-select-toggle .btn {
-    font-family: Georgia, serif;
-    font-size: 1.25em;
-    line-height: 100%;
-    width: 50%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
 .range_select_box {
     display : none;
-    padding: 0px 2px 0px 2px;
-}
-
-.range_select_box .input-group-container {
-    display: inline-block;
-    width: 51%;
-    min-width: 162px;
-    margin-top: 5px;
-    margin-bottom: 0px;
-}
-    
-.range_select_box input {
+    padding: 0px 2px 2px 2px;
     text-align: center;
 }
 
@@ -425,7 +358,7 @@ a.boxclose-about{
     background-color: #20466C;
     color: white;
     display: block;
-    margin: 5px auto 20px;;
+    margin: 0 auto;
     font-family: arial narrow;
     padding-bottom: 10px;
 }
@@ -630,57 +563,21 @@ a.boxclose-about{
 
 /* Accordion form stuff: */
 
-#accordion {
-    margin-bottom:0px;
+.panel-heading {
+
 }
 
-.panel-heading .row {
-    text-align: center;
-    white-space: pre-line;
-    line-height: 0;
-}
-
-.panel-heading .row  * {
+.panel-heading h4 {
    font-family: Georgia,serif;
    font-size: 1.5em;
-   white-space: nowrap; 
-   overflow: hidden;
-   display: inline-block;
 }
 
 .panel-title {
-    display: inline-block;
-    line-height: 1.5em;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: left;
-    margin-left: 10px;
+    float: left;
 }
 
 .panel-contents {
-    margin-right: 5px;
-    line-height: 1.5em;
-    border: 1px solid #428BCA;
-    border-radius: 3px;
-    padding-left: 5px;
-    padding-right: 5px;
-    color: #428BCA;
-    float: none;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-#headingOne .panel-contents {
-    display: none;
-}
-
-#headingTwo .panel-contents {
-    display: none;
-}
-
-#headingThree .panel-contents {
-    display: none;
+    float: right;
 }
 
 .panel-body {
@@ -690,111 +587,9 @@ a.boxclose-about{
     text-align: center;
 }
 
-#headingOne {
-    background-color: #07325C;
-    color: #F1F1F1;
-    font-weight: "bold";
+.panel-title p {
+    display: none;
 }
-
-.panel-toggle {
-   float: none;
-   line-height: 100%;
-}
-
-#headingThree .panel-contents {
-    white-space: pre-wrap;
-    float: none;
-}
-
-/* Styles for book thumbnails on very narrow screens: */
-@media
-screen and (max-width: 441px) {
-    .latinbookthumb {
-        width: 100%;
-    }
-    .greekbookthumb {
-        width: 100%;
-    }
-}
-
-/* Styles for medium-sized screens: */
-@media 
-screen and (min-width: 635px){
-    /* ONLY panel-contents can wrap to own line.
-     * panel-contents ONLY GETS ONE LINE.
-     * #headingTwo .panel-contents is INLINE.
-     */
-   #headingTwo .panel-title {
-       float: left;
-       max-width: 270px;
-   }
-
-   #headingOne .panel-title {
-       float: left;
-       max-width: 208px;
-   }
-
-   #headingThree .panel-toggle {
-       float: left;
-       max-width: 240px;
-   }
-   
-  #headingThree .panel-title {
-       float: left;
-       max-width: 295px;
-       padding-left: 5px;
-   }
-  
-   #headingThree .panel-contents {
-       float: right;
-   }
-
-
-   #headingOne .panel-contents {
-       float: right;
-       max-width: 50%;
-       white-space: nowrap;
-       overflow: hidden;
-       text-overflow: ellipsis;
-   }
-   
-   #headingTwo .panel-contents {
-       float: right;
-       max-width: 50%;
-       white-space: nowrap;
-       overflow: hidden;
-       text-overflow: ellipsis;
-   }
-}
-
-
-/* Styles for larger screens: */
-@media 
-screen and (min-width: 900px){
-    /* EVERYTHING on ONE LINE */
-    .panel-heading .row {
-        text-align: left;
-        white-space: normal;
-        line-height: normal;
-    }
-   .panel-title {
-       float: left;
-   } 
-
-   .panel-toggle {
-       float: left;
-   }
-   
-   .panel-contents {
-        float: right;
-   }
-   
-   #headingThree .panel-contents {
-        float: right;
-   }
-
-}
-
 
 /* Read-book select stuff: */
 button > div {
@@ -802,6 +597,27 @@ button > div {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.range_select_box > div {
+    text-align:center;
+    background-color: #8ABCD3;
+}
+
+.range-label {
+    width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 3px;
+}
+
+.range-inputs {
+    padding: 1px;
+    border-radius: 5px;
+}
+
+.range-inputs > div{
+    margin: 5px;
 }
 
 /* Sticky footer */
@@ -817,6 +633,7 @@ html, body {
   margin-bottom: 100px;
   height: auto;
   overflow: auto;
+  padding-top: 40px;
 }
 
 .page-wrap::-webkit-scrollbar {

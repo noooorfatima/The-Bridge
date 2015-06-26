@@ -30,7 +30,8 @@ def latin_filter(request, unchecked):
 				if  word.decl == filter_by:
 					delete_list.append(filtered_list[j])
 
-		elif i == "noun_1st" or i == "noun_2nd" or i == "noun_3rd" or i == "noun_4th" or i == "noun_5th" or i == "noun_6th":
+		elif (i == "noun_1st" or i == "noun_2nd" or i == "noun_3rd" 
+                        or i == "noun_4th" or i == "noun_5th" or i == "noun_6th"):
 			filter_by = i[5]
 			for j in range(len(filtered_list)):
 				word = WordTable.objects.filter(title = filtered_list[j])
@@ -38,7 +39,8 @@ def latin_filter(request, unchecked):
 				if  word.decl == filter_by:
 					delete_list.append(filtered_list[j])
 
-		elif i == "verb_1st" or i == "verb_2nd" or i == "verb_3rd" or i == "verb_4th" or i == "verb_5th":
+		elif (i == "verb_1st" or i == "verb_2nd" or i == "verb_3rd" 
+                        or i == "verb_4th" or i == "verb_5th"):
 			filter_by = i[5]
 			for j in range(len(filtered_list)):
 				word = WordTable.objects.filter(title = filtered_list[j])

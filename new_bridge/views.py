@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, render_to_response
+from django.core import serializers
 import json
 
 # defining global variables
@@ -92,7 +93,6 @@ def words_page_redirect(request, language):
 		    i = i + str("+")
 
 		bookslist_string = bookslist_string + i
-		
     else:
         bookslist_string = "none"
 
@@ -108,17 +108,58 @@ def words_page_redirect(request, language):
 
     return HttpResponseRedirect(url)
 
+
 # This function is now redirected to once the new url is constructed
 def words_page(request, language,text,bookslist,text_from,text_to,add_remove):
+    # Do some formatting to make vocab metadata more human-readable:
+    add_remove_formatted = "excluding"
+    if add_remove == "Add": 
+        add_remove_formatted = "also appearing in"
+    
+    text_from_formatted = "all"
+    text_to_formatted = text_to
+    if text_from != "none":
+        text_from_formatted = "from "+text_from
+        text_to_formatted = "to "+text_to
+    
+    # Parse the user-selected books and their ranges, & format them for humans:
+    bookslist_formatted = "nothing" 
+    print "to start\t", bookslist
+    if bookslist != [] and bookslist != "none":
+        bookslist_formatted = ""
+        if type(bookslist) == unicode:
+            bookslist_formatted = bookslist
+        else:
+            loop_counter = 1
+            for i in bookslist:
+                if len(bookslist) > 1 and loop_counter != len(bookslist):
+                    bookslist_formatted += i[0] + ", "
+                    loop_counter+=1
+                else:
+                    bookslist_formatted = bookslist_formatted + i[0]
+    print "formatted\t",bookslist_formatted
 
-	if language == "Greek":
-	    return greek_words_page(request, language,text,bookslist,text_from,text_to,add_remove)
-	else:
-	    return latin_words_page(request, language,text,bookslist,text_from,text_to,add_remove)
+    return render(request, "words_page.html", {"language":language, "text":text,
+        "bookslist": bookslist, "bookslist_formatted": bookslist_formatted, 
+        "text_from": text_from, "text_from_formatted": text_from_formatted, 
+        "text_to": text_to, "text_to_formatted": text_to_formatted,
+        "add_remove": add_remove, "add_remove_formatted": add_remove_formatted})
 
+# Generates vocab list and returns as JSON string:
+def get_words(request, language,text,bookslist,text_from,text_to,add_remove):
+    words_list = None;
+    if language == "latin":
+        words_list = generateLatinWords(language,text,bookslist,
+                text_from,text_to,add_remove)
+    else:
+        words_list = generateGreekWords(language,text,bookslist,
+                text_from,text_to,add_remove)
+    
+    json_words = serializers.serialize("json",words_list)
+    return HttpResponse(json_words, content_type="application/json")
 
-def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remove):
-   
+def generateLatinWords(language,text,bookslist,
+        text_from,text_to,add_remove):
     word_list = []
     word_list2 = []
     final_list = []
@@ -133,9 +174,9 @@ def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remo
         # bookslist is split into a list of lists here; index 0 is the book, 1 is "from_sec", 2 is "to_sec"
     	bookslist = bookslist.split("+")
 	bookslist_temp = []
-	for i in bookslist:
+        for i in bookslist:
             i = i.split("_")
-	    bookslist_temp.append(i)
+            bookslist_temp.append(i)
         
 	bookslist = bookslist_temp[:]
 
@@ -182,14 +223,13 @@ def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remo
                         for k in word_table_entries:
                             if word_in_core2 == k.title:
                                 core_helper( k, k.dcc_frequency_rank, word_list2, from_sec, to_sec)
-    
-    if add_remove == "Add": # the user wants to keep only the words in both "reading" and "have read"
-        add_remove_new = "also appearing in"
+
+    # user wants to KEEP words in both "reading" and "have read"
+    if add_remove == "Add":         
         for i in word_list:
             if i in word_list2:
                 final_list.append(i)
-    else: # the user wants to remove the words that are in both "reading" and "have read"
-        add_remove_new = "excluding"
+    else: # user wants to remove words in both "reading" and "have read"
         for i in word_list:
 	    if i not in word_list2:
 	        final_list.append(i)
@@ -198,9 +238,8 @@ def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remo
     final_list.sort()
     
     # set the global variable to be the list of words generated (the list is of TITLES, not display lemmas)
-    global_list = final_list[:]
-    request.session['global_list'] = global_list
-    
+    #global_list = final_list[:]
+    #request.session['global_list'] = global_list
     # number of words in the list
     wordcount = len(final_list)
     
@@ -214,49 +253,10 @@ def latin_words_page(request, language,text,bookslist,text_from,text_to,add_remo
             if word == each.title:
                 actual_words.append(each)
     
-    # setting what to say for results page (what the user searched for, etc)
-    if bookslist == []:
-        books = "nothing"
-
-    elif bookslist != []:
-        books = ""
-        loop_counter = 1
-        for i in bookslist:
-            if len(bookslist) > 1 and loop_counter != len(bookslist):
-                books = books + i[0] + ", "
-                loop_counter+=1
-            else:
-                books = books + i[0]
-
-    if text_from == "":
-        text_from = "all"
-    
-    elif text_from != "":
-        text_from = "from "+text_from
-        text_to = "to "+text_to
-    
-    """
-    final_dict = [] 
-    error_count = 0
-    for word in actual_words:
-	try:
-	    temp = BookTable.objects.filter(title = word.title)
-	    for each in temp:
-		#if each[' Book/Text'] == app = temp.appearences.split(","):
-	            final_dict[word] = len(app)
-	except Exception as e:
-	    # print "didn't get: " + str(word.title) + " ERROR: " + str(e)
-	    error_count += 1
-
-	
-    # print "ERRORS: " + str(error_count)
-    """
-
-    return render(request, "words_page.html", {"language": language, "text": text, "text_from": text_from, "text_to": text_to, "books": books, "wordcount":wordcount, "words" : actual_words, "add_remove_new": add_remove_new})
+    return actual_words
 
 
-def greek_words_page(request, language,text,bookslist,text_from,text_to,add_remove):
-
+def generateGreekWords(language,text,bookslist,text_from,text_to,add_remove):
     word_list = []
     word_list2 = []
     final_list = []
@@ -268,6 +268,7 @@ def greek_words_page(request, language,text,bookslist,text_from,text_to,add_remo
     if bookslist == "none":
         bookslist = []
     else:
+        #if type(bookslist)=='str':
         bookslist = bookslist.split("+")
 	bookslist_temp = []
 	for i in bookslist:
@@ -353,12 +354,10 @@ def greek_words_page(request, language,text,bookslist,text_from,text_to,add_remo
 		        helper(appearances, each, word_list2, from_sec, to_sec)
 
     if add_remove == "Add": # the user wants to keep only words in both "reading" and "have read"
-        add_remove_new = "also appearing in"
         for i in word_list:
             if i in word_list2:
                 final_list.append(i)
     else: # the user wants to remove words in both "reading" and "have read"
-        add_remove_new = "excluding"
 	for i in word_list:
 	    if i not in word_list2:
 	        final_list.append(i)
@@ -383,29 +382,7 @@ def greek_words_page(request, language,text,bookslist,text_from,text_to,add_remo
             if word == each.title:
                 actual_words.append(each)
     
-    # setting what to say for results page (what the user searched for, etc)
-    if bookslist == []:
-        books = "nothing"
-
-    elif bookslist != []:
-        books = ""
-	loop_counter = 1
-        for i in bookslist:
-            if len(bookslist) > 1 and loop_counter != len(bookslist):
-                books = books + i[0] + ", "
-		loop_counter+=1
-            else:
-                books = books + i[0]
-        
-    if text_from == "":
-        text_from = "all"
-
-    elif text_from != "":
-        text_from = "from "+text_from
-        text_to = "to "+text_to
-    
-    return render(request, "words_page.html", {"language": language, "text": text, "text_from": text_from, "text_to": text_to, "books": books, "wordcount":wordcount, "words" : actual_words, "add_remove_new": add_remove_new})
-
+    return actual_words
 
 
 # This function turns the appearances into a list of lists, where each appearance is itself a list,
