@@ -11,9 +11,6 @@ from django.shortcuts import redirect, render_to_response
 from django.core import serializers
 import json
 
-# defining global variables
-
-# ending definition of global variables
 
 def IndexView(request):
         booklist_latin= [book.title_of_book 
@@ -23,9 +20,6 @@ def IndexView(request):
 	return render(request, 'index.html', 
                 {"booklist_latin":booklist_latin,"booklist_greek":booklist_greek})
 	
-def TextListView(request):
-	return render(request, 'textlist.html')
-
 class AboutView(generic.ListView):
 	template_name = 'about.html'
 	model = BookTable
@@ -37,21 +31,6 @@ class HelpView(generic.ListView):
 class ContactView(generic.ListView):
 	template_name = 'contact.html'
 	model = BookTable
-
-#@csrf_exempt
-def book_select(request, language):
-	book_list = []
-	all_entries = 0
-	if language == "Greek":
-		all_entries =  BookTitlesGreek.objects.all()
-	else:
-		all_entries =  BookTitles.objects.all()
-
-	for each in all_entries:
-		book_list.append(each.title_of_book)
-	results = book_list
-
-	return render(request, 'textlist.html', {"booklist": results, "language": language})
 
 # This function takes all of the information submitted through the form and creates a unique url for that query
 # this will allow the user to copy the url and come back to exactly the same place they were before
@@ -117,27 +96,25 @@ def words_page(request, language,text,bookslist,text_from,text_to,add_remove):
         add_remove_formatted = "also appearing in"
     
     text_from_formatted = "all"
-    text_to_formatted = text_to
+    text_to_formatted = ""
     if text_from != "none":
         text_from_formatted = "from "+text_from
         text_to_formatted = "to "+text_to
     
     # Parse the user-selected books and their ranges, & format them for humans:
     bookslist_formatted = "nothing" 
-    print "to start\t", bookslist
-    if bookslist != [] and bookslist != "none":
+    print "\nto start\t", bookslist
+    if bookslist != "none":
+        temp_bookslist = bookslist.split("+")
         bookslist_formatted = ""
-        if type(bookslist) == unicode:
-            bookslist_formatted = bookslist
-        else:
-            loop_counter = 1
-            for i in bookslist:
-                if len(bookslist) > 1 and loop_counter != len(bookslist):
-                    bookslist_formatted += i[0] + ", "
-                    loop_counter+=1
-                else:
-                    bookslist_formatted = bookslist_formatted + i[0]
-    print "formatted\t",bookslist_formatted
+        print temp_bookslist
+        loop_counter = 1
+        for book in temp_bookslist:
+            end = book.find("_")
+            if end != -1:
+                book = book[0:end]
+            bookslist_formatted += "<em>"+book+"</em>"+ ", "
+    print "\nformatted\t",bookslist_formatted
 
     return render(request, "words_page.html", {"language":language, "text":text,
         "bookslist": bookslist, "bookslist_formatted": bookslist_formatted, 
@@ -177,7 +154,7 @@ def generateLatinWords(language,text,bookslist,
         for i in bookslist:
             i = i.split("_")
             bookslist_temp.append(i)
-        
+        print "bookslist after splitting:\t",bookslist_temp
 	bookslist = bookslist_temp[:]
 
     if text_from == "none":

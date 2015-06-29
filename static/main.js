@@ -272,6 +272,49 @@ $(document).ready(function() {
             $(this).prop("checked",true);
         });
 
+        /* SLIDEOUT PANEL EVENT BINDINGS: */
+        //show/hide filter panel:
+        $("#slideout-pulltab").on("click",function(e) {
+            var pulltab = $("#slideout-pulltab");
+            var panel = $("#slideout-panel");
+            var panel_width = panel.width();
+            console.log("SLIDIN!");
+            if (panel.data("state") === "stowed") {
+                // animate panel and pulltab to open position
+                pulltab.animate({
+                    right: "250px"
+                });
+                panel.animate({
+                    right: "0px"
+                });
+
+                panel.data("state","opened");
+            }
+            else {
+                // animate panel and pulltab to STOWED position
+                pulltab.animate({
+                    right: "0px"
+                });
+                panel.animate({
+                    right: "-250px"
+                });
+                
+                panel.data("state","stowed");
+            }
+            
+            // reverse the direction of the chevron glyphs:
+            $("#pulltab .glyphicon")
+                .toggleClass("glyphicon-chevron-right glyphicon-chevron-left");
+        });
+
+        //Slideout panel scroll control:
+        $(window).scroll(function() {
+            $("#slideout-panel").css("top", 
+                Math.max(0, 265 - $(this).scrollTop()));
+            
+        });
+
+        /* FILTERING/CHECKBOX BINDINGS: */
         // Filter Function
         $('.panel-body input:checkbox').click(function() {
             console.log("checkbox checked!");
@@ -349,139 +392,6 @@ $(document).ready(function() {
             }
         });
 
-        /* //This function not currently being used for export.
-       function exportTableToCSV($table, filename) {
-
-       var $rows = $table.find('tr:has(td)'),
-
-    // Temporary delimiter characters unlikely to be typed by keyboard
-    // This is to avoid accidentally splitting the actual contents
-    tmpColDelim = String.fromCharCode(11), // vertical tab character
-    tmpRowDelim = String.fromCharCode(0), // null character
-
-    // actual delimiter characters for CSV format
-    colDelim = '","',
-    rowDelim = '"\r\n"',
-
-    // Grab text from table into CSV formatted string
-    csv = '"' + $rows.map(function (i, row) {
-    var $row = $(row),
-    $cols = $row.find('td');
-
-    return $cols.map(function (j, col) {
-    var $col = $(col),
-    text = $col.text();
-
-    return text.replace('"', '""'); // escape double quotes
-
-    }).get().join(tmpColDelim);
-
-    }).get().join(tmpRowDelim)
-    .split(tmpRowDelim).join(rowDelim)
-    B
-    .split(tmpColDelim).join(colDelim) + '"',
-
-    B
-    // Data URI
-    csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
-
-    $(this)
-    .attr({
-    'download': filename,
-    'href': csvData,
-    'target': '_blank'
-    });
-    }
-
-    // This must be a hyperlink
-    $(".export").on('click', function (event) {
-    // CSV
-    exportTableToCSV.apply(this, [$('#words_generated'), 'export.csv']);
-
-    // IF CSV, don't do event.preventDefault() or return false
-    // We actually need this to be a typical hyperlink
-    });
-
-    //This function not currently being used for export.
-
-    $("#excel_export").click(function(e) {
-    //getting values of current time for generating the file name
-    var dt = new Date();
-    var day = dt.getDate();
-    var month = dt.getMonth() + 1;
-    var year = dt.getFullYear();
-    var hour = dt.getHours();
-    var mins = dt.getMinutes();
-    var postfix = day + "." + month + "." + year + "_" + hour + "." + mins;
-    //creating a temporary HTML link element (they support setting file names)
-    var a = document.createElement('a');
-    //getting data from our div that contains the HTML table
-    var data_type = 'data:application/vnd.ms-excel';
-    var table_div = $('words_generated');
-    var table_html = table_div.outerHTML.replace(/ /g, '%20');
-    a.href = data_type + ', ' + table_html;
-    //setting the file name
-    a.download = 'exported_table_' + postfix + '.xls';
-    //triggering the function
-    a.click();
-    //just in case, prevent default behaviour
-    e.preventDefault();
-});
-*/
-
-        function exportTableToTSV($table, filename) {
-
-            var $rows = $table.find('tr:has(td)'),
-
-                // Temporary delimiter characters unlikely to be typed by keyboard
-                // This is to avoid accidentally splitting the actual contents
-                tmpColDelim = String.fromCharCode(11), // vertical tab character
-                tmpRowDelim = String.fromCharCode(0), // null character
-
-                // actual delimiter characters for CSV format
-                colDelim = '"\t"',
-                rowDelim = '"\r\n"',
-
-                // Grab text from table into CSV formatted string
-                tsv = '"' + $rows.map(function(i, row) {
-                    var $row = $(row),
-                        $cols = $row.find('td');
-
-                    return $cols.map(function(j, col) {
-                        var $col = $(col),
-                            text = $col.text();
-
-                        return text.replace('"', '""'); // escape double quotes
-
-                    }).get().join(tmpColDelim);
-
-                }).get().join(tmpRowDelim)
-                .split(tmpRowDelim).join(rowDelim)
-                .split(tmpColDelim).join(colDelim) + '"',
-
-                // Data URI
-                tsvData = 'data:application/csv;charset=utf-8,' +
-                encodeURIComponent(tsv);
-
-            $(this)
-                .attr({
-                    'download': filename,
-                    'href': tsvData,
-                    'target': '_blank'
-                });
-        }
-
-        // This must be a hyperlink
-        $(".tab_export").on('click', function(event) {
-            // CSV
-            exportTableToTSV.apply(this, [$('#words_generated'),
-                'export.tsv'
-            ]);
-
-            // IF CSV, don't do event.preventDefault() or return false
-            // We actually need this to be a typical hyperlink
-        });
-
         //CHECK ALL filter bindings:
         $('#checkAll').click(function() {
             $(".POS").prop("checked", $("#checkAll").prop(
@@ -503,7 +413,17 @@ $(document).ready(function() {
                 "#checkAllExcludes_greek").prop(
                 "checked"));
         });
-        
+
+        // This must be a hyperlink
+        $(".tab_export").on('click', function(event) {
+            // CSV
+            exportTableToTSV.apply(this, [$('#words_generated'),
+                'export.tsv'
+            ]);
+
+            // IF CSV, don't do event.preventDefault() or return false
+            // We actually need this to be a typical hyperlink
+        });
         
         // Gray out everything until words load:
         var panel = $('#big_wrap');
@@ -580,21 +500,17 @@ function handleMediaQuery(mq) {
      * mediaQuery objects are declared and bound in $(document).ready.*/
     // if "screen and (max-width: 500px)":
     if (/screen and \(max-width:\s*400px\)/.test(mq.media)) {
-        console.log("REAL SMALL" + Math.random());
     }
     // if "screen and (max-width: 700px)":
     else if (/screen and \(min-width:\s*401px\)/.test(mq.media) ||
         /screen and \(max-width:\s*700px\)/.test(mq.media)) {
-        console.log("KINDA SMALL!" + Math.random());
     }
     // if "screen and (max-width: 1000px)":
     else if (/screen and \(min-width:\s*701px\)/.test(mq.media) ||
         /screen and \(max-width:\s*1000px\)/.test(mq.media)) {
-        console.log("MIDDLIN\'" + Math.random());
     }
     // if "screen and (min-width: 1001px)":
     else if (/screen and \(min-width:\s*1001px\)/.test(mq.media)) {
-        console.log("MERCY!" + Math.random());
     }
 }
 
@@ -888,6 +804,49 @@ $('#backToTopBtn').click(function() {
 });
 
 
+function exportTableToTSV($table, filename) {
+
+    var $rows = $table.find('tr:has(td)'),
+
+        // Temporary delimiter characters unlikely to be typed by keyboard
+        // This is to avoid accidentally splitting the actual contents
+        tmpColDelim = String.fromCharCode(11), // vertical tab character
+        tmpRowDelim = String.fromCharCode(0), // null character
+
+        // actual delimiter characters for CSV format
+        colDelim = '"\t"',
+        rowDelim = '"\r\n"',
+
+        // Grab text from table into CSV formatted string
+        tsv = '"' + $rows.map(function(i, row) {
+            var $row = $(row),
+                $cols = $row.find('td');
+
+            return $cols.map(function(j, col) {
+                var $col = $(col),
+                    text = $col.text();
+
+                return text.replace('"', '""'); // escape double quotes
+
+            }).get().join(tmpColDelim);
+
+        }).get().join(tmpRowDelim)
+        .split(tmpRowDelim).join(rowDelim)
+        .split(tmpColDelim).join(colDelim) + '"',
+
+        // Data URI
+        tsvData = 'data:application/csv;charset=utf-8,' +
+        encodeURIComponent(tsv);
+
+    $(this)
+        .attr({
+            'download': filename,
+            'href': tsvData,
+            'target': '_blank'
+        });
+}
+
+
 var tableToExcel = (function() {
     var uri = 'data:application/vnd.ms-excel;base64,',
         template =
@@ -930,11 +889,8 @@ function determineFilterState() {
             // Determine which adj.+noun declensions and verb conjugations:
             var include_adjs = $("#Adjective").prop("checked");
             var all_adjs = $("#all_adj").prop("checked");
-            console.log("INCLUDE ADJS:");
-            console.log(include_adjs);
             $('#adj_decl_box :input').each(function() {
                 if (include_adjs && (all_adjs || $(this).prop("checked"))) {
-                    console.log("ADDING ADJ:");
                     included_pos.push($(this).attr("id"));
                 }
             });
@@ -942,7 +898,6 @@ function determineFilterState() {
             var include_all_nouns= $("#all_nouns").prop("checked");
             $('#noun_decl_box :input').each(function() {
                 if (include_nouns && (all_nouns || $(this).prop("checked"))) {
-                    console.log("ADDING NOUN:");
                     included_pos.push($(this).attr("id"));
                 }
             });
@@ -950,40 +905,31 @@ function determineFilterState() {
             var include_all_verbs = $("#all_verbs").prop("checked");
             $('#verb_conj_box :input').each(function() {
                 if (include_verbs && (all_verbs || $(this).prop("checked"))) {
-                    console.log("ADDING VERBS:");
                     included_pos.push($(this).attr("id"));
                 }
             });
             //Get other checkboxes' states:
-            console.log("OTHER CHECKBOXES:");
             $('.panel-body input:checked')
                 .not('[name$="_decl"]').not("[name='verb_conj']")
                 .each(function() {
                 included_pos.push($(this).attr("id"));
             });
-            console.log("FOUND CHECKED:");
-            console.log(included_pos);
             return included_pos;
 }
 
 /* Given array of word categories, returns an array of relevant wordTable objects.
  * wordTable objects are retrieved from word category arrays in words_data.*/
 function filterWordData(pos_list) {
-    console.log("filterWordData!");
     var words_data_filtered = [];
     var words_data_keys = Object.getOwnPropertyNames(words_data);
     for (var i=0; i<words_data_keys.length; i++) {
         var key = words_data_keys[i];
         var key_index = pos_list.indexOf(key)
         if (key_index >=0) {
-            console.log("concattin\'!");
-            console.log(key);
             words_data_filtered = words_data_filtered.concat(words_data[key]);
             pos_list.splice(key_index,1); //rm that key from pos_list
         }        
     }
-    console.log("FILTERED:");
-    console.log(words_data_filtered);
     return words_data_filtered;
 }
 
@@ -1016,5 +962,6 @@ function loadWordData(data) {
  * Called by inline script. */
 function setVocabMetadata(lang, text, bookslist, text_from, text_to, add_remove) {
     words_metadata = {"language":lang, "text":text, "bookslist":bookslist, "text_from":text_from, "text_to":text_to, "add_remove":add_remove};
+    console.log("WORDS METADATA:");
     console.log(words_metadata);
 }

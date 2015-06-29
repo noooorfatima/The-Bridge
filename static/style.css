@@ -11,7 +11,7 @@ body {
 
 .masthead{
     height: 168px;
-    background-color:#07325C;
+    background-color:#0D345A;
     //background-image: url("/static/images/BridgeLogo.png");
     background-repeat:no-repeat;
 }
@@ -804,7 +804,53 @@ button > div {
     text-overflow: ellipsis;
 }
 
-/* Sticky footer */
+/*============================ WORDS_PAGE STYLES: =============================*/
+
+#slideout-pulltab {
+    display: table;
+    width: 35px;
+    height: 125px;
+    position: fixed;
+    right: 0;
+    z-index: 100;
+    border: 1px solid #8ABCD3;
+    border-right: none;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    background: #8ABCD3;
+    cursor: pointer;
+    box-shadow: -2px -2px 7px rgb(123, 123, 123);
+}
+#slideout-pulltab:hover {
+    background: #8FA8B4;
+}
+
+#slideout-pulltab > div{
+    display: table-cell;
+    vertical-align: middle;
+    text-align:center;
+}
+
+#slideout-pulltab > div > div {
+    display: block;
+    line-height: 38px;
+    font-family: arial;
+    font-variant: small-caps;
+    font-weight: bold;
+}
+
+#slideout-panel {
+    position: fixed;
+    top: 0px;
+    right: -275px; /* extra 25px offset to hide box-shadow */
+    width: 250px;
+    z-index: 99;
+    box-shadow: -2px -2px 7px rgb(123, 123, 123);
+}
+
+
+
+/*============================== Sticky footer: ===============================*/
 * {
   margin: 0;
 }

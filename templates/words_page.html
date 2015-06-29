@@ -9,223 +9,236 @@
         <div id="language" style="display:none;" >{{ language }}</div>
         <div class="alert alert-success" role="alert">
             <strong> Success! </strong>Your search generated {{ wordcount }} words.
-            <strong>Your selection: </strong>{{ text_from_formatted}} {{ text_to_formatted }} of {{ text }}, {{ add_remove_formatted }}: {{ bookslist_formatted }}.
+            <strong>Your selection: </strong>{{ text_from_formatted}} {{ text_to_formatted }} of <em>{{ text }}</em>, {{ add_remove_formatted }}: {{ bookslist_formatted }}.
         </div>
-        <div id="big_wrap">
-            <div class="row">
-                <div class="col-lg-4 col-lg-push-8">
-                    <div class="panel panel-default" id="export_panel">
-                        <div class="panel-heading" id="export_panel_heading">Export Options
+        <div id="slideout-pulltab">
+            <div>
+                <div>
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </div>
+                <!--div>
+                    filters
+                </div-->
+                <div>
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </div>
+            </div>
+        </div>
+        <div id="slideout-panel" data-state="stowed">
+            <div class="panel panel-default" id="export_panel">
+                <div class="panel-heading" id="export_panel_heading">Export Options
+                </div>
+                <div class="panel-body" id="export_panel_body">
+                    <div class="btn-group btn-group-justified">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default" id="printSubmit" value="Print"
+                                data-toggle="tooltip" data-placement="bottom" title="Print table">Print</button>
                         </div>
-                        <div class="panel-body" id="export_panel_body">
-                            <div class="btn-group btn-group-justified">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default" id="printSubmit" value="Print"
-                                        data-toggle="tooltip" data-placement="bottom" title="Print table">Print</button>
-                                </div>
-                                <div class="btn-group">
-                                    <a id="dlink"  style="display:none;"></a>
-                                    <button type="button" class="btn btn-default" id="excel_export" value="Export to Excel"
-                                        data-toggle="tooltip" data-placement="bottom" title="Saves table as an Excel file."
-                                        onclick="tableToExcel('words_generated', 'name', 'myfile.xls')">Excel</button>
-                                </div>
-                                <div class="btn-group">
-                                    <a class="tab_export"><button type="button" class="btn btn-default" id="tab_delim_export" value="tab_delim_export"
-                                            data-toggle="tooltip" data-placement="bottom" 
-                                            title="Save as a .txt file - can be uploaded into Anki or Mnemosyne">Tab Delimited File</button></a>
-                                </div>
-                            </div>
+                        <div class="btn-group">
+                            <a id="dlink"  style="display:none;"></a>
+                            <button type="button" class="btn btn-default" id="excel_export" value="Export to Excel"
+                                data-toggle="tooltip" data-placement="bottom" title="Saves table as an Excel file."
+                                onclick="tableToExcel('words_generated', 'name', 'myfile.xls')">Excel</button>
                         </div>
-                    </div>
-                    <div class="panel panel-default col-xs-8 col-xs-offset-1 col-sm-offset-1 col-sm-6 col-md-6 col-lg-8" id="filters_panel">
-                        <div class="panel-heading" id="filters_panel_heading">Filtering Options</div>
-                        <div class="panel-body" id="filters_panel_body">
-                            {% if language == "latin" %}
-                            <div class="container1">
-                                <h3> Definitions </h3>
-                                <input type="radio" name="definitions" id="English-Extended Definition" value="English-Extended Definition"
-                                checked="checked" onclick="def_function()">  Full English Definition</input>
-                                <br />
-                                <input type="radio" name="definitions" id="English-Core Definition" value="English-Core Definition" 
-                                onclick="def_function()">  Basic English Definition</input>
-                                <br />
-                                <input type="radio" name="definitions" id="No definitions" value="No Definitions" 
-                                onclick="def_function()">  No Definitions</input>
-
-                                <hr />
-
-                                <h3> Dictionary Entries </h3>
-                                <input type="radio" name="dictionary_entry" id="Dictionary Entry (macron)" value="Dictionary Entry (macron)"
-                                checked="checked" onclick="lemma_function()">  Dictionary Entry (macrons)</input>
-                                <br />
-                                <input type="radio" name="dictionary_entry" id="Dictionary Entry (macronless)" value="Dictionary Entry (macronless)"
-                                onclick="lemma_function()">  Dictionary Entry (without macrons)</input>
-
-                            </div>
-
-                            <hr />
-
-                            <div class="container2" id="container2">
-                                <h3> Parts of Speech</h3>
-                                <label><input type="checkbox" id="checkAll" checked="checked"> Check/Uncheck all</input></label>
-                                <br />
-                                <input type="checkbox" name="POS" class="POS" id="Adjective" value="Adjectives" checked="checked" 
-                                onclick="displayFormAdj(this)">  Adjectives</input>
-                                <div id="adj_box" style="display:inline">
-                                    &nbsp <input type="radio" name="adj_select" id="all_adj" value="all_adj" checked="checked" 
-                                    onclick="displayFormAdjDecl(this)">  All</input>
-                                    &nbsp <input type="radio" name="adj_select" id="select_adj" value="select_adj" 
-                                    onclick="displayFormAdjDecl(this)">  Selection</input>
-                                </div>
-                                <br />
-                                <div id="adj_decl_box" style="display:none">
-                                    <input type="checkbox" name="adj_decl" id="Adjective_1" value="Adjective_1" checked="checked">  1st-2nd Declension</input>
-                                    <br />                                                         
-                                    <input type="checkbox" name="adj_decl" id="Adjective_3" value="Adjective_3" checked="checked">  3rd Declension</input>
-                                    <br />                                                         
-                                    <input type="checkbox" name="adj_decl" id="Adjective_5" value="Adjective_5" checked="checked">  Defective or Indeclinable</input>
-                                    <br />
-                                </div>
-                                <input type="checkbox" name="POS" class="POS" id="Adverb" value="Adverb" checked="checked">  Adverbs</input>
-                                <br />
-                                <input type="checkbox" name="POS" class="POS" id="Conjunction" value="Conjunction" checked="checked">  Conjunctions</input>
-                                <br />
-                                <input type="checkbox" name="POS" class="POS" id="Interjection" value="Interjection" checked="checked">  Interjections</input>
-                                <br />
-                                <input type="checkbox" name="POS" class="POS" id="Nouns" value="Nouns" checked="checked"  onclick="displayFormNoun(this)">  Nouns</input>
-                                <div id="noun_box" style="display:inline">
-                                    &nbsp <input type="radio" name="noun_select" id="all_nouns" value="all_nouns" checked="checked" 
-                                    onclick="displayFormNounDecl(this)">  All</input>
-                                    &nbsp <input type="radio" name="noun_select" id="select_nouns" value="select_nouns" 
-                                    onclick="displayFormNounDecl(this)">  Selection</input>
-                                </div>
-                                <div id="noun_decl_box" style="display:none">
-                                    <input type="checkbox" name="noun_decl" id="Noun_1" value="Noun_1" checked="checked">  1st Declension</input>
-                                    <br />
-                                    <input type="checkbox" name="noun_decl" id="Noun_2" value="Noun_2" checked="checked">  2nd Declension</input>
-                                    <br />
-                                    <input type="checkbox" name="noun_decl" id="Noun_3" value="Noun_3" checked="checked">  3rd Declension</input>
-                                    <br />
-                                    <input type="checkbox" name="noun_decl" id="Noun_4" value="Noun_4" checked="checked">  4th Declension</input>
-                                    <br />
-                                    <input type="checkbox" name="noun_decl" id="Noun_5" value="Noun_5" checked="checked">  5th Declension</input>
-                                    <br />
-                                    <input type="checkbox" name="noun_decl" id="Noun_6" value="Noun_6" 
-                                    checked="checked">  Irregular, Defective, or Indeclinable</input>
-                                </div>
-                                <br />
-                                <input type="checkbox" name="POS" class="POS" id="Preposition" value="Preposition" checked="checked">  Prepositions</input>
-                                <br />
-                                <input type="checkbox" name="POS" class="POS" id="Pronoun" value="Pronoun" checked="checked">  Pronouns</input>
-                                <br />
-                                <input type="checkbox" name="POS" class="POS" id="Verbs" value="Verbs" checked="checked" onclick="displayFormVerb(this)">  Verbs</input>
-                                <div id="verb_box" style="display:inline">
-                                    <input type="radio" name="verb_select" id="all_verbs" value="all_verbs" checked="checked" 
-                                    onclick="displayFormVerbConj(this)">  All</input>
-                                    <input type="radio" name="verb_select" id="select_verbs" value="select_verbs" 
-                                    onclick="displayFormVerbConj(this)">  Selection</input>
-                                </div>
-                                <div id="verb_conj_box" style="display:none">
-                                    <input type="checkbox" name="verb_conj" id="Verb_1" value="Verb_1" checked="checked">  1st Conjugation</input>
-                                    <br />                                                             
-                                    <input type="checkbox" name="verb_conj" id="Verb_2" value="Verb_2" checked="checked">  2nd Conjugation</input>
-                                    <br />                                                             
-                                    <input type="checkbox" name="verb_conj" id="Verb_3" value="Verb_3" checked="checked">  3rd Conjugation</input>
-                                    <br />                                                             
-                                    <input type="checkbox" name="verb_conj" id="Verb_4" value="Verb_4" checked="checked">  4th Conjugation</input>
-                                    <br />                                                              
-                                    <input type="checkbox" name="verb_conj" id="Verb_5" value="Verb_5" checked="checked">  Irregular/Defective Verbs</input>
-                                </div>
-                            </div>
-                            {% else %}
-
-                            <div class="container1">
-                                <h3> Definitions </h3>
-                                <input type="radio" name="definitions" id="English Definition" value="English Definition"
-                                checked="checked"  onclick="greek_def_function()">  English Definition</input>
-                                <br />
-                                <input type="radio" name="definitions" id="No definitions" value="No Definitions"
-                                onclick="greek_def_function()">  No Definitions</input>
-                            </div>
-
-                            <hr />
-
-                            <div class="container2_greek" id="container2_greek">
-                                <h3> Parts of Speech</h3>
-                                <label><input type="checkbox" id="checkAll_greek" checked="checked"/> Check/Uncheck all</label>
-                                <br />
-                                <input type="checkbox" name="POS" class="POS" id="Adjective" value="Adjectives" checked="checked"
-                                onclick="displayFormAdj(this)">  Adjectives</input>
-                                <div id="adj_box" style="display:inline">
-                                    &nbsp <input type="radio" name="adj_select" id="all_adj" value="all_adj" checked="checked"
-                                    onclick="displayFormAdjDecl(this)">  All</input>
-                                    &nbsp <input type="radio" name="adj_select" id="select_adj" value="select_adj"
-                                    onclick="displayFormAdjDecl(this)">  Selection</input>
-                                </div>
-                                <br />
-                                <div id="adj_decl_box" style="display:none">
-                                    <input type="checkbox" name="adj_decl" id="Adjective_1" value="Adjective_1" checked="checked">  1st-2nd Declension</input>
-                                    <br />
-                                    <input type="checkbox" name="adj_decl" id="Adjective_3" value="Adjective_3" checked="checked">  3rd Declension</input>
-                                    <br />
-                                    <input type="checkbox" name="adj_decl" id="Adjective_5" value="Adjective_5" checked="checked">  Defective or Indeclinable</input>
-                                    <br />
-                                </div>
-                                <input type="checkbox" name="POS" class="POS" id="Adverb" value="Adverb" checked="checked">  Adverbs</input>
-                                <br />
-                                <input type="checkbox" name="POS" class="POS" id="Article" value="Article" checked="checked">   Articles</input>
-                                <br />
-                                <input type="checkbox" name="POS" class="POS" id="Conjunction" value="Conjunction" checked="checked">  Conjunctions</input>
-                                <br />
-                                <input type="checkbox" name="POS" class="POS" id="Interjection" value="Interjection" checked="checked">  Interjections</input>
-                                <br />
-                                <input type="checkbox" name="POS" class="POS" id="Nouns" value="Nouns" checked="checked"  onclick="displayFormNoun(this)">  Nouns</input>
-                                <div id="noun_box" style="display:inline">
-                                    &nbsp <input type="radio" name="noun_select" id="all_nouns" value="all_nouns" checked="checked"
-                                    onclick="displayFormNounDecl(this)">  All</input>
-                                    &nbsp <input type="radio" name="noun_select" id="select_nouns" value="select_nouns"
-                                    onclick="displayFormNounDecl(this)">  Selection</input>
-                                </div>
-                                <div id="noun_decl_box" style="display:none">
-                                    <input type="checkbox" name="noun_decl" id="Noun_1" value="Noun_1" checked="checked">  1st Declension</input>
-                                    <br />                                                            
-                                    <input type="checkbox" name="noun_decl" id="Noun_2" value="Noun_2" checked="checked">  2nd Declension</input>
-                                    <br />                                                            
-                                    <input type="checkbox" name="noun_decl" id="Noun_3" value="Noun_3" checked="checked">  3rd Declension</input>
-                                    <br />
-                                    <input type="checkbox" name="noun_decl" id="Noun_6" value="Noun_6"
-                                    checked="checked">  Irregular, Defective, or Indeclinable</input>
-                                </div>
-                                <br />
-                                <input type="checkbox" name="POS" class="POS" id="Particle" value="Particle" checked="checked">   Particles</input>
-                                <br />
-                                <input type="checkbox" name="POS" class="POS" id="Preposition" value="Preposition" checked="checked">  Prepositions</input>
-                                <br />
-                                <input type="checkbox" name="POS" class="POS" id="Pronoun" value="Pronoun" checked="checked">  Pronouns</input>
-                                <br />
-                                <input type="checkbox" name="POS" class="POS" id="Verbs" value="Verbs" checked="checked">  Verbs</input>
-                            </div>
-                            {% endif %}
-
-                            <hr />  
-
-                            <div class="container3">
-                                <h3> et cetera <br /> καὶ τὰ λοιπά</h3>
-                                <label><input type="checkbox" id="checkAllExcludes" checked="checked"> Check/Uncheck all </input></label>
-                                <br />
-                                <input type="checkbox" name="Idiom" class="Excludes" id="Idiom" value="Idiom" checked="checked">  Idioms</input>
-                                <br />
-                                <input type="checkbox" name="Number" class="Excludes" id="Number" value="1" checked="checked">  Numbers</input>
-                                <br />
-                                <input type="checkbox" name="Proper nouns" class="Excludes" id="Proper_nouns" value="1" checked="checked">  Proper Nouns and Adjectives</input>
-                                <br />
-                                <input type="checkbox" name="Reg_Adv" class="Excludes" id="Reg_Adv" value="1" 
-                                checked="checked">  Regularly-formed Adverbs, and Comparative and Superlative Adjectives</input>
-                            </div>
+                        <div class="btn-group">
+                            <a class="tab_export"><button type="button" class="btn btn-default" id="tab_delim_export" value="tab_delim_export"
+                                    data-toggle="tooltip" data-placement="bottom" 
+                                    title="Save as a .txt file - can be uploaded into Anki or Mnemosyne">Tab Delimited File</button></a>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="panel panel-default" id="filters_panel">
+                <div class="panel-heading" id="filters_panel_heading">Filtering Options</div>
+                <div class="panel-body" id="filters_panel_body">
+                    {% if language == "latin" %}
+                    <div class="container1">
+                        <h3> Definitions </h3>
+                        <input type="radio" name="definitions" id="English-Extended Definition" value="English-Extended Definition"
+                        checked="checked" onclick="def_function()">  Full English</input>
+                        <br />
+                        <input type="radio" name="definitions" id="English-Core Definition" value="English-Core Definition" 
+                        onclick="def_function()">  Basic English</input>
+                        <br />
+                        <input type="radio" name="definitions" id="No definitions" value="No Definitions" 
+                        onclick="def_function()">  No Definitions</input>
 
+                        <hr />
+
+                        <h3> Dictionary Entries </h3>
+                        <input type="radio" name="dictionary_entry" id="Dictionary Entry (macron)" value="Dictionary Entry (macron)"
+                        checked="checked" onclick="lemma_function()">  Dictionary Entry (macrons)</input>
+                        <br />
+                        <input type="radio" name="dictionary_entry" id="Dictionary Entry (macronless)" value="Dictionary Entry (macronless)"
+                        onclick="lemma_function()">  Dictionary Entry (without macrons)</input>
+
+                    </div>
+
+                    <hr />
+
+                    <div class="container2" id="container2">
+                        <h3> Parts of Speech</h3>
+                        <label><input type="checkbox" id="checkAll" checked="checked"> Check/Uncheck all</input></label>
+                        <br />
+                        <input type="checkbox" name="POS" class="POS" id="Adjective" value="Adjectives" checked="checked" 
+                        onclick="displayFormAdj(this)">  Adjectives</input>
+                        <div id="adj_box" style="display:inline">
+                            &nbsp <input type="radio" name="adj_select" id="all_adj" value="all_adj" checked="checked" 
+                            onclick="displayFormAdjDecl(this)">  All</input>
+                            &nbsp <input type="radio" name="adj_select" id="select_adj" value="select_adj" 
+                            onclick="displayFormAdjDecl(this)">  Selection</input>
+                        </div>
+                        <br />
+                        <div id="adj_decl_box" style="display:none">
+                            <input type="checkbox" name="adj_decl" id="Adjective_1" value="Adjective_1" checked="checked">  1st-2nd Declension</input>
+                            <br />                                                         
+                            <input type="checkbox" name="adj_decl" id="Adjective_3" value="Adjective_3" checked="checked">  3rd Declension</input>
+                            <br />                                                         
+                            <input type="checkbox" name="adj_decl" id="Adjective_5" value="Adjective_5" checked="checked">  Defective or Indeclinable</input>
+                            <br />
+                        </div>
+                        <input type="checkbox" name="POS" class="POS" id="Adverb" value="Adverb" checked="checked">  Adverbs</input>
+                        <br />
+                        <input type="checkbox" name="POS" class="POS" id="Conjunction" value="Conjunction" checked="checked">  Conjunctions</input>
+                        <br />
+                        <input type="checkbox" name="POS" class="POS" id="Interjection" value="Interjection" checked="checked">  Interjections</input>
+                        <br />
+                        <input type="checkbox" name="POS" class="POS" id="Nouns" value="Nouns" checked="checked"  onclick="displayFormNoun(this)">  Nouns</input>
+                        <div id="noun_box" style="display:inline">
+                            &nbsp <input type="radio" name="noun_select" id="all_nouns" value="all_nouns" checked="checked" 
+                            onclick="displayFormNounDecl(this)">  All</input>
+                            &nbsp <input type="radio" name="noun_select" id="select_nouns" value="select_nouns" 
+                            onclick="displayFormNounDecl(this)">  Selection</input>
+                        </div>
+                        <div id="noun_decl_box" style="display:none">
+                            <input type="checkbox" name="noun_decl" id="Noun_1" value="Noun_1" checked="checked">  1st Declension</input>
+                            <br />
+                            <input type="checkbox" name="noun_decl" id="Noun_2" value="Noun_2" checked="checked">  2nd Declension</input>
+                            <br />
+                            <input type="checkbox" name="noun_decl" id="Noun_3" value="Noun_3" checked="checked">  3rd Declension</input>
+                            <br />
+                            <input type="checkbox" name="noun_decl" id="Noun_4" value="Noun_4" checked="checked">  4th Declension</input>
+                            <br />
+                            <input type="checkbox" name="noun_decl" id="Noun_5" value="Noun_5" checked="checked">  5th Declension</input>
+                            <br />
+                            <input type="checkbox" name="noun_decl" id="Noun_6" value="Noun_6" 
+                            checked="checked">  Irregular, Defective, or Indeclinable</input>
+                        </div>
+                        <br />
+                        <input type="checkbox" name="POS" class="POS" id="Preposition" value="Preposition" checked="checked">  Prepositions</input>
+                        <br />
+                        <input type="checkbox" name="POS" class="POS" id="Pronoun" value="Pronoun" checked="checked">  Pronouns</input>
+                        <br />
+                        <input type="checkbox" name="POS" class="POS" id="Verbs" value="Verbs" checked="checked" onclick="displayFormVerb(this)">  Verbs</input>
+                        <div id="verb_box" style="display:inline">
+                            <input type="radio" name="verb_select" id="all_verbs" value="all_verbs" checked="checked" 
+                            onclick="displayFormVerbConj(this)">  All</input>
+                            <input type="radio" name="verb_select" id="select_verbs" value="select_verbs" 
+                            onclick="displayFormVerbConj(this)">  Selection</input>
+                        </div>
+                        <div id="verb_conj_box" style="display:none">
+                            <input type="checkbox" name="verb_conj" id="Verb_1" value="Verb_1" checked="checked">  1st Conjugation</input>
+                            <br />                                                             
+                            <input type="checkbox" name="verb_conj" id="Verb_2" value="Verb_2" checked="checked">  2nd Conjugation</input>
+                            <br />                                                             
+                            <input type="checkbox" name="verb_conj" id="Verb_3" value="Verb_3" checked="checked">  3rd Conjugation</input>
+                            <br />                                                             
+                            <input type="checkbox" name="verb_conj" id="Verb_4" value="Verb_4" checked="checked">  4th Conjugation</input>
+                            <br />                                                              
+                            <input type="checkbox" name="verb_conj" id="Verb_5" value="Verb_5" checked="checked">  Irregular/Defective Verbs</input>
+                        </div>
+                    </div>
+                    {% else %}
+
+                    <div class="container1">
+                        <h3> Definitions </h3>
+                        <input type="radio" name="definitions" id="English Definition" value="English Definition"
+                        checked="checked"  onclick="greek_def_function()">  English Definition</input>
+                        <br />
+                        <input type="radio" name="definitions" id="No definitions" value="No Definitions"
+                        onclick="greek_def_function()">  No Definitions</input>
+                    </div>
+
+                    <hr />
+
+                    <div class="container2_greek" id="container2_greek">
+                        <h3> Parts of Speech</h3>
+                        <label><input type="checkbox" id="checkAll_greek" checked="checked"/> Check/Uncheck all</label>
+                        <br />
+                        <input type="checkbox" name="POS" class="POS" id="Adjective" value="Adjectives" checked="checked"
+                        onclick="displayFormAdj(this)">  Adjectives</input>
+                        <div id="adj_box" style="display:inline">
+                            &nbsp <input type="radio" name="adj_select" id="all_adj" value="all_adj" checked="checked"
+                            onclick="displayFormAdjDecl(this)">  All</input>
+                            &nbsp <input type="radio" name="adj_select" id="select_adj" value="select_adj"
+                            onclick="displayFormAdjDecl(this)">  Selection</input>
+                        </div>
+                        <br />
+                        <div id="adj_decl_box" style="display:none">
+                            <input type="checkbox" name="adj_decl" id="Adjective_1" value="Adjective_1" checked="checked">  1st-2nd Declension</input>
+                            <br />
+                            <input type="checkbox" name="adj_decl" id="Adjective_3" value="Adjective_3" checked="checked">  3rd Declension</input>
+                            <br />
+                            <input type="checkbox" name="adj_decl" id="Adjective_5" value="Adjective_5" checked="checked">  Defective or Indeclinable</input>
+                            <br />
+                        </div>
+                        <input type="checkbox" name="POS" class="POS" id="Adverb" value="Adverb" checked="checked">  Adverbs</input>
+                        <br />
+                        <input type="checkbox" name="POS" class="POS" id="Article" value="Article" checked="checked">   Articles</input>
+                        <br />
+                        <input type="checkbox" name="POS" class="POS" id="Conjunction" value="Conjunction" checked="checked">  Conjunctions</input>
+                        <br />
+                        <input type="checkbox" name="POS" class="POS" id="Interjection" value="Interjection" checked="checked">  Interjections</input>
+                        <br />
+                        <input type="checkbox" name="POS" class="POS" id="Nouns" value="Nouns" checked="checked"  onclick="displayFormNoun(this)">  Nouns</input>
+                        <div id="noun_box" style="display:inline">
+                            &nbsp <input type="radio" name="noun_select" id="all_nouns" value="all_nouns" checked="checked"
+                            onclick="displayFormNounDecl(this)">  All</input>
+                            &nbsp <input type="radio" name="noun_select" id="select_nouns" value="select_nouns"
+                            onclick="displayFormNounDecl(this)">  Selection</input>
+                        </div>
+                        <div id="noun_decl_box" style="display:none">
+                            <input type="checkbox" name="noun_decl" id="Noun_1" value="Noun_1" checked="checked">  1st Declension</input>
+                            <br />                                                            
+                            <input type="checkbox" name="noun_decl" id="Noun_2" value="Noun_2" checked="checked">  2nd Declension</input>
+                            <br />                                                            
+                            <input type="checkbox" name="noun_decl" id="Noun_3" value="Noun_3" checked="checked">  3rd Declension</input>
+                            <br />
+                            <input type="checkbox" name="noun_decl" id="Noun_6" value="Noun_6"
+                            checked="checked">  Irregular, Defective, or Indeclinable</input>
+                        </div>
+                        <br />
+                        <input type="checkbox" name="POS" class="POS" id="Particle" value="Particle" checked="checked">   Particles</input>
+                        <br />
+                        <input type="checkbox" name="POS" class="POS" id="Preposition" value="Preposition" checked="checked">  Prepositions</input>
+                        <br />
+                        <input type="checkbox" name="POS" class="POS" id="Pronoun" value="Pronoun" checked="checked">  Pronouns</input>
+                        <br />
+                        <input type="checkbox" name="POS" class="POS" id="Verbs" value="Verbs" checked="checked">  Verbs</input>
+                    </div>
+                    {% endif %}
+
+                    <hr />  
+
+                    <div class="container3">
+                        <h3> et cetera <br /> καὶ τὰ λοιπά</h3>
+                        <label><input type="checkbox" id="checkAllExcludes" checked="checked"> Check/Uncheck all </input></label>
+                        <br />
+                        <input type="checkbox" name="Idiom" class="Excludes" id="Idiom" value="Idiom" checked="checked">  Idioms</input>
+                        <br />
+                        <input type="checkbox" name="Number" class="Excludes" id="Number" value="1" checked="checked">  Numbers</input>
+                        <br />
+                        <input type="checkbox" name="Proper nouns" class="Excludes" id="Proper_nouns" value="1" checked="checked">  Proper Nouns and Adjectives</input>
+                        <br />
+                        <input type="checkbox" name="Reg_Adv" class="Excludes" id="Reg_Adv" value="1" 
+                        checked="checked">  Regularly-formed Adverbs, and Comparative and Superlative Adjectives</input>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="big_wrap">
+            <div class="row">
+                </div>
                 <div id="words_generated_div" class="table-wrapper table-responsive col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-1 col-lg-6 col-lg-offset-1 col-lg-pull-4">
                     <table class="table table-striped table-hover table-condensed" name="words_generated" id="words_generated">
                         {% if language == "greek" %}
@@ -235,37 +248,15 @@
                                 <th id="english_def">English Definition</th>
                             </tr>
                         </thead>
-                        <!--
-                        <tbody>
-                            {% for each in words %}
-                            <tr id={{ forloop.counter }} >
-                                <td>{{ each.display_lemma }}</td>
-                                <td>{{ each.english_definition }}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                        -->
                         {% else %}
                         <thead>
                             <tr>
                                 <th style="width:50%">Dictionary Entry</th>
                                 <!--<th style="display:none; width: 50%">Dictionary Entry (Macronless)</th>
-                                <th id="english_core_def" style="display:none">Basic English Definition</th>-->
-                                <th id="english_extended_def">Full English Definition</th>
+                                <th id="english_core_def" style="display:none">Basic English</th>-->
+                                <th id="english_extended_def">Full English</th>
                             </tr>
                         </thead>
-                        <!--
-                        <tbody>
-                            {% for each in words %}
-                            <tr id={{ forloop.counter }} >
-                                <td style="width:50%">{{ each.display_lemma }}</td>
-                                <td style="display:none">{{each.display_lemma_macronless }}</td>
-                                <td style="display:none">{{ each.english_core }}</td>
-                                <td>{{ each.english_extended }}</td>
-                            </tr>
-                            {% endfor %}   
-                        </tbody>
-                        -->
                         {% endif %}
                     </table>
                 </div>
