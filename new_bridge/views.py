@@ -215,8 +215,6 @@ def generateLatinWords(language,text,bookslist,
     final_list.sort()
     
     # set the global variable to be the list of words generated (the list is of TITLES, not display lemmas)
-    #global_list = final_list[:]
-    #request.session['global_list'] = global_list
     # number of words in the list
     wordcount = len(final_list)
     
@@ -229,9 +227,8 @@ def generateLatinWords(language,text,bookslist,
         for each in all_words:
             if word == each.title:
                 actual_words.append(each)
-    
-    return actual_words
 
+    return actual_words
 
 def generateGreekWords(language,text,bookslist,text_from,text_to,add_remove):
     word_list = []
@@ -240,12 +237,12 @@ def generateGreekWords(language,text,bookslist,text_from,text_to,add_remove):
     wordcount = 0
     all_entries = BookTableGreek.objects.all()
     word_table_entries = WordTableGreek.objects.all()
+    print "so far, so good!  Pulled from db."
 
     # Replace the nones with empty strings
     if bookslist == "none":
         bookslist = []
     else:
-        #if type(bookslist)=='str':
         bookslist = bookslist.split("+")
 	bookslist_temp = []
 	for i in bookslist:
@@ -258,6 +255,8 @@ def generateGreekWords(language,text,bookslist,text_from,text_to,add_remove):
         text_from = ""
     if text_to == "none":
         text_to = ""
+
+    print "processed bookslist!"
 
     for each in all_entries:
         if text_from == "" and text_to == "" and text == each.field_book_text:
@@ -330,6 +329,8 @@ def generateGreekWords(language,text,bookslist,text_from,text_to,add_remove):
 		    else:
 		        helper(appearances, each, word_list2, from_sec, to_sec)
 
+    print "got through the ginormous text-specific filter."
+
     if add_remove == "Add": # the user wants to keep only words in both "reading" and "have read"
         for i in word_list:
             if i in word_list2:
@@ -341,10 +342,6 @@ def generateGreekWords(language,text,bookslist,text_from,text_to,add_remove):
 
     # sort the list alphabetically
     final_list.sort()
-
-    # set the global variable to be the list of words generated (the list is of TITLES, not display lemmas)
-    global_list = final_list[:]
-    request.session['global_list'] = global_list
 
     # number of words in the final list
     wordcount = len(final_list)
@@ -358,7 +355,8 @@ def generateGreekWords(language,text,bookslist,text_from,text_to,add_remove):
         for each in all_words:
             if word == each.title:
                 actual_words.append(each)
-    
+    print "ACTUAL WORDS:"
+    print actual_words
     return actual_words
 
 

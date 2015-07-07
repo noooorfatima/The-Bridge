@@ -449,65 +449,20 @@ a.boxclose-about{
   left: 60%;
 }
 
-
-/* Generated Words Table */
-/*
-.table-hover {
-   max-width: 800px;
-   height: auto;
-   overflow: auto;
-   margin-left: 5%;
-   margin-right: 0%;
-}
-
-.table-responsive>.fixed-column {
-    position: absolute;
-    display: inline-block;
-    width: auto;
-    border-right: 1px solid #ddd;
-}
-
-@media(min-width:768px) {
-    .table-responsive>.fixed-column {
-        display: none;
-    }
-}
-*/
-
-#export_panel {
-   width: 400px;
-}
-
-#words_generated::-webkit-scrollbar {
-  display: none;
-}
-
 .hidden {
    display: none;
 }
 
 /* Definitions Filter */
-.container1 {
-
-}
-
 .container1 h2 {
    text-align: center;
    font-family: Georgia, serif;
 }
 
 /* Parts of Speech Filter*/
-.container2 {
-
-}
-
 .container2 h2 {
     text-align: center;
     font-family: Georgia, Serif;
-}
-
-.container2_greek {
-
 }
 
 .container2_greek h2 {
@@ -516,29 +471,10 @@ a.boxclose-about{
 }
 
 
-#adj_decl_box {
-   margin-left: 50px;
-}
-
-#noun_decl_box {
-   margin-left: 50px;
-}
-
-#verb_conj_box {
-   margin-left: 50px;
-}
-
 /* Special Words Filter */
-.container3 {
-
-}
-
 .container3 h2 {
    text-align: center;
    font-family: Georgia, Serif;
-}
-
-.container3_greek {
 }
 
 .container3_greek h2 {
@@ -546,24 +482,10 @@ a.boxclose-about{
    font-family: Georgia, Serif;
 }
 
-/* Contains the filters */
-#filters_panel {
-}
-
-#filters_panel_heading {
-}
-
-#filters_panel h1 {
-    font-size: 200%;
-    font-family: Georgia, serif;
-    color: #07325C;
-}
-
 /* Back to Top Button */
 #back_to_top {
    display: block;
    margin: 0 auto;
-   margin-top: 40px;
    color: #428bca;
 }
 
@@ -575,7 +497,6 @@ a.boxclose-about{
 
 .button-holder > .btn {
     display: inline-block;
-
 }
 
 .panel {
@@ -806,20 +727,39 @@ button > div {
 
 /*============================ WORDS_PAGE STYLES: =============================*/
 
+.word-load-alert {
+    text-align: center;
+}
+
+#word_load_success {
+    display: none;
+}
+
+#slideout-container {
+    position: fixed;
+    width: 360px;
+    height: 723px;
+    top: 0px;
+    right: 0px;
+    overflow: hidden;
+    overflow-y: hidden;
+}
+
 #slideout-pulltab {
+    position: fixed;
+    top: 50%;
     display: table;
     width: 35px;
     height: 125px;
-    position: fixed;
     right: 0;
     z-index: 100;
-    border: 1px solid #8ABCD3;
+    border: 1px solid #7B7B7B;
     border-right: none;
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
-    background: #8ABCD3;
+    background: #7B7B7B;
     cursor: pointer;
-    box-shadow: -2px -2px 7px rgb(123, 123, 123);
+    box-shadow: -3px 0px 7px rgb(171, 170, 170);
 }
 #slideout-pulltab:hover {
     background: #8FA8B4;
@@ -840,15 +780,166 @@ button > div {
 }
 
 #slideout-panel {
-    position: fixed;
-    top: 0px;
-    right: -275px; /* extra 25px offset to hide box-shadow */
-    width: 250px;
+    position: absolute;
+    right: -300px;
+    width: 300px;
     z-index: 99;
     box-shadow: -2px -2px 7px rgb(123, 123, 123);
 }
 
+#slideout-panel > .panel {
+    width: 100%;
+    margin-bottom: 0px;
+    border-radius: 0px;
+}
 
+#slideout-panel > .panel > *{
+    border-radius: 0px;
+    padding-left: 10px;
+    padding-right: 5px;
+}
+
+#slideout-panel .panel-body {
+    text-align: center;
+    padding: 0px 10px;
+}
+
+#filters_panel_body {
+    padding-bottom: 10px;
+}
+
+#export_panel {
+    border-bottom: none;
+}
+
+#export_panel_body .btn-group {
+    margin: 10px 0px;
+}
+
+#filters_panel h3 {
+    margin: 5px;
+    margin-left: 0px;
+}
+
+#filters_panel h1 {
+    font-size: 200%;
+    font-family: Georgia, serif;
+    color: #07325C;
+}
+
+#filters_panel hr {
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+
+#filters_panel .btn-group {
+    display: block;
+}
+
+#filters_panel .btn-group .btn {
+    width: 33%;
+}
+
+#filters_panel .binary-toggle .btn {
+    width: 49%;
+}
+
+.toggleAll_container {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.toggleAll {
+    width: 80%;
+}
+
+.checkdiv {
+    display: inline-block;
+    background-color: #428BCA;
+    border: 1px solid #357EBD; 
+    border-radius: 4px;
+    line-height: 27px;
+    margin-top: 3px;
+    width: 49%;
+    text-align: center;
+}
+
+.checkdiv-wide {
+    width: 100%;
+}
+
+.checkdiv-checkbox {
+    display: inline-block;
+    background-color: #07325C;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    width: 28px;
+    text-align: center;
+    float: left;
+}
+
+.checkdiv .glyphicon {
+    visibility: visible;
+    color: #F1F1F1;
+    font-size: 1.25em;
+    vertical-align: -1px;
+}
+.checkdiv .glyphicon:hover {
+    cursor: default;
+}
+
+.checkdiv .glyphicon-info-sign {
+    font-size: 1em;
+    margin-left: 2px;
+}
+
+.checkdiv-label {
+    display: inline-block;
+    color: white;
+    text-align: center;
+}
+.checkdiv-label:hover {
+    cursor: default;
+}
+
+.pos-toggle-box {
+    display: inline-block;
+    width: 100%;
+    border: 1px solid #8ABCD3;
+    border-radius: 4px;
+    text-align: center;
+    padding: 2px;
+}
+
+.pos-toggle-box .btn-group {
+    margin-top: 0px;
+}
+
+.pos-toggle-box > label {
+    margin-bottom: 0px;
+}
+
+.pos-subcategory-box {
+    display: none;
+    padding: 3px 22px;
+    text-align: center;
+}
+
+#words_generated_length select {
+    min-width: 60px;
+}
+
+#words_generated_div {
+    display: none;
+}
+#words_generated::-webkit-scrollbar {
+    display: none;
+}
+
+#loading_gif {
+    display: none;
+    margin: 0 auto;
+}
 
 /*============================== Sticky footer: ===============================*/
 * {
@@ -860,7 +951,7 @@ html, body {
 .page-wrap {
   min-height: 0%;
   /* equal to footer height */
-  margin-bottom: 100px;
+  margin-bottom: 20px;
   height: auto;
   overflow: auto;
 }
@@ -880,7 +971,7 @@ html, body {
   margin: auto;
 }
 .site-footer {
-  margin-top: 100px;
+  margin-top: 20px;
   background: #C5D3DC;
 }
 

@@ -3,7 +3,6 @@ from django.views.generic import RedirectView
 from django.contrib import admin
 admin.autodiscover()
 from new_bridge import views
-from new_bridge import views_filter
 
 urlpatterns = patterns('',
     # Examples:

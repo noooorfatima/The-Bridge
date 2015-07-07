@@ -267,28 +267,34 @@ $(document).ready(function() {
 
     /*===== Event bindings for WORDS_LIST.HTML and GREEK_WORDS_LIST.HTML =====*/
     else if ($("body").data("title") === "words_page") {
-        // Find scrollbar width and store in global variable.
-        // Used to keep UI animations pretty:
-        scrollbar_width = getScrollbarWidth();
-
         // Set POS toggles to "all" on reload:
         $(".pos-toggle-box input").each(function() {
             if ($(this).attr("value") === "all") {
-                $(this).button('toggle');
+                $(this).prop("checked",true);
+            }
+            else {
+                $(this).prop("checked",false);
             }
         });
 
-
         /* SLIDEOUT PANEL EVENT BINDINGS: */
+        // Slideout panel slide behavior:
+        $("#slideout-pulltab").on("click",function(e) {
+            toggleSlideoutPanel();  //show/hide filter panel
+            // Activate body click listener when panel is open:
+            if ($("#slideout-panel").data("state") === "open") {
+                $("body").on("click",slideoutPanelHelper);
+            }
+            else {
+                $("body").off("click",slideoutPanelHelper);
+            }
+        });
+
         //Slideout panel scroll control:
         $(window).scroll(function() {
-            resizeSlideoutPanel();
-        });
-        $(window).resize(function() {
-            resizeSlideoutPanel();
-        });
-        $(document).resize(function() {
-            resizeSlideoutPanel();
+            $("#slideout-panel").css("top", 
+                Math.max(0, 265 - $(this).scrollTop()));
+            // TODO stop panel from covering footer?
         });
 
         $(".filters-container").on("click",function(e) {
@@ -304,50 +310,97 @@ $(document).ready(function() {
 
         /* FILTERING/CHECKBOX BINDINGS: */
         
+        // checkdiv toggle handler:
+        $('.checkdiv').on("click",function() {
+            toggleCheckdiv(this);
+        });
+
+        // pos-toggle button group handler:
+        $(".pos-toggle-box .btn-group").on("click", function(e) {
+            togglePOSToggle(e.target);
+        });
+
         // Filter Function
         $('.panel-body .checkdiv').click(function() {
-            setCheckdiv(this);
             filterTable();
         });
-        $('.panel-body .pos-toggle-box .btn-group').click(function(e) {
-            $(e.target).button('toggle');
-            togglePOSToggle(e.target);
-            if ($(e.target).attr("value") !== "select") {
-                filterTable();
+        $('.panel-body .pos-toggle-box .btn-group').click(function() {
+            filterTable();
+        });
+
+
+        $("#Verbs").on('click', function() {
+            if ($("#Verbs").checked == true) {
+                $('#Verb_1').prop('checked', true);
+                $('#Verb_2').prop('checked', true);
+                $('#Verb_3').prop('checked', true);
+                $('#Verb_4').prop('checked', true);
+                $('#irreg_verbs').prop('checked', true);
+            } else {
+                $('#Verb_1').prop('checked', false);
+                $('#Verb_2').prop('checked', false);
+                $('#Verb_3').prop('checked', false);
+                $('#Verb_4').prop('checked', false);
+                $('#irreg_verbs').prop('checked', false);
+            }
+        });
+
+        $("#Nouns").on('click', function() {
+            if ($("#Nouns").checked == true) {
+                $('#Noun_1').prop('checked', true);
+                $('#Noun_2').prop('checked', true);
+                $('#Noun_3').prop('checked', true);
+                $('#Noun_4').prop('checked', true);
+                $('#Noun_5').prop('checked', true);
+                $('#noun_irreg').prop('checked', true);
+            } else {
+                $('#Noun_1').prop('checked', false);
+                $('#Noun_2').prop('checked', false);
+                $('#Noun_3').prop('checked', false);
+                $('#Noun_4').prop('checked', false);
+                $('#Noun_5').prop('checked', false);
+                $('#noun_irreg').prop('checked', false);
+            }
+        });
+
+        $("#Adjectives").on('click', function() {
+            if ($("#Adjectives").checked == true) {
+                $('#Adjective_1').prop('checked', true);
+                $('#Adjective_3').prop('checked', true);
+                $('#adj_defective').prop('checked', true);
+            } else {
+                $('#Adjective_1').prop('checked', false);
+                $('#Adjective_3').prop('checked', false);
+                $('#adj_defective').prop('checked', false);
             }
         });
 
         //CHECK ALL filter bindings:
         $('.toggleAll').click(function() {
-            var check = $(this).data("check"); // Determine button action.
+            var check = $(this).date("check"); // Determine button action.
             // Set POS toggle states accordingly:
-            $(".pos-toggle-box input").each(function() {
-                if ($(this).attr("value") !== "select") {
-                    if (check && $(this).attr("value") === "all") {
-                        $(this).parent().button('toggle');
-                    }
-                    else if (!(check) && $(this).attr("value") === "none") {
-                        $(this).parent().button('toggle'); 
-                    }
-                    togglePOSToggle(this); // apply appropriate styles to pos-toggle.
-                }
-            });
+            $(".pos-toggle-box input")
+            console.log(!(check));
             // Check/uncheck all checkboxes:
-            $("#filters_panel .checkdiv").each(function() {
-                setCheckdiv(this,check);
-            });
+            $(this).parents(".filters_container")
+                .find("[type='checkbox']").data("checked",check);
             $(this).data("check",!(check)); // Flip button function.
-            filterTable(); // Update table.
         });
-        
-        $(".def-toggle-box").on("click", function(e) {
-            var tableColumns = words_table.columns();
-            for (var i=0; i<tableColumns.length; i++) {
-                console.log(tableColumns[i]);
-            }
-            var def_type = $(e.target).find("input").attr("value");
-            console.log(words_table.columns(".def").header());//false);
-            words_table.columns("#"+def_type).visible(true);
+
+        $('#checkAllExcludes').click(function() {
+            $(".Excludes").prop("checked", $(
+                "#checkAllExcludes").prop("checked"));
+        });
+
+        $('#checkAll_greek').click(function() {
+            $(".POS").prop("checked", $("#checkAll_greek").prop(
+                "checked"));
+        });
+
+        $('#checkAllExcludes_greek').click(function() {
+            $(".Excludes").prop("checked", $(
+                "#checkAllExcludes_greek").prop(
+                "checked"));
         });
 
         // This must be a hyperlink
@@ -361,8 +414,27 @@ $(document).ready(function() {
             // We actually need this to be a typical hyperlink
         });
         
-        /* Load words from server: */
-        $("#loading_gif").css("display","block");
+        // Gray out everything until words load:
+        var panel = $('#big_wrap');
+        var offset = panel.offset();
+        var height = panel.height();
+        var width = panel.width();
+        $('#filters_panel').append('<div id=cover></div>');
+        var new_panel = $('#big_cover');
+        new_panel.offset({
+            top: offset.top,
+            left: offset.left
+        });
+        new_panel.css("background-color", "grey");
+        new_panel.css("opacity", ".5");
+        new_panel.css("height", height);
+        new_panel.css("width", width);
+        new_panel.css({
+            'cursor': 'wait'
+        });
+
+        // Load words from server:
+        var data; // JSON retrieved via AJAX
         // AJAX request:
         var requestUrl= "/get_words/"+words_metadata.language+'/'+words_metadata.text+
             '/'+words_metadata.bookslist+'/'+words_metadata.text_from+
@@ -370,16 +442,9 @@ $(document).ready(function() {
         $.getJSON(requestUrl)
             .done(function(receivedData) {
                 words_data = loadWordData(receivedData);
-                console.log(words_data.length);
-                // Hide "loading" notifications, show "loaded" ones:
-                $("#loading_gif").css("display","none"); //bye kitty!
-                $("#word_load_info").css("display","none");
-                $("#word_load_success span").text(receivedData.length);
-                $("#word_load_success").css("display","block");
-                $("#words_generated_div").css("display","block");
                 // Initialize DataTables object:
                 var columns;
-                if (words_metadata.language === "greek") {
+                if (words_metadata.language === "Greek") {
                     columns = [ 
                         {"data" : "fields.display_lemma"},
                         {"data" : "fields.english_definition"}
@@ -400,22 +465,7 @@ $(document).ready(function() {
                     "data" : word_data_filtered,
                     "columns" : columns
                 });
-
-                // Enable slideout panel slide behavior once words load:
-                $("#slideout-pulltab").css({
-                    "background":"#8ABCD3",
-                    "border":"1px solid #8ABCD3"
-                });
-                $("#slideout-pulltab").on("click",function(e) {
-                    toggleSlideoutPanel();  //show/hide filter panel
-                    // Activate body click listener when panel is open:
-                    if (!($("#slideout-panel").data("stowed"))) {
-                        $("body").on("click",slideoutPanelHelper);
-                    }
-                    else {
-                        $("body").off("click",slideoutPanelHelper);
-                    }
-                });
+                $("big_cover").remove();
             });
         
     } // END of event bindings for WORDS_LIST.HTML and GREEK_WORDS_LIST.HTML!
@@ -627,14 +677,13 @@ var words_metadata; // Object. Properties are parameters for vocab AJAX request.
 var words_table; // Table of words, a DataTable object.  
 var words_data;  // Parsed JSON object of words (WordTable obj.s).
                  // Data first loaded in by loadWordData call in inline script.
-var scrollbar_width; // Width of a scrollbar in user's browser.
 
 /* Click handler for POS toggles.  
  * Shows/hides pos-toggle-box checkboxes and sets their state as appropriate. */
 function togglePOSToggle(clicked) {
     console.log(clicked);
     var val = $(clicked).attr("value");
-    // Get div containing filters for individual conjugations/declensions:
+    // Div containing filters for individual conjugations/declensions:
     var subcat_box = $(clicked).closest('.pos-toggle-box')
         .find(".pos-subcategory-box");
 
@@ -642,31 +691,33 @@ function togglePOSToggle(clicked) {
         subcat_box.slideDown(80);
     }
     else {
-        subcat_box.slideUp(80);
+        if (subcat_box.css("display") !== "none") {
+            subcat_box.slideUp(80);
+        }
         // Apply appropriate state to all of subcat_box's checkboxes:
         var checked = (val === "all");
-        subcat_box.find(".checkdiv").each(function() {
-            setCheckdiv(this,checked);
+        subcat_box.find(".checkdiv-checkbox").each(function() {
+            $(this).data("checked",checked);
         });
     }
 }
 
-/* Sets the state (checked/unchecked) of a checkdiv.
- * Sets state to check, or flips state if check is undefined. */
-function setCheckdiv(clicked,check) {
-    var checkbox =$(clicked).find(".checkdiv-checkbox"); 
-    // Flip state if set_state is unspecified:
-    if (check===undefined) {
-        check = !(checkbox.data("state"));
-    }
-    checkbox.data("state",check);
-    // Apply appropriate styles to checkbox:
-    if (check) {
-        checkbox.css("background-color","#07325C");
-    }
-    else {
+function toggleCheckdiv(clicked,set_state) {
+    var checkbox = $(clicked).find(".checkdiv-checkbox");
+    var check = checkbox.find(".glyphicon");
+    var checked = checkbox.data("checked");
+    // Apply "unchecked" styles to the checkbox:
+    if (checked) {
         checkbox.css("background-color","#F1F1F1");
+        check.css("color","#F1F1F1");
     }
+    // Apply "checked" styles to the checkbox:
+    else {
+        checkbox.css("background-color","#07325C");
+        check.css("color","#F1F1F1");
+    }
+    // Flip checked property:
+    checkbox.data("checked",!(checked));
 }
 
 //Stows slideout panel if user clicks on page body (excluding slideout panel).
@@ -681,61 +732,49 @@ function slideoutPanelHelper(e) {
 
 //Opens/closes the slideout panel:
 function toggleSlideoutPanel() {
-    var panel = $("#slideout-panel");
     var pulltab = $("#slideout-pulltab");
-    // If stowed, slide to the left:
-    var panel_slide = 0;
-    var pulltab_slide = panel.width();
-    var scrollbar = "scroll"; //css for shwoing/hiding scrollbar.
-    // If slideout-panel has a scrollbar, compensate for extra width:
-    if ($("#slideout-container")[0].scrollHeight >=
-            $("#slideout-container").height()) {
-        pulltab_slide += scrollbar_width; // scrollbar_width is a global var.
-    }
+    var panel = $("#slideout-panel");
+    var panel_width = panel.width();
     
-    // If the panel isn't stowed, slide to the right:
-    if (!(panel.data("stowed"))) {
-        panel_slide = -1*pulltab_slide;
-        pulltab_slide = 0;
-        scrollbar = "hidden";
+    if (panel.data("state") === "stowed") {
+        // animate panel and pulltab to open position
+        pulltab.animate({
+            right: "300px"
+        });
+        panel.animate({
+            right: "0px"
+        });
+
+        panel.data("state","open");
     }
-    // Show/hide scrollbar:
-    $("#slideout-container").css("overflow-y",scrollbar);
-    // animate panel and pulltab sliding:
-    panel.animate({
-        right: panel_slide
-    });
-    pulltab.animate({
-        right: pulltab_slide
-    });
-    panel.data("stowed", !(panel.data("stowed")));
+    else {
+        // animate panel and pulltab to STOWED position
+        pulltab.animate({
+            right: "0px"
+        });
+        panel.animate({
+            right: "-300px"
+        });
+        
+        panel.data("state","stowed");
+    }
     
     // reverse the direction of the chevron glyphs:
     $("#pulltab .glyphicon")
         .toggleClass("glyphicon-chevron-right glyphicon-chevron-left");
 }
 
-function resizeSlideoutPanel() {
-    var viewportHeight = $(window).height();
-    var viewportBot = $(window).scrollTop() + viewportHeight; // In DOCUMENT.
-    var navbarBot = $("#navbar").offset().top+$("#navbar").height(); // In DOCUMENT.
-    var footerTop = $(".site-footer").offset().top; // In DOCUMENT.
-    var divTop = parseInt($("#slideout-container").css("top")); // In VIEWPORT.
-    // Keep from overlapping header:
-    var divTop_new = Math.max(0, navbarBot - $(this).scrollTop());
-    // Keep from overlapping footer:
-    var divHeight_new = Math.min(viewportBot, footerTop);
-    divHeight_new -= $(this).scrollTop() + divTop_new;
-    
-    $("#slideout-container").css({
-        "top" : divTop_new,
-        "height" : divHeight_new
-    });
-
-    // Also keep slideout toggle below the header:
-    $("slideout-toggle").css({
-        "top" : Math.max(0,navbarBot+5-$(this).scrollTop())
-    });
+function def_function() {
+    if ($("#No definitions").checked == true) {
+        hide_column(3);
+        hide_column(4);
+    } else if ($("#English-Core Definition").checked == true) {
+        hide_column(4);
+        show_column(3);
+    } else if ($("#English-Extended Definition").checked == true) {
+        hide_column(3);
+        show_column(4);
+    }
 }
 
 function greek_def_function() {
@@ -755,6 +794,20 @@ function lemma_function() {
         show_column(2);
     }
 }
+
+
+function hide_column(a) {
+    // if your table has header(th), use this
+    $("#words_generated tbody td:nth-child(" + a + ")").hide();
+    $("#words_generated thead th:nth-child(" + a + ")").hide();
+}
+
+function show_column(b) {
+    // if your table has header(th), use this
+    $("#words_generated tbody td:nth-child(" + b + ")").show();
+    $("#words_generated thead th:nth-child(" + b + ")").show();
+}
+
 
 $('#backToTopBtn').click(function() {
     $('html,body').animate({
@@ -877,29 +930,29 @@ function filterTable() {
 function determineFilterState() { 
     var included_pos = []; //which parts of speech pass thru filter
     // Determine filter state of POS toggles (nouns, verbs, etc. 
-    //  w/ multiple decl.s and conj.s).
-    //  The active btn is always child to an active label.
-    $(".pos-toggle-box .btn-group .active input").not("[value='none']")
-        .each(function() {
-        var pos_checkboxes = $(this).closest(".pos-toggle-box")
-                                    .find(".checkdiv-checkbox");
-        // If "select" toggled, only include checked checkdivs:
-        if ($(this).attr("value") === "select") {
-            pos_checkboxes = pos_checkboxes.filter(function() {
-                return $(this).data("state");
-            });
+    //  w/ multiple decl.s and conj.s):
+    $(".pos-toggle-box input").each(function() {
+        if ($(this).data("checked")) { 
+            var toggle_state = $(this).attr("value");
+            var include_all = (toggle_state==="all");
+            if (toggle_state !== "none") {
+                // Iterate over checkboxes in this POS toggle:
+                var pos_checkboxes = $(this).closest(".pos-toggle-box")
+                    .find(".checkdiv-checkbox");
+                pos_checkboxes.each(function() {
+                    if (include_all || $(this).data("checked")) {
+                        included_pos.push($(this).attr("id"));
+                    }
+                });
+            }
         }
-        // Add checkdiv POS names to the list:
-        pos_checkboxes.each(function() {
-            included_pos.push($(this).attr("id"));
-        });
     });
 
     //Get other checkboxes' states:
     $(".panel-body .checkdiv-checkbox")
         .not('[name$="_decl"]').not("[name='verb_conj']")
         .each(function() {
-            if ($(this).data("state")) {
+            if ($(this).data("checked")) {
                 included_pos.push($(this).attr("id"));
             }
     });
@@ -951,29 +1004,6 @@ function loadWordData(data) {
  * Called by inline script. */
 function setVocabMetadata(lang, text, bookslist, text_from, text_to, add_remove) {
     words_metadata = {"language":lang, "text":text, "bookslist":bookslist, "text_from":text_from, "text_to":text_to, "add_remove":add_remove};
-}
-
-function getScrollbarWidth() {
-    var outer = document.createElement("div");
-    outer.style.visibility = "hidden";
-    outer.style.width = "100px";
-    outer.style.msOverflowStyle = "scrollbar"; // needed for WinJS apps
-
-    document.body.appendChild(outer);
-
-    var widthNoScroll = outer.offsetWidth;
-    // force scrollbars
-    outer.style.overflow = "scroll";
-
-    // add innerdiv
-    var inner = document.createElement("div");
-    inner.style.width = "100%";
-    outer.appendChild(inner);        
-
-    var widthWithScroll = inner.offsetWidth;
-
-    // remove divs
-    outer.parentNode.removeChild(outer);
-
-    return widthNoScroll - widthWithScroll;
+    console.log("WORDS METADATA:");
+    console.log(words_metadata);
 }

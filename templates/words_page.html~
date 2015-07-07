@@ -6,35 +6,32 @@
     {% include "navbar.html" %}
     {% include 'about.html' %}
     <div class="page-wrap">
-        <div class="alert alert-info word-load-alert" id="word_load_info" role="alert">
-            <strong> Loading vocab: </strong>{{ text_from_formatted}} {{ text_to_formatted }} of <em>{{ text }}</em>, {{ add_remove_formatted }}: {{ bookslist_formatted }}.
-        </div>
-        <div class="alert alert-success word-load-alert" id="word_load_success" role="alert">
-            <strong> Success! </strong>Your search generated <span></span> words.
+        <div id="language" style="display:none;" >{{ language }}</div>
+        <div class="alert alert-success" role="alert">
+            <strong> Success! </strong>Your search generated {{ wordcount }} words.
             <strong>Your selection: </strong>{{ text_from_formatted}} {{ text_to_formatted }} of <em>{{ text }}</em>, {{ add_remove_formatted }}: {{ bookslist_formatted }}.
         </div>
-        <img id="loading_gif" src="/static/images/loading.gif">
-        <div id="slideout-container" data-stowed=true>
-            <div id="slideout-pulltab">
+        <div id="slideout-container">
+        <div id="slideout-pulltab">
+            <div>
                 <div>
-                    <div>
-                        <span class="glyphicon glyphicon-chevron-left"></span>
-                    </div>
-                    <!--div>
-                        filters
-                    </div-->
-                    <div>
-                        <span class="glyphicon glyphicon-chevron-left"></span>
-                    </div>
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </div>
+                <!--div>
+                    filters
+                </div-->
+                <div>
+                    <span class="glyphicon glyphicon-chevron-left"></span>
                 </div>
             </div>
-            <div id="slideout-panel" data-state="stowed">
-                {% include "filters.html" %}
-            </div>
+        </div>
+        <div id="slideout-panel" data-state="stowed">
+            {% include "filters.html" %}
         </div>
         <div id="big_wrap">
             <div class="row">
-                <div id="words_generated_div" class="table-wrapper table-responsive col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-7 col-lg-pull-4">
+                </div>
+                <div id="words_generated_div" class="table-wrapper table-responsive col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-1 col-lg-6 col-lg-offset-1 col-lg-pull-4">
                     <table class="table table-striped table-hover table-condensed" name="words_generated" id="words_generated">
                         {% if language == "greek" %}
                         <thead>
