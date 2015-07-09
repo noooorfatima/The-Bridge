@@ -62,19 +62,6 @@ $(document).ready(function() {
             }
         });
 
-        //Function that allows the print button on words page to work
-        function printData() {
-            var divToPrint = $("#words_generated");
-            newWin = window.open("");
-            newWin.document.write(divToPrint.outerHTML);
-            newWin.print();
-            newWin.close();
-        }
-        //not sure if this one works
-        $('#printSubmit').on('click', function() {
-            printData();
-        });
-
         $('#tip_button').popover({
             trigger: 'click'
         });
@@ -302,6 +289,22 @@ $(document).ready(function() {
             }
         });
 
+        //EXPORT button bindings:
+        //TODO!!!
+        $("#tab_delim_export").on("click", function() {
+            var tsv=tableToCSV('"\t"');
+            // Data URI
+            var tsvData = 'data:application/csv;charset=utf-8,' +
+                encodeURIComponent(tsv);
+
+            $(this)
+                .attr({
+                    'download': generateFilename("HEY","BUTT","BUTTT"),
+                    'href': tsvData,
+                    'target': '_blank'
+                });
+        });
+
         /* FILTERING/CHECKBOX BINDINGS: */
         
         // Filter Function
@@ -350,7 +353,7 @@ $(document).ready(function() {
             words_table.columns("#"+def_type).visible(true);
         });
 
-        // This must be a hyperlink
+        /*/ This must be a hyperlink
         $(".tab_export").on('click', function(event) {
             // CSV
             exportTableToTSV.apply(this, [$('#words_generated'),
@@ -359,7 +362,7 @@ $(document).ready(function() {
 
             // IF CSV, don't do event.preventDefault() or return false
             // We actually need this to be a typical hyperlink
-        });
+        });*/
         
         /* Load words from server: */
         $("#loading_gif").css("display","block");
@@ -382,15 +385,19 @@ $(document).ready(function() {
                 if (words_metadata.language === "greek") {
                     columns = [ 
                         {"data" : "fields.display_lemma"},
-                        {"data" : "fields.english_definition"}
+                        {"data" : "fields.english_definition"},
+                        {"data" : "fields.part_of_speech",
+                         "visible" : false }
                         ]
                 }
                 else {
                     columns = [ 
                         {"data" : "fields.display_lemma"},
-                        //{"data" : "fields.display_lemma_macronless"},
+                        {"data" : "fields.display_lemma_macronless"},
                         //{"data" : "fields.english_core"},
-                        {"data" : "fields.english_extended"}
+                        {"data" : "fields.english_extended"},
+                        {"data" : "fields.part_of_speech",
+                         "visible" : false }
                         ]
                 }
                 var filter_states = determineFilterState();
@@ -398,9 +405,14 @@ $(document).ready(function() {
                 // Initialize DataTable object:
                 words_table = $("#words_generated").DataTable({
                     "data" : word_data_filtered,
-                    "columns" : columns
+                    "columns" : columns,
+                    "aLengthMenu": [[25, 50, 100, 200, -1],
+                            [25, 50, 100, 250, "All"]],
+                    "pageLength": 100
                 });
-
+                           
+                // Make sure slideout isn't overlapping head/foot:
+                resizeSlideoutPanel();
                 // Enable slideout panel slide behavior once words load:
                 $("#slideout-pulltab").css({
                     "background":"#8ABCD3",
@@ -764,83 +776,15 @@ $('#backToTopBtn').click(function() {
 });
 
 
-function exportTableToTSV($table, filename) {
-
-    var $rows = $table.find('tr:has(td)'),
-
-        // Temporary delimiter characters unlikely to be typed by keyboard
-        // This is to avoid accidentally splitting the actual contents
-        tmpColDelim = String.fromCharCode(11), // vertical tab character
-        tmpRowDelim = String.fromCharCode(0), // null character
-
-        // actual delimiter characters for CSV format
-        colDelim = '"\t"',
-        rowDelim = '"\r\n"',
-
-        // Grab text from table into CSV formatted string
-        tsv = '"' + $rows.map(function(i, row) {
-            var $row = $(row),
-                $cols = $row.find('td');
-
-            return $cols.map(function(j, col) {
-                var $col = $(col),
-                    text = $col.text();
-
-                return text.replace('"', '""'); // escape double quotes
-
-            }).get().join(tmpColDelim);
-
-        }).get().join(tmpRowDelim)
-        .split(tmpRowDelim).join(rowDelim)
-        .split(tmpColDelim).join(colDelim) + '"',
-
-        // Data URI
-        tsvData = 'data:application/csv;charset=utf-8,' +
-        encodeURIComponent(tsv);
-
-    $(this)
-        .attr({
-            'download': filename,
-            'href': tsvData,
-            'target': '_blank'
-        });
+/* Given text name and text ranges, returns a valid file name.*/
+function generateFilename(text, text_from, text_to) {
+    var formatted = text.replace(/,|\.|:|"|'/g,'');
+    var formatted = formatted.split(/ /).join('_');
+    var filename = formatted.slice(0,30)+"--"+words_metadata.text_from
+                +"_to_"+words_metadata.text_to
+    return filename
 }
 
-
-var tableToExcel = (function() {
-    var uri = 'data:application/vnd.ms-excel;base64,',
-        template =
-        '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>',
-        base64 = function(s) {
-            return window.btoa(unescape(encodeURIComponent(s)))
-        },
-        format = function(s, c) {
-            return s.replace(/{(\w+)}/g, function(m, p) {
-                return c[p];
-            })
-        }
-    return function(table, name, filename) {
-        if (!table.nodeType) table = $("#words_generated");
-        var ctx = {
-            worksheet: name || 'Worksheet',
-            table: table.innerHTML
-        }
-
-        $("#dlink").href = uri + base64(format(template, ctx));
-        $("#dlink").download = filename;
-        $("#dlink").click();
-
-    }
-})()
-
-var $table = $('.table');
-var $fixedColumn = $table.clone().insertBefore($table).addClass('fixed-column');
-
-$fixedColumn.find('th:not(:first-child),td:not(:first-child)').remove();
-
-$fixedColumn.find('tr').each(function(i, elem) {
-    $(this).height($table.find('tr:eq(' + i + ')').height());
-});
 
 /* Show or hide words based on state of filters: */
 function filterTable() {
@@ -952,6 +896,105 @@ function loadWordData(data) {
 function setVocabMetadata(lang, text, bookslist, text_from, text_to, add_remove) {
     words_metadata = {"language":lang, "text":text, "bookslist":bookslist, "text_from":text_from, "text_to":text_to, "add_remove":add_remove};
 }
+
+
+// Converts words_table (visible col.s only) to a CSV file.
+// Column delimiter (usually \t or ,) specified by delimiter parameter.
+function tableToCSV(delimiter) {
+    // Get indices of currently visible columns:
+    //var visible_cols = [];
+    var cols = words_table.columns().visible();
+    /*for (var i=0; i<cols.length; i+=1) {
+        if (cols[i]) {
+            visible_cols.push(i);
+        }
+    }*/
+    var rowDelim = '"\r\n"';
+    var docstring = ""; 
+    for (var i=0; i<words_table.rows()[0].length; i+=1) {
+        for (var j=0; j<cols.length; j+=1) {
+            docstring += '"'; // Begin CSV entry
+            docstring+=words_table.cell( {
+                "row":  i,
+                "column": j
+            }).data().replace('"','""');
+            docstring+=('"'+delimiter); // Close CSV entry
+        }
+        docstring+=rowDelim; // End CSV row
+    }
+    return docstring;
+}
+
+function TableToTSV($table, filename) {
+
+    var $rows = $table.find('tr:has(td)'),
+
+        // Temporary delimiter characters unlikely to be typed by keyboard
+        // This is to avoid accidentally splitting the actual contents
+        tmpColDelim = String.fromCharCode(11), // vertical tab character
+        tmpRowDelim = String.fromCharCode(0), // null character
+
+        // actual delimiter characters for CSV format
+        colDelim = '"\t"',
+        rowDelim = '"\r\n"',
+
+        // Grab text from table into CSV formatted string
+        tsv = '"' + $rows.map(function(i, row) {
+            var $row = $(row),
+                $cols = $row.find('td');
+
+            return $cols.map(function(j, col) {
+                var $col = $(col),
+                    text = $col.text();
+
+                return text.replace('"', '""'); // escape double quotes
+
+            }).get().join(tmpColDelim);
+
+        }).get().join(tmpRowDelim)
+        .split(tmpRowDelim).join(rowDelim)
+        .split(tmpColDelim).join(colDelim) + '"',
+
+        // Data URI
+        tsvData = 'data:application/csv;charset=utf-8,' +
+        encodeURIComponent(tsv);
+
+    $(this)
+        .attr({
+            'download': filename,
+            'href': tsvData,
+            'target': '_blank'
+        });
+}
+
+
+var tableToExcel = (function() {
+    var uri = 'data:application/vnd.ms-excel;base64,',
+        template =
+        '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>',
+        base64 = function(s) {
+            return window.btoa(unescape(encodeURIComponent(s)))
+        },
+        format = function(s, c) {
+            return s.replace(/{(\w+)}/g, function(m, p) {
+                return c[p];
+            })
+        }
+    return function(table, name, filename) {
+        if (!table.nodeType) table = $("#words_generated");
+        var ctx = {
+            worksheet: name || 'Worksheet',
+            table: table.innerHTML
+        }
+
+        $("#dlink").href = uri + base64(format(template, ctx));
+        $("#dlink").download = filename;
+        $("#dlink").click();
+
+    }
+})()
+
+
 
 function getScrollbarWidth() {
     var outer = document.createElement("div");

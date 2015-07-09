@@ -26,7 +26,7 @@ class WordTable(models.Model):
     id = models.IntegerField(primary_key=True)
     title = models.CharField(db_column='TITLE', max_length=17, blank=True) # Field name made lowercase.
     display_lemma = models.CharField(db_column='DISPLAY LEMMA', max_length=84, blank=True) # Field name made lowercase. Field renamed to remove unsuitable characters.
-    #display_lemma_macronless = models.CharField(db_column='DISPLAY LEMMA MACRONLESS', max_length=78, blank=True) # Field name made lowercase. Field renamed to remove unsuitable characters.
+    display_lemma_macronless = models.CharField(db_column='DISPLAY LEMMA MACRONLESS', max_length=78, blank=True) # Field name made lowercase. Field renamed to remove unsuitable characters.
     #display_lemma_macron_field = models.CharField(db_column='DISPLAY LEMMA MACRON#', max_length=84, blank=True) # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
     english_core = models.CharField(db_column='ENGLISH-CORE', max_length=126, blank=True) # Field name made lowercase. Field renamed to remove unsuitable characters.
     english_extended = models.CharField(db_column='ENGLISH-EXTENDED', max_length=247, blank=True) # Field name made lowercase. Field renamed to remove unsuitable characters.
