@@ -43,17 +43,17 @@
                         {% if language == "greek" %}
                         <thead>
                             <tr>
-                                <th class="lemma" id="lemma">Dictionary Entry</th>
-                                <th class="def" id="english_def">English Definition</th>
+                                <th class="lemma" data-fieldname='display_lemma' data-visible=true>Dictionary Entry</th>
+                                <th class="def" data-fieldname='english_definition' data-visible=true>English Definition</th>
                             </tr>
                         </thead>
                         {% else %}
                         <thead>
                             <tr>
-                                <th class="lemma" id="lemma">Dictionary Entry</th>
-                                <th class="lemma" id="lemma_macronless">Dictionary Entry (Macronless)</th>
-                                <th class="def" id="english_def">Full English</th>
-                                <!--th class="def" id="english_def_core" style="display:none">Basic English</th-->
+                                <th class="lemma" data-fieldname='display_lemma' data-visible=true>Dictionary Entry</th>
+                                <th class="lemma" data-fieldname='display_lemma_macronless' data-visible=false>Dictionary Entry (Macronless)</th>
+                                <th class="def" data-fieldname='english_extended' data-visible=false>Full English</th>
+                                <th class="def" data-fieldname='english_core' data-visible=true>Basic English</th>
                             </tr>
                         </thead>
                         {% endif %}

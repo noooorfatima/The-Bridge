@@ -381,36 +381,7 @@ $(document).ready(function() {
                 $("#word_load_success").css("display","block");
                 $("#words_generated_div").css("display","block");
                 // Initialize DataTables object:
-                var columns;
-                if (words_metadata.language === "greek") {
-                    columns = [ 
-                        {"data" : "fields.display_lemma"},
-                        {"data" : "fields.english_definition"},
-                        {"data" : "fields.part_of_speech",
-                         "visible" : false }
-                        ]
-                }
-                else {
-                    columns = [ 
-                        {"data" : "fields.display_lemma"},
-                        {"data" : "fields.display_lemma_macronless"},
-                        //{"data" : "fields.english_core"},
-                        {"data" : "fields.english_extended"},
-                        {"data" : "fields.part_of_speech",
-                         "visible" : false }
-                        ]
-                }
-                var filter_states = determineFilterState();
-                var word_data_filtered = filterWordData(filter_states);
-                // Initialize DataTable object:
-                words_table = $("#words_generated").DataTable({
-                    "data" : word_data_filtered,
-                    "columns" : columns,
-                    "aLengthMenu": [[25, 50, 100, 200, -1],
-                            [25, 50, 100, 250, "All"]],
-                    "pageLength": 100
-                });
-                           
+                initTable(); 
                 // Make sure slideout isn't overlapping head/foot:
                 resizeSlideoutPanel();
                 // Enable slideout panel slide behavior once words load:
@@ -785,6 +756,71 @@ function generateFilename(text, text_from, text_to) {
     return filename
 }
 
+/* Determine settings of and initialize the words_table: */
+function initTable() { 
+    //Determine columns from data attrs of <th> elements: 
+    //  data-fieldname is the name of a property in WordTable.fields.
+    //  data-visible determines whether this col is shown by default.
+    var columns = [];
+    var fields;
+    // Find a wordTable object, used for validating fieldname:
+    for (var prop in words_data) {
+        if (words_data.hasOwnProperty(prop) && words_data[prop].length > 0) {
+            fields = words_data[prop][0].fields;
+            break;
+        }
+    }
+    // Get field names and visibility from table column headers:
+    $("#words_generated th").each(function() {
+        if (fields.hasOwnProperty($(this).data("fieldname"))) { //if valid prop 
+            // Create dataTables column based on <th> data-attrs:
+            columns.push({
+                    "data" : "fields."+$(this).data("fieldname"),
+                    "visible" : $(this).data("visible")
+            });
+            if (!($(this).data("visible"))) { // hide table header of non-visible columns.
+                $(this).css("display","none");
+            }
+        }
+        else {
+            $(this).css("display","none"); // Hide invalid columns
+        }
+
+    });
+
+    // Get filter states and initialize DataTable object:
+    var filter_states = determineFilterState();
+    var word_data_filtered = filterWordData(filter_states);
+    words_table = $("#words_generated").DataTable({
+        "data" : word_data_filtered,
+        "columns" : columns,
+        "aLengthMenu": [[25, 50, 100, 200, -1],
+                [25, 50, 100, 250, "All"]],
+        "pageLength": 100
+    });
+}
+                
+    /*}
+    if (words_metadata.language === "greek") {
+        columns = [ 
+            {"data" : "fields.display_lemma"},
+            {"data" : "fields.english_definition"},
+            {"data" : "fields.part_of_speech",
+             "visible" : false }
+            ]
+    }
+    else {
+        columns = [ 
+            {"data" : "fields.display_lemma"},
+            // following field is NOT in dev db (db.sqlite3):
+            //{"data" : "fields.display_lemma_macronless"},
+            // following field is NOT in dev db (db.sqlite3):
+            //{"data" : "fields.english_core"},
+            {"data" : "fields.english_extended"},
+            {"data" : "fields.part_of_speech",
+             "visible" : false }
+            ]
+    }*/
 
 /* Show or hide words based on state of filters: */
 function filterTable() {
