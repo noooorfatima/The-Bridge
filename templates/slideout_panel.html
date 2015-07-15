@@ -1,5 +1,5 @@
 <div class="panel panel-default" id="export_panel">
-    <div class="panel-heading" id="export_panel_heading">Export Options
+    <div class="panel-heading" id="export_panel_heading">Export Table
     </div>
         <div class="btn-group btn-group-justified">
             <div class="btn-group">
@@ -21,40 +21,31 @@
     <div class="panel-body" id="export_panel_body">
     </div>
 </div>
-<div class="panel panel-default" id="filters_panel">
-    <div class="panel-heading" id="filters_panel_heading">Filtering Options</div>
-    <div class="panel-body" id="filters_panel_body">
-        {% if language == "latin" %}
-        <div class="filters_container">
-            <div class="def-toggle-box">
-                <h3> Definitions </h3>
+<div class="panel panel-default" id="display_panel">
+    <div class="panel-heading" id="display_panel_heading">Show/hide Columns</div>
+    <div class="panel-body" id="display_panel_body">
+        <div class="colFilters_container" id="prototype_container" style="display: none;">
+            <div class="col-toggle-box">
+                <h4> Prototype Toggle</h4>
                 <div class="btn-group" data-toggle="buttons">
-                    <label class="btn btn-primary active" value="full">
-                        <input type="radio" name="definitions" value="def_english" checked=true>Full</input>
-                    </label>
-                    <label class="btn btn-primary" value="basic">
-                        <input type="radio" name="definitions" id="def_english_core" value="English-Core Definition" 
-                        >Basic</input>
-                    </label>
                     <label class="btn btn-primary" value="none">
-                        <input type="radio" name="definitions" value="none"> None</input>
+                        <input type="radio" name="" value=""> None</input>
                     </label>
                 </div>
             </div>
-        </div>
-        <div class="filters_container">
-            <hr />
-            <h3> Dictionary Entries </h3>
-            <div class="checkdiv checkdiv-wide">
-                <div class="checkdiv-checkbox" name="dictionary_entry" id="macrons" value="macrons" data-state=true>
+            <div class="checkdiv">
+                <div class="checkdiv-checkbox" name="" class="" id="" value="" data-state=true>
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                 </div>
-                <div class="checkdiv-label">Show Macrons</div>
+                <div class="checkdiv-label">Prototype Checkdiv</div>
             </div>
         </div>
-
-        <hr />
-        
+    </div>
+</div>
+<div class="panel panel-default" id="filters_panel">
+    <div class="panel-heading" id="filters_panel_heading">Filter Vocab</div>
+    <div class="panel-body" id="filters_panel_body">
+        {% if language == "latin" %}
         <div class="filters_container">
             <h3> Parts of Speech</h3>
             <div>
@@ -203,22 +194,6 @@
                 </div>
 
         {% else %}
-        <div class="filters_container">
-            <div class="def-toggle-box">
-                <h3> Definitions </h3>
-                <div class="btn-group binary-toggle" data-toggle="buttons">
-                    <label class="btn btn-primary active" value="full">
-                        <input type="radio" name="definitions" value="def_english" checked=true>Full</input>
-                    </label>
-                    <label class="btn btn-primary" value="none">
-                        <input type="radio" name="definitions" value="none"> None</input>
-                    </label>
-                </div>
-            </div>
-        </div>
-
-        <hr />
-
         <div class="filters_container">
             <h3> Parts of Speech</h3>
             <div>

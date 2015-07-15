@@ -13,11 +13,7 @@
             <strong> Success! </strong>Your search generated <span></span> words.
             <strong>Your selection: </strong>{{ text_from_formatted}} {{ text_to_formatted }} of <em>{{ text }}</em>, {{ add_remove_formatted }}: {{ bookslist_formatted }}.
         </div>
-        <img id="loading_gif" src="/static/images/loading.gif">
-        <img id="loading_gif" src="/static/images/loading.gif">
-        <img id="loading_gif" src="/static/images/loading.gif">
-        <img id="loading_gif" src="/static/images/loading.gif">
-        <img id="loading_gif" src="/static/images/loading.gif">
+        <!--img id="loading_gif" src="/static/images/loading.gif"-->
         <div id="slideout-container" data-stowed=true>
             <div id="slideout-pulltab">
                 <div>
@@ -43,17 +39,19 @@
                         {% if language == "greek" %}
                         <thead>
                             <tr>
-                                <th class="lemma" data-fieldname='display_lemma' data-visible=true>Dictionary Entry</th>
-                                <th class="def" data-fieldname='english_definition' data-visible=true>English Definition</th>
+                                <th class="lemma" data-fieldname='display_lemma' data-fieldtype='Vocab' data-visible=true>Dictionary Entry</th>
+                                <th class="def" data-fieldname='english_definition' data-fieldtype='Definitions' data-visible=true>English Definition</th>
                             </tr>
                         </thead>
                         {% else %}
                         <thead>
                             <tr>
-                                <th class="lemma" data-fieldname='display_lemma' data-visible=true>Dictionary Entry</th>
-                                <th class="lemma" data-fieldname='display_lemma_macronless' data-visible=false>Dictionary Entry (Macronless)</th>
-                                <th class="def" data-fieldname='english_extended' data-visible=false>Full English</th>
-                                <th class="def" data-fieldname='english_core' data-visible=true>Basic English</th>
+                                <th class="lemma" data-fieldname='display_lemma' data-fieldtype='Vocab' data-radio=true data-visible=true>Dictionary Entry</th>
+                                <th class="lemma" data-fieldname='display_lemma_macronless' data-fieldtype='Vocab' data-radio=true data-visible=false>Dictionary Entry (Macronless)</th>
+                                <th class="def" data-fieldname='english_extended' data-fieldtype='Definitions' data-radio=true data-visible=false>Full English</th>
+                                <th class="def" data-fieldname='english_core' data-fieldtype='Definitions' data-radio=true  data-visible=true>Basic English</th>
+                                <th class="pos" data-fieldname='part_of_speech' data-fieldtype='' data-radio=false data-visible=true>Part of Speech</th>
+
                             </tr>
                         </thead>
                         {% endif %}

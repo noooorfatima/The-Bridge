@@ -343,16 +343,6 @@ $(document).ready(function() {
             filterTable(); // Update table.
         });
         
-        $(".def-toggle-box").on("click", function(e) {
-            var tableColumns = words_table.columns();
-            for (var i=0; i<tableColumns.length; i++) {
-                console.log(tableColumns[i]);
-            }
-            var def_type = $(e.target).find("input").attr("value");
-            console.log(words_table.columns(".def").header());//false);
-            words_table.columns("#"+def_type).visible(true);
-        });
-
         /*/ This must be a hyperlink
         $(".tab_export").on('click', function(event) {
             // CSV
@@ -365,7 +355,7 @@ $(document).ready(function() {
         });*/
         
         /* Load words from server: */
-        $("#loading_gif").css("display","block");
+        //$("#loading_gif").css("display","block");
         // AJAX request:
         var requestUrl= "/get_words/"+words_metadata.language+'/'+words_metadata.text+
             '/'+words_metadata.bookslist+'/'+words_metadata.text_from+
@@ -373,9 +363,8 @@ $(document).ready(function() {
         $.getJSON(requestUrl)
             .done(function(receivedData) {
                 words_data = loadWordData(receivedData);
-                console.log(words_data.length);
                 // Hide "loading" notifications, show "loaded" ones:
-                $("#loading_gif").css("display","none"); //bye kitty!
+                //$("#loading_gif").css("display","none"); //bye kitty!
                 $("#word_load_info").css("display","none");
                 $("#word_load_success span").text(receivedData.length);
                 $("#word_load_success").css("display","block");
@@ -645,7 +634,7 @@ function setCheckdiv(clicked,check) {
     checkbox.data("state",check);
     // Apply appropriate styles to checkbox:
     if (check) {
-        checkbox.css("background-color","#07325C");
+        checkbox.css("background-color","#337AB7");
     }
     else {
         checkbox.css("background-color","#F1F1F1");
@@ -762,6 +751,7 @@ function initTable() {
     //  data-fieldname is the name of a property in WordTable.fields.
     //  data-visible determines whether this col is shown by default.
     var columns = [];
+    var valid_ths = []; // list of <th>s turned into DataTables columns.
     var fields;
     // Find a wordTable object, used for validating fieldname:
     for (var prop in words_data) {
@@ -773,8 +763,10 @@ function initTable() {
     // Get field names and visibility from table column headers:
     $("#words_generated th").each(function() {
         if (fields.hasOwnProperty($(this).data("fieldname"))) { //if valid prop 
+            valid_ths.push(this);
             // Create dataTables column based on <th> data-attrs:
             columns.push({
+                    "name" : $(this).data("fieldname"),
                     "data" : "fields."+$(this).data("fieldname"),
                     "visible" : $(this).data("visible")
             });
@@ -783,9 +775,12 @@ function initTable() {
             }
         }
         else {
-            $(this).css("display","none"); // Hide invalid columns
+            console.log('WARNING!\nCouldn\'t find field \'' + 
+                $(this).data('fieldname') + 
+                '\' in the data.  Removing corresponding column \'' + 
+                $(this).text() +'\'.');
+            $(this).remove();
         }
-
     });
 
     // Get filter states and initialize DataTable object:
@@ -798,29 +793,130 @@ function initTable() {
                 [25, 50, 100, 250, "All"]],
         "pageLength": 100
     });
+
+    initColumnFilters(valid_ths);
 }
-                
-    /*}
-    if (words_metadata.language === "greek") {
-        columns = [ 
-            {"data" : "fields.display_lemma"},
-            {"data" : "fields.english_definition"},
-            {"data" : "fields.part_of_speech",
-             "visible" : false }
-            ]
+
+/* Builds the "Show/Hide Columns" buttons from a list of <th> elements. */
+function initColumnFilters(th_list) {
+    var checkdiv_prototype = $(".colFilters_container checkdiv");
+    var toggle_prototype = $(".colFilters_container .col-toggle-box");
+    // Sort by field type:
+    var fieldtypes = {};
+    for (var i=0; i<th_list.length; i++) {
+        var fieldtype = $(th_list[i]).data("fieldtype");
+        // Add <th> to existing array, else create a new array:
+        if (fieldtypes.hasOwnProperty(fieldtype)) {
+            fieldtypes[fieldtype].push(th_list[i]);
+        }
+        else {
+            fieldtypes[fieldtype] = [th_list[i]];
+        }
     }
-    else {
-        columns = [ 
-            {"data" : "fields.display_lemma"},
-            // following field is NOT in dev db (db.sqlite3):
-            //{"data" : "fields.display_lemma_macronless"},
-            // following field is NOT in dev db (db.sqlite3):
-            //{"data" : "fields.english_core"},
-            {"data" : "fields.english_extended"},
-            {"data" : "fields.part_of_speech",
-             "visible" : false }
-            ]
-    }*/
+    
+    // Build radio toggle button-groups or checkdivs for each data column:
+    for (fieldtype in fieldtypes) {
+        if (fieldtypes.hasOwnProperty(fieldtype)) {  // skip inherited prop.s
+            if ($(fieldtypes[fieldtype][0]).data('radio')) {
+                buildToggle(fieldtypes[fieldtype]);
+            }
+            else {
+                buildCheckdivs(fieldtypes[fieldtype]);
+            }
+        }
+    }
+} 
+
+/* Helper for initColumnFilters. Builds bootstrappy radio toggle for
+ *  visibility of table columns in field_options.*/
+function buildToggle(field_options) {
+    var toggle = $("#prototype_container .col-toggle-box").clone();
+    // Set label text and ID of toggle:
+    var labelText = $(field_options[0]).data('fieldtype'); 
+    toggle.attr('id', labelText+'_toggle');
+    toggle.find("h4").first().text(labelText);
+    
+    // Build a toggle button from attr.s of each <th>:
+    var proto_btn = toggle.find('.btn').first(); // "none" btn
+    for (var i=0; i<field_options.length; i++) {
+        var field = $(field_options[i]);
+        var btn = proto_btn.clone();
+        var btn_input = btn.children().first();
+        btn.removeClass('btn-primary');
+        btn.attr('value',field.data('fieldname'));
+        btn_input.attr('value',field.data('fieldname'));
+        btn_input.attr('name',field.data('fieldtype'));
+        btn.text(field.text());
+        // Add to btn-group, BEFORE "none" btn.
+        btn.insertBefore(proto_btn);
+    }
+    toggle.find('.btn-group').css('width','100%');
+    toggle.find('.btn').css('width',
+            (100/toggle.find('.btn').length)+'%');
+
+    // Set an active button, indicated via the data-visible attr:
+    var active = toggle.find("[data-visible=true]");
+    if (active.length > 0) {
+         active.first().button('toggle');
+    }
+    else {  // If no default is specified, toggle "none" btn:
+        toggle.find(".btn-group [value='none']").first().button('toggle');
+    }
+
+    // Append to DOM and bind toggle event handlers:
+    var container = jQuery('<div/>', {
+        class: 'colFilters_container'
+    });
+    container.append(toggle);
+    $('#display_panel_body').append(container);
+    container.find('.btn').on('click', function() {
+        //toggle visibility (visible col. indicated by .btn class 'active'):
+        var thisCol = $(this).attr('value');
+        var activeCol = $(this).siblings('.active').attr('value');
+        words_table.column(activeCol+':name').visible(false);
+        // If none, don't show any columns:
+        if (thisCol !== 'none') {
+            words_table.column(thisCol+':name').visible(true);
+        }
+        //apply styles:
+        $(this).siblings('.active').css({
+                'color' : '#000',
+                'background-color' : '#FFF'
+            });
+        $(this).css({
+                'color' : '#FFF',
+                'background-color' : '#337AB7'
+            });
+        $(this).addClass('active');
+    });
+}
+
+/* Helper for initColumnFilters. Builds checkdivs governing visibility of 
+ *  table columns in field_options.*/
+function buildCheckdivs(field_options) {
+    var container = jQuery('<div/>', {
+        class: 'colFilters_container'
+    });
+    // Build a checkdiv from attr.s of each <th>:
+    var proto_checkdiv = $('#prototype_container .checkdiv');
+    for (var i=0; i<field_options.length; i++) {
+        var field = $(field_options[i]);
+        var checkdiv = proto_checkdiv.clone(true); //'true' keeps event binding
+        var checkdiv_checkbox = checkdiv.find(".checkdiv-checkbox").first();
+        checkdiv_checkbox.attr('value',field.data('fieldname'));
+        checkdiv_checkbox.attr('name',field.data('fieldtype'));
+        checkdiv.find('.checkdiv-label').text(field.text());
+        container.append(checkdiv);
+    }
+    // Add to DOM and bind event handlers:
+    $('#display_panel_body').append(container);
+    container.find('.checkdiv').on('click',function() {
+        var isVisible = $(this).find('.checkdiv-checkbox').data('state');
+        var fieldname = $(this).find('.checkdiv-checkbox').attr('value');
+        console.log(fieldname);
+        words_table.column(fieldname + ":name").visible(isVisible);
+    });
+}
 
 /* Show or hide words based on state of filters: */
 function filterTable() {
@@ -1030,8 +1126,7 @@ var tableToExcel = (function() {
     }
 })()
 
-
-
+/* This function was copied from a Stack Overflow post! */
 function getScrollbarWidth() {
     var outer = document.createElement("div");
     outer.style.visibility = "hidden";

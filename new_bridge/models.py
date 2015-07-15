@@ -24,29 +24,29 @@ class BookTable(models.Model):
 
 class WordTable(models.Model):
     id = models.IntegerField(primary_key=True)
-    title = models.CharField(db_column='TITLE', max_length=17, blank=True) # Field name made lowercase.
-    display_lemma = models.CharField(db_column='DISPLAY LEMMA', max_length=84, blank=True) # Field name made lowercase. Field renamed to remove unsuitable characters.
-    display_lemma_macronless = models.CharField(db_column='DISPLAY LEMMA MACRONLESS', max_length=78, blank=True) # Field name made lowercase. Field renamed to remove unsuitable characters.
-    #display_lemma_macron_field = models.CharField(db_column='DISPLAY LEMMA MACRON#', max_length=84, blank=True) # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
-    english_core = models.CharField(db_column='ENGLISH-CORE', max_length=126, blank=True) # Field name made lowercase. Field renamed to remove unsuitable characters.
-    english_extended = models.CharField(db_column='ENGLISH-EXTENDED', max_length=247, blank=True) # Field name made lowercase. Field renamed to remove unsuitable characters.
-    #aeneid_definition = models.CharField(db_column='AENEID-DEFINITION', max_length=696, blank=True) # Field name made lowercase. Field renamed to remove unsuitable characters.
-    #catullus_definition = models.CharField(db_column='CATULLUS-DEFINITION', max_length=154, blank=True) # Field name made lowercase. Field renamed to remove unsuitable characters.
-    lasla_morph_1 = models.CharField(db_column='LASLA MORPH 1', max_length=43, blank=True) # Field name made lowercase. Field renamed to remove unsuitable characters.
-    lasla_morph_2 = models.CharField(db_column='LASLA MORPH 2', max_length=42, blank=True) # Field name made lowercase. Field renamed to remove unsuitable characters.
-    lasla_combined = models.CharField(db_column='LASLA Combined', max_length=3, blank=True) # Field name made lowercase. Field renamed to remove unsuitable characters.
-    decl = models.CharField(db_column='Decl', max_length=1, blank=True) # Field name made lowercase.
-    conj = models.CharField(db_column='Conj', max_length=2, blank=True) # Field name made lowercase.
-    idiom = models.CharField(db_column='Idiom', max_length=1, blank=True) # Field name made lowercase.
-    reg_adj_adv = models.CharField(db_column='Reg Adj/Adv', max_length=2, blank=True) # Field name made lowercase. Field renamed to remove unsuitable characters.
-    number = models.CharField(db_column='Number', max_length=1, blank=True) # Field name made lowercase.
-    proper = models.CharField(db_column='Proper', max_length=1, blank=True) # Field name made lowercase.
-    part_of_speech = models.CharField(db_column='Part Of Speech', max_length=12, blank=True) # Field name made lowercase. Field renamed to remove unsuitable characters.
-    #exclude_1_0 = models.CharField(db_column='Exclude 1/0', max_length=1, blank=True) # Field name made lowercase. Field renamed to remove unsuitable characters.
-    #notes = models.CharField(db_column='NOTES', max_length=123, blank=True) # Field name made lowercase.
-    dcc_frequency_rank = models.CharField(db_column='DCC FREQUENCY RANK', max_length=12, blank=True) # Field name made lowercase. Field renamed to remove unsuitable characters.
-    dcc_frequency_group = models.CharField(db_column='DCC FREQUENCY GROUP', max_length=4, blank=True) # Field name made lowercase. Field renamed to remove unsuitable characters.
-    dcc_semantic_group = models.CharField(db_column='DCC SEMANTIC GROUP', max_length=34, blank=True) # Field name made lowercase. Field renamed to remove unsuitable characters.
+    title = models.CharField(db_column='TITLE', max_length=17, blank=True) 
+    display_lemma = models.CharField(db_column='DISPLAY LEMMA', max_length=84, blank=True) 
+    #display_lemma_macronless = models.CharField(db_column='DISPLAY LEMMA MACRONLESS', max_length=78, blank=True) # NOT IN DEV DB (db.sqlite)
+    #display_lemma_macron_field = models.CharField(db_column='DISPLAY LEMMA MACRON', max_length=84, blank=True) # NOT IN DEV DB (db.sqlite)
+    english_core = models.CharField(db_column='ENGLISH-CORE', max_length=126, blank=True) 
+    english_extended = models.CharField(db_column='ENGLISH-EXTENDED', max_length=247, blank=True) 
+    #aeneid_definition = models.CharField(db_column='AENEID-DEFINITION', max_length=696, blank=True) # NOT IN DEV DB (db.sqlite)
+    #catullus_definition = models.CharField(db_column='CATULLUS-DEFINITION', max_length=154, blank=True) # NOT IN DEV DB (db.sqlite)
+    lasla_morph_1 = models.CharField(db_column='LASLA MORPH 1', max_length=43, blank=True) 
+    lasla_morph_2 = models.CharField(db_column='LASLA MORPH 2', max_length=42, blank=True) 
+    lasla_combined = models.CharField(db_column='LASLA Combined', max_length=3, blank=True) 
+    decl = models.CharField(db_column='Decl', max_length=1, blank=True) 
+    conj = models.CharField(db_column='Conj', max_length=2, blank=True) 
+    idiom = models.CharField(db_column='Idiom', max_length=1, blank=True) 
+    reg_adj_adv = models.CharField(db_column='Reg Adj/Adv', max_length=2, blank=True) 
+    number = models.CharField(db_column='Number', max_length=1, blank=True) 
+    proper = models.CharField(db_column='Proper', max_length=1, blank=True) 
+    part_of_speech = models.CharField(db_column='Part Of Speech', max_length=12, blank=True) 
+    #exclude_1_0 = models.CharField(db_column='Exclude 1/0', max_length=1, blank=True) # NOT IN DEV DB (db.sqlite)
+    #notes = models.CharField(db_column='NOTES', max_length=123, blank=True) # NOT IN DEV DB (db.sqlite)
+    dcc_frequency_rank = models.CharField(db_column='DCC FREQUENCY RANK', max_length=12, blank=True) 
+    dcc_frequency_group = models.CharField(db_column='DCC FREQUENCY GROUP', max_length=4, blank=True) 
+    dcc_semantic_group = models.CharField(db_column='DCC SEMANTIC GROUP', max_length=34, blank=True) 
     class Meta:
         managed = False
         db_table = 'word_table'
