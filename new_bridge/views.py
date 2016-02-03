@@ -1,7 +1,8 @@
 #from new_bridge.models import 'insert class/model names here' 
 from django.views import generic
 import unicodedata
-from new_bridge.models import BookTable, WordTable, BookTitles, BookTableGreek, WordTableGreek, BookTitlesGreek
+from new_bridge.models import *
+from django.db.models import Q
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
@@ -20,17 +21,17 @@ def IndexView(request):
 	return render(request, 'index.html', 
                 {"booklist_latin":booklist_latin,"booklist_greek":booklist_greek})
 	
-class AboutView(generic.ListView):
-	template_name = 'about.html'
-	model = BookTable
+#class AboutView(generic.ListView):
+#	template_name = 'about.html'
+#	model = BookTable
 	
-class HelpView(generic.ListView):
-	template_name = 'help.html'
-	model = BookTable
+#class HelpView(generic.ListView):
+#	template_name = 'help.html'
+#	model = BookTable
 
-class ContactView(generic.ListView):
-	template_name = 'contact.html'
-	model = BookTable
+#class ContactView(generic.ListView):
+#	template_name = 'contact.html'
+#	model = BookTable
 
 # This function takes all of the information submitted through the form and creates a unique url for that query
 # this will allow the user to copy the url and come back to exactly the same place they were before
@@ -123,17 +124,90 @@ def words_page(request, language,text,bookslist,text_from,text_to,add_remove):
         "add_remove": add_remove, "add_remove_formatted": add_remove_formatted})
 
 # Generates vocab list and returns as JSON string:
-def get_words(request, language,text,bookslist,text_from,text_to,add_remove):
-    words_list = None;
-    if language == "latin":
-        words_list = generateLatinWords(language,text,bookslist,
-                text_from,text_to,add_remove)
+def get_words(request, language,main_text,bookslist,text_from,text_to,add_remove):
+    # Parse string specifying names+ranges of read texts:
+    if read_texts == "none":
+        read_texts = []
     else:
-        words_list = generateGreekWords(language,text,bookslist,
-                text_from,text_to,add_remove)
+        # Split read_texts into a list of lists of the form
+        #   [ [text_name, text_from, text_to], etc.]:
+    	read_texts = read_texts.split("+") #Split string
+        for i in range(len(read_texts)): #Split each substring
+            read_texts[i] = read_texts[i].split("_")
+    
+    # If no start/end loc was given, set to start/end of text:
+    if text_from == 'none':
+        text_from = 'start'
+    if text_to == 'none':
+        text_to == 'end'
+    
+    # Get words from database based on specified texts and ranges:
+    words_list = None
+    if language == "latin":
+        words_list = generateWords(WordAppearencesLatin,text,
+                text_from,text_to,read_texts,add_remove)
+    else:
+        words_list = generateWords(WordAppearencesGreek,text,
+                text_from,text_to,read_texts,add_remove)
     
     json_words = serializers.serialize("json",words_list)
     return HttpResponse(json_words, content_type="application/json")
+
+def generateWords(word_appearences,lang,text,read_texts,
+        text_from,text_to,add_remove):
+    #Create a database filter for the texts+ranges in read_texts:
+    read_texts_filter = Q()
+    for text_range in read_texts:
+        # Create a new filter for the specified range of the specified text:
+        text,start,end = text_range
+        new_filter = Q(text_name__exact = text, 
+                mindiv__range=(loc_to_mindiv(start), loc_to_mindiv(end)))
+        # Add it to the combined filter with an OR operation.
+        read_texts_filter = read_texts_filter | new_filter
+    
+    # Get WordAppearence objects for words appearing in main text:
+    from_mindiv = loc_to_mindiv(text,text_from)
+    to_mindiv = loc_to_mindiv(text,text_to)
+    vocab = WordAppearences.objects.filter(text_name__exact=text,
+            mindiv__range=(from_mindiv, to_mindiv))
+    # Get words which appear in main text and any of the read_texts:
+    vocab_intersection = WordAppearences.objects.filter(read_texts_filter,
+            word__in=list(vocab.values('word')))
+
+    # Remove or exclusively include words appearing in read_texts:
+    vocab_final = []
+    if add_remove == 'add': # If user wants words appearing in ALL texts 
+        vocab_final = list(vocab_intersection.values('word'))
+    else: # If user wants words appearing ONLY in the main text
+        vocab = vocab.values('word')
+        vocab_intersection = vocab_intersection.values('word')
+        for word in vocab:
+            if not word in vocab_intersection:
+                vocab_final.append(word)
+
+    return vocab_final
+
+
+# Translates a human-readable text location into a machine-readable mindiv.
+#
+# Traverses the text's text structure tree to find the appropriate mindiv.
+# location (str) must be a specific, bottom-level location in the text.
+#   e.g., if text is structured chapter.verse, must specifiy chapter AND verse.
+#   location can alternatively be "start" or "end".
+# Returns the appropriate mindiv (integer).
+def loc_to_mindiv(text,location):
+    node = TextStructureNode.objects.get(text_name=text)
+    if location == 'start':
+        pass # don't change nodes!  Root.least_mindiv is start of text.
+    elif location == 'end':
+        while not node.is_leaf(): # Go to rightmost node until end of tree.
+            node = node.get_last_child()
+    else: # traverse tree according to given location.
+        loc = location.split('.')
+        for subsection in loc:
+            node = node.get_children().get(subsection_id__exact=subsection)
+    return node.least_mindiv
+
 
 def generateLatinWords(language,text,bookslist,
         text_from,text_to,add_remove):
@@ -142,7 +216,7 @@ def generateLatinWords(language,text,bookslist,
     final_list = []
     wordcount = 0
     all_entries = BookTable.objects.all()
-    word_table_entries = WordTable.objects.all()
+    word_table_entries = WordPropertyLatin.objects.all()
 
     # Replace the nones with empty strings
     if bookslist == "none":
@@ -222,7 +296,7 @@ def generateLatinWords(language,text,bookslist,
     actual_words = []
 
     # grab the display lemmas
-    all_words = WordTable.objects.all()
+    all_words = WordPropertyLatin.objects.all()
     for word in final_list:
         for each in all_words:
             if word == each.title:
@@ -236,7 +310,7 @@ def generateGreekWords(language,text,bookslist,text_from,text_to,add_remove):
     final_list = []
     wordcount = 0
     all_entries = BookTableGreek.objects.all()
-    word_table_entries = WordTableGreek.objects.all()
+    word_table_entries = WordPropertyGreek.objects.all()
     print "so far, so good!  Pulled from db."
 
     # Replace the nones with empty strings
@@ -350,13 +424,11 @@ def generateGreekWords(language,text,bookslist,text_from,text_to,add_remove):
     actual_words = []
 
     # grab display lemmas
-    all_words = WordTableGreek.objects.all()
+    all_words = WordPropertyGreek.objects.all()
     for word in final_list:
         for each in all_words:
             if word == each.title:
                 actual_words.append(each)
-    print "ACTUAL WORDS:"
-    print actual_words
     return actual_words
 
 
@@ -532,3 +604,4 @@ def greek_helper(a, b, c, beg, end):
 		if int(a[i][0]) <= int(end[0]):
 			return c.append(b.title) 
 	
+
