@@ -506,6 +506,41 @@ a.boxclose-about{
             border-radius: 8px;
 }
 
+
+.buttons {
+text-aligh: center;
+margin-top: 45 px;
+border: 0px none;
+font-size: 16 px;
+font-style: inherit;
+font-weight: inherit;
+margin:auto;
+outline: 0px none;
+padding: 0px;
+vertical-align: baseline;
+}
+
+.red-btn {
+background: #E96656;
+border: #E96656;
+text-align: center;
+vertical-align: middle;
+margin: 10px;
+border-radius: 4px;
+padding: 13px 35px;
+}
+
+.green-btn {
+background: #1E9E6B;
+border: #1E9E6B;
+text-align: center;
+vertical-align: middle;
+margin: 10px;
+border-radius: 4px;
+padding: 13px 35px;
+}
+
+
 #welcome_blurb h3 {
    font-family: Georgia, serif;
    color:#07325C;
@@ -535,7 +570,7 @@ a.boxclose-about{
 .ex {
     text-align: center;
     padding: 30px;
-    background: #FFFFFF;
+    background: #0A0A0A;
     padding-bottom: 50px;
 }
 
@@ -632,4 +667,17 @@ html, body {
   height: 46px;
   width: 46px;
   cursor: pointer;
+}
+
+/*wordpress styles*/
+
+.intro-text {
+text-align: center;
+color: #FFF;
+line-height: 65px;
+z-index: 0;
+text-transform: uppercase;
+font-size: 55px;
+float: none;
+font-weight: 700;
 }

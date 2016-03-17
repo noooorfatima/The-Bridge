@@ -1,0 +1,374 @@
+<div class="panel panel-default" id="export_panel">
+    <div class="panel-heading" id="export_panel_heading">Export Table
+    </div>
+        <div class="btn-group btn-group-justified">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default" id="printSubmit" value="Print"
+                    data-toggle="tooltip" data-placement="bottom" title="Print table">Print</button>
+            </div>
+            <div class="btn-group">
+                <a id="dlink"  style="display:none;"></a>
+                <button type="button" class="btn btn-default" id="excel_export" value="Export to Excel"
+                    data-toggle="tooltip" data-placement="bottom" title="Saves table as an Excel file."
+                    onclick="tableToExcel('words_generated', 'name', 'myfile.xls')">Excel</button>
+            </div>
+            <div class="btn-group">
+                <a class="tab_export"><button type="button" class="btn btn-default" id="tab_delim_export" value="tab_delim_export"
+                        data-toggle="tooltip" data-placement="bottom" 
+                        title="Save as a .txt file - can be uploaded into Anki or Mnemosyne">Tab Delimited File</button></a>
+            </div>
+        </div>
+    <div class="panel-body" id="export_panel_body">
+    </div>
+</div>
+<div class="panel panel-default" id="display_panel">
+    <div class="panel-heading" id="display_panel_heading">Show/hide Columns</div>
+    <div class="panel-body" id="display_panel_body">
+        <div class="colFilters_container" id="prototype_container" style="">
+            <div class="col-toggle-box">
+                <h4> Prototype Toggle</h4>
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-primary" value="none">
+                        <input type="radio" name="" value=""> None</input>
+                    </label>
+                </div>
+            </div>
+            <div class="checkdiv">
+                <div class="checkdiv-checkbox" name="" class="" id="" value="" data-state=true>
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                </div>
+                <div class="checkdiv-label">Prototype Checkdiv</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default" id="filters_panel">
+    <div class="panel-heading" id="filters_panel_heading">Filter Vocab</div>
+    <div class="panel-body" id="filters_panel_body">
+        {% if language == "latin" %}
+        <div class="filters_container">
+            <h3> Parts of Speech</h3>
+            <div>
+                <div class="toggleAll_container">
+                    <button type="button" class="btn btn-primary toggleAll" data-toggle="button" data-check="true" aria-pressed="false" autocomplete="off">
+                        Toggle All
+                    </button>
+                </div>
+                <div class="pos-toggle-box">
+                    <label>Nouns</label>
+                    <div class="btn-group" id="noun_toggle" data-toggle="buttons">
+                        <label class="btn btn-primary active" value="all">
+                            <input type="radio" name="POS"  value="all"  checked=true>All</input>
+                        </label>
+                        <label class="btn btn-primary" value="select">
+                            <input type="radio" name="noun_select"  value="select" checked=false>Selection</input>
+                        </label>
+                        <label class="btn btn-primary" value="none">
+                            <input type="radio" name="noun_select"  value="none" checked=false>None</input>
+                        </label>
+                    </div>
+                    <div class="pos-subcategory-box" id="noun_decl_box">
+                        <label> Select by Declension: </label>
+                        <div class="checkdiv">
+                            <div class="checkdiv-checkbox" name="noun_decl" id="Noun_1" value="Noun_1" data-state=true>
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </div>
+                            <div class="checkdiv-label">1st</div>
+                        </div>
+                        <div class="checkdiv">
+                            <div class="checkdiv-checkbox" name="noun_decl" id="Noun_2" value="Noun_2" data-state=true>
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </div>
+                            <div class="checkdiv-label">2nd</div>
+                        </div>
+                        <div class="checkdiv">
+                            <div class="checkdiv-checkbox" name="noun_decl" id="Noun_3" value="Noun_3" data-state=true>
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </div>
+                            <div class="checkdiv-label">3rd</div>
+                        </div>
+                        <div class="checkdiv">
+                            <div class="checkdiv-checkbox" name="noun_decl" id="Noun_4" value="Noun_4" data-state=true>
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </div>
+                            <div class="checkdiv-label">4th</div>
+                        </div>
+                        <div class="checkdiv">
+                            <div class="checkdiv-checkbox" name="noun_decl" id="Noun_5" value="Noun_5" data-state=true>
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </div>
+                            <div class="checkdiv-label">5th</div>
+                        </div>
+                        <div class="checkdiv">
+                            <div class="checkdiv-checkbox" name="noun_decl" id="Noun_6" value="Noun_6" data-state=true>
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </div>
+                            <div class="checkdiv-label">Others</div>
+                            <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="bottom" title="Irregular, Defective, or Indeclinable" ></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="pos-toggle-box">
+                    <label>Adjectives</label>
+                    <div class="btn-group" id="adj_toggle" data-toggle="buttons">
+                        <label class="btn btn-primary active" value="all">
+                            <input type="radio" name="POS"  value="all"  checked>All</input>
+                        </label>
+                        <label class="btn btn-primary" value="select">
+                            <input type="radio" name="adj_select"  value="select">Selection</input>
+                        </label>
+                        <label class="btn btn-primary" value="none">
+                            <input type="radio" name="adj_select"  value="none">None</input>
+                        </label>
+                    </div>
+                    <div class="pos-subcategory-box" id="adj_decl_box">
+                        <label> Select by Declension: </label>
+                        <div class="checkdiv">
+                            <div class="checkdiv-checkbox" name="adj_decl" id="Adjective_1" value="Adjective_1" data-state=true>
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </div>
+                            <div class="checkdiv-label">1st-2nd</div>
+                        </div>
+                        <div class="checkdiv">
+                            <div class="checkdiv-checkbox" name="adj_decl" id="Adjective_3" value="Adjective_3" data-state=true>
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </div>
+                            <div class="checkdiv-label">3rd</div>
+                        </div>
+                        <div class="checkdiv">
+                            <div class="checkdiv-checkbox" name="adj_decl" id="Adjective_5" value="Adjective_5" data-state=true>
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </div>
+                            <div class="checkdiv-label">Others</div>
+                            <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="bottom" title="Defective or Indeclinable" ></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="pos-toggle-box">
+                    <label>Verbs</label>
+                    <div class="btn-group" id="verb_toggle" data-toggle="buttons">
+                        <label class="btn btn-primary active" value="all">
+                            <input type="radio" name="POS"  value="all"  checked=true>All</input>
+                        </label>
+                        <label class="btn btn-primary" value="select">
+                            <input type="radio" name="verb_select"  value="select" checked=false>Selection</input>
+                        </label>
+                        <label class="btn btn-primary" value="none">
+                            <input type="radio" name="verb_select"  value="none" checked=false>None</input>
+                        </label>
+                    </div>
+                    <div class="pos-subcategory-box" id="verb_conj_box"> 
+                        <label> Select by Conjugation: </label>
+                        <div class="checkdiv">
+                            <div class="checkdiv-checkbox" name="verb_conj" id="Verb_1" value="Verb_1" data-state=true>
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </div>
+                            <div class="checkdiv-label">1st</div>
+                        </div>
+                        <div class="checkdiv">
+                            <div class="checkdiv-checkbox" name="verb_conj" id="Verb_2" value="Verb_2" data-state=true>
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </div>
+                            <div class="checkdiv-label">2nd</div>
+                        </div>
+                        <div class="checkdiv">
+                            <div class="checkdiv-checkbox" name="verb_conj" id="Verb_3" value="Verb_3" data-state=true>
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </div>
+                            <div class="checkdiv-label">3rd</div>
+                        </div>
+                        <div class="checkdiv">
+                            <div class="checkdiv-checkbox" name="verb_conj" id="Verb_4" value="Verb_4" data-state=true>
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </div>
+                            <div class="checkdiv-label">4th</div>
+                        </div>
+                        <div class="checkdiv">
+                            <div class="checkdiv-checkbox" name="verb_conj" id="Verb_5" value="Verb_5" data-state=true>
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </div>
+                            <div class="checkdiv-label">Others</div>
+                            <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="bottom" title="Irregular or Defective" ></span>
+                        </div>
+                    </div>
+                </div>
+
+        {% else %}
+        <div class="filters_container">
+            <h3> Parts of Speech</h3>
+            <div>
+                <div class="toggleAll_container">
+                    <button type="button" class="btn btn-primary toggleAll" data-toggle="button" data-check="true" aria-pressed="false" autocomplete="off">
+                        Toggle All
+                    </button>
+                </div>
+                <div class="pos-toggle-box">
+                    <label>Adjectives</label>
+                    <div class="btn-group" id="adj_toggle" data-toggle="buttons">
+                        <label class="btn btn-primary active" value="all">
+                            <input type="radio" name="POS"  value="all"  checked>All</input>
+                        </label>
+                        <label class="btn btn-primary" value="select">
+                            <input type="radio" name="adj_select"  value="select">Selection</input>
+                        </label>
+                        <label class="btn btn-primary" value="none">
+                            <input type="radio" name="adj_select"  value="none">None</input>
+                        </label>
+                    </div>
+                    <div class="pos-subcategory-box" id="adj_decl_box">
+                        <label> Select by Declension: </label>
+                        <div class="checkdiv">
+                            <div class="checkdiv-checkbox" name="adj_decl" id="Adjective_1" value="Adjective_1" data-state=true>
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </div>
+                            <div class="checkdiv-label">1st-2nd</div>
+                        </div>
+                        <div class="checkdiv">
+                            <div class="checkdiv-checkbox" name="adj_decl" id="Adjective_3" value="Adjective_3" data-state=true>
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </div>
+                            <div class="checkdiv-label">3rd</div>
+                        </div>
+                        <div class="checkdiv">
+                            <div class="checkdiv-checkbox" name="adj_decl" id="Adjective_5" value="Adjective_5" data-state=true>
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </div>
+                            <div class="checkdiv-label">Others</div>
+                            <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="bottom" title="Defective or Indeclinable" ></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="pos-toggle-box">
+                    <label>Nouns</label>
+                    <div class="btn-group" id="noun_toggle" data-toggle="buttons">
+                        <label class="btn btn-primary active" value="all">
+                            <input type="radio" name="POS"  value="all"  checked=true>All</input>
+                        </label>
+                        <label class="btn btn-primary" value="select">
+                            <input type="radio" name="noun_select"  value="select" checked=false>Selection</input>
+                        </label>
+                        <label class="btn btn-primary" value="none">
+                            <input type="radio" name="noun_select"  value="none" checked=false>None</input>
+                        </label>
+                    </div>
+                    <div class="pos-subcategory-box" id="noun_decl_box">
+                        <label> Select by Declension: </label>
+                        <div class="checkdiv">
+                            <div class="checkdiv-checkbox" name="noun_decl" id="Noun_1" value="Noun_1" data-state=true>
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </div>
+                            <div class="checkdiv-label">1st</div>
+                        </div>
+                        <div class="checkdiv">
+                            <div class="checkdiv-checkbox" name="noun_decl" id="Noun_2" value="Noun_2" data-state=true>
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </div>
+                            <div class="checkdiv-label">2nd</div>
+                        </div>
+                        <div class="checkdiv">
+                            <div class="checkdiv-checkbox" name="noun_decl" id="Noun_3" value="Noun_3" data-state=true>
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </div>
+                            <div class="checkdiv-label">3rd</div>
+                        </div>
+                        <div class="checkdiv">
+                            <div class="checkdiv-checkbox" name="noun_decl" id="Noun_6" value="Noun_6" data-state=true>
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </div>
+                            <div class="checkdiv-label">Others</div>
+                            <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="bottom" title="Irregular, Defective, or Indeclinable" ></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="checkdiv checkdiv-wide">
+                    <div class="checkdiv-checkbox" name="POS" class="POS" id="Verb" value="Verb" data-state=true>
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    </div>
+                    <div class="checkdiv-label">Verbs</div>
+                </div>
+                <div class="checkdiv">
+                    <div class="checkdiv-checkbox" name="POS" class="POS" id="Article" value="Article" data-state=true>
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    </div>
+                    <div class="checkdiv-label">Articles</div>
+                </div>
+                <div class="checkdiv">
+                    <div class="checkdiv-checkbox" name="POS" class="POS" id="Particle" value="Particle" data-state=true>
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    </div>
+                    <div class="checkdiv-label">Particles</div>
+                </div>
+                <div class="checkdiv">
+                    <div class="checkdiv-checkbox" name="POS" class="POS" id="Article" value="Article" data-state=true>
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    </div>
+                    <div class="checkdiv-label">Articles</div>
+                </div>
+            {% endif %}
+                <div class="checkdiv">
+                    <div class="checkdiv-checkbox" name="POS" class="POS" id="Adverb" value="Adverb" data-state=true>
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    </div>
+                    <div class="checkdiv-label">Adverbs</div>
+                </div>
+                <div class="checkdiv">
+                    <div class="checkdiv-checkbox" name="POS" class="POS" id="Conjunction" value="Conjunction" data-state=true>
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    </div>
+                    <div class="checkdiv-label">Conjunctions</div>
+                </div>
+                <div class="checkdiv">
+                    <div class="checkdiv-checkbox" name="POS" class="POS" id="Interjection" value="Interjection" data-state=true>
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    </div>
+                    <div class="checkdiv-label">Interjections</div>
+                </div>
+                <div class="checkdiv">
+                    <div class="checkdiv-checkbox" name="POS" class="POS" id="Preposition" value="Preposition" data-state=true>
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    </div>
+                    <div class="checkdiv-label">Prepositions</div>
+                </div>
+                <div class="checkdiv">
+                    <div class="checkdiv-checkbox" name="POS" class="POS" id="Pronoun" value="Pronoun" data-state=true>
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    </div>
+                    <div class="checkdiv-label">Pronouns</div>
+                </div>
+                <br/>
+            </div>
+        </div>
+            <hr />  
+
+            <div class="filters_container">
+                <h3> et cetera — καὶ τὰ λοιπά</h3>
+                <div>
+                    <div class="checkdiv checkdiv-wide">
+                        <div class="checkdiv-checkbox" name="Reg_Adv" id="Reg_Adv" value="1" data-state=true>
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                        </div>
+                        <div class="checkdiv-label">Special Adverbs & Adjectives</div>
+                        <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="bottom" title="Regularly-formed adverbs, comparative & superlative adjectives" ></span>
+                    </div>
+                    <div class="checkdiv">
+                        <div class="checkdiv-checkbox" name="Idiom" id="Idiom" value="Idiom" data-state=true>
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                        </div>
+                        <div class="checkdiv-label">Idioms</div>
+                    </div>
+                    <div class="checkdiv">
+                        <div class="checkdiv-checkbox" name="Number" id="Number" value="1" data-state=true>
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                        </div>
+                        <div class="checkdiv-label">Numbers</div>
+                    </div>
+                    <div class="checkdiv">
+                        <div class="checkdiv-checkbox" name="Proper nouns" id="Proper_nouns" value="1" data-state=true>
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                        </div>
+                        <div class="checkdiv-label">Proper Nouns</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
