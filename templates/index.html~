@@ -6,13 +6,8 @@
 
 </head -->
 <title>The Bridge: Customizable Greek and Latin Vocabulary Lists</title>
-<body>
-	{% include "navbar.html" %}
-	{% include "about.html" %}
 
-	<div class="page-wrap">
 <div style="min-height: 76px;" id="main-nav" class="navbar navbar-inverse bs-docs-nav" role="banner">
-
 		<div class="container">
 
 			<div class="navbar-header responsive-logo">
@@ -32,38 +27,58 @@
 			</div>
 
 			<nav class="navbar-collapse bs-navbar-collapse collapse" role="navigation" id="site-navigation">
-				<a class="screen-reader-text skip-link" href="#content">Skip to content</a>
-				<ul class="nav navbar-nav navbar-right responsive-nav main-nav-list"><li class="page_item page-item-222"><a href="http://iris.haverford.edu/bridge/about/">About</a></li>
-<li class="page_item page-item-53"><a href="http://iris.haverford.edu/bridge/details-about-texts/">Details about Texts</a></li>
-<li class="page_item page-item-23"><a href="http://iris.haverford.edu/bridge/log/">Developer’s Log</a></li>
-<li class="page_item page-item-10"><a href="http://iris.haverford.edu/bridge/known-issue/">Known Issues &amp; Requested Features</a></li>
+				<!-- <a class="screen-reader-text skip-link" href="#content">Skip to content</a> -->
+				<ul class="nav navbar-nav navbar-right responsive-nav main-nav-list">
+
+
+
+<a class="kwick1" href="/" target="_self">Home</a>
+
+        <a class="kwick2" data-toggle="modal" data-target=".about-modal" target="_blank">About</a>
+
+        <a class="kwick3" href="http://iris.haverford.edu/bridge" target="_blank">Help</a>
+
+
+
+
 </ul>			</nav>
 
+
 		</div>
-
-	</div>
-
+</div>
 
 
- <!-- <style type="text/css" id="custom-background-css">
-body.custom-background { background-image: url('http://iris.haverford.edu/bridge/files/2015/10/Pont_du_Gard_BLS-11.jpg'); background-repeat: no-repeat; background-position: top center; background-attachment: scroll; }
-</style> -->
+<body background = "http://iris.haverford.edu/bridge/files/2015/10/Pont_du_Gard_BLS-11.jpg">
+	
+	{% include "about.html" %}
+<br> </br>
+<br> </br>
+<br> </br>
+<br> </br>
 
 
-<section id= "main-content" class= "clearfix">
-	<article id= "mainpage" class= "section-wrapper clearfix" img src= "http://iris.haverford.edu/bridge/files/2015/10/Pont_du_Gard_BLS-11.jpg" alt="Pont du Gard">
-	<div class="content-wrapper clearfix">
+
+	<div class="page-wrap">
+<div>
+
+
+
 		<div class="col-xs-10 col-xs-offset-1  col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
 			<div class="header-content-wrap">
+
 			<h1 class="intro-text">Select a Language</h1>
 				<div class="buttons" pull-right><a href="http://bridge.haverford.edu/latin_book_select/" class="btn btn-primary custom-button red-btn">Latin</a><a href="http://bridge.haverford.edu/greek_book_select/" class="btn btn-primary custom-button green-btn">Greek</a>
 				</div>
 			</div>
 		</div>
-	</div>
-	</article>
-</section>
+<br> </br>
+<br> </br>
+<br> </br>
+<br> </br>
+<br> </br>
+<br> </br>
+<br> </br>
 </div>
-
-{% include "footer.html" %}
+</div>
 </body>
+{% include "footer.html" %}

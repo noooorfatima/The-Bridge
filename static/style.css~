@@ -33,14 +33,22 @@ body .printable {
 
 .container {
   width: 100%;
+background: white;
+}
+
+.nav {
+list-style: outside none none;
+
 }
 
 .navbar-nav>li{
   float:none;
+position: relative;
+display: block;
 }
 
 .navbar {
-  background-color: #30688D;
+  background-color: white;
   border: none;
 }
 
@@ -49,15 +57,50 @@ div.navbar.navbar-default::before {
 }
 
 .navbar-nav li a {
-  color: white !important;
+  color: black !important;
 }
 
 .navbar-header {
   height: 0px;
 }
 
+.navbar-brand {
+padding: 7px 15px;
+position: relative;
+line-height: 60px;
+display: inline-block;
+}
+
+.navbar-inverse {
+padding: 0px;
+line-height: 35px;
+}
+
+.glyphicon {
+color: black;
+}
+
+.kwick1 {
+color: black;
+line-height: 35px;
+font-size: 16px;
+}
+
+.kwick2 {
+color: black;
+line-height: 35px;
+font-size: 16px;
+}
+
+.kwick3 {
+color: black;
+line-height: 35px;
+font-size: 16px;
+}
+
+
 #nav_stripe {
-  background-color: #6393A9;
+  background-color: #0A0A0A;
   height: 8px;
   width:100%;
 }
@@ -508,7 +551,7 @@ a.boxclose-about{
 
 
 .buttons {
-text-aligh: center;
+text-align: center;
 margin-top: 45 px;
 border: 0px none;
 font-size: 16 px;
@@ -525,7 +568,7 @@ background: #E96656;
 border: #E96656;
 text-align: center;
 vertical-align: middle;
-margin: 10px auto;
+margin: 10px;
 border-radius: 4px;
 padding: 13px 35px;
 }
@@ -535,7 +578,7 @@ background: #1E9E6B;
 border: #1E9E6B;
 text-align: center;
 vertical-align: middle;
-margin: 10px auto;
+margin: 10px;
 border-radius: 4px;
 padding: 13px 35px;
 }

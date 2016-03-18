@@ -5,9 +5,7 @@
 <div id="navbar">
     <ul id=kwicks-list class="kwicks kwicks-horizontal">
         <a class="kwick1" href="/" target="_self"><span class="glyphicon glyphicon-home" style="padding-right: 5px"></span>Home</a>
-
         <a data-toggle="modal" data-target=".about-modal" target="_blank"><span class="glyphicon glyphicon-info-sign"  style="padding-right: 5px"></span>About</a>
-
         <a class="kwick3" href="http://iris.haverford.edu/bridge" target="_blank"><span class="glyphicon glyphicon-question-sign"  style="padding-right: 5px"></span>Help</a>
     </ul>
 </div>
