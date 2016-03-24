@@ -1,18 +1,43 @@
 html {
  background-color: #07325C;
+ background: url(images/bg.jpg) no-repeat center center fixed;
+ -webkit-background-size: cover;
+ -moz-background: cover;
+ -o-background-size: cover;
+ background-size: cover;
 }
 
+img.bg {
+min-height: 100%;
+min-width: 1024px;
+width: 100%;
+height: auto;
+position: fixed;
+top: 0;
+left: 0;
+}
+
+/*@media screen and (max-widht: 1024px) {
+im.bg {
+left: 50%;
+margin-left: -512px;
+}
+}
+*/
 body {
   background-color: #F1F1F1;
   margin: 0px;
   overflow: auto;
   padding: 0px;
+  font-size: 16px;
+ /* line-height: 35px;*/
+  width: 100%;
 }
 
 .masthead{
     height: 168px;
     background-color:#07325C;
-    //background-image: url("/static/images/BridgeLogo.png");
+    /*background-image: url("/static/images/BridgeLogo.png");*/
     background-repeat:no-repeat;
 }
 
@@ -32,7 +57,7 @@ body .printable {
       }
 
 .container {
-  width: 100%;
+  width: 1170px;
 background: white;
 }
 
@@ -47,8 +72,8 @@ text-align: left;
 
 .navbar-nav>li{
   float:none;
-position: relative;
-display: block;
+  position: relative;
+  display: block;
 }
 
 .navbar {
@@ -62,6 +87,7 @@ div.navbar.navbar-default::before {
 
 .navbar-nav li a {
   color: black !important;
+ font-size: 16px; 
 }
 
 .navbar-header {
@@ -75,9 +101,52 @@ line-height: 60px;
 display: inline-block;
 }
 
-.navbar-inverse {
+.navbar-inverse.navbar-nav {
 padding: 0px;
 line-height: 35px;
+margin-left: 0px;
+}
+
+.navbar-nav.navbar-right:last-child {
+margin-right: -15px;
+}
+
+navbar-right {
+float: right !important;
+}
+
+.navbar-collapse.collapse {
+display: block !important;
+height: auto !important;
+padding-bottom: 0px;
+overflow: visible !important;
+}
+
+.navbar-collapse {
+width: auto;
+border-top: 0px none;
+box-shadow: none;
+max-height: 340px;
+padding-right: 15px;
+padding-left: 15px;
+}
+
+.navbar-toggle.collapsed{
+background-color: #808080 !important;
+}
+
+.navbar-inverse.navbar-toggle{
+border-color: #333;
+}
+
+.navbar-toggle{
+display: none;
+position: relative;
+float:right;
+margin-right:15px;
+padding:9px 10px;
+margin-bottom: 8px;
+background-image: none;
 }
 
 .glyphicon {
@@ -631,10 +700,10 @@ html, body {
 .page-wrap {
   min-height: 0%;
   /* equal to footer height */
-  margin-bottom: 100px;
+  margin-bottom: 300px;
   height: auto;
   overflow: auto;
-  padding-top: 40px;
+  padding-top: 150px;
 }
 
 .page-wrap::-webkit-scrollbar {
@@ -647,7 +716,7 @@ html, body {
 }
 .site-footer, .page-wrap:after {
   /* .push must be the same height as footer */
-  height: 70px;
+  height: 80px;
   width: 100%;
   margin: auto;
 }
