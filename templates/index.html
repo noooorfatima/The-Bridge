@@ -7,7 +7,18 @@
 </head -->
 <title>The Bridge: Customizable Greek and Latin Vocabulary Lists</title>
 
-<div style="min-height: 76px;" id="main-nav" class="navbar navbar-inverse bs-docs-nav" role="banner">
+
+
+<body class = "home blog custom-background">
+<div class= "preloader" style= "display: none;">
+<div class= "status" style="display: none;">
+</div>
+</div>
+	
+	{% include "about.html" %}
+<header id="home" class="header" style="min-height: 76px;">
+<div style="min-height: 76px;" id="main-nav" class="navbar navbar-inverse bs-docs-nav fixed" role="banner">
+  
 		<div class="container">
 
 			<div class="navbar-header responsive-logo">
@@ -23,12 +34,14 @@
 				<span class="icon-bar"></span>
 </button>
 
-				<a href="http://iris.haverford.edu/bridge/" class="navbar-brand"><img src="http://iris.haverford.edu/bridge/files/2015/10/Bridge-text.png" alt="A Development Blog for &quot;The Bridge&quot;"></a>
+				<a href="http://iris.haverford.edu/bridge/" class="navbar-brand">
+				<img src="http://iris.haverford.edu/bridge/files/2015/10/Bridge-text.png" alt="A Development Blog for &quot;The Bridge&quot;">
+</a>
 			</div>
 
-			<nav class="navbar-collapse bs-navbar-collapse collapse" role="navigation" id="site-navigation">
+			<nav class="navbar-collapse bs-navbar-collapse collapse" role="navigation" id="site-navigation" style="height: 0px;">
 				<!-- <a class="screen-reader-text skip-link" href="#content">Skip to content</a> -->
-				<ul class="nav navbar-nav navbar-right responsive-nav main-nav-list">
+				<ul class="nav navbar-nav navbar-right responsive-nav main-nav-list active">
 
 
 
@@ -41,31 +54,38 @@
 
 
 
-</ul>			</nav>
+</ul>		
+	</nav>
 
 
 		</div>
 </div>
 
 
-<body background = "http://iris.haverford.edu/bridge/files/2015/10/Pont_du_Gard_BLS-11.jpg">
-	
-	{% include "about.html" %}
+	<div class="home-header-wrap">
+<div class= "header-content-wrap:>
+
+		<div class="container">
 <br>
 <br>
-
-
-
-	<div class="page-wrap">
-		<div class="col-xs-10 col-xs-offset-1  col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
-			<div class="header-content-wrap">
+<br>
+<br>
+<br>
+<br>
 
 			<h1 class="intro-text">Select a Language</h1>
 				<div class="buttons" pull-right><a href="http://bridge.haverford.edu/latin_book_select/" class="btn btn-primary custom-button red-btn">Latin</a><a href="http://bridge.haverford.edu/greek_book_select/" class="btn btn-primary custom-button green-btn">Greek</a>
 				</div>
 			</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 </div>
 </div>
+</header>
 </body>
 {% include "footer.html" %}
