@@ -160,7 +160,7 @@ div.navbar.navbar-default::before {
 }
 
 .navbar-header {
-  height: 0px;
+  height: 100px;
   margin-right: 0px;
   margin-left: 0px;
   float: left;
@@ -873,13 +873,13 @@ html, body {
 }
 .site-footer, .page-wrap:after {
   /* .push must be the same height as footer */
-  height: 80px;
+  height: 100px;
   width: 100%;
   margin: auto;
 }
 .site-footer {
   margin-top: 100px;
-  background: #C5D3DC;
+  background: black;
 }
 
 #DCC-logo {
@@ -953,4 +953,16 @@ text-transform: uppercase;
 font-size: 55px;
 float: none;
 font-weight: 700;
+}
+
+.company-details {
+color: black;
+padding-top: 10px;
+padding-bottom: 10px;
+}
+
+.copyright {
+padding-top: 10px;
+padding-bottom: 10px;
+background: white none repeat scroll 0% 0%;
 }
