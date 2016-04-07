@@ -51,8 +51,7 @@ body.custom-background {
 background-image: url("http://iris.haverford.edu/bridge/files/2015/10/Pont_du_Gard_BLS-11.jpg");
 background-repeat: no-repeat;
 background-position: center top !important;
-
-background-size: initial;
+background-size: inherit;
 }
 
 .preloader {
@@ -552,9 +551,18 @@ a.boxclose-about{
    padding: 0px;
 }
 
+.panel-body {
+line-height: 15px;
+font-size: 14px;
+padding: 0px;
+padding-top: 0px;
+padding-bottom: 0px;
+height: 350px;
+}
+
 .exclude_selection_box {
-    padding-top: 15px;
-    padding-bottom: 60px;
+    padding-top: 0px;
+    padding-bottom: 0px;
     text-align: center;
     overflow: auto;
     height: auto;
@@ -940,6 +948,22 @@ html, body {
   height: 46px;
   width: 46px;
   cursor: pointer;
+}
+
+.col-xs-12 {
+padding-top: 0px;
+}
+
+.col-sm-12 {
+padding-top:0px;
+}
+
+col-md-12{
+padding-top: 0px;
+}
+
+col-lg-12{
+padding-top: 0px;
 }
 
 /*wordpress styles*/
