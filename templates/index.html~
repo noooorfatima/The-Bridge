@@ -1,10 +1,11 @@
 {% include "head.html" %}
 <!--{% load staticfiles %}
 <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
-<html>
+
 <head>
 
 </head -->
+<html>
 <title>The Bridge: Customizable Greek and Latin Vocabulary Lists</title>
    <body class = "home blog custom-background img-responsive">
 	<div class= "preloader" style= "display: none;">
@@ -41,3 +42,4 @@
 </body>
 
 {% include "footer.html" %} 
+</html>
