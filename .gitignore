@@ -8,3 +8,4 @@ new_bridge_uwsgi.ini
 new_bridge/*.pyc
 uwsgi_params
 *~
+*.swp
