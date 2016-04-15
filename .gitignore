@@ -7,3 +7,4 @@ new_bridge_uwsgi.ini
 .DS_Store
 new_bridge/*.pyc
 uwsgi_params
+*~
