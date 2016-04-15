@@ -20,7 +20,12 @@ left: 0;
 
 img {
 max-width: 100%;
+height: auto;
+}
 
+.img-responsive {
+display: block;
+width: auto;
 height: auto;
 
 }
@@ -53,6 +58,14 @@ background-image: url("http://iris.haverford.edu/bridge/files/2015/10/Pont_du_Ga
 background-repeat: no-repeat;
 background-position: center top !important;
 background-size: inherit;
+}
+
+
+body.wordspage-background {
+background-image: url("http://iris.haverford.edu/bridge/files/2015/10/Pont_du_Gard_BLS-11.jpg");
+background-repeat: no-repeat;
+background-position: center top !important;
+background-size: initial;
 }
 
 .preloader {
@@ -613,7 +626,7 @@ height: auto;
 #giant_form_submit {
     width: 130px;
     height:40px;
-    background-color: #20466C;
+    background-color: #1E9E6B;
     color: white;
     display: block;
     margin: 0 auto;
@@ -909,9 +922,10 @@ html, body {
 
 #haverfordlogo img {
   //display: block;
-  width: 100px;
+  width: 160px;
   //text-align: center;
   margin-top: 10px;
+height: 75px;
 }
 
 #copyright {
