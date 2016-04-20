@@ -1,0 +1,50 @@
+{% include "about.html" %}
+<div style="min-height: 76px;" id="main-nav" class="navbar bs-docs-nav fixed" role="banner">
+
+  <nav class="navbar">
+  <div class="container-fluid">
+    <div class="navbar-header responsive-logo">
+      <button type="button" class="navbar-toggle active" data-toggle="collapse" data-target=".bs-navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="/">
+	<img src="http://iris.haverford.edu/bridge/files/2015/10/Bridge-text.png" style = 'width:100%;' alt="A Development Blog for &quot;The Bridge&quot;">
+      </a>
+    </div>
+    <div class="collapse navbar-collapse" id="site-navigation">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/">Home</a></li>
+        <li><a data-toggle="modal" data-target=".about-modal" target="_blank">About</a></li>
+        <li><a href="http://iris.haverford.edu/bridge">Help</a></li>
+      </ul>
+    </div>
+  </div>
+  </nav>
+ </div>
+
+
+<!-- <div class="container-fluid">
+	<div class="navbar-header responsive-logo">
+        	<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a href="http://iris.haverford.edu/bridge/" class="navbar-brand">
+			<img src="http://iris.haverford.edu/bridge/files/2015/10/Bridge-text.png" alt="A Development Blog for &quot;The Bridge&quot;">
+		</a>
+	 </div>
+
+		<nav class="navbar-collapse bs-navbar-collapse collapse" role="navigation" id="site-navigation" style="height: 0px;">
+		<!-- <a class="screen-reader-text skip-link" href="#content">Skip to content</a> 
+		<ul class="nav navbar-nav navbar-right responsive-nav main-nav-list active"> 
+			<li><a class="kwick1" href="/" target="_self">Home</a></li>
+			<li><a class="kwick2" data-toggle="modal" data-target=".about-modal" target="_blank">About</a></li>
+			<li><a class="kwick3" href="http://iris.haverford.edu/bridge" target="_blank">Help</a></li>
+		</ul>		
+		</nav>
+	</div>
+-->

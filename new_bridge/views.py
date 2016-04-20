@@ -104,11 +104,9 @@ def words_page(request,language,text,bookslist,text_from,text_to,add_remove):
     
     # Parse the user-selected books and their ranges, & format them for humans:
     bookslist_formatted = "nothing" 
-    print "hi"
     if bookslist != "none":
         temp_bookslist = bookslist.split("+")
         bookslist_formatted = ""
-        print temp_bookslist
         loop_counter = 1
         for book in temp_bookslist:
             end = book.find("_")
@@ -117,7 +115,7 @@ def words_page(request,language,text,bookslist,text_from,text_to,add_remove):
             bookslist_formatted += "<em>"+book+"</em>"+ ", "
 
     try:
-        return render(request, "words_page.html", {"language":language, "text":text,
+        return render(request,"words_page.html", {"language":language, "text":text,
         "bookslist": bookslist, "bookslist_formatted": bookslist_formatted, 
         "text_from": text_from, "text_from_formatted": text_from_formatted, 
         "text_to": text_to, "text_to_formatted": text_to_formatted,
@@ -126,16 +124,16 @@ def words_page(request,language,text,bookslist,text_from,text_to,add_remove):
         print e
 
 # Generates vocab list and returns as JSON string:
-def get_words(request,language,text,read_texts,text_from,text_to,add_remove):
+def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
     # Parse string specifying names+ranges of read texts:
-    if read_texts == "none":
-        read_texts = []
+    if bookslist == "none":
+        bookslist = []
     else:
         # Split read_texts into a list of lists of the form
         #   [ [text_name, text_from, text_to], etc.]:
-    	read_texts = read_texts.split("+") #Split string
-        for i in range(len(read_texts)): #Split each substring
-            read_texts[i] = read_texts[i].split("_")
+    	bookslist = read_texts.split("+") #Split string
+        for i in range(len(bookslist)): #Split each substring
+            bookslist[i] = bookslist[i].split("_")
     
     # If no start/end loc was given, set to start/end of text:
     if text_from == 'none':
@@ -146,12 +144,11 @@ def get_words(request,language,text,read_texts,text_from,text_to,add_remove):
     # Get words from database based on specified texts and ranges:
     words_list = None 
     if language == "latin":
-	print "here 2"
         words_list = generateWords(WordAppearencesLatin,language,text,
-                text_from,text_to,read_texts,add_remove)
+                text_from,text_to,bookslist,add_remove)
     else:
         words_list = generateWords(WordAppearencesGreek,language,text,
-                text_from,text_to,read_texts,add_remove)
+                text_from,text_to,bookslist,add_remove)
     
     json_words = serializers.serialize("json",words_list)
     return HttpResponse(json_words, content_type="application/json")
@@ -166,23 +163,36 @@ def generateWords(word_appearences,lang,text,
     print read_texts
     print add_remove
     read_texts_filter = Q()
-    if len(read_texts) > 0:
-        for text_range in read_texts:
-            # Create a new filter for the specified range of the specified text:
-            text,start,end = text_range
-            new_filter = Q(text_name__exact = text, 
-                mindiv__range=(loc_to_mindiv(start), loc_to_mindiv(end)))
-            # Add it to the combined filter with an OR operation.
-            read_texts_filter = read_texts_filter | new_filter
+    try:
+        if len(read_texts) > 0:
+            for text_range in read_texts:
+                # Create a new filter for the specified range of the specified text:
+                text,start,end = text_range
+                new_filter = Q(text_name__exact = text, 
+                    mindiv__range=(loc_to_mindiv(start), loc_to_mindiv(end)))
+                # Add it to the combined filter with an OR operation.
+                read_texts_filter = read_texts_filter | new_filter
+    except Exception, e:
+        print "try 1 error: "
+        print e
     
     # Get WordAppearence objects for words appearing in main text:
-    from_mindiv = loc_to_mindiv(text,text_from)
-    to_mindiv = loc_to_mindiv(text,text_to)
-    vocab = word_appearences.objects.filter(text_name__exact=text,
-            mindiv__range=(from_mindiv, to_mindiv))
-    # Get words which appear in main text and any of the read_texts:
-    vocab_intersection = word_appearences.objects.filter(read_texts_filter,
-            word__in=list(vocab.values('word')))
+    try:
+        from_mindiv = loc_to_mindiv(text,text_from)
+        to_mindiv = loc_to_mindiv(text,text_to)
+        vocab = word_appearences.objects.filter(text_name__exact=text,
+                mindiv__range=(from_mindiv, to_mindiv))
+    except Exception, e:
+        print "try 2 error: "
+        print e
+    
+    try:
+        # Get words which appear in main text and any of the read_texts:
+        vocab_intersection = word_appearences.objects.filter(read_texts_filter,
+                word__in=list(vocab.values('word')))
+    except Exception, e:
+        print "try 3 error: "
+        print e
 
     # Remove or exclusively include words appearing in read_texts:
     vocab_final = []

@@ -107,7 +107,7 @@ class WordPropertyGreek(models.Model):
     dcc_semantic_group = models.CharField(max_length=34, blank=True, null=True) 
     def __unicode__(self):
         return self.title
-
+'''
 class BookTitlesGreek(models.Model):
     title_of_book = models.TextField(db_column='Title of Book') 
     def __unicode__(self):
@@ -115,7 +115,7 @@ class BookTitlesGreek(models.Model):
     class Meta:
         managed = True
         db_table = 'book_titles_greek'
-'''
+
 class BookTable(models.Model):
     id = models.IntegerField(primary_key=True)
     title = models.CharField(db_column='Title', max_length=30, blank=True) 
@@ -126,7 +126,7 @@ class BookTable(models.Model):
     class Meta:
         managed = True
         db_table = 'book_table'
-'''
+
 class BookTitles(models.Model):
     title_of_book = models.TextField(db_column='Title of Book') 
     def __unicode__(self):
@@ -134,7 +134,7 @@ class BookTitles(models.Model):
     class Meta:
         managed = True
         db_table = 'book_titles'
-'''
+
 class BookTableGreek(models.Model):
     id = models.IntegerField(primary_key=True)
     title = models.CharField(db_column='Title', max_length=43, blank=True) 

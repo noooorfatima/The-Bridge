@@ -360,6 +360,7 @@ $(document).ready(function() {
         var requestUrl= "/get_words/"+words_metadata.language+'/'+words_metadata.text+
             '/'+words_metadata.bookslist+'/'+words_metadata.text_from+
             '/'+words_metadata.text_to+'/'+words_metadata.add_remove+'/';
+        console.log(requestUrl);
         $.getJSON(requestUrl)
             .done(function(receivedData) {
                 words_data = loadWordData(receivedData);
@@ -388,6 +389,11 @@ $(document).ready(function() {
                         $("body").off("click",slideoutPanelHelper);
                     }
                 });
+            })
+
+          .fail(function(receivedData) {
+               console.log("failed!");
+               console.log(receivedData);
             });
         
     } // END of event bindings for WORDS_LIST.HTML and GREEK_WORDS_LIST.HTML!
