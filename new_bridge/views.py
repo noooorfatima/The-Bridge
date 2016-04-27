@@ -138,18 +138,35 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
     # If no start/end loc was given, set to start/end of text:
     if text_from == 'none':
         text_from = 'start'
+
     if text_to == 'none':
-        text_to == 'end'
+        text_to = 'end'
     
     # Get words from database based on specified texts and ranges:
-    words_list = None 
+    word_ids = None
+    word_property_table = None
     if language == "latin":
-        words_list = generateWords(WordAppearencesLatin,language,text,
+        word_ids = generateWords(WordAppearencesLatin,language,text,
                 text_from,text_to,bookslist,add_remove)
+        word_property_table = WordPropertyLatin
     else:
-        words_list = generateWords(WordAppearencesGreek,language,text,
+        word_ids = generateWords(WordAppearencesGreek,language,text,
                 text_from,text_to,bookslist,add_remove)
+        word_property_table = WordPropertyGreek
     
+    # take word ids and find the correct data for these words in correct table (word table)
+    words_list = []
+    try:
+        print word_ids
+    except Exception, e:
+        print e
+
+    try:
+        for each in word_ids:
+            words_list.append(word_property_table.objects.filter(id__exact=each))
+    except Exception, e:
+        print e
+
     json_words = serializers.serialize("json",words_list)
     return HttpResponse(json_words, content_type="application/json")
 
@@ -163,6 +180,7 @@ def generateWords(word_appearences,lang,text,
     print read_texts
     print add_remove
     read_texts_filter = Q()
+
     try:
         if len(read_texts) > 0:
             for text_range in read_texts:
@@ -185,26 +203,40 @@ def generateWords(word_appearences,lang,text,
     except Exception, e:
         print "try 2 error: "
         print e
+
+    # makes a list of dictionaries that contain the id num of all of the words in vocab variable
+    # looks like: [{'word': 1001}, {'word': 2030'}, ...} etc.
+    list_of_dict_of_words = vocab.values('word')
     
+    # makes a list of these id numbers
+    list_word_id = []
+    for each in list_of_dict_of_words:
+	list_word_id.append(each['word'])
+
     try:
         # Get words which appear in main text and any of the read_texts:
         vocab_intersection = word_appearences.objects.filter(read_texts_filter,
-                word__in=list(vocab.values('word')))
+                word__in=list_word_id)
     except Exception, e:
         print "try 3 error: "
         print e
 
     # Remove or exclusively include words appearing in read_texts:
     vocab_final = []
-    if add_remove == 'add': # If user wants words appearing in ALL texts 
-        vocab_final = list(vocab_intersection.values('word'))
-    else: # If user wants words appearing ONLY in the main text
-        vocab = vocab.values('word')
-        vocab_intersection = vocab_intersection.values('word')
-        for word in vocab:
-            if not word in vocab_intersection:
-                vocab_final.append(word)
+    if len(read_texts) > 0:
+        if add_remove == 'add': # If user wants words appearing in ALL texts 
+            vocab_final = list(vocab_intersection.values('word'))
+        else: # If user wants words appearing ONLY in the main text
+            vocab = vocab.values('word')
+            vocab_intersection = vocab_intersection.values('word')
+            for word in vocab:
+                if not word in vocab_intersection:
+                    vocab_final.append(word)
+    else:
+        # don't need to modify list; nothing to add/remove
+        vocab_final = vocab_intersection
 
+    print vocab_final
     return vocab_final
 
 
