@@ -58,6 +58,7 @@ background-image: url("http://iris.haverford.edu/bridge/files/2015/10/Pont_du_Ga
 background-repeat: no-repeat;
 background-position: center top !important;
 background-size: inherit;
+background-attachment: fixed !important;
 }
 
 
@@ -65,7 +66,8 @@ body.wordspage-background {
 background-image: url("http://iris.haverford.edu/bridge/files/2015/10/Pont_du_Gard_BLS-11.jpg");
 background-repeat: no-repeat;
 background-position: center top !important;
-background-size: initial;
+background-size: inherit;
+background-attachment: fixed !important;
 }
 
 .preloader {
@@ -981,6 +983,9 @@ padding-top: 0px;
 col-lg-12{
 padding-top: 0px;
 }
+
+/*#main-content *.section-title {
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);*/
 
 /*wordpress styles*/
 

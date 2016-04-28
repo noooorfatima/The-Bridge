@@ -3,11 +3,20 @@
 <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
 <html>
 <title>The Bridge: Customizable Greek and Latin Vocabulary Lists</title>
-<body class = "home blog wordspage-background img-responsive">
+<body class = "home blog wordspage-background img-responsive" >
+
+<div class="background-image-overlay"></div>
+
+    <div id="outer-background-container" data-default-background-img="{{STATIC_URL}}images/White-Background-Xtra.jpg" style="background-image:url({{STATIC_URL}}images/White-Background-Xtra.jpg);"></div>
+
+<div id = "outer-container">
+<section id="main-content" class="clearfix">
 
   {% include "header.html" %}
   <article class="section-wrapper clearfix" data-custom-background-img="{{STATIC_URL}}images/bridgeimg.jpg">
+
    <div class= "content-wrapper clearfix" >
+    <div class="col-sm-12 col-md-12 ">
 
       <div id="language" style="display:none;" >{{ language }}</div>
     <div class="alert alert-success" role="alert">
@@ -40,7 +49,7 @@
               </div>
             </div>
           </div>
-          <div class="panel panel-default col-xs-8 col-xs-offset-1 col-sm-offset-1 col-sm-6 col-md-6 col-lg-8" id="filters_panel">
+          <div class="panel panel-default col-xs-8  col-sm-6 col-md-6 col-lg-8" id="filters_panel">
             <div class="panel-heading" id="filters_panel_heading">Filtering Options</div>
             <div class="panel-body" id="filters_panel_body">
                {% if language == "Latin" %}
@@ -279,6 +288,9 @@
 <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
 {% include "footer.html" %}
 </div>
+</div>
 </article>
+</section>
+</div>
 </body>
 </html>
