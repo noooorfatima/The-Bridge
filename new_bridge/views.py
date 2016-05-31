@@ -131,20 +131,21 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
     else:
         # Split read_texts into a list of lists of the form
         #   [ [text_name, text_from, text_to], etc.]:
-    	bookslist = read_texts.split("+") #Split string
+    	bookslist = bookslist.split("+") #Split string
         for i in range(len(bookslist)): #Split each substring
             bookslist[i] = bookslist[i].split("_")
-    
+        
     # If no start/end loc was given, set to start/end of text:
     if text_from == 'none':
         text_from = 'start'
 
     if text_to == 'none':
         text_to = 'end'
-    
+
     # Get words from database based on specified texts and ranges:
     word_ids = None
     word_property_table = None
+
     try:
         if language == "latin":
             word_ids = generateWords(WordAppearencesLatin,language,text,
@@ -160,12 +161,14 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
     
     # take word ids and find the correct data for these words in correct table (word table)
     words_list = []
-
+    print "length of word ids: " + str(len(word_ids))
+    print type(word_ids)
+    print word_ids[1].id
     try:
         for each in word_ids:
-            words_list.append(word_property_table.objects.filter(id__exact=each))
+            words_list.append(word_property_table.objects.filter(id__exact=each.id)[0])
     except Exception, e:
-	print "get words error 2"
+	print "get words error 1"
         print e
 
     json_words = serializers.serialize("json",words_list)
@@ -224,14 +227,18 @@ def generateWords(word_appearences,lang,text,
 
     # Remove or exclusively include words appearing in read_texts:
     vocab_final = []
+    print len(read_texts)
     if len(read_texts) > 0:
         if add_remove == 'add': # If user wants words appearing in ALL texts 
             vocab_final = list(vocab_intersection.values('word'))
         else: # If user wants words appearing ONLY in the main text
-            vocab = vocab.values('word')
             vocab_intersection = vocab_intersection.values('word')
+            vocab_intersection_ids = []
+            for each in vocab_intersection:
+                vocab_intersection_ids.append(each['word'])
+
             for word in vocab:
-                if not word in vocab_intersection:
+                if word not in vocab_intersection_ids:
                     vocab_final.append(word)
     else:
         # don't need to modify list; nothing to add/remove

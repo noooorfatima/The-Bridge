@@ -72,6 +72,7 @@ class TextMetadata(models.Model):
         return self.name_for_humans
 
 class WordPropertyLatin(models.Model):
+    id = models.IntegerField(primary_key=True)
     title = models.CharField(max_length=30, blank=True) 
     display_lemma = models.CharField(max_length=84, blank=True) 
     display_lemma_macronless = models.CharField(max_length=83, blank=True) 
@@ -91,6 +92,7 @@ class WordPropertyLatin(models.Model):
         return self.title
 
 class WordPropertyGreek(models.Model):
+    id = models.IntegerField(primary_key=True)
     title = models.CharField(max_length=43, blank=True, null=True) 
     accented_lemma = models.CharField(max_length=50, blank=True, null=True) 
     search_lemma = models.CharField(max_length=43, blank=True, null=True) 
