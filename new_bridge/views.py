@@ -145,26 +145,27 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
     # Get words from database based on specified texts and ranges:
     word_ids = None
     word_property_table = None
-    if language == "latin":
-        word_ids = generateWords(WordAppearencesLatin,language,text,
+    try:
+        if language == "latin":
+            word_ids = generateWords(WordAppearencesLatin,language,text,
                 text_from,text_to,bookslist,add_remove)
-        word_property_table = WordPropertyLatin
-    else:
-        word_ids = generateWords(WordAppearencesGreek,language,text,
+            word_property_table = WordPropertyLatin
+        else:
+            word_ids = generateWords(WordAppearencesGreek,language,text,
                 text_from,text_to,bookslist,add_remove)
-        word_property_table = WordPropertyGreek
+            word_property_table = WordPropertyGreek
+    except Exception, e:
+        print "get words error 0"
+        print e
     
     # take word ids and find the correct data for these words in correct table (word table)
     words_list = []
-    try:
-        print word_ids
-    except Exception, e:
-        print e
 
     try:
         for each in word_ids:
             words_list.append(word_property_table.objects.filter(id__exact=each))
     except Exception, e:
+	print "get words error 2"
         print e
 
     json_words = serializers.serialize("json",words_list)
@@ -236,7 +237,6 @@ def generateWords(word_appearences,lang,text,
         # don't need to modify list; nothing to add/remove
         vocab_final = vocab_intersection
 
-    print vocab_final
     return vocab_final
 
 
