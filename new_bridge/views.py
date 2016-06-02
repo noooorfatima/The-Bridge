@@ -11,6 +11,7 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, render_to_response
 from django.core import serializers
 import json
+import pdb
 
 
 def IndexView(request):
@@ -21,10 +22,11 @@ def IndexView(request):
 	return render(request, 'index.html', 
                 {"booklist_latin":booklist_latin,"booklist_greek":booklist_greek})
 	
+	
 #class AboutView(generic.ListView):
 #	template_name = 'about.html'
 #	model = BookTable
-	
+
 #class HelpView(generic.ListView):
 #	template_name = 'help.html'
 #	model = BookTable
@@ -40,8 +42,8 @@ def words_page_redirect(request,language):
     # Need to make sure all of the values are there, otherwise save as none
     text = "none"
     bookslist = []
-    text_from = "none"
-    text_to = "none"
+    text_from = "start"
+    text_to = "end"
     bookslist_string = ""
     from_sec = ""
     to_sec = ""
@@ -65,9 +67,13 @@ def words_page_redirect(request,language):
 		except Exception as e:
 		    print "ERROR: " + str(e)
 
-		if from_sec != "":
+		if from_sec != "" and to_sec != "":
                     i = i + "_" + from_sec + "_" + to_sec
 		    #bookslist_string = bookslist_string + "_" + from_sec + "_" + to_sec
+                elif from_sec != "" and to_sec == "":
+                    i = i + "_" + from_sec + "_" + "end"
+                elif from_sec == "" and to_sec != "":
+                    i = i + "_" + "start" + "_" + to_sec
 
 		if loop_count != num_books:
 		    i = i + str("+")
@@ -95,10 +101,11 @@ def words_page(request,language,text,bookslist,text_from,text_to,add_remove):
     add_remove_formatted = "excluding"
     if add_remove == "Add": 
         add_remove_formatted = "also appearing in"
-    
-    text_from_formatted = "all"
-    text_to_formatted = ""
-    if text_from != "none":
+
+    if text_from == "start" and text_to == "end":
+        text_from_formatted = "all"
+        text_to_formatted = ""
+    else:
         text_from_formatted = "from "+text_from
         text_to_formatted = "to "+text_to
     
@@ -148,8 +155,8 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
 
     try:
         if language == "latin":
-            word_ids = generateWords(WordAppearencesLatin,language,text,
-                text_from,text_to,bookslist,add_remove)
+	    pdb.set_trace()
+            word_ids = generateWords(WordAppearencesLatin,language,text,text_from,text_to,bookslist,add_remove)
             word_property_table = WordPropertyLatin
         else:
             word_ids = generateWords(WordAppearencesGreek,language,text,
@@ -163,10 +170,9 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
     words_list = []
     print "length of word ids: " + str(len(word_ids))
     print type(word_ids)
-    print word_ids[1].id
     try:
         for each in word_ids:
-            words_list.append(word_property_table.objects.filter(id__exact=each.id)[0])
+            words_list.append(word_property_table.objects.filter(id__exact=each)[0])
     except Exception, e:
 	print "get words error 1"
         print e
@@ -185,18 +191,21 @@ def generateWords(word_appearences,lang,text,
     print add_remove
     read_texts_filter = Q()
 
-    try:
-        if len(read_texts) > 0:
-            for text_range in read_texts:
-                # Create a new filter for the specified range of the specified text:
-                text,start,end = text_range
-                new_filter = Q(text_name__exact = text, 
-                    mindiv__range=(loc_to_mindiv(start), loc_to_mindiv(end)))
-                # Add it to the combined filter with an OR operation.
-                read_texts_filter = read_texts_filter | new_filter
-    except Exception, e:
-        print "try 1 error: "
-        print e
+    if len(read_texts) > 0:
+        for text_range in read_texts:
+            # Create a new filter for the specified range of the specified text:
+            pdb.set_trace()
+            book = text_range[0]
+            if len(text_range) > 1:
+                start = text_range[1]
+                end = text_range[2]
+            else:
+                start = "start"
+                end = "end"
+            new_filter = Q(text_name__exact = text, 
+                mindiv__range=(loc_to_mindiv(book,start), loc_to_mindiv(book,end)))
+            # Add it to the combined filter with an OR operation.
+            read_texts_filter = read_texts_filter | new_filter
     
     # Get WordAppearence objects for words appearing in main text:
     try:
@@ -213,36 +222,36 @@ def generateWords(word_appearences,lang,text,
     list_of_dict_of_words = vocab.values('word')
     
     # makes a list of these id numbers
-    list_word_id = []
+    list_word_ids = []
     for each in list_of_dict_of_words:
-	list_word_id.append(each['word'])
+	list_word_ids.append(each['word'])
 
     try:
         # Get words which appear in main text and any of the read_texts:
         vocab_intersection = word_appearences.objects.filter(read_texts_filter,
-                word__in=list_word_id)
+                word__in=list_word_ids)
     except Exception, e:
         print "try 3 error: "
         print e
 
     # Remove or exclusively include words appearing in read_texts:
     vocab_final = []
+    vocab_intersection = vocab_intersection.values('word')
+    vocab_intersection_ids = []
+    for each in vocab_intersection:
+        vocab_intersection_ids.append(each['word'])
+
     print len(read_texts)
     if len(read_texts) > 0:
         if add_remove == 'add': # If user wants words appearing in ALL texts 
             vocab_final = list(vocab_intersection.values('word'))
         else: # If user wants words appearing ONLY in the main text
-            vocab_intersection = vocab_intersection.values('word')
-            vocab_intersection_ids = []
-            for each in vocab_intersection:
-                vocab_intersection_ids.append(each['word'])
-
-            for word in vocab:
+            for word in list_word_ids:
                 if word not in vocab_intersection_ids:
                     vocab_final.append(word)
     else:
         # don't need to modify list; nothing to add/remove
-        vocab_final = vocab_intersection
+        vocab_final = vocab_intersection_ids
 
     return vocab_final
 
