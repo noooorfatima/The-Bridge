@@ -194,7 +194,6 @@ def generateWords(word_appearences,lang,text,
     if len(read_texts) > 0:
         for text_range in read_texts:
             # Create a new filter for the specified range of the specified text:
-            pdb.set_trace()
             book = text_range[0]
             if len(text_range) > 1:
                 start = text_range[1]
@@ -242,9 +241,12 @@ def generateWords(word_appearences,lang,text,
         vocab_intersection_ids.append(each['word'])
 
     print len(read_texts)
+    pdb.set_trace()
     if len(read_texts) > 0:
-        if add_remove == 'add': # If user wants words appearing in ALL texts 
-            vocab_final = list(vocab_intersection.values('word'))
+        if add_remove == 'Add': # If user wants words appearing in ALL texts 
+	    for word in list_word_ids:
+            	if word in vocab_intersection_ids:
+	  	    vocab_final.append(word)
         else: # If user wants words appearing ONLY in the main text
             for word in list_word_ids:
                 if word not in vocab_intersection_ids:
