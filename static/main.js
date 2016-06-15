@@ -34,11 +34,14 @@ $(document).ready(function() {
 
 
         //Validate form data:
-        $("#giant_form_submit").on("click", function(e) {
+      $("#giant_form_submit").on("click", function(e) {
             listItems = $("#textlist");
 
-            var selects = $('textlist');
-            var selectedValue = selects.val();
+            var selects = $('#textlist');
+	    var selectedValue = "";
+	    if (selects.val()){
+		selectedValue = selects.val();
+	    }
             if (selectedValue == "") {
                 alert("Please choose a text.");
                 return false;
@@ -59,7 +62,7 @@ $(document).ready(function() {
             if (checkbooklist(pairs) == false) {
                 alert("Please submit a valid range.");
                 return false;
-            }
+            } 
         });
 
         $('#tip_button').popover({
@@ -535,10 +538,18 @@ function showTip() {
 
 // Makes sure that selection input is correct
 function validateTextSelect() {
-    var x = $("#text_from").value;
-    var y = $("#text_to").value;
+    var x = $("#text_from").val();
+    var y = $("#text_to").val();
 
-    if (x[0] == "." || y[0] == ".") {
+    if (x != "") {
+        if (y == "") {
+            return false;
+        }
+    } else if (y != "") {
+        if (x == "") {
+            return false;
+        }
+    } else if (x[0] == "." || y[0] == ".") {
         return false;
     } else if (x.split(".").length > 3 || y.split(".").length > 3) {
         return false;
@@ -547,13 +558,14 @@ function validateTextSelect() {
     } else if (x.split(".")[0] == y.split(".")[0]) {
         if (x.split(".")[1] > y.split(".")[1]) {
             return false;
-        } else if (x.split(".")[1] == y.split(".")[1]) {
-            if (x.split(".")[2] > y.split(".")[2]) {
-                return false;
-            }
-        }
+	}
+    } else if (x.split(".")[1] == y.split(".")[1]) {
+        if (x.split(".")[2] > y.split(".")[2]) {
+            return false;
+	}
     }
 }
+
 
 // Makes sure that selection input is correct
 function validateBookSelect(a) {
