@@ -11,9 +11,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__name__))
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
@@ -57,7 +55,7 @@ FORCE_SCRIPT_NAME="/"
 
 WSGI_APPLICATION = 'new_bridge.wsgi.application'
 
-DJANGO_SETTINGS_MODULE = ( os.path.join(PROJECT_ROOT, 'settings'),
+DJANGO_SETTINGS_MODULE = ( os.path.join(PROJECT_ROOT, 'settings')
   )
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
@@ -117,4 +115,5 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
 )
+
 

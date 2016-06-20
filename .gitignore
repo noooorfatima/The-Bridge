@@ -7,5 +7,5 @@ new_bridge_uwsgi.ini
 *.pyc
 new_bridge/*.pyc
 new_bridge/settings.py
-
-
+*.py~
+full_text_import.py*

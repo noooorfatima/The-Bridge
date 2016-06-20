@@ -14,8 +14,8 @@ $(document).ready(function() {
 
         $("#giant_form")[0].reset(); // Clear form contents on reload
 
-        /*Monitor for changes in screen width:*/
-        //set up media query objects:
+	/*Monitor for changes in screen width:*/
+	//set up media query objects:
         var mediaQueries = [
             window.matchMedia("screen and (min-width: 320px)"), //very narrow
             window.matchMedia("screen and (max-width: 500px)"),
@@ -36,7 +36,7 @@ $(document).ready(function() {
         //Validate form data:
       $("#giant_form_submit").on("click", function(e) {
             listItems = $("#textlist");
-
+	    var key = true;
             var selects = $('#textlist');
 	    var selectedValue = "";
 	    if (selects.val()){
@@ -46,24 +46,47 @@ $(document).ready(function() {
                 alert("Please choose a text.");
                 return false;
             }
-            if (validateTextSelect() == false) {
-                alert("Please submit a valid range.");
-                return false;
-            }
+            if ($("#text_from,#text_to").is(":visible")) {
+		    if (validateTextSelect() == false) {
+		        alert("Please submit a valid range.");
+		        return false;
+		    }};
             var pairs = [];
             console.log($('.range_select_box input'));
-            $('.range_select_box input').each(function(i, div) {
-                var i_over_2 = Math.floor(i / 2);
-                if (!pairs[i_over_2]) pairs[i_over_2] =
-                    $();
-                pairs[i_over_2] = pairs[i_over_2].add(
-                    div);
-            });
-            if (checkbooklist(pairs) == false) {
-                alert("Please submit a valid range.");
-                return false;
-            } 
+            $('.range_select_box').each(function() {
+		var new_tuple = []
+                $('input:visible', this).each(function(index, value) {
+			console.log(value.value);
+			new_tuple.push(value.value);
+		});
+		pairs.push(new_tuple);
+	        for (var i=0; i<pairs.length; i++){
+		    console.log(pairs);
+		    if (pairs[i][0] != "") {
+		        if (pairs[i][1] == "") {
+		            key = false;
+			    return false;
+		        }
+	            } else if (pairs[i][1] != "") {
+		        if (pairs[i][0] == "") {
+		            key = false;
+			    return false;
+		        }
+	            } else if (pairs[i][0] == "" && pairs[i][1] == "") {
+		        key = false
+			return false;
+                    }
+                    if (checkbooklist(pairs[i]) == false) {
+                        key = false;
+			return false;
+                    }
+	        }
         });
+		if (key==false) {
+			alert("Please enter a valid range.");
+			return false;
+		}
+});
 
         $('#tip_button').popover({
             trigger: 'click'
@@ -549,6 +572,8 @@ function validateTextSelect() {
         if (x == "") {
             return false;
         }
+    } else if (x == "" && y == "") {
+	return false
     } else if (x[0] == "." || y[0] == ".") {
         return false;
     } else if (x.split(".").length > 3 || y.split(".").length > 3) {

@@ -40,7 +40,7 @@ class TextStructureGlossary(models.Model):
     subsection_name = models.CharField(max_length=20, blank=True)
     def __unicode__(self):
         s = 'TEXT:\t'+self.text_name
-        s += '\nSUBSECTION LVL:\t'+self.subsection_level
+        s += '\nSUBSECTION LVL:\t'+str(self.subsection_level)
         s += '\nSUBSECTION NAME:\t'+self.subsection_name
         return s
 
@@ -90,7 +90,8 @@ class WordPropertyLatin(models.Model):
     dcc_semantic_group = models.CharField(max_length=34, blank=True) 
     def __unicode__(self):
         return self.title
-
+#I changed all the integer fields to text fields because it doesn't like importing blank integer fields
+#Note exlude is still int because the spreadsheet doesn't have it 
 class WordPropertyGreek(models.Model):
     id = models.IntegerField(primary_key=True)
     title = models.CharField(max_length=43, blank=True, null=True) 
@@ -98,11 +99,15 @@ class WordPropertyGreek(models.Model):
     search_lemma = models.CharField(max_length=43, blank=True, null=True) 
     display_lemma = models.CharField(max_length=175, blank=True, null=True) 
     english_definition = models.CharField(max_length=135, blank=True, null=True) 
-    questions = models.IntegerField(blank=True, null=True) 
+    #questions = models.IntegerField(blank=True, null=True)
+    questions = models.CharField(max_length=50, blank=True, null=True)
     decl = models.CharField(max_length=4, blank=True, null=True) 
-    idiom = models.IntegerField(blank=True, null=True) 
-    reg_adject_adv_form = models.IntegerField(blank=True, null=True) 
-    proper = models.IntegerField(blank=True, null=True) 
+    #idiom = models.IntegerField(blank=True, null=True)
+    idiom = models.CharField(max_length=1, blank=True, null=True) 
+    #reg_adject_adv_form = models.IntegerField(blank=True, null=True)
+    reg_adject_adv_form = models.CharField(max_length=1, blank=True, null=True)
+    #proper = models.IntegerField(blank=True, null=True) 
+    proper = models.CharField(max_length=1, blank=True, null=True) 
     part_of_speech = models.CharField(max_length=24, blank=True, null=True) 
     exclude_1_0 = models.IntegerField(blank=True, null=True) 
     notes = models.CharField(max_length=34, blank=True, null=True) 

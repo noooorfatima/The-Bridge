@@ -10,10 +10,11 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, render_to_response
 from django.core import serializers
+from django.core import management
 import json
 import pdb
-
-
+from StringIO import StringIO
+import ast
 def IndexView(request):
         booklist_latin= [book.title_of_book 
                 for book in BookTitles.objects.all()]
@@ -673,5 +674,37 @@ def greek_helper(a, b, c, beg, end):
 	    if int(beg[0]) <= int(a[i][0]): 
 		if int(a[i][0]) <= int(end[0]):
 			return c.append(b.title) 
-	
+#An admin page for importing updated spreadsheets
+def myimport(request):
+    query_results = TextStructureGlossary.objects.all()
+    text_name_results = TextMetadata.objects.all()
+    if request.method == 'POST':
 
+        text = request.POST.getlist('select_text','KeyError')
+        if text == "KeyError":
+            print "No text selected"
+            return render(request, 'admin/myimport.html',{'no_text' : True, 'query_results' : query_results,'text_name_results' : text_name_results})
+        
+
+        the_file = request.FILES['datafile']
+        lang = request.POST['select_lang']
+
+        if the_file.content_type != 'text/csv':
+            return render(request, 'admin/myimport.html',{'failed' : True, 'query_results' : query_results,'text_name_results' : text_name_results})
+        fileName = the_file.name
+        with open('temp_csv_for_importing.csv','w') as f:
+            f.write(the_file.read())
+        #this is capturing the output of management.call_command, which can only be a string
+        out = StringIO() 
+        management.call_command('full_text_import2','temp_csv_for_importing.csv',text,lang,stdout=out)
+        error = out.getvalue()
+        print error
+        if error != str():
+            error = ast.literal_eval(error)
+        if "text_name_error" in error:
+            return render(request, 'admin/myimport.html',{'query_results' : query_results,'text_name_error' : True, 'text_name' : error['text_name_error'],'text_name_results' : text_name_results })
+        elif "lang_error" in error:
+            return render(request, 'admin/myimport.html',{'query_results' : query_results,'lang_error' : True,'text_name_results' : text_name_results })
+        return render(request, 'admin/myimport.html',{"success" : True, 'query_results' : query_results,'text_name_results' : text_name_results})
+    else:
+        return render(request, 'admin/myimport.html', {'query_results' : query_results,'text_name_results' : text_name_results})
