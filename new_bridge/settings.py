@@ -67,7 +67,7 @@ DATABASES = {
             # The following settings are not used with sqlite3:
             #'USER': 'bridgeuser',
             #'PASSWORD': 'bridge',
-            #'HOST': 'localhost',                      # Empty for localhost through domain sockets or           '127.0.0.1' for localhost through TCP.
+            'HOST': '165.82.13.100',                      # Empty for localhost through domain sockets or           '127.0.0.1' for localhost through TCP.
             #'PORT': '',                      # Set to empty string for default.
         }
     }
