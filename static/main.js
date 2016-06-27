@@ -88,7 +88,7 @@ $(document).ready(function() {
 	        }
         });
 		if (key==false) {
-			alert("Please enter a valid range in "pairs[i][2]".");
+			alert("Please enter a valid range in " + pairs[i][2] + ".");
 			return false;
 		}
 });
