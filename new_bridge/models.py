@@ -40,8 +40,8 @@ class TextStructureGlossary(models.Model):
     subsection_name = models.CharField(max_length=20, blank=True)
     def __unicode__(self):
         s = 'TEXT:\t'+self.text_name
-        s += '\nSUBSECTION LVL:\t'+str(self.subsection_level)
-        s += '\nSUBSECTION NAME:\t'+self.subsection_name
+        s += ' SUBSECTION LVL:\t'+str(self.subsection_level)
+        s += ' SUBSECTION NAME:\t'+self.subsection_name
         return s
 
 class WordAppearencesLatin(models.Model):
@@ -50,8 +50,9 @@ class WordAppearencesLatin(models.Model):
     mindiv = models.SmallIntegerField(blank=False)
     def __unicode__(self):
         s = 'TEXT:\t'+self.text_name
-        s += '\nWORD ID:\t'+self.word_id
-        s += '\nLOCATION:\t'+self.mindiv
+        s += '\nWORD ID:\t'+ str(self.word_id)
+        s += '\nLOCATION:\t'+str(self.mindiv)
+        s += ' WORD: ' + self.word.title 
         return s
 
 class WordAppearencesGreek(models.Model):
@@ -60,8 +61,8 @@ class WordAppearencesGreek(models.Model):
     mindiv = models.SmallIntegerField(blank=False)
     def __unicode__(self):
         s = 'TEXT:\t'+self.text_name
-        s += '\nWORD ID:\t'+self.word_id
-        s += '\nLOCATION:\t'+self.mindiv
+        s += '\nWORD ID:\t'+str(self.word_id)
+        s += '\nLOCATION:\t'+str(self.mindiv)
         return s
 
 class TextMetadata(models.Model):
@@ -134,6 +135,7 @@ class BookTable(models.Model):
         managed = True
         db_table = 'book_table'
 '''
+#Shouldn't use plurals
 class BookTitles(models.Model):
     title_of_book = models.TextField(db_column='Title of Book') 
     def __unicode__(self):

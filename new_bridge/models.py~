@@ -107,7 +107,7 @@ class WordPropertyGreek(models.Model):
     #reg_adject_adv_form = models.IntegerField(blank=True, null=True)
     reg_adject_adv_form = models.CharField(max_length=1, blank=True, null=True)
     #proper = models.IntegerField(blank=True, null=True) 
-    proper = models.CharField(max_length=1, blank=True) 
+    proper = models.CharField(max_length=1, blank=True, null=True) 
     part_of_speech = models.CharField(max_length=24, blank=True, null=True) 
     exclude_1_0 = models.IntegerField(blank=True, null=True) 
     notes = models.CharField(max_length=34, blank=True, null=True) 

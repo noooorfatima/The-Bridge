@@ -60,8 +60,13 @@ $(document).ready(function() {
 			new_tuple.push(value.value);
 		});
 		pairs.push(new_tuple);
-	        for (var i=0; i<pairs.length; i++){
+		var text 
+		text = document.getElementsByClass("text_name");
+		console.log(text);
+		for (var i=0; i<pairs.length; i++) {
+		    var text_array
 		    console.log(pairs);
+		    pairs[i].push(text[i])
 		    if (pairs[i][0] != "") {
 		        if (pairs[i][1] == "") {
 		            key = false;
@@ -83,7 +88,7 @@ $(document).ready(function() {
 	        }
         });
 		if (key==false) {
-			alert("Please enter a valid range.");
+			alert("Please enter a valid range in "pairs[i][2]".");
 			return false;
 		}
 });

@@ -155,8 +155,10 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
     word_property_table = None
 
     try:
+        print WordAppearencesLatin,language,text,text_from,text_to,bookslist,add_remove
         if language == "latin":
 	    pdb.set_trace()
+            print WordAppearencesLatin,language,text,text_from,text_to,bookslist,add_remove
             word_ids = generateWords(WordAppearencesLatin,language,text,text_from,text_to,bookslist,add_remove)
             word_property_table = WordPropertyLatin
         else:
@@ -684,9 +686,10 @@ def myimport(request):
         if text == "KeyError":
             print "No text selected"
             return render(request, 'admin/myimport.html',{'no_text' : True, 'query_results' : query_results,'text_name_results' : text_name_results})
-        
-
-        the_file = request.FILES['datafile']
+        try:
+            the_file = request.FILES['datafile']
+        except:
+            return render(request, 'admin/myimport.html',{'failed' : True, 'query_results' : query_results,'text_name_results' : text_name_results})
         lang = request.POST['select_lang']
 
         if the_file.content_type != 'text/csv':
@@ -697,7 +700,7 @@ def myimport(request):
         #this is capturing the output of management.call_command, which can only be a string
         out = StringIO() 
         management.call_command('full_text_import2','temp_csv_for_importing.csv',text,lang,stdout=out)
-        error = out.getvalue()
+        error = out.getvalue().strip()
         print error
         if error != str():
             error = ast.literal_eval(error)

@@ -107,6 +107,7 @@ class Command(BaseCommand):
 				english_extended = 'LONGDEF'
 			else:
 				english_extended = 'ENGLISH-EXTENDED'
+			
 			for item in data_dict:
 				try:
 					WordPropertyLatin.objects.update_or_create(
@@ -134,6 +135,7 @@ class Command(BaseCommand):
 					print "Current language is:", lang
 					error =  {'lang_error' : lang}
 					return str(error)
+			
 			print "Imported WordPropertyLatin"
 		elif lang=='Greek':
 			#questions is in model but doesn't seem to be in the spreadsheet
@@ -162,7 +164,8 @@ class Command(BaseCommand):
 				except KeyError:
 					print "Got a key error, likely picked wrong language"
 					print "Current language is:", lang
-					return "{lang_error:"+lang+"}"
+					error =  {'lang_error' : lang}
+					return str(error)
 			print "Imported WordPropertyGreek"
 		
 
