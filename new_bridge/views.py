@@ -15,6 +15,7 @@ import json
 import pdb
 from StringIO import StringIO
 import ast
+
 def IndexView(request):
         booklist_latin= [book.title_of_book 
                 for book in BookTitles.objects.all()]
@@ -157,7 +158,7 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
     try:
         print WordAppearencesLatin,language,text,text_from,text_to,bookslist,add_remove
         if language == "latin":
-	    pdb.set_trace()
+	    #pdb.set_trace()
             print WordAppearencesLatin,language,text,text_from,text_to,bookslist,add_remove
             word_ids = generateWords(WordAppearencesLatin,language,text,text_from,text_to,bookslist,add_remove)
             word_property_table = WordPropertyLatin
@@ -193,7 +194,6 @@ def generateWords(word_appearences,lang,text,
     print read_texts
     print add_remove
     read_texts_filter = Q()
-
     if len(read_texts) > 0:
         for text_range in read_texts:
             # Create a new filter for the specified range of the specified text:
@@ -208,7 +208,6 @@ def generateWords(word_appearences,lang,text,
                 mindiv__range=(loc_to_mindiv(book,start), loc_to_mindiv(book,end)))
             # Add it to the combined filter with an OR operation.
             read_texts_filter = read_texts_filter | new_filter
-    
     # Get WordAppearence objects for words appearing in main text:
     try:
         from_mindiv = loc_to_mindiv(text,text_from)
@@ -222,29 +221,47 @@ def generateWords(word_appearences,lang,text,
     # makes a list of dictionaries that contain the id num of all of the words in vocab variable
     # looks like: [{'word': 1001}, {'word': 2030'}, ...} etc.
     list_of_dict_of_words = vocab.values('word')
-    
     # makes a list of these id numbers
     list_word_ids = []
     for each in list_of_dict_of_words:
 	list_word_ids.append(each['word'])
-
     try:
         # Get words which appear in main text and any of the read_texts:
-        vocab_intersection = word_appearences.objects.filter(read_texts_filter,
-                word__in=list_word_ids)
+
+        #COMMENT THIS OUT FOR PRODUCTION
+        #vocab_intersection = word_appearences.objects.filter(read_texts_filter,
+        #            word__in=list_word_ids[0:100])
+        index = 100
+        vocab_intersection = []
+        while index<len(list_word_ids):
+            vocab_intersection = vocab_intersection + list(word_appearences.objects.filter(read_texts_filter,
+                    word__in=list_word_ids[index-100:index]).values('word'))
+
+            index += 100
+        vocab_intersection = vocab_intersection + list(word_appearences.objects.filter(read_texts_filter,
+                word__in=list_word_ids[index-100:index]).values('word'))       
+      
+        #ORIGINAL, DOES NOT WORK IN SQLITE3
+        #UNCOMMENT vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+        #vocab_intersection = word_appearences.objects.filter(read_texts_filter,
+      
+        #        word__in=list_word_ids)
     except Exception, e:
         print "try 3 error: "
         print e
-
     # Remove or exclusively include words appearing in read_texts:
+    #print vocab_intersection
     vocab_final = []
-    vocab_intersection = vocab_intersection.values('word')
+
+    #THIS IS NEEDED FOR PRODUCTION
+    #vvvvvvvvvvvvvvvvvvv UNCOMMENT
+    #vocab_intersection = vocab_intersection.values('word')
+
     vocab_intersection_ids = []
     for each in vocab_intersection:
         vocab_intersection_ids.append(each['word'])
-
     print len(read_texts)
-    pdb.set_trace()
+    #pdb.set_trace()
     if len(read_texts) > 0:
         if add_remove == 'Add': # If user wants words appearing in ALL texts 
 	    for word in list_word_ids:
