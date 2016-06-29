@@ -51,7 +51,7 @@ $(document).ready(function() {
 		        alert("Please submit a valid range.");
 		        return false;
 		    }};
-            var pairs = [];
+            var pairs = []
             console.log($('.range_select_box input'));
             $('.range_select_box').each(function() {
 		var new_tuple = []
@@ -60,13 +60,13 @@ $(document).ready(function() {
 			new_tuple.push(value.value);
 		});
 		pairs.push(new_tuple);
-		var text 
-		text = document.getElementsByClass("text_name");
-		console.log(text);
+		//var text 
+		//text = document.getElementsByClass("text_name");
+		//console.log(text);
 		for (var i=0; i<pairs.length; i++) {
-		    var text_array
+		    //var text_array
 		    console.log(pairs);
-		    pairs[i].push(text[i])
+		    //pairs[i].push(text[i])
 		    if (pairs[i][0] != "") {
 		        if (pairs[i][1] == "") {
 		            key = false;
@@ -86,9 +86,9 @@ $(document).ready(function() {
 			return false;
                     }
 	        }
-        });
+        })
 		if (key==false) {
-			alert("Please enter a valid range in " + pairs[i][2] + ".");
+			alert("Please enter a valid range");
 			return false;
 		}
 });
