@@ -97,7 +97,6 @@ def latin_filter(request, unchecked):
 		temp_word = WordTable.objects.filter(title = word)
 		temp_word = temp_word[0]
 		final.append({"word":temp_word.display_lemma,"definition":temp_word.english_extended})
-
 	return HttpResponse(json.dumps({"words": final}), content_type="application/json")
 
 			

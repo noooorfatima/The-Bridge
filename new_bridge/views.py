@@ -122,7 +122,7 @@ def words_page(request,language,text,bookslist,text_from,text_to,add_remove):
             if end != -1:
                 book = book[0:end]
             bookslist_formatted += "<em>"+book+"</em>"+ ", "
-
+    print bookslist_formatted
     try:
         return render(request,"words_page.html", {"language":language, "text":text,
         "bookslist": bookslist, "bookslist_formatted": bookslist_formatted, 
@@ -176,12 +176,32 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
     print type(word_ids)
     try:
         for each in word_ids:
-            words_list.append(word_property_table.objects.filter(id__exact=each)[0])
+            words_list.append(word_property_table.objects.filter(id__exact=each[0])[0])
     except Exception, e:
 	print "get words error 1"
         print e
-
     json_words = serializers.serialize("json",words_list)
+    #D#print type(json_words)
+    json_words2 = json.loads(json_words)
+    #print json_words2
+    final_list = [] 
+    test_for_in_final = {}
+    for item,position in zip(json_words2,word_ids):
+        item['fields']['position']=WordAppearencesLatin.objects.filter(mindiv=position[1])[0].appearance
+        item['fields']['count']=1
+        if item['pk'] not in test_for_in_final.keys():
+            test_for_in_final[item['pk']] = item
+        else:
+            test_for_in_final[item['pk']]['fields']['position'] += ", "+item['fields']['position']
+            test_for_in_final[item['pk']]['fields']['count'] += 1
+
+    #D#print test_for_in_final.values()
+    #D#print json_words2[0]
+    #json_words2 = sorted(json_words2, key= lambda word: word['pk'],reverse=True)
+    json_words = json.dumps(test_for_in_final.values())
+    #D#print type(json_words)
+
+    #D#print "loppp"
     return HttpResponse(json_words, content_type="application/json")
 
 def generateWords(word_appearences,lang,text,
@@ -214,6 +234,9 @@ def generateWords(word_appearences,lang,text,
         to_mindiv = loc_to_mindiv(text,text_to)
         vocab = word_appearences.objects.filter(text_name__exact=text,
                 mindiv__range=(from_mindiv, to_mindiv))
+        loc_list = []
+        for vcab in vocab:
+            loc_list.append(vcab.mindiv)
     except Exception, e:
         print "try 2 error: "
         print e
@@ -223,14 +246,15 @@ def generateWords(word_appearences,lang,text,
     list_of_dict_of_words = vocab.values('word')
     # makes a list of these id numbers
     list_word_ids = []
+    print len(list_of_dict_of_words)
     for each in list_of_dict_of_words:
 	list_word_ids.append(each['word'])
+    print list_word_ids
     try:
         # Get words which appear in main text and any of the read_texts:
 
         #COMMENT THIS OUT FOR PRODUCTION
-        #vocab_intersection = word_appearences.objects.filter(read_texts_filter,
-        #            word__in=list_word_ids[0:100])
+        #COMMENT vvvvvvvvvvvvvvvvvvvvvv
         index = 100
         vocab_intersection = []
         while index<len(list_word_ids):
@@ -239,13 +263,15 @@ def generateWords(word_appearences,lang,text,
 
             index += 100
         vocab_intersection = vocab_intersection + list(word_appearences.objects.filter(read_texts_filter,
-                word__in=list_word_ids[index-100:index]).values('word'))       
-      
+                word__in=list_word_ids[index-100:index]).values('word'))
+        #COMMENT ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
         #ORIGINAL, DOES NOT WORK IN SQLITE3
         #UNCOMMENT vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
         #vocab_intersection = word_appearences.objects.filter(read_texts_filter,
       
         #        word__in=list_word_ids)
+        #UNCOMMENT ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     except Exception, e:
         print "try 3 error: "
         print e
@@ -256,10 +282,16 @@ def generateWords(word_appearences,lang,text,
     #THIS IS NEEDED FOR PRODUCTION
     #vvvvvvvvvvvvvvvvvvv UNCOMMENT
     #vocab_intersection = vocab_intersection.values('word')
-
+    #UNCOMMENT^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     vocab_intersection_ids = []
-    for each in vocab_intersection:
-        vocab_intersection_ids.append(each['word'])
+    print vocab_intersection
+    print loc_list
+    print len(vocab_intersection),len(loc_list)
+    #print zip(vocab_intersection,loc_list)
+    for each, position in zip(vocab_intersection,loc_list):
+        #print each,"e"
+        #print position, "p"
+        vocab_intersection_ids.append((each['word'],position))
     print len(read_texts)
     #pdb.set_trace()
     if len(read_texts) > 0:
@@ -274,8 +306,8 @@ def generateWords(word_appearences,lang,text,
     else:
         # don't need to modify list; nothing to add/remove
         vocab_final = vocab_intersection_ids
-
-    return vocab_final
+    #print vocab_final,"ding"
+    return list(set(vocab_final))
 
 
 # Translates a human-readable text location into a machine-readable mindiv.
@@ -698,33 +730,55 @@ def myimport(request):
     query_results = TextStructureGlossary.objects.all()
     text_name_results = TextMetadata.objects.all()
     if request.method == 'POST':
-
-        text = request.POST.getlist('select_text','KeyError')
-        if text == "KeyError":
-            print "No text selected"
-            return render(request, 'admin/myimport.html',{'no_text' : True, 'query_results' : query_results,'text_name_results' : text_name_results})
-        try:
-            the_file = request.FILES['datafile']
-        except:
-            return render(request, 'admin/myimport.html',{'failed' : True, 'query_results' : query_results,'text_name_results' : text_name_results})
+        update_option = request.POST['update_option']
         lang = request.POST['select_lang']
+        if update_option == "update_master":
+            try:
+                if len(request.FILES.getlist('datafile')) != 1:
+                    return render(request, 'admin/myimport.html',{'multi_file' : True, 'query_results' : query_results,'text_name_results' : text_name_results})
+                the_file = request.FILES['datafile']
+            except:
+                return render(request, 'admin/myimport.html',{'failed' : True, 'query_results' : query_results,'text_name_results' : text_name_results})
+            if the_file.content_type != 'text/csv':
+                return render(request, 'admin/myimport.html',{'failed' : True, 'query_results' : query_results,'text_name_results' : text_name_results})
 
-        if the_file.content_type != 'text/csv':
-            return render(request, 'admin/myimport.html',{'failed' : True, 'query_results' : query_results,'text_name_results' : text_name_results})
-        fileName = the_file.name
-        with open('temp_csv_for_importing.csv','w') as f:
-            f.write(the_file.read())
-        #this is capturing the output of management.call_command, which can only be a string
-        out = StringIO() 
-        management.call_command('full_text_import2','temp_csv_for_importing.csv',text,lang,stdout=out)
-        error = out.getvalue().strip()
-        print error
-        if error != str():
-            error = ast.literal_eval(error)
-        if "text_name_error" in error:
-            return render(request, 'admin/myimport.html',{'query_results' : query_results,'text_name_error' : True, 'text_name' : error['text_name_error'],'text_name_results' : text_name_results })
-        elif "lang_error" in error:
-            return render(request, 'admin/myimport.html',{'query_results' : query_results,'lang_error' : True,'text_name_results' : text_name_results })
-        return render(request, 'admin/myimport.html',{"success" : True, 'query_results' : query_results,'text_name_results' : text_name_results})
+            fileName = the_file.name
+            print fileName
+            with open('temp_csv_for_importing.csv','w') as f:
+                f.write(the_file.read())
+            #this is capturing the output of management.call_command, which can only be a string
+            out = StringIO() 
+            management.call_command('update_master','temp_csv_for_importing.csv',lang,stdout=out)
+            error = out.getvalue().strip()
+            print error
+            if error != str():
+                error = ast.literal_eval(error)
+            #text_name_error no longer relevant
+            if "text_name_error" in error:
+                return render(request, 'admin/myimport.html',{'query_results' : query_results,'text_name_error' : True, 'text_name' : error['text_name_error'],'text_name_results' : text_name_results })
+            elif "lang_error" in error:
+                return render(request, 'admin/myimport.html',{'query_results' : query_results,'lang_error' : True,'text_name_results' : text_name_results })
+            return render(request, 'admin/myimport.html',{"success" : True, 'query_results' : query_results,'text_name_results' : text_name_results})
+        elif update_option == "update_page":
+            texts = request.FILES.getlist('datafile') 
+            if len(texts) == 0:
+                return render(request, 'admin/myimport.html',{'failed' : True, 'query_results' : query_results,'text_name_results' : text_name_results})            
+            for fileName in texts:
+                if fileName.content_type != 'text/csv':
+                    return render(request, 'admin/myimport.html',{'failed' : True, 'query_results' : query_results,'text_name_results' : text_name_results})
+            for fileName in texts:
+                with open('temp_csv_for_importing.csv','w') as f:
+                    f.write(fileName.read())
+                out = StringIO() 
+                management.call_command('update_page','temp_csv_for_importing.csv',lang,stdout=out)
+                error = out.getvalue().strip()
+                print error
+                if error != str():
+                    error = ast.literal_eval(error)
+                if "text_name_error" in error:
+                    return render(request, 'admin/myimport.html',{'query_results' : query_results,'text_name_error' : True, 'text_name' : error['text_name_error'],'text_name_results' : text_name_results })
+                elif "lang_error" in error:
+                    return render(request, 'admin/myimport.html',{'query_results' : query_results,'lang_error' : True,'text_name_results' : text_name_results })
+                return render(request, 'admin/myimport.html',{"success" : True, 'query_results' : query_results,'text_name_results' : text_name_results})               
     else:
         return render(request, 'admin/myimport.html', {'query_results' : query_results,'text_name_results' : text_name_results})
