@@ -1,0 +1,86 @@
+{% extends "admin/importbase.html" %}
+{% block content %}
+{% if success %}
+<div>
+<h1>Success!</h1>
+</div>
+{% else %}
+<h1>Import a Story Map</h1>
+	<h2>Warning: This takes some time! Stay on this page, it can take up to 10-15 minutes!</h2>
+	{% if failed %}
+	<h2>There was an error. Make sure you are using a '.csv' file</h2>
+	{% endif %}
+	{% if text_name_error %}
+	<h2>There was an error. Selected text name, {{ text_name }}, was not found in the header of the spread sheet</h2>
+	{% endif %}
+	{% if lang_error %}
+	<h2>There was an error. Did you select the right language?</h2>
+	{% endif %}
+	{% if no_text %}
+	<h2>Please select a text</h2>
+	{% endif %}
+	{% if multi_file %}
+	<h2>Error: Multiple files selected for Update Master</h2>
+	{% endif %}	
+{% endif %}
+
+<div>
+	{% if success %}
+	<p>Repeat below if needed!</p>
+	{% else	%}
+	<p>Select the csv file (note you don't have to add any id columns!), the texts to import (select multiple with ctrl+click (command on mac)), and the language you are importing for!</p>
+	<p>Don't see the text you are looking for? <a href="new_bridge/textmetadata/add/">Add</a> it to the database! Also be sure to <a href="new_bridge/textstructureglossary/add/">add</a> its text structure glossary!
+	{% endif %}
+	<form method="POST" enctype="multipart/form-data" action="">
+	{% csrf_token %}
+	<div>
+	<select name="update_option" >
+		<option value="update_master">Update Master</option>
+		<option value="update_page">Add or Update a Text</option>
+	</select>
+	<span>
+	<input type="file" name="datafile" size="40" multiple>
+	</span>
+	<span>
+	<!---
+	<select name="select_text" multiple=>
+	{% for entry in text_name_results %}
+	    <option value="{{ entry.name_for_humans }}">{{ entry.name_for_humans }} {{entry.language }}</option>
+	{% endfor %}
+	</select>
+-->
+	<select name="select_lang">
+		<option value="Latin">Latin</option>
+		<option value="Greek">Greek</option>
+	</select>
+	</span>
+	</div>
+	<div class="submit-row">
+	<progress id='p_bar' style="display:none;"></progress>
+	<input type="submit" value="Import!" onclick="show_progress()">
+	</div>
+	</form>
+</div>
+<div>
+<h3>Text Structure Glossary: Make sure your text is listed here, with the correct levels</h3>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Subsection Level</th>
+        <th>Subsection Name</th>
+    </tr>
+    {% for item in query_results %}
+    <tr> 
+        <td>{{ item.text_name }}</td>
+        <td>{{ item.subsection_level }}</td>
+        <td>{{ item.subsection_name }}</td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+<script>
+function show_progress() {
+    document.getElementById("p_bar").style.display="";
+}
+</script>
+{% endblock %}

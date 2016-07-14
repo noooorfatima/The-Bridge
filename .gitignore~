@@ -1,0 +1,10 @@
+# Files specific to nginx to ignore #
+
+bridge-repo_nginx.conf
+new_bridge_uwsgi.ini
+/media
+.DS_Store
+*.pyc
+new_bridge/*.pyc
+new_bridge/settings.py
+*.py~

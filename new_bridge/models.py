@@ -48,6 +48,8 @@ class WordAppearencesLatin(models.Model):
     text_name = models.CharField(max_length=52, blank=False)
     word = models.ForeignKey('WordPropertyLatin', blank=False,null=True)
     mindiv = models.SmallIntegerField(blank=False)
+    appearance = models.CharField(max_length=52, blank=False,null=True)
+    local_def = models.CharField(max_length=1168, blank=True,null=True) 
     def __unicode__(self):
         s = 'TEXT:\t'+self.text_name
         s += '\nWORD ID:\t'+ str(self.word_id)
@@ -59,6 +61,8 @@ class WordAppearencesGreek(models.Model):
     text_name = models.CharField(max_length=52, blank=False)
     word = models.ForeignKey('WordPropertyGreek', blank=False,null=True)
     mindiv = models.SmallIntegerField(blank=False)
+    appearance = models.CharField(max_length=52, blank=False,null=True)
+    local_def = models.CharField(max_length=1168, blank=True,null=True) 
     def __unicode__(self):
         s = 'TEXT:\t'+self.text_name
         s += '\nWORD ID:\t'+str(self.word_id)
@@ -69,6 +73,7 @@ class TextMetadata(models.Model):
     name_for_humans = models.CharField(max_length=100, blank=False)
     name_for_computers = models.CharField(max_length=100, blank=False)
     language = models.CharField(max_length=10, blank=False)
+    local_def = models.BooleanField(default=False)
     def __unicode__(self):
         return self.name_for_humans
 

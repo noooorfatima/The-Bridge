@@ -22,30 +22,34 @@ from new_bridge.models import *
 # is_greek is a bool specifying the text's language.
 # text_name is the machine-readable name (i.e. purged of special characters)
 #   of the text.  So, in the "TextMetadata" table, the "name_for_computers".
-def add_word_appearances(is_greek, appearance_list, loc_list, text_name):
+def add_word_appearances(is_greek, appearance_list, loc_list, text_name,listified_csv):
     loc_list_index = 0
-    #print text_name
-    #print appearance_list
-    for appearance in appearance_list:
-       # print loc_list, "loc_list"
-        #print len(loc_list), "Len"
-        ##print loc_list_index, "index"
-        ##print appearance, "appearance"
-        #print appearance[0]==loc_list[13]
-       ## print appearance[0],"=",loc_list[loc_list_index],appearance[0].strip()==loc_list[loc_list_index].strip()
-        #loc_list_index = 0
-        #while appearance[0] != loc_list[loc_list_index]:
-        #    loc_list_index +=1
-        ##print loc_list[loc_list_index]
-        if appearance[0].strip() != loc_list[loc_list_index].strip():
-            loc_list_index +=1
-        if is_greek:
-            entry = WordAppearencesGreek(text_name=text_name,
-                    word_id=appearance[1],mindiv=loc_list_index)
-        else:
-            entry = WordAppearencesLatin(text_name=text_name,
-                    word_id=appearance[1],mindiv=loc_list_index)
-        entry.save()
+    #check if there are local_defs
+    if TextMetadata.objects.get(name_for_humans=text_name).local_def:
+        local_def_dict = {}
+        for entry in listified_csv[1:]:
+           local_def_dict[entry[0]]=entry[3]
+        for appearance in appearance_list:
+            if appearance[0].strip() != loc_list[loc_list_index].strip():
+                loc_list_index +=1
+            if is_greek:
+                entry = WordAppearencesGreek(text_name=text_name,
+                        word_id=appearance[1],mindiv=loc_list_index,appearance= loc_list[loc_list_index].replace('_','.'),local_def=local_def_dict[appearance[1]] )
+            else:
+                entry = WordAppearencesLatin(text_name=text_name,
+                        word_id=appearance[1],mindiv=loc_list_index, appearance= loc_list[loc_list_index].replace('_','.'),local_def=local_def_dict[appearance[1]])
+            entry.save()
+    else:
+        for appearance in appearance_list:
+            if appearance[0].strip() != loc_list[loc_list_index].strip():
+                loc_list_index +=1
+            if is_greek:
+                entry = WordAppearencesGreek(text_name=text_name,
+                        word_id=appearance[1],mindiv=loc_list_index,appearance= loc_list[loc_list_index].replace('_','.'))
+            else:
+                entry = WordAppearencesLatin(text_name=text_name,
+                        word_id=appearance[1],mindiv=loc_list_index, appearance= loc_list[loc_list_index].replace('_','.'))
+            entry.save()
     return
 
 # Helper function for build_text_tree.  Builds root node and then calls b_t_t.
@@ -73,15 +77,11 @@ def build_text_tree_helper(txt_name, loc_list):
 # Returns index of the 1st non-descendant location encountered.
 def build_text_tree(loc_list, index, subsection_lvl, parent):
     ### Create new TextStructureNode from params:
-    print loc_list
     location = loc_list[index]
-    print location
     location_split1 = location.split('.')
-    print location_split1
     location_split = []
     for i in location_split1:
         location_split=location_split + i.split('_')
-    print location_split
     subsection_id = location_split[subsection_lvl]
     node = TextStructureNode(subsection_level=subsection_lvl,
             subsection_id=subsection_id, least_mindiv=index)
@@ -101,8 +101,6 @@ def build_text_tree(loc_list, index, subsection_lvl, parent):
             index+=1
         while (index < len(loc_list) and 
                 is_descendant(location,subsection_lvl,loc_list[index])):
-            print index,len(loc_list)
-            print subsection_lvl, location_split
             if subsection_lvl < len(location_split)-1:
                 index = build_text_tree(loc_list, index, subsection_lvl+1, node)
             else: #I added this. I think it fixed the problem, but I did so with minimal understanding, so it probably is causing a different problem - Dylan
@@ -112,9 +110,8 @@ def build_text_tree(loc_list, index, subsection_lvl, parent):
 
 # True if location loc2 is descendant of node specified by loc1 & subsectn_lvl
 def is_descendant(loc1, subsection_lvl, loc2):
-    print "running is_descendant"
-    loc1, loc2 = loc1.split('.'),loc2.split('.') #split into sections list
-    print loc1, subsection_lvl, loc2
+    loc1, loc2 = loc1.split('_'),loc2.split('_') #split into sections list #Changed to '_' from '.' to reflect new spreadsheet
+    #print loc1, subsection_lvl, loc2
     try:
         for i in range(subsection_lvl+1):
             if re.search('[0-9]',loc1[i]) is not None:
@@ -157,9 +154,6 @@ def parse_csv(listified_csv, text_name):
     text_locations.sort(cmp=loc_cmp, key=lambda loc: loc[0])
     ### Create a list of unique locations:
     unique_locations = [text_locations[0][0]]
-    print text_locations, "Weeee"
-    print unique_locations, "unique_locations"
-    #print text_locations, "TEXT LOC"
     for appearance in text_locations:
         if loc_cmp(unique_locations[-1],appearance[0]) != 0:
             unique_locations.append(appearance[0])
@@ -171,13 +165,9 @@ def parse_csv(listified_csv, text_name):
 #   e.g. [book].[chapter].[verse]
 def loc_cmp(loc1, loc2):
     #Might need to change this to underscores for update
-    loc1, loc2 = loc1.split('.'),loc2.split('.') #split into sections list
-    ###SOOOOOOOOOOOOOOOOOO 
-    #This gets errors (indexing errors) when it switches from soemthing that is 2 in length to one.
-    #However, I believe that is intentional, and that this is functioning properlys
-    print loc1, loc2 
+    loc1, loc2 = loc1.split('_'),loc2.split('_') #split into sections list
     if len(loc1)==len(loc2):
-        print "Going in 1"
+        #D#print "Going in 1"
         try: 
             for i in range(len(loc1)):
                 if re.search('[0-9]',loc1[i]) is not None:
@@ -193,7 +183,7 @@ def loc_cmp(loc1, loc2):
             print loc1,'\t',loc2
             return 1
     elif len(loc1)<len(loc2):
-        print "Venturing down 2"
+        #D#print "Venturing down 2"
         try: 
             for i in range(len(loc1)):
                 if re.search('[0-9]',loc1[i]) is not None:
@@ -210,7 +200,7 @@ def loc_cmp(loc1, loc2):
             return 1
 
     elif len(loc1)>len(loc2):
-        print "Exploring 3"
+        #D#print "Exploring 3"
         try: 
             for i in range(len(loc2)):
                 if re.search('[0-9]',loc1[i]) is not None:
@@ -244,12 +234,15 @@ def cmd_parse():
                 '  DATAFILE.csv TEXT_NAME LANGUAGE')
         sys.exit(1)
 
-def main(csvfilename, text_name, language):
+def main(csvfilename, language):
     print "beep boop bop beep"
+    text_name= "Text Name now set later based on header of second column"
     print csvfilename,text_name,language
     with open(csvfilename) as csvfile:
         csv_reader = csv.reader(csvfile,delimiter=',',quotechar='"')
         listified_csv = list(csv_reader)
+        print listified_csv
+        text_name=listified_csv[0][2]
         
         # Get sorted list of word locations and corresponding words,
         #   and a list of all unique locations in the .csv:
@@ -266,7 +259,7 @@ def main(csvfilename, text_name, language):
         # Add word appearances to word appearances table:
         is_greek = (language.lower() == "greek")
         add_word_appearances(is_greek, sorted_appearances,
-           unique_locations, text_name)
+           unique_locations, text_name,listified_csv)
         print 'Added word appearance info to DB. Done!'
 
 
