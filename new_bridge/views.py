@@ -123,12 +123,16 @@ def words_page(request,language,text,bookslist,text_from,text_to,add_remove):
                 book = book[0:end]
             bookslist_formatted += "<em>"+book+"</em>"+ ", "
     print bookslist_formatted
+    if TextMetadata.objects.get(name_for_humans=text).local_def:
+        loc_def = True
+    else:
+        loc_def = False
     try:
         return render(request,"words_page.html", {"language":language, "text":text,
         "bookslist": bookslist, "bookslist_formatted": bookslist_formatted, 
         "text_from": text_from, "text_from_formatted": text_from_formatted, 
         "text_to": text_to, "text_to_formatted": text_to_formatted,
-        "add_remove": add_remove, "add_remove_formatted": add_remove_formatted})
+        "add_remove": add_remove, "add_remove_formatted": add_remove_formatted,"loc_def":loc_def})
     except Exception, e:
         print e
 
@@ -183,25 +187,61 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
     json_words = serializers.serialize("json",words_list)
     #D#print type(json_words)
     json_words2 = json.loads(json_words)
-    #print json_words2
     final_list = [] 
     test_for_in_final = {}
+    #Build dict that include appearance and number of appearance info to dump into json
+    for item in json_words2:
+        if item['pk'] not in test_for_in_final.keys():
+            word_app = WordAppearencesLatin.objects.filter(word=item['pk'],text_name=text)
+            item['fields']['position']=[word.appearance for word in word_app]
+            item['fields']['count']=len(item['fields']['position'])
+            word_app = word_app[0]
+            if not(word_app.local_def==None or word_app.local_def==""):
+                item['fields']['local_def']=word_app.local_def
+            else:
+                item['fields']['local_def']="None"
+            test_for_in_final[item['pk']] = item
+    '''
+    #If you see this in the future, you can delete it, but I just changed it and am keeping it for now
+    #Build dict that include appearance and number of appearance info to dump into json
     for item,position in zip(json_words2,word_ids):
-        item['fields']['position']=WordAppearencesLatin.objects.filter(mindiv=position[1])[0].appearance
+        #pull out, also get local_def
+        #word_app = WordAppearencesLatin.objects.filter(mindiv=position[1])[0]
+        word_app = WordAppearencesLatin.objects.filter(word=item['pk'])
+        print word_app
+        print item
+        print [word.appearance for word in word_app]
+        print "QOOOO"
+        item['fields']['position']=[word.appearance for word in word_app]
         item['fields']['count']=1
+        print "yyy"
+        #print word_app.local_def[0]
+        word_app = word_app[0]
+        if not(word_app.local_def==None or word_app.local_def==""):
+            item['fields']['local_def']=word_app.local_def
+        else:
+            item['fields']['local_def']="None"
         if item['pk'] not in test_for_in_final.keys():
             test_for_in_final[item['pk']] = item
         else:
-            test_for_in_final[item['pk']]['fields']['position'] += ", "+item['fields']['position']
+            #test_for_in_final[item['pk']]['fields']['position'].append("".join(item['fields']['position']))
             test_for_in_final[item['pk']]['fields']['count'] += 1
-
-    #D#print test_for_in_final.values()
-    #D#print json_words2[0]
-    #json_words2 = sorted(json_words2, key= lambda word: word['pk'],reverse=True)
+   # print test_for_in_final
+    '''
+    #make the appearance list sorted and formatted nicely
+    for item in test_for_in_final:
+        test_for_in_final[item]['fields']['position'].sort()
+        string = ""
+        index = 0
+        for num in test_for_in_final[item]['fields']['position']:
+            if index>5:
+                string+= str(num)+',' + '\n'
+                index = 0
+            else:
+                string+=str(num)+", "
+                index += 1
+        test_for_in_final[item]['fields']['position']=string[:-2]
     json_words = json.dumps(test_for_in_final.values())
-    #D#print type(json_words)
-
-    #D#print "loppp"
     return HttpResponse(json_words, content_type="application/json")
 
 def generateWords(word_appearences,lang,text,
@@ -246,10 +286,9 @@ def generateWords(word_appearences,lang,text,
     list_of_dict_of_words = vocab.values('word')
     # makes a list of these id numbers
     list_word_ids = []
-    print len(list_of_dict_of_words)
     for each in list_of_dict_of_words:
 	list_word_ids.append(each['word'])
-    print list_word_ids
+    #print list_word_ids
     try:
         # Get words which appear in main text and any of the read_texts:
 
@@ -257,13 +296,22 @@ def generateWords(word_appearences,lang,text,
         #COMMENT vvvvvvvvvvvvvvvvvvvvvv
         index = 100
         vocab_intersection = []
+        #CONSIDER NOT COMMENTINGvvvvvvvvvvvvvvvvvvvvvvvvvv
+        #don't want dups
+        list_word_ids=list(set(list_word_ids))
+        #PROBABLY DON't COMMENT ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         while index<len(list_word_ids):
-            vocab_intersection = vocab_intersection + list(word_appearences.objects.filter(read_texts_filter,
-                    word__in=list_word_ids[index-100:index]).values('word'))
-
+            vocab_intersection.extend(list(word_appearences.objects.filter(read_texts_filter,
+                    word__in=list_word_ids[index-100:index],text_name=text).values('word')))
             index += 100
-        vocab_intersection = vocab_intersection + list(word_appearences.objects.filter(read_texts_filter,
-                word__in=list_word_ids[index-100:index]).values('word'))
+        vocab_intersection.extend(list(word_appearences.objects.filter(read_texts_filter,
+                word__in=list_word_ids[index-100:index],text_name=text).values('word')))
+        d={}
+        for item in vocab_intersection:
+            if str(item) in d:
+                continue
+            else:
+                d[str(item)]=1
         #COMMENT ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
         #ORIGINAL, DOES NOT WORK IN SQLITE3
@@ -284,15 +332,8 @@ def generateWords(word_appearences,lang,text,
     #vocab_intersection = vocab_intersection.values('word')
     #UNCOMMENT^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     vocab_intersection_ids = []
-    print vocab_intersection
-    print loc_list
-    print len(vocab_intersection),len(loc_list)
-    #print zip(vocab_intersection,loc_list)
     for each, position in zip(vocab_intersection,loc_list):
-        #print each,"e"
-        #print position, "p"
         vocab_intersection_ids.append((each['word'],position))
-    print len(read_texts)
     #pdb.set_trace()
     if len(read_texts) > 0:
         if add_remove == 'Add': # If user wants words appearing in ALL texts 

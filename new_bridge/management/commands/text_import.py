@@ -24,23 +24,32 @@ from new_bridge.models import *
 #   of the text.  So, in the "TextMetadata" table, the "name_for_computers".
 def add_word_appearances(is_greek, appearance_list, loc_list, text_name,listified_csv):
     loc_list_index = 0
-    print text_name
-    if TextMetadata.objects.get(name_for_humans=text_name):
+    #check if there are local_defs
+    if TextMetadata.objects.get(name_for_humans=text_name).local_def:
         local_def_dict = {}
         for entry in listified_csv[1:]:
            local_def_dict[entry[0]]=entry[3]
-    print local_def_dict 
-    for appearance in appearance_list:
-        print appearance
-        if appearance[0].strip() != loc_list[loc_list_index].strip():
-            loc_list_index +=1
-        if is_greek:
-            entry = WordAppearencesGreek(text_name=text_name,
-                    word_id=appearance[1],mindiv=loc_list_index,appearance= loc_list[loc_list_index],local_def=local_def_dict[appearance[1]] )
-        else:
-            entry = WordAppearencesLatin(text_name=text_name,
-                    word_id=appearance[1],mindiv=loc_list_index, appearance= loc_list[loc_list_index],local_def=local_def_dict[appearance[1]])
-        entry.save()
+        for appearance in appearance_list:
+            if appearance[0].strip() != loc_list[loc_list_index].strip():
+                loc_list_index +=1
+            if is_greek:
+                entry = WordAppearencesGreek(text_name=text_name,
+                        word_id=appearance[1],mindiv=loc_list_index,appearance= loc_list[loc_list_index].replace('_','.'),local_def=local_def_dict[appearance[1]] )
+            else:
+                entry = WordAppearencesLatin(text_name=text_name,
+                        word_id=appearance[1],mindiv=loc_list_index, appearance= loc_list[loc_list_index].replace('_','.'),local_def=local_def_dict[appearance[1]])
+            entry.save()
+    else:
+        for appearance in appearance_list:
+            if appearance[0].strip() != loc_list[loc_list_index].strip():
+                loc_list_index +=1
+            if is_greek:
+                entry = WordAppearencesGreek(text_name=text_name,
+                        word_id=appearance[1],mindiv=loc_list_index,appearance= loc_list[loc_list_index].replace('_','.'))
+            else:
+                entry = WordAppearencesLatin(text_name=text_name,
+                        word_id=appearance[1],mindiv=loc_list_index, appearance= loc_list[loc_list_index].replace('_','.'))
+            entry.save()
     return
 
 # Helper function for build_text_tree.  Builds root node and then calls b_t_t.
