@@ -17,8 +17,8 @@
     <div class="home-header-wrap">
         <div class="panel-group col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2" id="accordion" role="tablist" aria-multiselectable="true">
             <div class=""header-content-wrap">
-                <a id="tabOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    <div role="tab" id="headingOne">
+                <!--<a id="tabOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"> -->
+                    <!--<div role="tab" id="headingOne">-->
                         <div class="intro-text">
                             <div class="container">
                                 Select a language
@@ -26,8 +26,8 @@
                             <div class="panel-contents">
                             </div>
                         </div>
-                    </div>
-                </a>
+                    <!--</div>-->
+                <!--</a> -->
                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                     <div class="panel-body">
                         <div class="button-holder">
