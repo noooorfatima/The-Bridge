@@ -836,9 +836,10 @@ function initTable() {
                     "data" : "fields."+$(this).data("fieldname"),
                     "visible" : $(this).data("visible")
             });
-            if (!($(this).data("visible"))) { // hide table header of non-visible columns.
-                $(this).css("display","none");
-            }
+            //I THINK THIS WAS BAD- DYLAN
+            //if (!($(this).data("visible"))) { // hide table header of non-visible columns.
+                //$(this).css("display","none");
+            //}
         }
         else {
             console.log('WARNING!\nCouldn\'t find field \'' + 
@@ -921,17 +922,35 @@ function buildToggle(field_options) {
     }
     toggle.find('.btn-group').css('width','100%');
     toggle.find('.btn').css('width',
-            (100/toggle.find('.btn').length)+'%');
-
+            '100%');
+    //Changed this^ from (100/toggle.find('.btn').length)+'%'); //Dylan
     // Set an active button, indicated via the data-visible attr:
-    var active = toggle.find("[data-visible=true]");
-    if (active.length > 0) {
-         active.first().button('toggle');
-    }
-    else {  // If no default is specified, toggle "none" btn:
-        toggle.find(".btn-group [value='none']").first().button('toggle');
-    }
+    var toggled = false
+    for (var i=0; i<field_options.length; i++) {
+        var field = $(field_options[i])
+        //console.log(field)
 
+        if (field[0].attributes['data-visible'].nodeValue=='true') {
+            //toggle that button!
+            var name = field[0].attributes['data-fieldname'].nodeValue
+            btn=toggle.find('.btn')
+            
+            for (var n=0; n<btn.length; n++) {
+                if (btn[n].attributes['value'].value==name){
+                    toggled = true
+                    btn[n].attributes['class'].nodeValue="btn active" ;
+                }
+            }
+        }
+    }
+    if (!(toggled)) {
+        btn=toggle.find('.btn')
+        for (var n=0; n<btn.length; n++) {
+            if (btn[n].attributes['value'].value=='none'){
+                btn[n].attributes['class'].nodeValue="btn active" 
+            }
+        }
+    }
     // Append to DOM and bind toggle event handlers:
     var container = jQuery('<div/>', {
         class: 'colFilters_container'
@@ -957,6 +976,7 @@ function buildToggle(field_options) {
                 'background-color' : '#337AB7'
             });
         $(this).addClass('active');
+        $(this).siblings('.active').removeClass('active');
     });
 }
 
@@ -974,6 +994,8 @@ function buildCheckdivs(field_options) {
         var checkdiv = proto_checkdiv.clone(true); //'true' keeps event binding
         var checkdiv_checkbox = checkdiv.find(".checkdiv-checkbox").first();
         checkdiv_checkbox.attr('value',field.data('fieldname'));
+        //d/console.log(field.data('fieldname'))
+        //d/console.log(field[0].attributes['data-visible'].value=='true')
         checkdiv_checkbox.attr('name',field.data('fieldtype'));
         checkdiv.find('.checkdiv-label').text(field.text());
         container.append(checkdiv);
