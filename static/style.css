@@ -1,5 +1,11 @@
 html {
- background-color: #07325C;
+  background-color: #07325C;
+  background: url(images/bg.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  overflow: scroll;
 }
 
 body {
@@ -7,12 +13,83 @@ body {
   margin: 0px;
   overflow: auto;
   padding: 0px;
+  font-size: 18px;
+ /* line-height: 35px;*/
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat; 
+  background-size: 100%;
+  vertical-align: baseline; 
+  line-height: 25px;
+}
+
+body.custom-background {
+  background-image: url("http://iris.haverford.edu/bridge/files/2015/10/Pont_du_Gard_BLS-11.jpg");
+  background-repeat: no-repeat;
+  background-position: center top !important;
+  background-size: inherit;
+  background-attachment: fixed !important;
+}
+
+body.wordspage-background {
+  background-image: url("http://iris.haverford.edu/bridge/files/2015/10/Pont_du_Gard_BLS-11.jpg");
+  background-repeat: no-repeat;
+  background-position: center top !important;
+  background-size: inherit;
+  background-attachment: fixed !important;
+}
+
+.preloader {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right:0px;
+  bottom: 0px;
+  background-color: #FEFEFE;
+  z-index: 99999;
+  height: 100%;
+  width:100%;
+  overflow: hidden !important;
+}
+
+img.bg {
+  min-height: 100%;
+  min-width: 1024px;
+  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.img-responsive {
+  display: block;
+  width: auto;
+  height: auto;
+
+}
+
+.home-header-wrap {
+overflow: hidden;
+position: relative;
+}
+
+.header-content-wrap {
+background: rgba (0,0,0,0,0.5) none repeat scroll 0% 0%;
+position: relative;
+box-shadow: 0px 5px 11px 0px rgba(50,50,50,0.08);
+padding: 285px 0px 210px;
 }
 
 .masthead{
     height: 168px;
-    background-color:#0D345A;
-    //background-image: url("/static/images/BridgeLogo.png");
+    background-color:#07325C;
+    /*background-image: url("/static/images/BridgeLogo.png");*/
     background-repeat:no-repeat;
 }
 
@@ -31,21 +108,51 @@ body .printable {
         }
       }
 
+.status{
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background-image: url("images/loading.gif");
+  background-repeat: no-repeat;
+  background-position: center center;
+  margin: -100px 0px 0px -100px;
+}
+
+.blog{
+  min-height: 175px;
+  position: relative;
+  overflow: hidden;
+}
 .container {
-  width: 100%;
+  width: 1170px;
+  background: white; 
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.nav {
+list-style: outside none none;
 }
 
 .navbar-nav>li{
   float:none;
+  position: relative;
+  display: block;
 }
 
 .navbar {
-  background-color: #30688D;
+  background-color: white;
   border: none;
+  text-align: left;
 }
 
 div.navbar.navbar-default::before {
-  display: none;
+  color: black !important;
+  font-size: 16px; 
 }
 
 .navbar-nav li a {
@@ -53,14 +160,79 @@ div.navbar.navbar-default::before {
 }
 
 .navbar-header {
-  height: 0px;
+  height: 100px;
+  margin-right: 0px;
+  margin-left: 0px;
+  float: left;
 }
 
+.navbar-brand {
+  padding: 7px 15px;
+  position: relative;
+  line-height: 60px;
+  display: inline-block;
+
+
+}
+
+.navbar-inverse.navbar-nav {
+  padding: 0px;
+  line-height: 35px;
+  margin-left: 0px;
+}
+
+.navbar-nav.navbar-right:last-child {
+  margin-right: -15px;
+}
+
+navbar-right {
+  float: right !important;
+}
+
+.navbar-collapse.collapse {
+  display: block !important;
+  height: auto !important;
+  padding-bottom: 0px;
+  overflow: visible !important;
+}
+
+.navbar-collapse {
+  width: auto;
+  border-top: 0px none;
+  box-shadow: none;
+  max-height: 340px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.navbar-toggle.collapsed{
+  background-color: #808080 !important;
+}
+
+.navbar-inverse.navbar-toggle{
+  border-color: #333;
+}
+
+.navbar-toggle{
+  display: none;
+  position: relative;
+  float:right;
+  margin-right:15px;
+  padding:9px 10px;
+  margin-bottom: 8px;
+  background-image: none;
+  border-radius: 4px;
+  border: 0px none;
+  margin-top:23px;
+}
+
+
 #nav_stripe {
-  background-color: #6393A9;
+  background-color: #0A0A0A;
   height: 8px;
   width:100%;
 }
+
 #banner {
   height: 8%;
   width: 100%;
@@ -93,6 +265,7 @@ div.navbar.navbar-default::before {
  padding:0px;
  margin-bottom:10px;
  }
+
  .kwicks > a {
  position:relative;
  display:inline-block;
@@ -1067,3 +1240,76 @@ html, body {
   width: 46px;
   cursor: pointer;
 }
+
+
+
+  width: 46px;
+  cursor: pointer;
+}
+
+#twitter_link {
+  //float: right;
+  font-size: 35px;
+  color: #CC9900;
+  margin-right: 5px;
+  margin-top: 10px;
+  height: 46px;
+  width: 46px;
+  cursor: pointer;
+}
+
+#facebook_link {
+  //float: right;
+  font-size: 35px;
+  color: #CC9900;
+  //margin-right: 5px;
+  margin-top: 10px;
+  height: 46px;
+  width: 46px;
+  cursor: pointer;
+}
+
+.col-xs-12 {
+padding-top: 0px;
+}
+
+.col-sm-12 {
+padding-top:0px;
+}
+
+col-md-12{
+padding-top: 0px;
+}
+
+col-lg-12{
+padding-top: 0px;
+}
+
+/*#main-content *.section-title {
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);*/
+
+/*wordpress styles*/
+
+.intro-text {
+text-align: center;
+color: #FFF;
+line-height: 65px;
+z-index: 0;
+text-transform: uppercase;
+font-size: 55px;
+float: none;
+font-weight: 700;
+}
+
+.company-details {
+color: black;
+padding-top: 10px;
+padding-bottom: 10px;
+}
+
+.copyright {
+padding-top: 10px;
+padding-bottom: 10px;
+background: white none repeat scroll 0% 0%;
+}
+
