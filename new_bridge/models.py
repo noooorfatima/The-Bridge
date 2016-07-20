@@ -122,7 +122,18 @@ class WordPropertyGreek(models.Model):
         return self.title
 
 class BookTitlesGreek(models.Model):
+    #book type for sorting on home page
+    #Note that the are valued such that they will be in the appropriate order when sorted alphabetacally
     title_of_book = models.TextField(db_column='Title of Book') 
+    LIST = 'LI'
+    TEXT = 'TE'
+    TEXTBOOK = 'TK'
+    BOOK_TYPE_CHOICES= (
+        (LIST,'List'),
+        (TEXT,"Text"),
+        (TEXTBOOK,'Textbook')
+    )
+    book_type = models.CharField(max_length=2,choices=BOOK_TYPE_CHOICES,null=True)
     def __unicode__(self):
         return self.title_of_book
     class Meta:
@@ -143,6 +154,17 @@ class BookTable(models.Model):
 #Shouldn't use plurals
 class BookTitles(models.Model):
     title_of_book = models.TextField(db_column='Title of Book') 
+    #book type for sorting on home page
+    #Note that the are valued such that they will be in the appropriate order when sorted alphabetacally
+    LIST = 'LI'
+    TEXT = 'TE'
+    TEXTBOOK = 'TK'
+    BOOK_TYPE_CHOICES= (
+        (LIST,'List'),
+        (TEXT,"Text"),
+        (TEXTBOOK,'Textbook')
+    )
+    book_type = models.CharField(max_length=2,choices=BOOK_TYPE_CHOICES,null=True)
     def __unicode__(self):
         return self.title_of_book
     class Meta:

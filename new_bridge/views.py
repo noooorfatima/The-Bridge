@@ -17,10 +17,12 @@ from StringIO import StringIO
 import ast
 
 def IndexView(request):
+        sorted_latin_books=sorted(BookTitles.objects.all(),key=lambda book: (book.book_type,book.title_of_book))
         booklist_latin= [book.title_of_book 
-                for book in BookTitles.objects.all()]
+                for book in sorted_latin_books]
+        sorted_greek_books=sorted(BookTitlesGreek.objects.all(),key=lambda book: (book.book_type,book.title_of_book))        
         booklist_greek= [book.title_of_book 
-                for book in BookTitlesGreek.objects.all()]
+                for book in sorted_greek_books]
 	return render(request, 'index.html', 
                 {"booklist_latin":booklist_latin,"booklist_greek":booklist_greek})
 	
@@ -53,7 +55,8 @@ def words_page_redirect(request,language):
     # This makes sure it does not mess up the url
     if not request.POST["textlist"] == "":
 	text = request.POST["textlist"]
-
+    text_meta = TextMetadata.objects.get(name_for_humans=text)
+    text_machine = text_meta.name_for_computers
     if ('book' in request.POST) == True:
 	bookslist = request.POST.getlist("book")
 	#bookslist = ",".join(bookslist)
@@ -92,13 +95,17 @@ def words_page_redirect(request,language):
 
     add_remove = request.POST["add_remove_selector"]
 
-    url = '/words_page/'+language+'/'+text+'/'+bookslist_string+'/'+text_from+'/'+text_to+'/'+add_remove+'/'
+    url = '/words_page/'+language+'/'+text_machine+'/'+bookslist_string+'/'+text_from+'/'+text_to+'/'+add_remove+'/'
 
     return HttpResponseRedirect(url)
 
 
 # This function is now redirected to once the new url is constructed
 def words_page(request,language,text,bookslist,text_from,text_to,add_remove):
+    #change back to the human name because a bunch of stuff depenends on it
+    #Note that it is ironic that the machine strictly uses the name_for_humans as opposed the the name_for_computers that was made for it
+    text_meta = TextMetadata.objects.get(name_for_computers=text)
+    text = text_meta.name_for_humans
     # Do some formatting to make vocab metadata more human-readable:
     add_remove_formatted = "excluding"
     if add_remove == "Add": 
