@@ -128,8 +128,8 @@ def words_page(request,language,text,bookslist,text_from,text_to,add_remove):
             end = book.find("_")
             if end != -1:
                 book = book[0:end]
-            bookslist_formatted += "<em>"+book+"</em>"+ ", "
-    print bookslist_formatted
+            bookslist_formatted += book+ ", "
+    bookslist_formatted = bookslist_formatted[:-2]
     if TextMetadata.objects.get(name_for_humans=text).local_def:
         loc_def = True
     else:
