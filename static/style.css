@@ -416,6 +416,8 @@ a.boxclose-about{
     padding: 1px 8px 1px 8px;
     width: 50%;
     text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #core_tip {
@@ -750,6 +752,7 @@ a.boxclose-about{
     text-overflow: ellipsis;
     text-align: left;
     margin-left: 10px;
+    max-width: 95%
 }
 
 .panel-contents {
@@ -763,6 +766,7 @@ a.boxclose-about{
     float: none;
     overflow: hidden;
     text-overflow: ellipsis;
+    max-width: 95%
 }
 
 #headingOne .panel-contents {
@@ -809,7 +813,7 @@ screen and (max-width: 441px) {
     .greekbookthumb {
         width: 100%;
     }
-}
+
 
 /* Styles for medium-sized screens: */
 @media 
@@ -820,12 +824,12 @@ screen and (min-width: 635px){
      */
    #headingTwo .panel-title {
        float: left;
-       max-width: 270px;
+       max-width: 47%;
    }
 
    #headingOne .panel-title {
        float: left;
-       max-width: 208px;
+       max-width: 80%;
    }
 
    #headingThree .panel-toggle {
@@ -835,7 +839,7 @@ screen and (min-width: 635px){
    
   #headingThree .panel-title {
        float: left;
-       max-width: 295px;
+       max-width: 100%;
        padding-left: 5px;
    }
   
