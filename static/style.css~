@@ -37,6 +37,7 @@ body.custom-background {
   background-position: center top !important;
   background-size: inherit;
   background-attachment: fixed !important;
+  
 }
 
 body.wordspage-background {
@@ -535,10 +536,6 @@ a.boxclose-about{
     margin-bottom: 20px;
     background-color: #F8F8F8;
 }
-
-
-
-
 .toggle-container .btn {
     font-family: Georgia, serif;
     font-size: 1.5em;
@@ -1316,6 +1313,9 @@ html, body {
 .site-footer {
   margin-top: 20px;
   background: #C5D3DC;
+  line-height: 25px;
+  position:fixed;
+  bottom:0;
 }
 
 #DCC-logo {
