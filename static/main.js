@@ -325,11 +325,13 @@ $(document).ready(function() {
         //EXPORT button bindings:
         //TODO!!!
         $("#tab_delim_export").on("click", function() {
+            console.log("i think this don't work")
             var tsv=tableToCSV('"\t"');
+            console.log(tsv)
             // Data URI
             var tsvData = 'data:application/csv;charset=utf-8,' +
                 encodeURIComponent(tsv);
-
+            console.log("wooo export")
             $(this)
                 .attr({
                     'download': generateFilename("HEY","BUTT","BUTTT"),
@@ -1133,6 +1135,7 @@ function tableToCSV(delimiter) {
     // Get indices of currently visible columns:
     //var visible_cols = [];
     var cols = words_table.columns().visible();
+    console.log(cols)
     /*for (var i=0; i<cols.length; i+=1) {
         if (cols[i]) {
             visible_cols.push(i);
@@ -1142,11 +1145,9 @@ function tableToCSV(delimiter) {
     var docstring = ""; 
     for (var i=0; i<words_table.rows()[0].length; i+=1) {
         for (var j=0; j<cols.length; j+=1) {
+            console.log(words_table.cell({"row":  i,"column": j}).data())
             docstring += '"'; // Begin CSV entry
-            docstring+=words_table.cell( {
-                "row":  i,
-                "column": j
-            }).data().replace('"','""');
+            docstring += words_table.cell({"row":  i,"column": j}).data().replace('"','""');
             docstring+=('"'+delimiter); // Close CSV entry
         }
         docstring+=rowDelim; // End CSV row
