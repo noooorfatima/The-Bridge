@@ -2,7 +2,7 @@
 {% load staticfiles %}
 <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
 <title>The Bridge: Customizable Greek and Latin Vocabulary Lists</title>
-<body class = "home blog wordspage-background img-responsive overlay" data-title="words_page">
+<body class = "home blog" data-title="words_page">
     {% include "navbar.html" %}
     {% include 'about.html' %}
     <div class="page-wrap">
@@ -48,13 +48,15 @@
                             <tr>
                                 <th class="lemma" data-fieldname='display_lemma' data-fieldtype='Vocab' data-radio=true data-visible=true>Dictionary Entry</th>
                                 <th class="lemma" data-fieldname='display_lemma_macronless' data-fieldtype='Vocab' data-radio=true data-visible=false>Dictionary Entry (Macronless)</th>
-                                <th class="def" data-fieldname='english_extended' data-fieldtype='Definitions' data-radio=false data-visible=true>Full English</th>
-                                <th class="def" data-fieldname='english_core' data-fieldtype='Definitions' data-radio=true  data-visible=true>Basic English</th>
+                                <th class="def" data-fieldname='english_extended' data-fieldtype='Definitions' data-radio=true data-visible=false>Full English</th>
                                 {% if loc_def %}
+                                <th class="def" data-fieldname='english_core' data-fieldtype='Definitions' data-radio=true  data-visible=false>Basic English</th>
                                  <th class="def" data-fieldname='local_def' data-fieldtype='Definitions' data-radio=true data-visible=true>Local Definition</th>
+                                {% else %}
+                                <th class="def" data-fieldname='english_core' data-fieldtype='Definitions' data-radio=true  data-visible=true>Basic English</th>
                                 {% endif %}
-                                <th class="Appearance" data-fieldname='position' data-fieldtype='Appearance' data-radio=false data-visible=true>Appearance</th>
-                                <th class="count" data-fieldname='count' data-fieldtype='Number of Appearances' data-radio=false data-visible=true>Number of Appearances</th>                               
+                                <th class="Appearance" data-fieldname='position' data-fieldtype='Appearance Info' data-radio=true data-visible=false>Appearance</th>
+                                <th class="count" data-fieldname='count' data-fieldtype='Appearance Info' data-radio=true data-visible=false>Number of Appearances</th>                               
                                 <th class="pos" data-fieldname='part_of_speech' data-fieldtype='' data-radio=false data-visible=true>Part of Speech</th>
 
 
