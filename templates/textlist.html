@@ -16,23 +16,23 @@
     {% csrf_token %}
     <div class="home-header-wrap">
         <div class="panel-group col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2" id="accordion" role="tablist" aria-multiselectable="true">
-            <div class="panel panel-default">
-                <a class="collapsed" id="tabOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    <div class="panel-heading" role="tab" id="headingOne">
-                        <div class="row">
-                            <div class="panel-title">
+            <div class=""header-content-wrap">
+                <a id="tabOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <!--<div role="tab" id="headingOne">-->
+                        <div>
+                            <div class="intro-text">
                                 Select a language
                             </div>
                             <div class="panel-contents">
                             </div>
                         </div>
-                    </div>
+                    <!--</div>-->
                 </a>
                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body">
+                    <div class="buttons" pull-right>
                         <div class="button-holder">
-                            <button name="language" type="button" id="greek" value="Greek" class="btn btn-xlarge btn-primary">Greek</button>
-                            <button name="language" type="button" id="latin" value="Latin" class="btn btn-xlarge btn-primary">Latin</button>
+                            <button name="language" type="button" id="greek" value="Greek" class="btn btn-xlarge btn-primary red-btn">Greek</button>
+                            <button name="language" type="button" id="latin" value="Latin" class="btn btn-xlarge btn-primary green-btn">Latin</button>
                         </div>
                     </div>
                 </div>

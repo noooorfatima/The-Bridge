@@ -1249,3 +1249,5 @@ function getScrollbarWidth() {
 
     return widthNoScroll - widthWithScroll;
 }
+
+

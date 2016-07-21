@@ -51,7 +51,7 @@ $(document).ready(function() {
 		        alert("Please submit a valid range.");
 		        return false;
 		    }};
-            var pairs = [];
+            var pairs = []
             console.log($('.range_select_box input'));
             $('.range_select_box').each(function() {
 		var new_tuple = []
@@ -60,13 +60,13 @@ $(document).ready(function() {
 			new_tuple.push(value.value);
 		});
 		pairs.push(new_tuple);
-		var text 
-		text = document.getElementsByClass("text_name");
-		console.log(text);
+		//var text 
+		//text = document.getElementsByClass("text_name");
+		//console.log(text);
 		for (var i=0; i<pairs.length; i++) {
-		    var text_array
+		    //var text_array
 		    console.log(pairs);
-		    pairs[i].push(text[i])
+		    //pairs[i].push(text[i])
 		    if (pairs[i][0] != "") {
 		        if (pairs[i][1] == "") {
 		            key = false;
@@ -86,9 +86,9 @@ $(document).ready(function() {
 			return false;
                     }
 	        }
-        });
+        })
 		if (key==false) {
-			alert("Please enter a valid range in "text[i]".");
+			alert("Please enter a valid range");
 			return false;
 		}
 });
@@ -715,18 +715,36 @@ function toggleSlideoutPanel() {
     
     // If the panel isn't stowed, slide to the right:
     if (!(panel.data("stowed"))) {
+        //console.log("DYLAN", pulltab_slide)
         panel_slide = -1*pulltab_slide;
         pulltab_slide = 0;
         scrollbar = "hidden";
     }
     // Show/hide scrollbar:
     $("#slideout-container").css("overflow-y",scrollbar);
-    // animate panel and pulltab sliding:
+
+    // animate panel and pulltab sliding: 
+    //console.log("DYLAN", panel_slide)
     panel.animate({
         right: panel_slide
     });
     pulltab.animate({
         right: pulltab_slide
+    });
+    //Make the container have no width if it is not open
+    //Note that this is a bad way of doing this and I don't really know what I am doing
+    //-Dylan
+
+    //console.log(pulltab.css("right"),DYLAN)
+    if (pulltab.css("right") != '0px') {
+        var div_o = 0;
+    }
+    else{
+        var div_o = 360
+
+    }
+    $("#slideout-container").animate({
+        "width" : div_o
     });
     panel.data("stowed", !(panel.data("stowed")));
     
@@ -746,10 +764,10 @@ function resizeSlideoutPanel() {
     // Keep from overlapping footer:
     var divHeight_new = Math.min(viewportBot, footerTop);
     divHeight_new -= $(this).scrollTop() + divTop_new;
-    
+
     $("#slideout-container").css({
         "top" : divTop_new,
-        "height" : divHeight_new
+        "height" : divHeight_new,
     });
 
     // Also keep slideout toggle below the header:
@@ -847,12 +865,14 @@ function initTable() {
 
 /* Builds the "Show/Hide Columns" buttons from a list of <th> elements. */
 function initColumnFilters(th_list) {
+    //console.log(th_list,"DYLAN")
     var checkdiv_prototype = $(".colFilters_container checkdiv");
     var toggle_prototype = $(".colFilters_container .col-toggle-box");
     // Sort by field type:
     var fieldtypes = {};
     for (var i=0; i<th_list.length; i++) {
         var fieldtype = $(th_list[i]).data("fieldtype");
+        //console.log(fieldtype,"DYLAN")
         // Add <th> to existing array, else create a new array:
         if (fieldtypes.hasOwnProperty(fieldtype)) {
             fieldtypes[fieldtype].push(th_list[i]);
@@ -861,7 +881,7 @@ function initColumnFilters(th_list) {
             fieldtypes[fieldtype] = [th_list[i]];
         }
     }
-    
+    //console.log(fieldtypes,"DYLAN")
     // Build radio toggle button-groups or checkdivs for each data column:
     for (fieldtype in fieldtypes) {
         if (fieldtypes.hasOwnProperty(fieldtype)) {  // skip inherited prop.s
@@ -878,6 +898,7 @@ function initColumnFilters(th_list) {
 /* Helper for initColumnFilters. Builds bootstrappy radio toggle for
  *  visibility of table columns in field_options.*/
 function buildToggle(field_options) {
+    //console.log(field_options,"DYLAN")
     var toggle = $("#prototype_container .col-toggle-box").clone();
     // Set label text and ID of toggle:
     var labelText = $(field_options[0]).data('fieldtype'); 
@@ -942,6 +963,7 @@ function buildToggle(field_options) {
 /* Helper for initColumnFilters. Builds checkdivs governing visibility of 
  *  table columns in field_options.*/
 function buildCheckdivs(field_options) {
+    //console.log(field_options,"DYLAN")
     var container = jQuery('<div/>', {
         class: 'colFilters_container'
     });
@@ -1033,8 +1055,10 @@ function determineFilterState() {
 /* Given array of word categories, returns an array of relevant wordTable objects.
  * wordTable objects are retrieved from word category arrays in words_data.*/
 function filterWordData(pos_list) {
+    //console.log(pos_list, "DYLAN")
     var words_data_filtered = [];
     var words_data_keys = Object.getOwnPropertyNames(words_data);
+    //console.log(words_data_keys, "DYLAN")
     for (var i=0; i<words_data_keys.length; i++) {
         var key = words_data_keys[i];
         var key_index = pos_list.indexOf(key)
@@ -1043,6 +1067,7 @@ function filterWordData(pos_list) {
             pos_list.splice(key_index,1); //rm that key from pos_list
         }        
     }
+    //console.log(words_data_filtered, "DYLAN")
     return words_data_filtered;
 }
 
@@ -1199,3 +1224,5 @@ function getScrollbarWidth() {
 
     return widthNoScroll - widthWithScroll;
 }
+
+
