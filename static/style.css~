@@ -190,10 +190,10 @@ div.navbar.navbar-default::before {
 }
 
 .navbar-nav.navbar-right:last-child {
-  margin-right: -15px;
+  margin-right: -15px;;
 }
 
-navbar-right {
+.navbar-right {
   float: right !important;
 }
 
@@ -233,6 +233,18 @@ navbar-right {
   border: 0px none;
   margin-top:23px;
 }
+
+.toggle-container .btn {
+font-family: Georgia, serif;
+font-size: 1.5em;
+padding: 1px 8px 1px 8px;
+width: 50%;
+text-align: center;
+	}
+	.toggle-container .btn-group {
+width: 40%;
+min-width: 200px;
+	}
 
 
 #nav_stripe {
@@ -379,7 +391,7 @@ line-height: 35px;
 font-size: 16px;
 }
 
-/*
+
 .kwicks {
  width:100%;
  position:relative;
@@ -396,7 +408,7 @@ font-size: 16px;
  color:white;
  padding-top:20px;
  padding-bottom:20px;
- text-align:center; */
+ text-align:center;
  /* overridden by kwicks but good for when JavaScript is disabled */
  width:20%;
  margin:0px;
@@ -529,18 +541,7 @@ a.boxclose-about{
     background-color: #F8F8F8;
 }
 
-.toggle-container .btn-group {
-    width: 40%;
-    min-width: 200px;
-}
 
-.toggle-container .btn {
-    font-family: Georgia, serif;
-    font-size: 1.5em;
-    padding: 1px 8px 1px 8px;
-    width: 50%;
-    text-align: center;
-}
 
 #core_tip {
    padding: 10px;
