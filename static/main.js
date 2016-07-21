@@ -325,19 +325,21 @@ $(document).ready(function() {
         //EXPORT button bindings:
         //TODO!!!
         $("#tab_delim_export").on("click", function() {
-            console.log("i think this don't work")
-            var tsv=tableToCSV('"\t"');
-            console.log(tsv)
+            var tsv=tableToCSV('\t');
             // Data URI
-            var tsvData = 'data:application/csv;charset=utf-8,' +
+            var tsvData = 'data:application/tsv;charset=utf-8,' +
                 encodeURIComponent(tsv);
-            console.log("wooo export")
+
+            window.location = tsvData;
+            /*
+            //this is legacy code and you should delete it next time you see it
             $(this)
                 .attr({
-                    'download': generateFilename("HEY","BUTT","BUTTT"),
+                    'download': generateFilename("file","0","100"),
                     'href': tsvData,
                     'target': '_blank'
-                }); //this wasn't me, but the butts are hilarious. I don't think this does anything right now -Dylan
+                }); 
+            */
         });
 
         /* FILTERING/CHECKBOX BINDINGS: */
@@ -1135,20 +1137,33 @@ function tableToCSV(delimiter) {
     // Get indices of currently visible columns:
     //var visible_cols = [];
     var cols = words_table.columns().visible();
+    console.log(words_table.columns().data())
     console.log(cols)
     /*for (var i=0; i<cols.length; i+=1) {
         if (cols[i]) {
             visible_cols.push(i);
         }
     }*/
-    var rowDelim = '"\r\n"';
-    var docstring = ""; 
+    var rowDelim = '\r\n';
+    var docstring = "";
+    console.log(words_table)
+    console.log(words_table.rows())
+    var header = ""
+    $("#words_generated th").each(function() {
+        header += $(this)[0].attributes['data-fieldname'].nodeValue + delimiter
+         })
+    docstring += header + rowDelim
     for (var i=0; i<words_table.rows()[0].length; i+=1) {
         for (var j=0; j<cols.length; j+=1) {
-            console.log(words_table.cell({"row":  i,"column": j}).data())
-            docstring += '"'; // Begin CSV entry
-            docstring += words_table.cell({"row":  i,"column": j}).data().replace('"','""');
-            docstring+=('"'+delimiter); // Close CSV entry
+            if (cols[j]==true){
+                //Previous person was doing alot of things with quotes that seemed silly - Dylan
+                //docstring += '"'; // Begin CSV entry
+                var ss = (""+words_table.cell({"row":  i,"column": j}).data());
+                console.log(ss)
+                docstring += ss;
+                docstring+=(delimiter); // Close CSV entry    
+            }
+
         }
         docstring+=rowDelim; // End CSV row
     }
