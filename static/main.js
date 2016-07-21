@@ -143,11 +143,12 @@ $(document).ready(function() {
         /* EVENT HANDLERS FOR THE GIANT_FORM: */
 
         // Show/hide range select TOGGLE in a booklist thumbnail:
-        $("#booklist .thumbnail :button").on("click", function() {
+        //click is bound twice to these so I unbounded first
+        //Really a fine solution, but also kind of a hack
+        $("#booklist .thumbnail :button").unbind("click").on("click", function() {
             var div = $(this).parent().find(
                 ".range-select-toggle");
             if (div.css("display") == "none") {
-                console.log("woo")
                 div.slideDown(100);
                 $(this).parent().css("border",
                     "3px solid #07315B");
@@ -162,7 +163,6 @@ $(document).ready(function() {
                         style: "display: none"
                     }).appendTo(this);
             } else {
-                console.log("wee")
                 div.slideUp(100, function() {
                     $(this).parent().css("border",
                         "1px solid #ccc");
