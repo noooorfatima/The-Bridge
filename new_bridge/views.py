@@ -187,7 +187,7 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
     print type(word_ids)
     try:
         for each in word_ids:
-            words_list.append(word_property_table.objects.filter(id__exact=each[0])[0])
+            words_list.append(word_property_table.objects.filter(id__exact=each)[0])
     except Exception, e:
 	print "get words error 1"
         print e
@@ -281,9 +281,9 @@ def generateWords(word_appearences,lang,text,
         to_mindiv = loc_to_mindiv(text,text_to)
         vocab = word_appearences.objects.filter(text_name__exact=text,
                 mindiv__range=(from_mindiv, to_mindiv))
-        loc_list = []
-        for vcab in vocab:
-            loc_list.append(vcab.mindiv)
+        #loc_list = []
+        #for vcab in vocab:
+        #    loc_list.append(vcab.mindiv)
     except Exception, e:
         print "try 2 error: "
         print e
@@ -296,40 +296,38 @@ def generateWords(word_appearences,lang,text,
     for each in list_of_dict_of_words:
 	list_word_ids.append(each['word'])
     #print list_word_ids
-    try:
-        # Get words which appear in main text and any of the read_texts:
+    if len(read_texts)==0:
+        return list(set(list_word_ids))
+    else:
+        try:
+            # Get words which appear in main text and any of the read_texts:
 
-        #COMMENT THIS OUT FOR PRODUCTION
-        #COMMENT vvvvvvvvvvvvvvvvvvvvvv
-        index = 100
-        vocab_intersection = []
-        #CONSIDER NOT COMMENTINGvvvvvvvvvvvvvvvvvvvvvvvvvv
-        #don't want dups
-        list_word_ids=list(set(list_word_ids))
-        #PROBABLY DON't COMMENT ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        while index<len(list_word_ids):
+            #COMMENT THIS OUT FOR PRODUCTION
+            #COMMENT vvvvvvvvvvvvvvvvvvvvvv
+            index = 100
+            vocab_intersection = []
+            #CONSIDER NOT COMMENTINGvvvvvvvvvvvvvvvvvvvvvvvvvv
+            #don't want dups
+            list_word_ids=list(set(list_word_ids))
+            #PROBABLY DON't COMMENT ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            while index<len(list_word_ids):
+                vocab_intersection.extend(list(word_appearences.objects.filter(read_texts_filter,
+                        word__in=list_word_ids[index-100:index],text_name=text).values('word')))
+                index += 100
             vocab_intersection.extend(list(word_appearences.objects.filter(read_texts_filter,
                     word__in=list_word_ids[index-100:index],text_name=text).values('word')))
-            index += 100
-        vocab_intersection.extend(list(word_appearences.objects.filter(read_texts_filter,
-                word__in=list_word_ids[index-100:index],text_name=text).values('word')))
-        d={}
-        for item in vocab_intersection:
-            if str(item) in d:
-                continue
-            else:
-                d[str(item)]=1
-        #COMMENT ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            #COMMENT ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-        #ORIGINAL, DOES NOT WORK IN SQLITE3
-        #UNCOMMENT vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-        #vocab_intersection = word_appearences.objects.filter(read_texts_filter,
-      
-        #        word__in=list_word_ids)
-        #UNCOMMENT ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    except Exception, e:
-        print "try 3 error: "
-        print e
+            #ORIGINAL, DOES NOT WORK IN SQLITE3
+            #UNCOMMENT vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+            #vocab_intersection = word_appearences.objects.filter(read_texts_filter,
+          
+            #        word__in=list_word_ids)
+            #UNCOMMENT ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        except Exception, e:
+            print "try 3 error: "
+            print e
+
     # Remove or exclusively include words appearing in read_texts:
     #print vocab_intersection
     vocab_final = []
@@ -339,9 +337,10 @@ def generateWords(word_appearences,lang,text,
     #vocab_intersection = vocab_intersection.values('word')
     #UNCOMMENT^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     vocab_intersection_ids = []
-    for each, position in zip(vocab_intersection,loc_list):
-        vocab_intersection_ids.append((each['word'],position))
+    for each in vocab_intersection:
+        vocab_intersection_ids.append(each['word'])
     #pdb.set_trace()
+    vocab_intersection_ids = list(set(vocab_intersection_ids))
     if len(read_texts) > 0:
         if add_remove == 'Add': # If user wants words appearing in ALL texts 
 	    for word in list_word_ids:
@@ -354,8 +353,7 @@ def generateWords(word_appearences,lang,text,
     else:
         # don't need to modify list; nothing to add/remove
         vocab_final = vocab_intersection_ids
-    #print vocab_final,"ding"
-    return list(set(vocab_final))
+    return vocab_final
 
 
 # Translates a human-readable text location into a machine-readable mindiv.
