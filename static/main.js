@@ -147,6 +147,7 @@ $(document).ready(function() {
             var div = $(this).parent().find(
                 ".range-select-toggle");
             if (div.css("display") == "none") {
+                console.log("woo")
                 div.slideDown(100);
                 $(this).parent().css("border",
                     "3px solid #07315B");
@@ -161,6 +162,7 @@ $(document).ready(function() {
                         style: "display: none"
                     }).appendTo(this);
             } else {
+                console.log("wee")
                 div.slideUp(100, function() {
                     $(this).parent().css("border",
                         "1px solid #ccc");
@@ -168,7 +170,7 @@ $(document).ready(function() {
                 //remove any hidden checkboxes to exclude this book from the form:
                 $(".hiddencheck", this).remove();
             }
-
+            
             // Build a list of selected book titles and insert into panel-contents:
             var headerStr = "";
             var books = $(".thumbnail :button input");
@@ -333,7 +335,7 @@ $(document).ready(function() {
                     'download': generateFilename("HEY","BUTT","BUTTT"),
                     'href': tsvData,
                     'target': '_blank'
-                });
+                }); //this wasn't me, but the butts are hilarious. I don't think this does anything right now -Dylan
         });
 
         /* FILTERING/CHECKBOX BINDINGS: */
