@@ -341,6 +341,20 @@ $(document).ready(function() {
                 }); 
             */
         });
+    //Function that allows the print button on words page to work
+    function printData()
+    {
+       var divToPrint=document.getElementById("words_generated");
+       newWin= window.open("");
+       newWin.document.write(divToPrint.outerHTML);
+       newWin.print();
+       newWin.close();
+    }
+    //not sure if this one works
+    $('#printSubmit').on('click',function(){
+    printData();
+    })
+
 
         /* FILTERING/CHECKBOX BINDINGS: */
         
