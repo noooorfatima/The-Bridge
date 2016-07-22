@@ -762,7 +762,7 @@ function toggleSlideoutPanel() {
 function resizeSlideoutPanel() {
     var viewportHeight = $(window).height();
     var viewportBot = $(window).scrollTop() + viewportHeight; // In DOCUMENT.
-    var navbarBot = $("#navbar").offset().top+$("#navbar").height(); // In DOCUMENT.
+    var navbarBot = $("#main-nav").offset().top+$("#main-nav").height(); // In DOCUMENT. //switched to main-nav from navbar
     var footerTop = $(".site-footer").offset().top; // In DOCUMENT.
     var divTop = parseInt($("#slideout-container").css("top")); // In VIEWPORT.
     // Keep from overlapping header:
