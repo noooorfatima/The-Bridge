@@ -321,16 +321,21 @@ $(document).ready(function() {
                 div.slideUp(100);
             }
         });
-
+/*
         //EXPORT button bindings:
-        //TODO!!!
         $("#tab_delim_export").on("click", function() {
             var tsv=tableToCSV('\t');
             // Data URI
             var tsvData = 'data:application/tsv;charset=utf-8,' +
                 encodeURIComponent(tsv);
-
-            window.location = tsvData;
+            $(this)
+                .attr({
+                    'download': "export.tsv",
+                    'href': tsvData,
+                    'target': '_blank',
+                    'action': tsvData
+                }); 
+            //window.location = tsvData;
             /*
             //this is legacy code and you should delete it next time you see it
             $(this)
@@ -339,8 +344,87 @@ $(document).ready(function() {
                     'href': tsvData,
                     'target': '_blank'
                 }); 
-            */
+            *
         });
+*/
+ function exportTableToTSV($table, filename) {
+
+        var $rows = $table.find('tr:has(td)'),
+
+            // Temporary delimiter characters unlikely to be typed by keyboard
+            // This is to avoid accidentally splitting the actual contents
+            tmpColDelim = String.fromCharCode(11), // vertical tab character
+            tmpRowDelim = String.fromCharCode(0), // null character
+
+            // actual delimiter characters for CSV format
+            colDelim = '"\t"',
+            rowDelim = '"\r\n"',
+
+            // Grab text from table into CSV formatted string
+            tsv = '"' + $rows.map(function (i, row) {
+                var $row = $(row),
+                    $cols = $row.find('td');
+
+                return $cols.map(function (j, col) {
+                    var $col = $(col),
+                        text = $col.text();
+
+                    return text.replace('"', '""'); // escape double quotes
+
+                }).get().join(tmpColDelim);
+
+            }).get().join(tmpRowDelim)
+                .split(tmpRowDelim).join(rowDelim)
+                .split(tmpColDelim).join(colDelim) + '"',
+
+            // Data URI
+            tsvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(tsv);
+
+        $(this)
+            .attr({
+            'download': filename,
+                'href': tsvData,
+                'target': '_blank'
+        });
+    }
+
+    // This must be a hyperlink
+    $(".tab_export").on('click', function (event) {
+        // CSV
+        exportTableToTSV.apply(this, [$('#words_generated'), 'export.tsv']);
+        
+        // IF CSV, don't do event.preventDefault() or return false
+        // We actually need this to be a typical hyperlink
+});
+
+
+var tableToExcel = (function () {
+    console.log("BIAAATCH")
+        var uri = 'data:application/vnd.ms-excel;base64,'
+        , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+        , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+        , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+        console.log("probs print")
+        console.log(document.getElementById('dlink'))
+        $("#excel_export").on("click", function() {
+            tableToExcel('words_generated', 'name', 'myfile.xls')
+
+        });
+
+
+        return function (table, name, filename) {
+            if (!table.nodeType) table = document.getElementById("words_generated")
+            var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+            console.log("this wont run")
+            document.getElementById("dlink").href = uri + base64(format(template, ctx));
+            document.getElementById("dlink").download = filename;
+            document.getElementById("dlink").click();
+        
+
+        }
+        console.log("will this wwork")
+    })();
+
     //Function that allows the print button on words page to work
     function printData()
     {
@@ -355,7 +439,7 @@ $(document).ready(function() {
     printData();
     })
 
-
+console.log(tableToExcel)
         /* FILTERING/CHECKBOX BINDINGS: */
         
         // Filter Function
@@ -551,10 +635,13 @@ function switchFormTabs(current, next) {
     current.siblings(".collapse").collapse("hide");
 
     //Change next's tab header to look "active", and EXPAND it:
-    next.find(".panel-heading").css("background-color", "#07325C");
-    next.find(".panel-title").css("color", "#F1F1F1");
-    next.find(".panel-contents").css("color", "#F1F1F1");
-    next.find(".panel-contents").css("border", "1px solid #F1F1F1");
+    next.find(".panel-heading").css("background-color", "#FFFFFF");
+    next.find(".panel-title").css("color", "#07326e");
+    next.find(".panel-contents").css("color", "#07326e");
+    next.find(".panel-contents").css("border", "1px solid #428BCA");
+    next.parent().removeClass("hidden")
+    next.parent().next().removeClass("hidden")
+    $("#giant_form_submit").removeClass("hidden")
     next.siblings(".collapse").collapse("show");
 
     //Reflect this change in the active form tracking variable:

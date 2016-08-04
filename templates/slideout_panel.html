@@ -3,19 +3,19 @@
     </div>
         <div class="btn-group btn-group-justified">
             <div class="btn-group">
-                <button type="button" class="btn btn-default" id="printSubmit" value="Print"
+                <button type="button" class="btn btn-default export-table" id="printSubmit" value="Print"
                     data-toggle="tooltip" data-placement="bottom" title="Print table">Print</button>
             </div>
             <div class="btn-group">
                 <a id="dlink"  style="display:none;"></a>
-                <button type="button" class="btn btn-default" id="excel_export" value="Export to Excel"
+                <button type="button" class="btn btn-default export-table" id="excel_export" value="Export to Excel"
                     data-toggle="tooltip" data-placement="bottom" title="Saves table as an Excel file."
                     onclick="tableToExcel('words_generated', 'name', 'myfile.xls')">Excel</button>
             </div>
             <div class="btn-group">
-                <a class="tab_export"><button type="button" class="btn btn-default" id="tab_delim_export" value="tab_delim_export"
+                <a class="tab_export"><button type="button" class="btn btn-default export-table" id="tab_delim_export" value="tab_delim_export"
                         data-toggle="tooltip" data-placement="bottom" 
-                        title="Save as a .txt file - can be uploaded into Anki or Mnemosyne">Tab Delimited File</button></a>
+                        title="Save as a .tsv file - can be uploaded into Anki or Mnemosyne">TSV</button></a>
             </div>
         </div>
     <div class="panel-body" id="export_panel_body">

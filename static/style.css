@@ -815,10 +815,13 @@ a.boxclose-about{
             border-radius: 8px;
 }
 
+
 .btn-xlarge:hover {
   border-width: 2px;
   border-color: black
 }
+
+
 #welcome_blurb h3 {
    font-family: Georgia, serif;
    color:#07325C;
@@ -1459,4 +1462,9 @@ padding-top: 10px;
 padding-bottom: 10px;
 background: white none repeat scroll 0% 0%;
 }
-
+.export-table {
+  margin: 0px;
+}
+#tab_delim_export {
+  border-radius: 0px 4px 4px 0px;
+}
