@@ -297,12 +297,10 @@ background: #E96656 !important;
 
 .green-btn {
 background: #1E9E6B !important;
-border: #1E9E6B;
 text-align: center;
 vertical-align: middle;
 margin: 10px;
 border-radius: 4px;
-padding: 13px 35px;
 }
 
 .custom-button {
@@ -806,16 +804,21 @@ a.boxclose-about{
 }
 
 .btn-xlarge {
-    padding: 30px 50px;
+    padding: 0px;
     height: 103px;
     width: 195px;
     font-size: 35px;
+    border-width: 0px;
     line-height: normal;
     -webkit-border-radius: 8px;
        -moz-border-radius: 8px;
             border-radius: 8px;
 }
 
+.btn-xlarge:hover {
+  border-width: 2px;
+  border-color: black
+}
 #welcome_blurb h3 {
    font-family: Georgia, serif;
    color:#07325C;
@@ -1438,6 +1441,13 @@ float: none;
 font-weight: 700;
 }
 
+#tabOne:hover {
+text-decoration: none;
+}
+
+#tabOne:focus {
+text-decoration: none;
+}
 .company-details {
 color: black;
 padding-top: 10px;
