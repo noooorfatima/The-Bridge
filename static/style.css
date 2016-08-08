@@ -12,8 +12,10 @@ html {
   -webkit-background-size: cover;
   -moz-background: cover;
   -o-background-size: cover;
-  background-size: cover;
-  overflow: scroll;
+  background-size: 100%;
+  overflow: auto;
+  height: 100%;
+  min-height: 620px;
 }
 
 body {
@@ -25,27 +27,33 @@ body {
  /* line-height: 35px;*/
   width: 100%;
   height: 100%;
-  background-repeat: no-repeat; 
-  background-size: 100%;
   vertical-align: baseline; 
   line-height: 25px;
 }
 
-body.custom-background {
+#background.custom-background {
   background-image: url("http://iris.haverford.edu/bridge/files/2015/10/Pont_du_Gard_BLS-11.jpg");
   background-repeat: no-repeat;
   background-position: center top !important;
-  background-size: inherit;
+  background-size: cover;
   background-attachment: fixed !important;
-  
+  height: 100%;
+
 }
 
-body.wordspage-background {
+@media screen and (min-width: 860px) {
+  #background.custom-background {
+  padding: 69px;
+}
+}
+
+#background.wordspage-background {
   background-image: url("http://iris.haverford.edu/bridge/files/2015/10/Pont_du_Gard_BLS-11.jpg");
   background-repeat: no-repeat;
   background-position: center top !important;
   background-size: inherit;
   background-attachment: fixed !important;
+  min-height: 100%;
 }
 
 .preloader {
@@ -149,7 +157,7 @@ list-style: outside none none;
 
 .navbar-nav>li{
   /* FOR A VERTICAL LIST float:none;*/
-  
+
   position: relative;
   display: block;
 }
@@ -158,6 +166,7 @@ list-style: outside none none;
   background-color: white;
   border: none;
   text-align: left;
+  margin-bottom: 0px;
 }
 
 div.navbar.navbar-default::before {
@@ -768,6 +777,7 @@ background-color: gray;
 .alert {
     margin-left: 10px;
     margin-right: 10px;
+    margin-top: 10px;
 }
 
 #big_wrap {
@@ -1303,6 +1313,8 @@ button > div {
 
 #words_generated_div {
     display: none;
+    background-color: white;
+    padding-top: 20px;
 }
 #words_generated::-webkit-scrollbar {
     display: none;
@@ -1339,9 +1351,10 @@ html, body {
 .page-wrap {
   min-height: 0%;
   /* equal to footer height */
-  margin-bottom: 20px;
+  margin-bottom: 0px;
   height: auto;
   overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .page-wrap::-webkit-scrollbar {
@@ -1360,7 +1373,7 @@ html, body {
 }
 .site-footer {
   margin-top: 20px;
-  background: #C5D3DC;
+  background: black;
   line-height: 25px;
   position:fixed;
   bottom:0;
@@ -1396,13 +1409,16 @@ html, body {
 
 #email {
   //float: right;
-  font-size: 35px;
+  font-size: 50px;
   color: #CC9900;
   //margin-right: 200px;
   margin-top: 10px;
-  height: 46px;
-  width: 46px;
+  height: 55px;
+  width: 55px;
   cursor: pointer;
+  text-align: center;
+  position: relative;
+  top: 13px;
 }
 
 #twitter_link {
@@ -1532,4 +1548,5 @@ background: white none repeat scroll 0% 0%;
 
 .btn {
   border-color: black;
+  margin: 0 auto;
 }

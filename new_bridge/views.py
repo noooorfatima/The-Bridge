@@ -241,7 +241,7 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
         string = ""
         index = 0
         for num in test_for_in_final[item]['fields']['position']:
-            if index>5:
+            if index>3:
                 string+= str(num)+',' + '\n'
                 index = 0
             else:

@@ -508,8 +508,8 @@ console.log(tableToExcel)
                 resizeSlideoutPanel();
                 // Enable slideout panel slide behavior once words load:
                 $("#slideout-pulltab").css({
-                    "background":"#8ABCD3",
-                    "border":"1px solid #8ABCD3"
+                    "background":"gray",
+                    "border":"1px solid gray"
                 });
                 $("#slideout-pulltab").on("click",function(e) {
                     toggleSlideoutPanel();  //show/hide filter panel
