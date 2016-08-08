@@ -868,10 +868,6 @@ background-color: gray;
 }
 
 
-.btn-xlarge:hover {
-  border-width: 2px;
-  border-color: black
-}
 
 
 #welcome_blurb h3 {
@@ -1555,4 +1551,11 @@ background: white none repeat scroll 0% 0%;
 .btn {
   border-color: black;
   margin: 0 auto;
+}
+
+.green-btn:hover {
+  background: #069059 !important;
+}
+.red-btn:hover {
+  background: #cb4332 !important;
 }
