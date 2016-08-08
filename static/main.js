@@ -399,7 +399,6 @@ $(document).ready(function() {
 
 
 var tableToExcel = (function () {
-    console.log("BIAAATCH")
         var uri = 'data:application/vnd.ms-excel;base64,'
         , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
         , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
@@ -415,14 +414,12 @@ var tableToExcel = (function () {
         return function (table, name, filename) {
             if (!table.nodeType) table = document.getElementById("words_generated")
             var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
-            console.log("this wont run")
             document.getElementById("dlink").href = uri + base64(format(template, ctx));
             document.getElementById("dlink").download = filename;
             document.getElementById("dlink").click();
         
 
         }
-        console.log("will this wwork")
     })();
 
     //Function that allows the print button on words page to work
@@ -629,16 +626,16 @@ function switchFormTabs(current, next) {
 
     //Change current's tab header to look "inactive", and COLLAPSE it:
     current.find(".panel-heading").css("background-color", "#FFFFFF");
-    current.find(".panel-title").css("color", "#428BCA");
-    current.find(".panel-contents").css("color", "#428BCA");
-    current.find(".panel-contents").css("border", "1px solid #428BCA");
+    current.find(".panel-title").css("color", "black");
+    current.find(".panel-contents").css("color", "gray");
+    current.find(".panel-contents").css("border", "1px solid gray");
     current.siblings(".collapse").collapse("hide");
 
     //Change next's tab header to look "active", and EXPAND it:
     next.find(".panel-heading").css("background-color", "#FFFFFF");
-    next.find(".panel-title").css("color", "#07326e");
-    next.find(".panel-contents").css("color", "#07326e");
-    next.find(".panel-contents").css("border", "1px solid #428BCA");
+    next.find(".panel-title").css("color", "black");
+    next.find(".panel-contents").css("color", "black");
+    next.find(".panel-contents").css("border", "1px solid black");
     next.parent().removeClass("hidden")
     next.parent().next().removeClass("hidden")
     $("#giant_form_submit").removeClass("hidden")
@@ -789,7 +786,7 @@ function setCheckdiv(clicked,check) {
     checkbox.data("state",check);
     // Apply appropriate styles to checkbox:
     if (check) {
-        checkbox.css("background-color","#337AB7");
+        checkbox.css("background-color","#808080");
     }
     else {
         checkbox.css("background-color","#F1F1F1");
@@ -1074,13 +1071,15 @@ function buildToggle(field_options) {
             words_table.column(thisCol+':name').visible(true);
         }
         //apply styles:
+        //CHANGE TO LIGHT GRAY IF LIKE THAT MORE DYLAN
+        //Did that
         $(this).siblings('.active').css({
                 'color' : '#000',
-                'background-color' : '#FFF'
+                'background-color' : '#E1E1E1'
             });
         $(this).css({
                 'color' : '#FFF',
-                'background-color' : '#337AB7'
+                'background-color' : '#808080'
             });
         $(this).addClass('active');
         $(this).siblings('.active').removeClass('active');

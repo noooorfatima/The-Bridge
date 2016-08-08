@@ -148,7 +148,8 @@ list-style: outside none none;
 }
 
 .navbar-nav>li{
-  float:none;
+  /* FOR A VERTICAL LIST float:none;*/
+  
   position: relative;
   display: block;
 }
@@ -612,7 +613,15 @@ a.boxclose-about{
 #include_or_exclude .btn-group {
     margin-bottom: 10px;
 }
-
+#include_or_exclude .btn {
+    background-color: #E1E1E1;
+    border: 1px solid black;
+    color: black;
+}
+#include_or_exclude .btn.active {
+    background-color: gray;
+    color: white;
+}
 .exclude_selection_box {
     padding-top: 15px;
     padding-bottom: 60px;
@@ -626,6 +635,16 @@ a.boxclose-about{
     color: #07325C;
 }
 
+#all_or_selection .btn {
+    background-color: #E1E1E1;
+    border: 1px solid black;
+    color: black;
+}
+#all_or_selection .btn.active {
+    background-color: gray;
+    color: white;
+}
+}
 .book_container {
     border: 1px solid #ccc;
     height: 150px;
@@ -670,7 +689,24 @@ a.boxclose-about{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    background-color: #E1E1E1;
+    color:black;
+    border-color: black;
 }
+
+.range-select-toggle .btn.active {
+    background-color: gray;
+    color: white;
+
+}
+
+.range-select-toggle .btn:active:focus,
+.range-select-toggle .btn:active:hover,
+.range-select-toggle .btn:active:focus:hover {
+background-color: gray;
+
+}
+
 
 .range_select_box {
     display : none;
@@ -721,7 +757,7 @@ a.boxclose-about{
 
 /* Submit Button on Textlist Page */
 #giant_form_submit {
-    background-color: #20466C;
+    background-color: gray;
     color: white;
     display: block;
     margin: 5px auto 20px;;
@@ -785,7 +821,7 @@ a.boxclose-about{
 #back_to_top {
    display: block;
    margin: 0 auto;
-   color: #428bca;
+   color: black;
 }
 
 /* Greek or Latin Buttons */
@@ -884,7 +920,8 @@ a.boxclose-about{
     text-overflow: ellipsis;
     text-align: left;
     margin-left: 10px;
-    max-width: 95%
+    max-width: 95%;
+    color: black;
 }
 
 .panel-contents {
@@ -898,7 +935,7 @@ a.boxclose-about{
     float: none;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 95%
+    max-width: 95%;
 }
 
 #headingOne .panel-contents {
@@ -1169,8 +1206,8 @@ button > div {
 
 .checkdiv {
     display: inline-block;
-    background-color: #FFF;
-    border: 1px solid #357EBD; 
+    background-color: #E1E1E1;
+    border: 1px solid black; 
     border-radius: 4px;
     line-height: 27px;
     margin-top: 3px;
@@ -1184,7 +1221,7 @@ button > div {
 
 .checkdiv-checkbox {
     display: inline-block;
-    background-color: #337AB7;
+    background-color: #808080;
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
     width: 28px;
@@ -1219,12 +1256,14 @@ button > div {
 .pos-toggle-box {
     display: inline-block;
     width: 100%;
-    border: 1px solid #8ABCD3;
+    border: 1px solid black;
     border-radius: 4px;
     text-align: center;
     padding: 2px;
 }
-
+.toggleAll {
+  background-color:#808080;
+}
 .pos-toggle-box .btn-group {
     margin-top: 0px;
 }
@@ -1234,16 +1273,17 @@ button > div {
 }
 
 .pos-toggle-box .btn {
-    background-color: #FFF;
+    background-color: #E1E1E1;
     color: #000;
+    border: 1px solid black;
 }
 .pos-toggle-box .btn.active {
-    background-color: #337AB7;
+    background-color:#808080;
     color: #FFF;
 }
 
 .def-toggle-box .btn {
-    background-color: #FFF;
+    background-color: #E1E1E1;
     color: #000;
 }
 .def-toggle-box .btn.active {
@@ -1278,14 +1318,16 @@ button > div {
 }
 
 .col-toggle-box .btn {
-    border: 1px solid #204D74;
+    border: 1px solid black;
     text-align: center;
     color: #000;
+    background-color: #E1E1E1;
 }
 .col-toggle-box .btn.active {
-    background-color: #337AB7;
+    background-color: gray;
     color: #FFF;
 }
+
 
 /*============================== Sticky footer: ===============================*/
 * {
@@ -1322,6 +1364,7 @@ html, body {
   line-height: 25px;
   position:fixed;
   bottom:0;
+  z-index: 10000000; /*make it in front with some big number*/
 }
 
 #DCC-logo {
@@ -1467,4 +1510,26 @@ background: white none repeat scroll 0% 0%;
 }
 #tab_delim_export {
   border-radius: 0px 4px 4px 0px;
+}
+
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover{
+  background-color: gray;
+  border-color: black;
+}
+
+/*Change all buttons to new color scheme on clicks*/
+.btn-primary.active.focus,
+.btn-primary.active:focus,
+.btn-primary.active:hover,
+.btn-primary.focus:active,
+.btn-primary:active:focus,
+.btn-primary:active:hover,
+.open > .dropdown-toggle.btn-primary.focus,
+.open > .dropdown-toggle.btn-primary:focus,
+.open > .dropdown-toggle.btn-primary:hover {
+  background-color: gray;
+}
+
+.btn {
+  border-color: black;
 }
