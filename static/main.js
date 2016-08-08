@@ -231,9 +231,23 @@ $(document).ready(function() {
             language: "latin"
         }, configureForm);
 
+        // Viewport size was a big issue this is a hack around it to get
+        // the background to look all nice at first and then for the window
+        // to be sized appropriately
+
+        $("#latin").on("click", function () {
+            $("html").css("height","auto");
+        });
+
         $("#greek").on("click", {
             language: "greek"
         }, configureForm);
+        // Same as with latin
+        $("#greek").on("click", function () {
+            $("html").css("height","auto");
+        });
+
+
 
         //TEXT ALL/SELECTION TOGGLE:
         $("#all_or_selection").on("click", function(e) {
