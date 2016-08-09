@@ -25,7 +25,9 @@ class Command(BaseCommand):
 	def handle(self, *args, **options):
 		print args[0]
 		data_dict = get_data_list_of_dicts(args[0])
+		print data_dict[1]
 		headers = get_headers(args[0])
+		print "Headers:", headers
 		lang=args[1]
 		print lang
 		updated1=True
@@ -46,11 +48,13 @@ class Command(BaseCommand):
 		else:
 			print "Got an unexpected language",lang
 			return '{language_error : lang}'
-		nohypen=[]
+		nohypen=[] # I'd like to think I did this as a joke because ticha had hypen instead of hyphen for a lot of the document
 		for item in headers:
 			nohypen=nohypen + [item.upper().replace('-',' ').replace('/', ' ')]
 		#print nohypen, "NO HY"
-		index = 0 
+		index = 0
+		print "No Hypen", nohypen
+		print "fields", fields
 		for item in nohypen:
 			#print item, "ITEM"
 			if item in fields:
@@ -64,7 +68,8 @@ class Command(BaseCommand):
 			elif item == 'LONGDEF':
 				wanted_list=wanted_list+[index]
 				updated2=True
-
+			elif item == 'LOGEIONDEF':
+				wanted_list = wanted_list + [index]
 			index = index + 1
 		#print wanted_list
 
@@ -144,6 +149,32 @@ class Command(BaseCommand):
 					'id' : item['id'],
 					'title' : item['TITLE'],
 					'accented_lemma' : item['accented lemma'],
+					'logeion_lemma' : item['LOGEION LEMMA'],
+					'search_lemma' : item['SEARCH LEMMA'],
+					'display_lemma' : item['DISPLAY LEMMA'],
+					'english_definition' : item['SHORTDEF'],
+					'logeion_def' : item['LOGEIONDEF'],
+				    'decl' : item['DECL'],
+				    'idiom' : item['IDIOM'],
+				    'reg_adj_adv' : item['REG ADJ/ADV'] ,
+				    'proper' : item['PROPER'],
+				    'part_of_speech' : item['PART-OF-SPEECH']
+				    }
+				     )
+				except KeyError:
+					print "Got a key error, likely picked wrong language"
+					print "Current row is:",item
+					print "Current language is:", lang
+					error =  {'lang_error' : lang}
+					return str(error)
+			print "Imported WordPropertyGreek"
+'''
+					WordPropertyGreek.objects.update_or_create(
+					id = item['id'],
+					defaults={
+					'id' : item['id'],
+					'title' : item['TITLE'],
+					'accented_lemma' : item['accented lemma'],
 					'search_lemma' : item['SEARCH LEMMA'],
 					'display_lemma' : item['DISPLAY LEMMA'],
 					'english_definition' : item['English Definition'],
@@ -155,9 +186,4 @@ class Command(BaseCommand):
 				    'dcc_semantic_group' : item['DCC SEMANTIC GROUP']
 				    }
 				     )
-				except KeyError:
-					print "Got a key error, likely picked wrong language"
-					print "Current language is:", lang
-					error =  {'lang_error' : lang}
-					return str(error)
-			print "Imported WordPropertyGreek"
+'''

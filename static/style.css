@@ -1559,3 +1559,7 @@ background: white none repeat scroll 0% 0%;
 .red-btn:hover {
   background: #cb4332 !important;
 }
+
+.pagination > li > a, .pagination > li > span {
+  color: black;
+}

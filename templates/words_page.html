@@ -40,8 +40,12 @@
                         {% if language == "greek" %}
                         <thead>
                             <tr>
-                                <th class="lemma" data-fieldname='display_lemma' data-fieldtype='Vocab' data-visible=true>Dictionary Entry</th>
-                                <th class="def" data-fieldname='english_definition' data-fieldtype='Definitions' data-visible=true>English Definition</th>
+                                <th class="lemma" data-fieldname='display_lemma' data-fieldtype='Vocab' data-radio=true data-visible=false>Dictionary Entry</th>
+                                <th class="lemma" data-fieldname='logeion_lemma' data-fieldtype='Vocab' data-radio=true  data-visible=true>Logeion Entry</th>
+                                <th class="def" data-fieldname='english_definition' data-fieldtype='Definitions' data-radio=true data-visible=true>English Definition</th>
+                                <th class="def" data-fieldname='logeion_def' data-fieldtype='Definitions' data-radio=true data-visible=false>Logeion Definition</th>
+                                <th class="Appearance" data-fieldname='position' data-fieldtype='Appearance Info' data-radio=true data-visible=false>Appearance</th>
+                                <th class="count" data-fieldname='count' data-fieldtype='Appearance Info' data-radio=true data-visible=false>Number of Appearances</th> 
                             </tr>
                         </thead>
                         {% else %}

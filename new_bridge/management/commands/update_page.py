@@ -25,6 +25,7 @@ class Command(BaseCommand):
 	def handle(self, *args, **options):
 		headers = get_headers(args[0])
 		lang=args[1]
+		print lang
 		data_dict2 = get_data_list_of_dicts(args[0])
 		index = 0
 		name = headers[1]
@@ -35,7 +36,10 @@ class Command(BaseCommand):
 			tmd.save()
 		for item in data_dict2:
 			the_title = data_dict2[index]['TITLE']
-			word_id=WordPropertyLatin.objects.get(title=the_title).id
+			if lang == "Latin":
+				word_id=WordPropertyLatin.objects.get(title=the_title).id
+			elif lang == "Greek":
+				word_id=WordPropertyGreek.objects.get(title=the_title).id
 			data_dict2[index]['word_id']=word_id
 			index = index + 1
 		new_headers2 = ['word_id'] + headers

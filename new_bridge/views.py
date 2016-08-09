@@ -191,15 +191,21 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
     except Exception, e:
 	print "get words error 1"
         print e
+    print words_list
     json_words = serializers.serialize("json",words_list)
+    print json_words, "JSON", len(json_words)
     #D#print type(json_words)
     json_words2 = json.loads(json_words)
+    print len(json_words2)
+    print json_words2
     final_list = [] 
     test_for_in_final = {}
-    #Build dict that include appearance and number of appearance info to dump into json
     for item in json_words2:
         if item['pk'] not in test_for_in_final.keys():
-            word_app = WordAppearencesLatin.objects.filter(word=item['pk'],text_name=text)
+            if language != 'greek':
+                word_app = WordAppearencesLatin.objects.filter(word=item['pk'],text_name=text)
+            else:
+                word_app = WordAppearencesGreek.objects.filter(word=item['pk'],text_name=text)
             item['fields']['position']=[word.appearance for word in word_app]
             item['fields']['count']=len(item['fields']['position'])
             word_app = word_app[0]
@@ -208,6 +214,7 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
             else:
                 item['fields']['local_def']="None"
             test_for_in_final[item['pk']] = item
+
     '''
     #If you see this in the future, you can delete it, but I just changed it and am keeping it for now
     #Build dict that include appearance and number of appearance info to dump into json

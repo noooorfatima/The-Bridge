@@ -111,7 +111,7 @@ def build_text_tree(loc_list, index, subsection_lvl, parent):
 # True if location loc2 is descendant of node specified by loc1 & subsectn_lvl
 def is_descendant(loc1, subsection_lvl, loc2):
     loc1, loc2 = loc1.split('_'),loc2.split('_') #split into sections list #Changed to '_' from '.' to reflect new spreadsheet
-    #print loc1, subsection_lvl, loc2
+    print loc1, subsection_lvl, loc2
     try:
         for i in range(subsection_lvl+1):
             if re.search('[0-9]',loc1[i]) is not None:
