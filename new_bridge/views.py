@@ -129,7 +129,7 @@ def words_page(request,language,text,bookslist,text_from,text_to,add_remove):
             if end != -1:
                 book = book[0:end]
             bookslist_formatted += book+ ", "
-    bookslist_formatted = bookslist_formatted[:-2]
+        bookslist_formatted = bookslist_formatted[:-2]
     if TextMetadata.objects.get(name_for_humans=text).local_def:
         loc_def = True
     else:
@@ -245,16 +245,7 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
     #make the appearance list sorted and formatted nicely
     for item in test_for_in_final:
         test_for_in_final[item]['fields']['position'].sort()
-        string = ""
-        index = 0
-        for num in test_for_in_final[item]['fields']['position']:
-            if index>3:
-                string+= str(num)+',' + '\n'
-                index = 0
-            else:
-                string+=str(num)+", "
-                index += 1
-        test_for_in_final[item]['fields']['position']=string[:-2]
+        test_for_in_final[item]['fields']['position']=test_for_in_final[item]['fields']['position'][0]
     json_words = json.dumps(test_for_in_final.values())
     return HttpResponse(json_words, content_type="application/json")
 

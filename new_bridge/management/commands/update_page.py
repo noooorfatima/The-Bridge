@@ -12,6 +12,7 @@ import text_import
 '''
 Adds a manage.py command that does ALL of the heavy lifting 
 that used to be involved in updating the database.
+Basically this part of the script formats the csv and then calls Jack's script, text_import.py
 
 NOTE** I made this flexible for when the update to SHORTDEF and LONGDEF occurs
 BUT IT IS NOT GENERALLY FLEXIBLE
@@ -39,6 +40,10 @@ class Command(BaseCommand):
 			if lang == "Latin":
 				word_id=WordPropertyLatin.objects.get(title=the_title).id
 			elif lang == "Greek":
+				print index
+				print the_title
+				print WordPropertyGreek.objects.filter(title=the_title)
+				print ""
 				word_id=WordPropertyGreek.objects.get(title=the_title).id
 			data_dict2[index]['word_id']=word_id
 			index = index + 1

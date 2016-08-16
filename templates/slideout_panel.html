@@ -341,7 +341,11 @@
             <hr />  
 
             <div class="filters_container">
-                <h3> et cetera — καὶ τὰ λοιπά</h3>
+                {% if language == "latin" %}
+                <h3>et cetera</h3>
+                {% else %} 
+                <h3>καὶ τὰ λοιπά</h3>
+                {% endif %}
                 <div>
                     <div class="checkdiv checkdiv-wide">
                         <div class="checkdiv-checkbox" name="Reg_Adv" id="Reg_Adv" value="1" data-state=true>

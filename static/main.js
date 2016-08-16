@@ -503,6 +503,7 @@ console.log(tableToExcel)
         /* Load words from server: */
         //$("#loading_gif").css("display","block");
         // AJAX request:
+        console.log(words_metadata,words_metadata.text)
         var requestUrl= "/get_words/"+words_metadata.language+'/'+words_metadata.text+
             '/'+words_metadata.bookslist+'/'+words_metadata.text_from+
             '/'+words_metadata.text_to+'/'+words_metadata.add_remove+'/';
@@ -855,7 +856,7 @@ function toggleSlideoutPanel() {
 
     //console.log(pulltab.css("right"),DYLAN)
     if (pulltab.css("right") != '0px') {
-        var div_o = 0;
+        var div_o = 40;
     }
     else{
         var div_o = 360

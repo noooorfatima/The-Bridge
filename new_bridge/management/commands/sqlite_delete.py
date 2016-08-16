@@ -6,10 +6,10 @@ import os
 #sys.path.append('/home/digitalscholarship/Documents/repos/bridge-ve/bridge-repo/new_bridge/management/commands')
 from get_data import *
 from django.core.management.base import BaseCommand, CommandError
-from new_bridge.models import WordPropertyLatin,WordPropertyGreek, TextStructureGlossary, TextStructureNode, WordAppearencesLatin
+from new_bridge.models import WordPropertyLatin,WordPropertyGreek, TextStructureGlossary, TextStructureNode, WordAppearencesLatin, WordAppearencesGreek
 
 class Command(BaseCommand):
-    help = "Currently supports: WordAppearencesLatin, TextStructureNode"
+    help = "Currently supports: WordAppearencesLatin, TextStructureNode, WordPropertyGreek,WordAppearencesGreek"
     def add_arguments(self,parser):
         parser.add_argument("to_delete",nargs=1, type=str, help="Name of model to clear")
         parser.add_argument('text_name', nargs='?', type=str,default=False)
@@ -34,6 +34,14 @@ class Command(BaseCommand):
                   while WordAppearencesLatin.objects.count():
                     ids = WordAppearencesLatin.objects.values_list('pk', flat=True)[:100]
                     WordAppearencesLatin.objects.filter(pk__in = ids).delete()              
+                elif to_delete == 'WordPropertyGreek':
+                    while WordPropertyGreek.objects.count():
+                       ids = WordPropertyGreek.objects.values_list('pk', flat=True)[:100]
+                       WordPropertyGreek.objects.filter(pk__in = ids).delete()
+                elif to_delete == "WordAppearencesGreek":
+                    while WordAppearencesGreek.objects.count():
+                       ids = WordAppearencesGreek.objects.values_list('pk', flat=True)[:100]
+                       WordAppearencesGreek.objects.filter(pk__in = ids).delete()               
                 else:
                     print "That is not currently an option for deleting! You can add it in new_bridge/management/commands/sqlite_delete.py"
             else:
