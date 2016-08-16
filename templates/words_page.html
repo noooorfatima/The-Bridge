@@ -42,8 +42,14 @@
                             <tr>
                                 <th class="lemma" data-fieldname='display_lemma' data-fieldtype='Vocab' data-radio=true data-visible=true>Dictionary Entry</th>
                                 <th class="lemma" data-fieldname='logeion_lemma' data-fieldtype='Vocab' data-radio=true  data-visible=true>Logeion Entry</th>
+                                {% if loc_def %}
+                                <th class="def" data-fieldname='english_definition' data-fieldtype='Definitions' data-radio=true data-visible=false>English Definition</th>
+                                <th class="def" data-fieldname='logeion_def' data-fieldtype='Definitions' data-radio=true data-visible=false>Logeion Definition</th>
+                                <th class="def" data-fieldname='local_def' data-fieldtype='Definitions' data-radio=true data-visible=true>Local Definition</th>
+                                {% else %}
                                 <th class="def" data-fieldname='english_definition' data-fieldtype='Definitions' data-radio=true data-visible=true>English Definition</th>
                                 <th class="def" data-fieldname='logeion_def' data-fieldtype='Definitions' data-radio=true data-visible=false>Logeion Definition</th>
+                                {% endif %}
                                 <th class="Appearance" data-fieldname='position' data-fieldtype='Appearance Info' data-radio=true data-visible=false>Appearance</th>
                                 <th class="count" data-fieldname='count' data-fieldtype='Appearance Info' data-radio=true data-visible=false>Number of Appearances</th> 
                             </tr>
@@ -73,7 +79,7 @@
             </div>
         </div>
         <script type="text/javascript">
-            setVocabMetadata("{% autoescape on %}{{language}}","{{text}}","{{bookslist}}","{{text_from}}","{{text_to}}","{{add_remove}}{% endautoescape %}");
+            setVocabMetadata("{% autoescape on %}{{language}}","{{text}}","{{text_comp}}","{{bookslist}}","{{text_from}}","{{text_to}}","{{add_remove}}{% endautoescape %}");
         </script>
         <a href="#top" id ="backToTopBtn"><button class="btn btn-default" id="back_to_top"><span class="glyphicon glyphicon-chevron-up"></span><br/>Back to Top</button></a>
 

@@ -136,6 +136,7 @@ def words_page(request,language,text,bookslist,text_from,text_to,add_remove):
         loc_def = False
     try:
         return render(request,"words_page.html", {"language":language, "text":text,
+        "text_comp":text_meta.name_for_computers,
         "bookslist": bookslist, "bookslist_formatted": bookslist_formatted, 
         "text_from": text_from, "text_from_formatted": text_from_formatted, 
         "text_to": text_to, "text_to_formatted": text_to_formatted,
@@ -145,6 +146,13 @@ def words_page(request,language,text,bookslist,text_from,text_to,add_remove):
 
 # Generates vocab list and returns as JSON string:
 def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
+#change back to the human name because a bunch of stuff depenends on it
+    #Note that it is ironic that the machine strictly uses the name_for_humans as opposed the the name_for_computers that was made for it
+    #Also note that there was an issue with the fact and the apostrophe appearing in a title.
+    #I think I switched to machine names in the spot the error was occuring, but I was considering switching it everywhere.
+    # I still might do that because it will be REALLY inconvinient to switch once all of the data is uploaded.
+    text_meta = TextMetadata.objects.get(name_for_computers=text)
+    text = text_meta.name_for_humans
     # Parse string specifying names+ranges of read texts:
     if bookslist == "none":
         bookslist = []

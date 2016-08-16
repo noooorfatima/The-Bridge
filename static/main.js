@@ -504,7 +504,7 @@ console.log(tableToExcel)
         //$("#loading_gif").css("display","block");
         // AJAX request:
         console.log(words_metadata,words_metadata.text)
-        var requestUrl= "/get_words/"+words_metadata.language+'/'+words_metadata.text+
+        var requestUrl= "/get_words/"+words_metadata.language+'/'+words_metadata.text_comp+
             '/'+words_metadata.bookslist+'/'+words_metadata.text_from+
             '/'+words_metadata.text_to+'/'+words_metadata.add_remove+'/';
         console.log(requestUrl);
@@ -1241,8 +1241,8 @@ function loadWordData(data) {
 
 /* Sets GLOBAL VAR words_metadata, containing parameters for Ajax call.
  * Called by inline script. */
-function setVocabMetadata(lang, text, bookslist, text_from, text_to, add_remove) {
-    words_metadata = {"language":lang, "text":text, "bookslist":bookslist, "text_from":text_from, "text_to":text_to, "add_remove":add_remove};
+function setVocabMetadata(lang, text, text_comp, bookslist, text_from, text_to, add_remove) {
+    words_metadata = {"language":lang, "text":text, "text_comp":text_comp, "bookslist":bookslist, "text_from":text_from, "text_to":text_to, "add_remove":add_remove};
 }
 
 
