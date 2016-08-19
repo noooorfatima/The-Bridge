@@ -85,7 +85,7 @@ class WordPropertyLatin(models.Model):
     display_lemma = models.CharField(max_length=84, blank=True) 
     display_lemma_macronless = models.CharField(max_length=83, blank=True) 
     english_core = models.CharField(max_length=155, blank=True) 
-    english_extended = models.CharField(max_length=247, blank=True) 
+    english_extended = models.CharField(max_length=500, blank=True) 
     lnm_definition = models.CharField(max_length=74, blank=True) 
     aeneid_definition = models.CharField(max_length=1168, blank=True) 
     catullus_definition = models.CharField(max_length=245, blank=True) 
