@@ -192,16 +192,16 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
     # take word ids and find the correct data for these words in correct table (word table)
     words_list = []
     print "length of word ids: " + str(len(word_ids))
-    print type(word_ids)
+    #print type(word_ids)
     try:
         for each in word_ids:
             words_list.append(word_property_table.objects.filter(id__exact=each)[0])
     except Exception, e:
 	print "get words error 1"
         print e
-    print words_list
+    #print words_list
     json_words = serializers.serialize("json",words_list)
-    print json_words, "JSON", len(json_words)
+   # print json_words, "JSON", len(json_words)
     #D#print type(json_words)
     json_words2 = json.loads(json_words)
     print len(json_words2)
@@ -223,34 +223,7 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
                 item['fields']['local_def']="None"
             test_for_in_final[item['pk']] = item
 
-    '''
-    #If you see this in the future, you can delete it, but I just changed it and am keeping it for now
-    #Build dict that include appearance and number of appearance info to dump into json
-    for item,position in zip(json_words2,word_ids):
-        #pull out, also get local_def
-        #word_app = WordAppearencesLatin.objects.filter(mindiv=position[1])[0]
-        word_app = WordAppearencesLatin.objects.filter(word=item['pk'])
-        print word_app
-        print item
-        print [word.appearance for word in word_app]
-        print "QOOOO"
-        item['fields']['position']=[word.appearance for word in word_app]
-        item['fields']['count']=1
-        print "yyy"
-        #print word_app.local_def[0]
-        word_app = word_app[0]
-        if not(word_app.local_def==None or word_app.local_def==""):
-            item['fields']['local_def']=word_app.local_def
-        else:
-            item['fields']['local_def']="None"
-        if item['pk'] not in test_for_in_final.keys():
-            test_for_in_final[item['pk']] = item
-        else:
-            #test_for_in_final[item['pk']]['fields']['position'].append("".join(item['fields']['position']))
-            test_for_in_final[item['pk']]['fields']['count'] += 1
-   # print test_for_in_final
-    '''
-    #make the appearance list sorted and formatted nicely
+    #make the appearance list sorted and then just take the first one
     for item in test_for_in_final:
         test_for_in_final[item]['fields']['position'].sort()
         test_for_in_final[item]['fields']['position']=test_for_in_final[item]['fields']['position'][0]

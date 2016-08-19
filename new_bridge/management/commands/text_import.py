@@ -33,10 +33,10 @@ def add_word_appearances(is_greek, appearance_list, loc_list, text_name,listifie
             if appearance[0].strip() != loc_list[loc_list_index].strip():
                 loc_list_index +=1
             if is_greek:
-                entry = WordAppearencesGreek(text_name=text_name,
+                entry = WordAppearencesGreek(text_name=text_name, text_name_for_computers=TextMetadata.objects.get(name_for_humans=text_name).name_for_computers,
                         word_id=appearance[1],mindiv=loc_list_index,appearance= loc_list[loc_list_index].replace('_','.'),local_def=local_def_dict[appearance[1]] )
             else:
-                entry = WordAppearencesLatin(text_name=text_name,
+                entry = WordAppearencesLatin(text_name=text_name, text_name_for_computers=TextMetadata.objects.get(name_for_humans=text_name).name_for_computers,
                         word_id=appearance[1],mindiv=loc_list_index, appearance= loc_list[loc_list_index].replace('_','.'),local_def=local_def_dict[appearance[1]])
             entry.save()
     else:
@@ -163,6 +163,7 @@ def parse_csv(listified_csv, text_name):
 #
 # Locations formatted as [section].[subsection].[sub-subsection], 
 #   e.g. [book].[chapter].[verse]
+# Location compare
 def loc_cmp(loc1, loc2):
     #Might need to change this to underscores for update
     loc1, loc2 = loc1.split('_'),loc2.split('_') #split into sections list

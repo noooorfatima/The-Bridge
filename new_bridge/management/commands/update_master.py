@@ -168,22 +168,4 @@ class Command(BaseCommand):
 					error =  {'lang_error' : lang}
 					return str(error)
 			print "Imported WordPropertyGreek"
-'''
-					WordPropertyGreek.objects.update_or_create(
-					id = item['id'],
-					defaults={
-					'id' : item['id'],
-					'title' : item['TITLE'],
-					'accented_lemma' : item['accented lemma'],
-					'search_lemma' : item['SEARCH LEMMA'],
-					'display_lemma' : item['DISPLAY LEMMA'],
-					'english_definition' : item['English Definition'],
-				    'decl' : item['Decl'],
-				    'idiom' : item['Idiom'],
-				    'reg_adject_adv_form' : item['Reg Adject/Adv/Form'] ,
-				    'proper' : item['Proper'],
-				    'part_of_speech' : item['Part Of Speech'] ,
-				    'dcc_semantic_group' : item['DCC SEMANTIC GROUP']
-				    }
-				     )
-'''
+			

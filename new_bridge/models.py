@@ -46,6 +46,7 @@ class TextStructureGlossary(models.Model):
 
 class WordAppearencesLatin(models.Model):
     text_name = models.CharField(max_length=52, blank=False)
+    text_name_for_computers = models.CharField(max_length=52, blank=True, null=True)
     word = models.ForeignKey('WordPropertyLatin', blank=False,null=True)
     mindiv = models.SmallIntegerField(blank=False)
     appearance = models.CharField(max_length=52, blank=False,null=True)
@@ -59,6 +60,7 @@ class WordAppearencesLatin(models.Model):
 
 class WordAppearencesGreek(models.Model):
     text_name = models.CharField(max_length=52, blank=False)
+    text_name_for_computers = models.CharField(max_length=52, blank=True, null=True)
     word = models.ForeignKey('WordPropertyGreek', blank=False,null=True)
     mindiv = models.SmallIntegerField(blank=False)
     appearance = models.CharField(max_length=52, blank=False,null=True)

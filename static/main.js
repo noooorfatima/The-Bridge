@@ -52,7 +52,7 @@ $(document).ready(function() {
 		        return false;
 		    }};
             var pairs = []
-            console.log($('.range_select_box input'));
+            //console.log($('.range_select_box input'));
             $('.range_select_box').each(function() {
 		var new_tuple = []
                 $('input:visible', this).each(function(index, value) {
@@ -65,7 +65,7 @@ $(document).ready(function() {
 		//console.log(text);
 		for (var i=0; i<pairs.length; i++) {
 		    //var text_array
-		    console.log(pairs);
+		    //console.log(pairs);
 		    //pairs[i].push(text[i])
 		    if (pairs[i][0] != "") {
 		        if (pairs[i][1] == "") {
@@ -213,7 +213,7 @@ $(document).ready(function() {
             //Only do something if inactive button is clicked:
             if (clicked.attr("class").indexOf("active") === -1) {
                 var thumbnail = clicked.parents(".thumbnail");
-                console.log(clicked.attr("val"));
+                //console.log(clicked.attr("val"));
                 if (clicked.attr("value") === "Selection") {
                     console.log(thumbnail.find(
                         ".range_select_box"));
@@ -327,7 +327,7 @@ $(document).ready(function() {
 
         $(".filters-container").on("click",function(e) {
             var div = $(e.target).parent().children("div");
-            console.log(div);
+            //console.log(div);
             if (div.css("display") === "none") {
                 div.slideDown(100);
             }
@@ -417,8 +417,7 @@ var tableToExcel = (function () {
         , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
         , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
         , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
-        console.log("probs print")
-        console.log(document.getElementById('dlink'))
+        //console.log(document.getElementById('dlink'))
         $("#excel_export").on("click", function() {
             tableToExcel('words_generated', 'name', 'myfile.xls')
 
@@ -450,7 +449,7 @@ var tableToExcel = (function () {
     printData();
     })
 
-console.log(tableToExcel)
+//console.log(tableToExcel)
         /* FILTERING/CHECKBOX BINDINGS: */
         
         // Filter Function
@@ -503,11 +502,11 @@ console.log(tableToExcel)
         /* Load words from server: */
         //$("#loading_gif").css("display","block");
         // AJAX request:
-        console.log(words_metadata,words_metadata.text)
+        //console.log(words_metadata,words_metadata.text)
         var requestUrl= "/get_words/"+words_metadata.language+'/'+words_metadata.text_comp+
             '/'+words_metadata.bookslist+'/'+words_metadata.text_from+
             '/'+words_metadata.text_to+'/'+words_metadata.add_remove+'/';
-        console.log(requestUrl);
+        //console.log(requestUrl);
         $.getJSON(requestUrl)
             .done(function(receivedData) {
                 words_data = loadWordData(receivedData);
@@ -771,7 +770,7 @@ var scrollbar_width; // Width of a scrollbar in user's browser.
 /* Click handler for POS toggles.  
  * Shows/hides pos-toggle-box checkboxes and sets their state as appropriate. */
 function togglePOSToggle(clicked) {
-    console.log(clicked);
+    //console.log(clicked);
     var val = $(clicked).attr("value");
     // Get div containing filters for individual conjugations/declensions:
     var subcat_box = $(clicked).closest('.pos-toggle-box')
@@ -1252,8 +1251,8 @@ function tableToCSV(delimiter) {
     // Get indices of currently visible columns:
     //var visible_cols = [];
     var cols = words_table.columns().visible();
-    console.log(words_table.columns().data())
-    console.log(cols)
+    //console.log(words_table.columns().data())
+    //console.log(cols)
     /*for (var i=0; i<cols.length; i+=1) {
         if (cols[i]) {
             visible_cols.push(i);
@@ -1261,8 +1260,8 @@ function tableToCSV(delimiter) {
     }*/
     var rowDelim = '\r\n';
     var docstring = "";
-    console.log(words_table)
-    console.log(words_table.rows())
+   // console.log(words_table)
+    //console.log(words_table.rows())
     var header = ""
     $("#words_generated th").each(function() {
         header += $(this)[0].attributes['data-fieldname'].nodeValue + delimiter
@@ -1274,7 +1273,7 @@ function tableToCSV(delimiter) {
                 //Previous person was doing alot of things with quotes that seemed silly - Dylan
                 //docstring += '"'; // Begin CSV entry
                 var ss = (""+words_table.cell({"row":  i,"column": j}).data());
-                console.log(ss)
+               // console.log(ss)
                 docstring += ss;
                 docstring+=(delimiter); // Close CSV entry    
             }
