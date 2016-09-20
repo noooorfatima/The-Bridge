@@ -38,6 +38,7 @@ class Command(BaseCommand):
 		for item in data_dict2:
 			the_title = data_dict2[index]['TITLE']
 			if lang == "Latin":
+                                print the_title
 				word_id=WordPropertyLatin.objects.get(title=the_title).id
 			elif lang == "Greek":
 				print index

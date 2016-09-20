@@ -16,6 +16,7 @@ class TextStructureNode(MP_Node):
     text_name = models.CharField(max_length=52, blank=True)
     subsection_level = models.SmallIntegerField(blank=False)
     subsection_id = models.CharField(max_length=6, blank=False)
+    # subsection_id = models.SmallIntegerField(blank=False)
     least_mindiv = models.IntegerField(blank=False)
 
     node_order_by = ['least_mindiv']

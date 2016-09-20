@@ -56,7 +56,7 @@ class Command(BaseCommand):
 		print "No Hypen", nohypen
 		print "fields", fields
 		for item in nohypen:
-			#print item, "ITEM"
+			print item, "ITEM"
 			if item in fields:
 				wanted_list=wanted_list+[index]
 			elif item == 'LNM DEFENITION': #you see this shit? That's not how you spell definition

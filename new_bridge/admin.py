@@ -15,6 +15,13 @@ class TextStructureGlossaryAdmin(admin.ModelAdmin):
     list_display = ['text_name','subsection_level','subsection_name']
     list_filter = ['text_name']
 
+#class TextStructureNode(admin.MP_NodeAdmin):
+# http://stackoverflow.com/questions/2512842/treebeard-admin-in-django
+#Someone do this ^ eventually
+#    search_fields = ['text_name','subsection_level']
+#    list_display = ['text_name','subsection_level']
+#    list_filter = ['text_name']
+
 class TextMetadataAdmin(admin.ModelAdmin):
     search_fields = ['name_for_humans','name_for_computers','language','local_def']
     list_display = ['name_for_humans','name_for_computers','language','local_def']

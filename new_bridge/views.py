@@ -201,7 +201,7 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
         print e
     #print words_list
     json_words = serializers.serialize("json",words_list)
-   # print json_words, "JSON", len(json_words)
+    print len(json_words)
     #D#print type(json_words)
     json_words2 = json.loads(json_words)
     print len(json_words2)
@@ -254,6 +254,7 @@ def generateWords(word_appearences,lang,text,
                 mindiv__range=(loc_to_mindiv(book,start), loc_to_mindiv(book,end)))
             # Add it to the combined filter with an OR operation.
             read_texts_filter = read_texts_filter | new_filter
+            print read_texts_filter, "READ_TEXTS_FILTER"
     # Get WordAppearence objects for words appearing in main text:
     try:
         from_mindiv = loc_to_mindiv(text,text_from)
@@ -283,25 +284,45 @@ def generateWords(word_appearences,lang,text,
 
             #COMMENT THIS OUT FOR PRODUCTION
             #COMMENT vvvvvvvvvvvvvvvvvvvvvv
-            index = 100
+            #index = 100
             vocab_intersection = []
             #CONSIDER NOT COMMENTINGvvvvvvvvvvvvvvvvvvvvvvvvvv
             #don't want dups
             list_word_ids=list(set(list_word_ids))
             #PROBABLY DON't COMMENT ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-            while index<len(list_word_ids):
-                vocab_intersection.extend(list(word_appearences.objects.filter(read_texts_filter,
-                        word__in=list_word_ids[index-100:index],text_name=text).values('word')))
-                index += 100
-            vocab_intersection.extend(list(word_appearences.objects.filter(read_texts_filter,
-                    word__in=list_word_ids[index-100:index],text_name=text).values('word')))
+            #while index<len(list_word_ids):
+            #    vocab_intersection.extend(list(word_appearences.objects.filter(read_texts_filter,
+            #            word__in=list_word_ids[index-100:index],text_name=text).values('word')))
+            #    index += 100
+            #vocab_intersection.extend(list(word_appearences.objects.filter(read_texts_filter,
+            #        word__in=list_word_ids[index-100:index],text_name=text).values('word')))
             #COMMENT ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
             #ORIGINAL, DOES NOT WORK IN SQLITE3
             #UNCOMMENT vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-            #vocab_intersection = word_appearences.objects.filter(read_texts_filter,
-          
-            #        word__in=list_word_ids)
+            #This stuff doesn't work 
+            filter_list = []
+            for text in read_texts: # unsure of how read_texts looks when selecting multiple text
+            # with just one text it is [[text_name]], hence text[0]
+                book = text[0]
+                if len(text_range) > 1:
+                   start = text_range[1]
+                   end = text_range[2]
+                else:
+                   start = "start"
+                   end = "end"
+
+                filter_list.extend(list(word_appearences.objects.filter(text_name=book,mindiv__range=(loc_to_mindiv(book,start), loc_to_mindiv(book,end)))))
+            for item in filter_list:
+                # item.word.id might need to change
+                # Make it whatever it needs to be to get the id that corresponds to the word
+                print item,"item", item.word.id,"item.word.id"
+                if item.word.id in list_word_ids:
+                    vocab_intersection.append(item.word)
+            print vocab_intersection
+            print len(vocab_intersection)
+           # vocab_intersection = word_appearences.objects.filter(read_texts_filter, word__in=list_word_ids)
+            print len(vocab_intersection),"For this test, this should be at most 50"
             #UNCOMMENT ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         except Exception, e:
             print "try 3 error: "
@@ -312,14 +333,18 @@ def generateWords(word_appearences,lang,text,
     vocab_final = []
 
     #THIS IS NEEDED FOR PRODUCTION
+    #PSYCHE, MAYBE NOT
     #vvvvvvvvvvvvvvvvvvv UNCOMMENT
     #vocab_intersection = vocab_intersection.values('word')
     #UNCOMMENT^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    print vocab_intersection
+    #print vocab_intersection.values('word')
     vocab_intersection_ids = []
     for each in vocab_intersection:
-        vocab_intersection_ids.append(each['word'])
+        vocab_intersection_ids.append(each.id)
     #pdb.set_trace()
     vocab_intersection_ids = list(set(vocab_intersection_ids))
+    print len(vocab_intersection_ids),"len of vocab_intersection"
     if len(read_texts) > 0:
         if add_remove == 'Add': # If user wants words appearing in ALL texts 
 	    for word in list_word_ids:
@@ -343,15 +368,22 @@ def generateWords(word_appearences,lang,text,
 #   location can alternatively be "start" or "end".
 # Returns the appropriate mindiv (integer).
 def loc_to_mindiv(text,location):
-    node = TextStructureNode.objects.get(text_name=text)
+    print text
+    print TextStructureNode.objects.filter(text_name=text)
+    node = TextStructureNode.objects.filter(text_name=text)[0]
+    print node, "Nodles"
     if location == 'start':
         pass # don't change nodes!  Root.least_mindiv is start of text.
     elif location == 'end':
         while not node.is_leaf(): # Go to rightmost node until end of tree.
             node = node.get_last_child()
     else: # traverse tree according to given location.
+        print location,"location"
+	print type(location),"location type"
         loc = location.split('.')
+        print loc,"loc"
         for subsection in loc:
+            print subsection,"subsection"
             node = node.get_children().get(subsection_id__exact=subsection)
     return node.least_mindiv
 

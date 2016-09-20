@@ -23,6 +23,10 @@ from new_bridge.models import *
 # text_name is the machine-readable name (i.e. purged of special characters)
 #   of the text.  So, in the "TextMetadata" table, the "name_for_computers".
 def add_word_appearances(is_greek, appearance_list, loc_list, text_name,listified_csv):
+    print appearance_list, "Appearance List"
+    print loc_list,"Loc_list"
+    print text_name, "text name"
+    print listified_csv, "listified csv"
     loc_list_index = 0
     #check if there are local_defs
     if TextMetadata.objects.get(name_for_humans=text_name).local_def:
@@ -34,21 +38,24 @@ def add_word_appearances(is_greek, appearance_list, loc_list, text_name,listifie
                 loc_list_index +=1
             if is_greek:
                 entry = WordAppearencesGreek(text_name=text_name, text_name_for_computers=TextMetadata.objects.get(name_for_humans=text_name).name_for_computers,
-                        word_id=appearance[1],mindiv=loc_list_index,appearance= loc_list[loc_list_index].replace('_','.'),local_def=local_def_dict[appearance[1]] )
+                        word_id=appearance[1].strip(),mindiv=loc_list_index,appearance= loc_list[loc_list_index].replace('_','.'),local_def=local_def_dict[appearance[1]] )
             else:
                 entry = WordAppearencesLatin(text_name=text_name, text_name_for_computers=TextMetadata.objects.get(name_for_humans=text_name).name_for_computers,
-                        word_id=appearance[1],mindiv=loc_list_index, appearance= loc_list[loc_list_index].replace('_','.'),local_def=local_def_dict[appearance[1]])
+                        word_id=appearance[1].strip(),mindiv=loc_list_index, appearance= loc_list[loc_list_index].replace('_','.'),local_def=local_def_dict[appearance[1]])
             entry.save()
     else:
         for appearance in appearance_list:
+            #print appearance, "APPEARANCE"
+            #print len(appearance_list), "app list"
             if appearance[0].strip() != loc_list[loc_list_index].strip():
                 loc_list_index +=1
             if is_greek:
                 entry = WordAppearencesGreek(text_name=text_name,
-                        word_id=appearance[1],mindiv=loc_list_index,appearance= loc_list[loc_list_index].replace('_','.'))
+                        word_id=appearance[1].strip(),mindiv=loc_list_index,appearance= loc_list[loc_list_index].replace('_','.'))
             else:
                 entry = WordAppearencesLatin(text_name=text_name,
-                        word_id=appearance[1],mindiv=loc_list_index, appearance= loc_list[loc_list_index].replace('_','.'))
+                        word_id=appearance[1].strip(),mindiv=loc_list_index, appearance= loc_list[loc_list_index].replace('_','.'))
+            print entry
             entry.save()
     return
 
@@ -84,7 +91,7 @@ def build_text_tree(loc_list, index, subsection_lvl, parent):
         location_split=location_split + i.split('_')
     subsection_id = location_split[subsection_lvl]
     node = TextStructureNode(subsection_level=subsection_lvl,
-            subsection_id=subsection_id, least_mindiv=index)
+            subsection_id=subsection_id.strip(), least_mindiv=index)
     # Make current node a child to node from calling function.  
     #   Saves current node in the db, enabling it to have its own children:
     parent = TextStructureNode.objects.get(pk=parent.pk) #get() node to save it
@@ -149,7 +156,7 @@ def parse_csv(listified_csv, text_name):
             appearances = row[appearances_index].split(',')
             word_id = [row[word_id_index] for i in range(len(appearances))]
             text_locations += zip(appearances, word_id)
-    text_locations.pop(0) #remove the column labels
+    #text_locations.pop(0) #remove the column labels # now done with listified_csv[1:]
     ### Sort word appearances by location:
     text_locations.sort(cmp=loc_cmp, key=lambda loc: loc[0])
     ### Create a list of unique locations:
