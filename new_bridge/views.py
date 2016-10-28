@@ -74,12 +74,12 @@ def words_page_redirect(request,language):
 		    print "ERROR: " + str(e)
 
 		if from_sec != "" and to_sec != "":
-                    i = i + "_" + from_sec + "_" + to_sec
+                    i = i + "$_" + from_sec + "_" + to_sec
 		    #bookslist_string = bookslist_string + "_" + from_sec + "_" + to_sec
                 elif from_sec != "" and to_sec == "":
-                    i = i + "_" + from_sec + "_" + "end"
+                    i = i + "$_" + from_sec + "_" + "end"
                 elif from_sec == "" and to_sec != "":
-                    i = i + "_" + "start" + "_" + to_sec
+                    i = i + "$_" + "start" + "_" + to_sec
 
 		if loop_count != num_books:
 		    i = i + str("+")
@@ -95,18 +95,41 @@ def words_page_redirect(request,language):
 	text_to = request.POST["text_to"]
 
     add_remove = request.POST["add_remove_selector"]
-
-    url = '/words_page/'+language+'/'+text_machine+'/'+bookslist_string+'/'+text_from+'/'+text_to+'/'+add_remove+'/'
+    if bookslist_string !="none":
+       new_bookslist_string = []
+       for book in bookslist_string.split('+'):
+	   try:
+	      marker = book.index('$')
+	   except ValueError:
+	      marker = len(book)
+		
+           book2=book[:marker]
+	   new_bookslist_string.append(TextMetadata.objects.get(name_for_humans=book2).name_for_computers+book[marker:])
+       new_bookslist_string = "+".join(new_bookslist_string)
+    else:
+	new_bookslist_string = 'none'
+    url = '/words_page/'+language+'/'+text_machine+'/'+new_bookslist_string+'/'+text_from+'/'+text_to+'/'+add_remove+'/'
 
     return HttpResponseRedirect(url)
 
 
 # This function is now redirected to once the new url is constructed
 def words_page(request,language,text,bookslist,text_from,text_to,add_remove):
-    #change back to the human name because a bunch of stuff depenends on it
+    #change back to the human name because a bunch of stuff depends on it
     #Note that it is ironic that the machine strictly uses the name_for_humans as opposed the the name_for_computers that was made for it
     text_meta = TextMetadata.objects.get(name_for_computers=text)
     text = text_meta.name_for_humans
+    new_bookslist_string = []
+    bookslist_comp = bookslist
+    if bookslist != 'none':
+       for book in bookslist.split('+'):
+ 	   try:
+              marker = book.index('$')
+           except:
+              marker = len(book)
+           book2=book[:marker]
+	   new_bookslist_string.append(TextMetadata.objects.get(name_for_computers=book2).name_for_humans+book[marker+1:])
+       bookslist = "+".join(new_bookslist_string)	
     # Do some formatting to make vocab metadata more human-readable:
     add_remove_formatted = "excluding"
     if add_remove == "Add": 
@@ -137,7 +160,7 @@ def words_page(request,language,text,bookslist,text_from,text_to,add_remove):
         loc_def = False
     try:
         return render(request,"words_page.html", {"language":language, "text":text,
-        "text_comp":text_meta.name_for_computers,
+        "text_comp":text_meta.name_for_computers, "bookslist_comp":bookslist_comp,
         "bookslist": bookslist, "bookslist_formatted": bookslist_formatted, 
         "text_from": text_from, "text_from_formatted": text_from_formatted, 
         "text_to": text_to, "text_to_formatted": text_to_formatted,
@@ -154,6 +177,20 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
     # I still might do that because it will be REALLY inconvinient to switch once all of the data is uploaded.
     text_meta = TextMetadata.objects.get(name_for_computers=text)
     text = text_meta.name_for_humans
+    if bookslist != 'none': 
+       for book in bookslist:
+          new_bookslist_string = []
+          bookslist_comp = bookslist
+          for book in bookslist.split('+'):
+              try:
+                 marker = book.index('$')
+              except:
+                 marker = len(book)
+              book2=book[:marker]
+              new_bookslist_string.append(TextMetadata.objects.get(name_for_computers=book2).name_for_humans+book[marker+1:])
+       bookslist = "+".join(new_bookslist_string)
+   
+
     # Parse string specifying names+ranges of read texts:
     if bookslist == "none":
         bookslist = []
@@ -326,7 +363,6 @@ def generateWords(word_appearences,lang,text,
             for item in filter_list:
                 # item.word.id might need to change
                 # Make it whatever it needs to be to get the id that corresponds to the word
-                print item,"item", item.word.id,"item.word.id"
                 if item.word.id in list_word_ids:
                     vocab_intersection.append(item.word)
             print vocab_intersection
