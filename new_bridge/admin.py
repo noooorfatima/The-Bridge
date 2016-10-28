@@ -4,11 +4,13 @@ import os
 
 class WordPropertyLatinAdmin(admin.ModelAdmin):
     search_fields = ['title']
-    list_display = ['title']
+    list_display = ['title','display_lemma']
+    list_max_show_all=100000
 
 class WordPropertyGreekAdmin(admin.ModelAdmin):
     search_fields = ['title']
-    list_display = ['title']
+    list_display = ['id','title','display_lemma']
+    list_max_show_all=100000
 
 class TextStructureGlossaryAdmin(admin.ModelAdmin):
     search_fields = ['text_name','subsection_level','subsection_name']

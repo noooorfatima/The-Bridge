@@ -971,6 +971,13 @@ padding-bottom: 5px;
 height: auto;
 }
 
+.pos-toggle-box {
+  font-size: 18px;
+}
+
+.pos-toggle-box label {
+  padding:5px;
+}
 
 #headingOne {
     background-color: #07325C;
@@ -1562,4 +1569,8 @@ background: white none repeat scroll 0% 0%;
 
 .pagination > li > a, .pagination > li > span {
   color: black;
+}
+
+.etc {
+font-size: 18px;
 }

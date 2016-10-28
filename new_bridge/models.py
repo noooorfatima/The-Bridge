@@ -13,7 +13,7 @@ from django.db import models
 from treebeard.mp_tree import MP_Node
 
 class TextStructureNode(MP_Node):
-    text_name = models.CharField(max_length=52, blank=True)
+    text_name = models.CharField(max_length=100, blank=True)
     subsection_level = models.SmallIntegerField(blank=False)
     subsection_id = models.CharField(max_length=6, blank=False)
     # subsection_id = models.SmallIntegerField(blank=False)
@@ -36,7 +36,7 @@ class TextStructureNode(MP_Node):
         return text_name + '\t' + loc_string
 
 class TextStructureGlossary(models.Model):
-    text_name = models.CharField(max_length=52, blank=False)
+    text_name = models.CharField(max_length=100, blank=False)
     subsection_level = models.SmallIntegerField(blank=False)
     subsection_name = models.CharField(max_length=20, blank=True)
     def __unicode__(self):
@@ -46,8 +46,8 @@ class TextStructureGlossary(models.Model):
         return s
 
 class WordAppearencesLatin(models.Model):
-    text_name = models.CharField(max_length=52, blank=False)
-    text_name_for_computers = models.CharField(max_length=52, blank=True, null=True)
+    text_name = models.CharField(max_length=100, blank=False)
+    text_name_for_computers = models.CharField(max_length=100, blank=True, null=True)
     word = models.ForeignKey('WordPropertyLatin', blank=False,null=True)
     mindiv = models.SmallIntegerField(blank=False)
     appearance = models.CharField(max_length=52, blank=False,null=True)
@@ -60,11 +60,11 @@ class WordAppearencesLatin(models.Model):
         return s
 
 class WordAppearencesGreek(models.Model):
-    text_name = models.CharField(max_length=52, blank=False)
-    text_name_for_computers = models.CharField(max_length=52, blank=True, null=True)
+    text_name = models.CharField(max_length=100, blank=False)
+    text_name_for_computers = models.CharField(max_length=100, blank=True, null=True)
     word = models.ForeignKey('WordPropertyGreek', blank=False,null=True)
     mindiv = models.SmallIntegerField(blank=False)
-    appearance = models.CharField(max_length=52, blank=False,null=True)
+    appearance = models.CharField(max_length=100, blank=False,null=True)
     local_def = models.CharField(max_length=1168, blank=True,null=True) 
     def __unicode__(self):
         s = 'TEXT:\t'+self.text_name
@@ -81,8 +81,8 @@ class TextMetadata(models.Model):
         return self.name_for_humans
 
 class WordPropertyLatin(models.Model):
-    id = models.IntegerField(primary_key=True)
-    title = models.CharField(max_length=30, blank=True) 
+    id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=60, blank=True) 
     display_lemma = models.CharField(max_length=84, blank=True) 
     display_lemma_macronless = models.CharField(max_length=83, blank=True) 
     english_core = models.CharField(max_length=155, blank=True) 
@@ -102,16 +102,16 @@ class WordPropertyLatin(models.Model):
 #I changed all the integer fields to text fields because it doesn't like importing blank integer fields
 #Note exlude is still int because the spreadsheet doesn't have it 
 class WordPropertyGreek(models.Model):
-    id = models.IntegerField(primary_key=True)
-    title = models.CharField(max_length=43, blank=True, null=True) 
-    accented_lemma = models.CharField(max_length=50, blank=True, null=True) 
-    logeion_lemma = models.CharField(max_length=50, blank=True, null=True) 
-    search_lemma = models.CharField(max_length=43, blank=True, null=True) 
-    display_lemma = models.CharField(max_length=175, blank=True, null=True) 
-    english_definition = models.CharField(max_length=135, blank=True, null=True)
-    logeion_def = models.CharField(max_length=240, blank=True, null=True) 
+    id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=500, blank=True, null=True) 
+    accented_lemma = models.CharField(max_length=500, blank=True, null=True) 
+    logeion_lemma = models.CharField(max_length=500, blank=True, null=True) 
+    search_lemma = models.CharField(max_length=500, blank=True, null=True) 
+    display_lemma = models.CharField(max_length=500, blank=True, null=True) 
+    english_definition = models.CharField(max_length=500, blank=True, null=True)
+    logeion_def = models.CharField(max_length=500, blank=True, null=True) 
     #questions = models.IntegerField(blank=True, null=True)
-    questions = models.CharField(max_length=50, blank=True, null=True)
+    questions = models.CharField(max_length=500, blank=True, null=True)
     decl = models.CharField(max_length=4, blank=True, null=True) 
     #idiom = models.IntegerField(blank=True, null=True)
     idiom = models.CharField(max_length=1, blank=True, null=True) 
@@ -119,10 +119,10 @@ class WordPropertyGreek(models.Model):
     reg_adj_adv = models.CharField(max_length=1, blank=True, null=True)
     #proper = models.IntegerField(blank=True, null=True) 
     proper = models.CharField(max_length=1, blank=True, null=True) 
-    part_of_speech = models.CharField(max_length=24, blank=True, null=True) 
+    part_of_speech = models.CharField(max_length=500, blank=True, null=True) 
     exclude_1_0 = models.IntegerField(blank=True, null=True) 
-    notes = models.CharField(max_length=34, blank=True, null=True) 
-    dcc_semantic_group = models.CharField(max_length=34, blank=True, null=True) 
+    notes = models.CharField(max_length=500, blank=True, null=True) 
+    dcc_semantic_group = models.CharField(max_length=500, blank=True, null=True) 
     def __unicode__(self):
         return self.title
 

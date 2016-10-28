@@ -117,7 +117,7 @@ class Command(BaseCommand):
 					WordPropertyLatin.objects.update_or_create(
 					title = item['TITLE'],
 					defaults={
-					'id' : item['id'],
+					#'id' : item['id'],
 					'display_lemma' : item['DISPLAY LEMMA'],
 					'display_lemma_macronless' : item['DISPLAY LEMMA MACRONLESS'],
 					'english_core' : item[english_core],
@@ -142,30 +142,31 @@ class Command(BaseCommand):
 			#'questions' : item['questions'],
 			#Same for exclude_1_0 and notes
 			for item in data_dict:
-				try:
-					WordPropertyGreek.objects.update_or_create(
-					id = item['id'],
-					defaults={
-					'id' : item['id'],
-					'title' : item['TITLE'],
-					'accented_lemma' : item['accented lemma'],
-					'logeion_lemma' : item['LOGEION LEMMA'],
-					'search_lemma' : item['SEARCH LEMMA'],
-					'display_lemma' : item['DISPLAY LEMMA'],
-					'english_definition' : item['SHORTDEF'],
-					'logeion_def' : item['LOGEIONDEF'],
-				    'decl' : item['DECL'],
-				    'idiom' : item['IDIOM'],
-				    'reg_adj_adv' : item['REG ADJ/ADV'] ,
-				    'proper' : item['PROPER'],
-				    'part_of_speech' : item['PART-OF-SPEECH']
-				    }
-				     )
-				except KeyError:
-					print "Got a key error, likely picked wrong language"
-					print "Current row is:",item
-					print "Current language is:", lang
-					error =  {'lang_error' : lang}
-					return str(error)
-			print "Imported WordPropertyGreek"
-			
+                                #print item, "item for greek"
+				#try:
+				WordPropertyGreek.objects.update_or_create(
+				title = item['TITLE'],
+				# id = item['id'],
+				defaults={
+				#'id' : item['id'],
+				#'title' : item['TITLE'],
+				# 'accented_lemma' : item['accented lemma'],
+				'logeion_lemma' : item['LOGEION LEMMA'],
+				'search_lemma' : item['SEARCH LEMMA'],
+				'display_lemma' : item['DISPLAY LEMMA'],
+				'english_definition' : item['SHORTDEF'],
+				'logeion_def' : item['LOGEIONDEF'],
+				'decl' : item['DECL'],
+				'idiom' : item['IDIOM'],
+				'reg_adj_adv' : item['REG ADJ/ADV'],
+				'proper' : item['PROPER'],
+				'part_of_speech' : item['PART-OF-SPEECH'],
+				}
+				)
+				#except KeyError:
+				#	print "Got a key error, likely picked wrong language"
+				#	print "Current row is:",item
+				#	print "Current language is:", lang
+				#	error =  {'lang_error' : lang}
+				#	return str(error)
+				#print "Imported WordPropertyGreek"

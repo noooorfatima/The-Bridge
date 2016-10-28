@@ -1,5 +1,5 @@
 <div class="panel panel-default" id="export_panel">
-    <div class="panel-heading" id="export_panel_heading">Export Table
+    <div class="panel-heading" id="export_panel_heading">Export
     </div>
         <div class="btn-group btn-group-justified">
             <div class="btn-group">
@@ -22,7 +22,7 @@
     </div>
 </div>
 <div class="panel panel-default" id="display_panel">
-    <div class="panel-heading" id="display_panel_heading">Show/hide Columns</div>
+    <div class="panel-heading" id="display_panel_heading"></div>
     <div class="panel-body" id="display_panel_body">
         <div class="colFilters_container" id="prototype_container" style="display: none;">
             <div class="col-toggle-box">
@@ -43,7 +43,7 @@
     </div>
 </div>
 <div class="panel panel-default" id="filters_panel">
-    <div class="panel-heading" id="filters_panel_heading">Filter Vocab</div>
+    <div class="panel-heading" id="filters_panel_heading"></div>
     <div class="panel-body" id="filters_panel_body">
         {% if language == "latin" %}
         <div class="filters_container">
@@ -342,9 +342,9 @@
 
             <div class="filters_container">
                 {% if language == "latin" %}
-                <h3>et cetera</h3>
+                <h3 class="etc">et cetera</h3>
                 {% else %} 
-                <h3>καὶ τὰ λοιπά</h3>
+                <h3 class="etc">καὶ τὰ λοιπά</h3>
                 {% endif %}
                 <div>
                     <div class="checkdiv checkdiv-wide">

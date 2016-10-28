@@ -20,7 +20,8 @@ def IndexView(request):
         sorted_latin_books=sorted(BookTitles.objects.all(),key=lambda book: (book.book_type,book.title_of_book))
         booklist_latin= [book.title_of_book 
                 for book in sorted_latin_books]
-        sorted_greek_books=sorted(BookTitlesGreek.objects.all(),key=lambda book: (book.book_type,book.title_of_book))        
+        sorted_greek_books=sorted(BookTitlesGreek.objects.all(),key=lambda book: (book.book_type,book.title_of_book))
+        print sorted_greek_books        
         booklist_greek= [book.title_of_book 
                 for book in sorted_greek_books]
 	return render(request, 'index.html', 
@@ -201,11 +202,8 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
         print e
     #print words_list
     json_words = serializers.serialize("json",words_list)
-    print len(json_words)
     #D#print type(json_words)
     json_words2 = json.loads(json_words)
-    print len(json_words2)
-    print json_words2
     final_list = [] 
     test_for_in_final = {}
     for item in json_words2:
@@ -214,7 +212,7 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
                 word_app = WordAppearencesLatin.objects.filter(word=item['pk'],text_name=text)
             else:
                 word_app = WordAppearencesGreek.objects.filter(word=item['pk'],text_name=text)
-            item['fields']['position']=[word.appearance for word in word_app]
+            item['fields']['position']=[(word.appearance, word.appearance.split('.')) for word in word_app]
             item['fields']['count']=len(item['fields']['position'])
             word_app = word_app[0]
             if not(word_app.local_def==None or word_app.local_def==""):
@@ -225,9 +223,11 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
 
     #make the appearance list sorted and then just take the first one
     for item in test_for_in_final:
-        test_for_in_final[item]['fields']['position'].sort()
-        test_for_in_final[item]['fields']['position']=test_for_in_final[item]['fields']['position'][0]
+        #test_for_in_final[item]['fields']['position'].sort(key= lambda tup: tuple(float(tup[1][i]) for i in range(len(tup[1]))))
+        #test_for_in_final[item]['fields']['position'].sort(key= lambda tup: (float(tup[1][0]),float(tup[1][1])))# each item is tuple with the second item a list split on the .
+        test_for_in_final[item]['fields']['position']=test_for_in_final[item]['fields']['position'][0][0]
     json_words = json.dumps(test_for_in_final.values())
+    print len(json_words)
     return HttpResponse(json_words, content_type="application/json")
 
 def generateWords(word_appearences,lang,text,
@@ -256,11 +256,20 @@ def generateWords(word_appearences,lang,text,
             read_texts_filter = read_texts_filter | new_filter
             print read_texts_filter, "READ_TEXTS_FILTER"
     # Get WordAppearence objects for words appearing in main text:
-    try:
+    try: 
         from_mindiv = loc_to_mindiv(text,text_from)
         to_mindiv = loc_to_mindiv(text,text_to)
+        print from_mindiv,to_mindiv
+        if text_from == text_to:
+           to_node = loc_to_node(text,text_to)
+           child = to_node
+           while not child.is_leaf():
+              child = child.get_last_child()
+           to_mindiv = child.least_mindiv
+        print from_mindiv,to_mindiv
         vocab = word_appearences.objects.filter(text_name__exact=text,
                 mindiv__range=(from_mindiv, to_mindiv))
+        print len(vocab), "BUUUUHHHHHH"
         #loc_list = []
         #for vcab in vocab:
         #    loc_list.append(vcab.mindiv)
@@ -275,8 +284,9 @@ def generateWords(word_appearences,lang,text,
     list_word_ids = []
     for each in list_of_dict_of_words:
 	list_word_ids.append(each['word'])
-    #print list_word_ids
+   
     if len(read_texts)==0:
+        print len(list(set(list_word_ids))),"WEEEEEEEEEEE WOOOOOOO"
         return list(set(list_word_ids))
     else:
         try:
@@ -376,6 +386,7 @@ def loc_to_mindiv(text,location):
         pass # don't change nodes!  Root.least_mindiv is start of text.
     elif location == 'end':
         while not node.is_leaf(): # Go to rightmost node until end of tree.
+            print node,node.least_mindiv
             node = node.get_last_child()
     else: # traverse tree according to given location.
         print location,"location"
@@ -385,7 +396,21 @@ def loc_to_mindiv(text,location):
         for subsection in loc:
             print subsection,"subsection"
             node = node.get_children().get(subsection_id__exact=subsection)
+    print node, node.least_mindiv
     return node.least_mindiv
+
+def loc_to_node(text,location):
+    node = TextStructureNode.objects.filter(text_name=text)[0]
+    if location == 'start':
+        pass # don't change nodes!  Root.least_mindiv is start of text.
+    elif location == 'end':
+        while not node.is_leaf(): # Go to rightmost node until end of tree.
+            node = node.get_last_child()
+    else: # traverse tree according to given location.
+        loc = location.split('.')
+        for subsection in loc:
+            node = node.get_children().get(subsection_id__exact=subsection)
+    return node
 
 
 def generateLatinWords(language,text,bookslist,
@@ -828,6 +853,9 @@ def myimport(request):
                     f.write(fileName.read())
                 out = StringIO() 
                 management.call_command('update_page','temp_csv_for_importing.csv',lang,stdout=out)
+                print "Successfully updated page!"
+                print "Now cleaning up all TextStructureNodes" #If there are two text structures for a text, removes all the older ones (not just for this updated text)
+                management.call_command('sqlite_delete',"TextStructureNodeCLEAN")
                 error = out.getvalue().strip()
                 print error
                 if error != str():
