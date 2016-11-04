@@ -506,7 +506,7 @@ var tableToExcel = (function () {
         var requestUrl= "/get_words/"+words_metadata.language+'/'+words_metadata.text_comp+
             '/'+words_metadata.bookslist+'/'+words_metadata.text_from+
             '/'+words_metadata.text_to+'/'+words_metadata.add_remove+'/';
-        //console.log(requestUrl);
+        console.log(requestUrl);
         $.getJSON(requestUrl)
             .done(function(receivedData) {
                 words_data = loadWordData(receivedData);

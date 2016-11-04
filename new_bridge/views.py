@@ -93,7 +93,7 @@ def words_page_redirect(request,language):
 
     if request.POST['text_to'] != "":
 	text_to = request.POST["text_to"]
-
+    print "No problems here"
     add_remove = request.POST["add_remove_selector"]
     if bookslist_string !="none":
        new_bookslist_string = []
@@ -117,6 +117,8 @@ def words_page_redirect(request,language):
 def words_page(request,language,text,bookslist,text_from,text_to,add_remove):
     #change back to the human name because a bunch of stuff depends on it
     #Note that it is ironic that the machine strictly uses the name_for_humans as opposed the the name_for_computers that was made for it
+    print "oh wow we make it here"
+    print text_from, text_to
     text_meta = TextMetadata.objects.get(name_for_computers=text)
     text = text_meta.name_for_humans
     new_bookslist_string = []
@@ -144,6 +146,7 @@ def words_page(request,language,text,bookslist,text_from,text_to,add_remove):
     
     # Parse the user-selected books and their ranges, & format them for humans:
     bookslist_formatted = "nothing" 
+    print bookslist
     if bookslist != "none":
         temp_bookslist = bookslist.split("+")
         bookslist_formatted = ""
@@ -159,6 +162,7 @@ def words_page(request,language,text,bookslist,text_from,text_to,add_remove):
     else:
         loc_def = False
     try:
+	print bookslist_comp, "bl_comp"
         return render(request,"words_page.html", {"language":language, "text":text,
         "text_comp":text_meta.name_for_computers, "bookslist_comp":bookslist_comp,
         "bookslist": bookslist, "bookslist_formatted": bookslist_formatted, 
@@ -177,6 +181,8 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
     # I still might do that because it will be REALLY inconvinient to switch once all of the data is uploaded.
     text_meta = TextMetadata.objects.get(name_for_computers=text)
     text = text_meta.name_for_humans
+    print "beep beep"
+    print request, "request"
     if bookslist != 'none': 
        for book in bookslist:
           new_bookslist_string = []
