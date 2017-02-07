@@ -938,16 +938,18 @@ function initTable() {
     var valid_ths = []; // list of <th>s turned into DataTables columns.
     var fields;
     // Find a wordTable object, used for validating fieldname:
+    console.log(words_data, "words_data");
     for (var prop in words_data) {
         if (words_data.hasOwnProperty(prop) && words_data[prop].length > 0) {
             fields = words_data[prop][0].fields;
-            break;
+            break; //this was break, maybe supposed to be continue?
         }
     }
     // Get field names and visibility from table column headers:
     $("#words_generated th").each(function() {
         if (fields.hasOwnProperty($(this).data("fieldname"))) { //if valid prop 
             valid_ths.push(this);
+            console.log($(this).data("fieldname"), "fieldname");
             // Create dataTables column based on <th> data-attrs:
             columns.push({
                     "name" : $(this).data("fieldname"),
@@ -971,6 +973,9 @@ function initTable() {
     // Get filter states and initialize DataTable object:
     var filter_states = determineFilterState();
     var word_data_filtered = filterWordData(filter_states);
+    console.log(word_data_filtered, typeof word_data_filtered, "word_data_filtered");
+    console.log($("#words_generated"));
+    console.log(columns, "columns");
     words_table = $("#words_generated").DataTable({
         "data" : word_data_filtered,
         "columns" : columns,
@@ -978,20 +983,18 @@ function initTable() {
                 [25, 50, 100, 250, "All"]],
         "pageLength": 100
     });
-
+    console.log("I made it");
     initColumnFilters(valid_ths);
 }
 
 /* Builds the "Show/Hide Columns" buttons from a list of <th> elements. */
 function initColumnFilters(th_list) {
-    //console.log(th_list,"DYLAN")
     var checkdiv_prototype = $(".colFilters_container checkdiv");
     var toggle_prototype = $(".colFilters_container .col-toggle-box");
     // Sort by field type:
     var fieldtypes = {};
     for (var i=0; i<th_list.length; i++) {
         var fieldtype = $(th_list[i]).data("fieldtype");
-        //console.log(fieldtype,"DYLAN")
         // Add <th> to existing array, else create a new array:
         if (fieldtypes.hasOwnProperty(fieldtype)) {
             fieldtypes[fieldtype].push(th_list[i]);
@@ -1000,7 +1003,6 @@ function initColumnFilters(th_list) {
             fieldtypes[fieldtype] = [th_list[i]];
         }
     }
-    //console.log(fieldtypes,"DYLAN")
     // Build radio toggle button-groups or checkdivs for each data column:
     for (fieldtype in fieldtypes) {
         if (fieldtypes.hasOwnProperty(fieldtype)) {  // skip inherited prop.s
@@ -1197,19 +1199,64 @@ function determineFilterState() {
 /* Given array of word categories, returns an array of relevant wordTable objects.
  * wordTable objects are retrieved from word category arrays in words_data.*/
 function filterWordData(pos_list) {
-    //console.log(pos_list, "DYLAN")
     var words_data_filtered = [];
     var words_data_keys = Object.getOwnPropertyNames(words_data);
-    //console.log(words_data_keys, "DYLAN")
+    /* So needed to do is identify 'Adverb, preposition' as 'adverb'
+     * and 'preposition'. I made a dictionary (pos_dictionary) with a
+     * list of everything it should add when it finds that word.
+     * So 'Adverb' will be:
+     * 'Adverb' : ['Adverb', 'Adverb, Conjunction', 'Adverb, Preposition'] etc.
+     */
+
+    // Intialize a dictionary with all the words we want to add
+    var pos_dictionary = {};
+    for (var i=0; i<pos_list.length; i++){
+	var pos = pos_list[i];
+	pos_dictionary[pos]= [];
+		
+    }
+
+    // Now add (hopefully) all pos from the data appropriately
+    for (var i=0; i<words_data_keys.length; i++) {
+	var key = words_data_keys[i];
+        // A regex that matches 1 or more commas and any number of spaces
+        prop_list = key.split(/,+\s*/);
+	for (var j=0; j<prop_list.length; j++){
+           var prop = prop_list[j];
+	   if(pos_dictionary[prop] != undefined){
+	      pos_dictionary[prop].push(key);
+	      //Always group Adj-1 and Adj-2
+              if(prop == 'Adjective_1'){
+                 pos_dictionary['Adjective_1'].push('Adjective_2');
+		 //pos_dictionary['Adjective_1'].push('Adjective_');
+              }
+           }
+	}
+    }
+
+    // pos_dictionary now complete
+
+    var modified = {}; // modified: tracks the things we have already changed so we don't double add
     for (var i=0; i<words_data_keys.length; i++) {
         var key = words_data_keys[i];
-        var key_index = pos_list.indexOf(key)
-        if (key_index >=0) {
-            words_data_filtered = words_data_filtered.concat(words_data[key]);
-            pos_list.splice(key_index,1); //rm that key from pos_list
-        }        
+        var key_index = pos_list.indexOf(key);
+	if (key_index>=0) {
+	    for(var j=0; j<pos_dictionary[key].length; j++){
+	      var prop = pos_dictionary[key][j];
+	      if (modified[prop] == undefined){
+	        modified[prop] = true;
+                words_data_filtered = words_data_filtered.concat(words_data[prop]);
+	      }
+
+	    }
+	   // We used to removed items instead of marking them as modified
+	   // but then you couldn't properly view the list in console
+	   // so I switched it
+           // pos_list.splice(key_index,1); //rm that key from pos_list
+        }
     }
-    //console.log(words_data_filtered, "DYLAN")
+    console.log(words_data_filtered, 'Words returned by filter');
+    console.log(typeof words_data_filtered);
     return words_data_filtered;
 }
 
@@ -1225,8 +1272,10 @@ function loadWordData(data) {
             pos = pos+ ("_" + word.fields["decl"]);
         }
         else if (pos == "Verb") {
-            pos = pos+ ("_" + word.fields["conj"]);
-        }
+	    if (word.fields['conj'] != undefined) {
+               pos = pos+ ("_" + word.fields["conj"]);
+	    }
+	}
         // Add word to existing POS array, else create a new array:
         if (words_data.hasOwnProperty(pos)) {
             words_data[pos].push(word);

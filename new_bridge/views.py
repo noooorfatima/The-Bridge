@@ -28,9 +28,9 @@ def IndexView(request):
                 {"booklist_latin":booklist_latin,"booklist_greek":booklist_greek})
 	
 	
-#class AboutView(generic.ListView):
-#	template_name = 'about.html'
-#	model = BookTable
+def AboutView(request):
+
+     return render(request,'aboutnew.html')
 
 #class HelpView(generic.ListView):
 #	template_name = 'help.html'
@@ -93,7 +93,6 @@ def words_page_redirect(request,language):
 
     if request.POST['text_to'] != "":
 	text_to = request.POST["text_to"]
-    print "No problems here"
     add_remove = request.POST["add_remove_selector"]
     if bookslist_string !="none":
        new_bookslist_string = []
@@ -117,8 +116,6 @@ def words_page_redirect(request,language):
 def words_page(request,language,text,bookslist,text_from,text_to,add_remove):
     #change back to the human name because a bunch of stuff depends on it
     #Note that it is ironic that the machine strictly uses the name_for_humans as opposed the the name_for_computers that was made for it
-    print "oh wow we make it here"
-    print text_from, text_to
     text_meta = TextMetadata.objects.get(name_for_computers=text)
     text = text_meta.name_for_humans
     new_bookslist_string = []
@@ -144,17 +141,17 @@ def words_page(request,language,text,bookslist,text_from,text_to,add_remove):
         text_from_formatted = "from "+text_from
         text_to_formatted = "to "+text_to
     
-    # Parse the user-selected books and their ranges, & format them for humans:
+    # Parse the user-selected books and their ranges, & format them for human:
     bookslist_formatted = "nothing" 
-    print bookslist
     if bookslist != "none":
         temp_bookslist = bookslist.split("+")
         bookslist_formatted = ""
         loop_counter = 1
         for book in temp_bookslist:
-            end = book.find("_")
-            if end != -1:
-                book = book[0:end]
+            booksection = book.split('_')
+            book = booksection[0]
+	    if len(booksection)==3:
+		book += " from "+  booksection[1] + " to " + booksection[2]
             bookslist_formatted += book+ ", "
         bookslist_formatted = bookslist_formatted[:-2]
     if TextMetadata.objects.get(name_for_humans=text).local_def:
@@ -162,7 +159,6 @@ def words_page(request,language,text,bookslist,text_from,text_to,add_remove):
     else:
         loc_def = False
     try:
-	print bookslist_comp, "bl_comp"
         return render(request,"words_page.html", {"language":language, "text":text,
         "text_comp":text_meta.name_for_computers, "bookslist_comp":bookslist_comp,
         "bookslist": bookslist, "bookslist_formatted": bookslist_formatted, 
@@ -181,8 +177,6 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
     # I still might do that because it will be REALLY inconvinient to switch once all of the data is uploaded.
     text_meta = TextMetadata.objects.get(name_for_computers=text)
     text = text_meta.name_for_humans
-    print "beep beep"
-    print request, "request"
     if bookslist != 'none': 
        for book in bookslist:
           new_bookslist_string = []
@@ -249,6 +243,7 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
     json_words2 = json.loads(json_words)
     final_list = [] 
     test_for_in_final = {}
+    print len(json_words2), "length of json words before adding appearances"
     for item in json_words2:
         if item['pk'] not in test_for_in_final.keys():
             if language != 'greek':
@@ -270,7 +265,10 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
         #test_for_in_final[item]['fields']['position'].sort(key= lambda tup: (float(tup[1][0]),float(tup[1][1])))# each item is tuple with the second item a list split on the .
         test_for_in_final[item]['fields']['position']=test_for_in_final[item]['fields']['position'][0][0]
     json_words = json.dumps(test_for_in_final.values())
-    print len(json_words)
+    print len(test_for_in_final.values())
+    #I do not know why it gets so big at this time
+    #print json_words
+    print len(json_words),"length aftering adding appearances"
     return HttpResponse(json_words, content_type="application/json")
 
 def generateWords(word_appearences,lang,text,
