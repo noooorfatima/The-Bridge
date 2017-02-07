@@ -945,6 +945,7 @@ function initTable() {
             break; //this was break, maybe supposed to be continue?
         }
     }
+    console.log(fields, "fields");
     // Get field names and visibility from table column headers:
     $("#words_generated th").each(function() {
         if (fields.hasOwnProperty($(this).data("fieldname"))) { //if valid prop 
@@ -1227,7 +1228,7 @@ function filterWordData(pos_list) {
 	      pos_dictionary[prop].push(key);
 	      //Always group Adj-1 and Adj-2
               if(prop == 'Adjective_1'){
-                 pos_dictionary['Adjective_1'].push('Adjective_2');
+                 //pos_dictionary['Adjective_1'].push('Adjective_2');
 		 //pos_dictionary['Adjective_1'].push('Adjective_');
               }
            }
@@ -1245,6 +1246,7 @@ function filterWordData(pos_list) {
 	      var prop = pos_dictionary[key][j];
 	      if (modified[prop] == undefined){
 	        modified[prop] = true;
+		console.log(prop, "POS added to data");
                 words_data_filtered = words_data_filtered.concat(words_data[prop]);
 	      }
 
