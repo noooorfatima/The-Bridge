@@ -938,19 +938,16 @@ function initTable() {
     var valid_ths = []; // list of <th>s turned into DataTables columns.
     var fields;
     // Find a wordTable object, used for validating fieldname:
-    console.log(words_data, "words_data");
     for (var prop in words_data) {
         if (words_data.hasOwnProperty(prop) && words_data[prop].length > 0) {
             fields = words_data[prop][0].fields;
             break; //this was break, maybe supposed to be continue?
         }
     }
-    console.log(fields, "fields");
     // Get field names and visibility from table column headers:
     $("#words_generated th").each(function() {
         if (fields.hasOwnProperty($(this).data("fieldname"))) { //if valid prop 
             valid_ths.push(this);
-            console.log($(this).data("fieldname"), "fieldname");
             // Create dataTables column based on <th> data-attrs:
             columns.push({
                     "name" : $(this).data("fieldname"),
@@ -974,9 +971,6 @@ function initTable() {
     // Get filter states and initialize DataTable object:
     var filter_states = determineFilterState();
     var word_data_filtered = filterWordData(filter_states);
-    console.log(word_data_filtered, typeof word_data_filtered, "word_data_filtered");
-    console.log($("#words_generated"));
-    console.log(columns, "columns");
     words_table = $("#words_generated").DataTable({
         "data" : word_data_filtered,
         "columns" : columns,
@@ -984,7 +978,6 @@ function initTable() {
                 [25, 50, 100, 250, "All"]],
         "pageLength": 100
     });
-    console.log("I made it");
     initColumnFilters(valid_ths);
 }
 
@@ -1200,6 +1193,10 @@ function determineFilterState() {
 /* Given array of word categories, returns an array of relevant wordTable objects.
  * wordTable objects are retrieved from word category arrays in words_data.*/
 function filterWordData(pos_list) {
+    // can turn to true for some helpful console logs!
+    var DEBUG = false;
+
+
     var words_data_filtered = [];
     var words_data_keys = Object.getOwnPropertyNames(words_data);
     /* So needed to do is identify 'Adverb, preposition' as 'adverb'
@@ -1209,7 +1206,7 @@ function filterWordData(pos_list) {
      * 'Adverb' : ['Adverb', 'Adverb, Conjunction', 'Adverb, Preposition'] etc.
      */
 
-    // Intialize a dictionary with all the words we want to add
+    // Intialize a dictionary with all the parts of speech we want to add
     var pos_dictionary = {};
     for (var i=0; i<pos_list.length; i++){
 	var pos = pos_list[i];
@@ -1218,23 +1215,49 @@ function filterWordData(pos_list) {
     }
 
     // Now add (hopefully) all pos from the data appropriately
+
+    // neither adj_2 or adj_ are buttons in the slideout, so we have to add them separate
+    // We group them with adj_1 after we add all the other parts of speech
+    var has_adj_2 = false;
+    var has_adj_ = false;
     for (var i=0; i<words_data_keys.length; i++) {
 	var key = words_data_keys[i];
+	
+	// neither of these are buttons in the slideout, so we have to add them separate
+	// We group them with adj_1 after we add all the other data
+        if (key == 'Adjective_2'){
+          has_adj_2 = true;
+        }
+        if (key == 'Adjective_'){
+	  has_adj_ = true;
+	}
+
+
+
         // A regex that matches 1 or more commas and any number of spaces
         prop_list = key.split(/,+\s*/);
 	for (var j=0; j<prop_list.length; j++){
            var prop = prop_list[j];
 	   if(pos_dictionary[prop] != undefined){
 	      pos_dictionary[prop].push(key);
-	      //Always group Adj-1 and Adj-2
-              if(prop == 'Adjective_1'){
-                 //pos_dictionary['Adjective_1'].push('Adjective_2');
-		 //pos_dictionary['Adjective_1'].push('Adjective_');
-              }
+           }
+	   else{
+             if (DEBUG == true){
+               console.log("Part of speech: ", prop, "from key: ", key, " will not be included in the data");
+	     }
            }
 	}
+	
     }
-
+    if (has_adj_2 && pos_dictionary['Adjective_1'] != undefined){
+      pos_dictionary['Adjective_1'].push('Adjective_2');
+    }
+    if (has_adj_ && pos_dictionary['Adjective_1'] != undefined){
+      pos_dictionary['Adjective_1'].push('Adjective_');
+    }
+    if (DEBUG == true){
+      console.log(pos_dictionary, "POS_DICT");
+    }
     // pos_dictionary now complete
 
     var modified = {}; // modified: tracks the things we have already changed so we don't double add
@@ -1246,19 +1269,22 @@ function filterWordData(pos_list) {
 	      var prop = pos_dictionary[key][j];
 	      if (modified[prop] == undefined){
 	        modified[prop] = true;
-		console.log(prop, "POS added to data");
+	        if (DEBUG == true){
+		  console.log(prop, "POS added to data");
+                }
                 words_data_filtered = words_data_filtered.concat(words_data[prop]);
 	      }
 
 	    }
 	   // We used to removed items instead of marking them as modified
 	   // but then you couldn't properly view the list in console
-	   // so I switched it
+	   // so I switched it, but here is the line a removed
            // pos_list.splice(key_index,1); //rm that key from pos_list
         }
     }
-    console.log(words_data_filtered, 'Words returned by filter');
-    console.log(typeof words_data_filtered);
+    if (DEBUG == true){
+      console.log(words_data_filtered, 'Words returned by filter');
+    }
     return words_data_filtered;
 }
 
