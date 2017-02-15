@@ -1406,9 +1406,9 @@ html, body {
 
 #haverfordlogo img {
   //display: block;
-  width: 100px;
+  width: 150px;
   //text-align: center;
-  margin-top: 10px;
+  margin-top: 0px;
 }
 
 #copyright {
@@ -1573,4 +1573,54 @@ background: white none repeat scroll 0% 0%;
 
 .etc {
 font-size: 18px;
+}
+
+
+
+/* STYLES FOR FEEDBACK/EMAIL/CONTACT POP UP */
+input.feedback, textarea.feedback {
+    width:439px;
+    height:37px;
+    background:#efefef;
+    border:1px solid #dedede;
+    padding:10px;
+    margin-top:3px;
+    font-size:0.9em;
+    color:#3a3a3a;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+}
+
+textarea.feedback {
+	height:213px;
+}
+
+.feedback {
+    display:block;
+    margin:0 auto;
+    width:576px;
+    text-align: left;
+}
+
+label.feedback {
+    display:block;
+    margin-top:20px;
+    letter-spacing:2px;
+}
+
+input.feedback:focus, textarea.feedback:focus {
+    border:1px solid #97d6eb;
+}
+
+#submit-feedback {
+    width:127px;
+    height:38px;
+    border:none;
+    margin-top:20px;
+    cursor:pointer;
+}
+
+#submit-feedback:hover {
+    background-color: #c9c9c9;
 }
