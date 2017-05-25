@@ -1454,9 +1454,9 @@ html, body {
 
 
 
-  width: 46px;
+ /* width: 46px;
   cursor: pointer;
-}
+}*/
 
 #twitter_link {
   //float: right;
@@ -1624,3 +1624,22 @@ input.feedback:focus, textarea.feedback:focus {
 #submit-feedback:hover {
     background-color: #c9c9c9;
 }
+
+
+
+/******************************************************
+FROM THIS LINE BELOW
+Contributor: Byron Biney, Swat '19;
+Began: 5/24/17;
+********************************************************/
+
+ /*================ Image Priorities in the footer ===============*/
+
+ #footerImages ~ img {
+     /*max-width: 100%;*/
+     width: 20px;
+ }
+
+ #resizetxt {
+    font-size: 18px;
+ }
