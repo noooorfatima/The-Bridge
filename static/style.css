@@ -1390,23 +1390,26 @@ html, body {
 }
 
 #DCC-logo {
-  margin-top: 5px;
+  margin-top: 5px; 
   height: 60px;
+  width: 20%;
 }
 
 #LASLA-logo {
   margin-top: 5px;
   height: 60px;
+  width: 20%;
 }
 
 #TriCoDH-logo {
   margin-top: 5px;
   height: 60px;
+  width: 40%;
 }
 
 #haverfordlogo img {
   //display: block;
-  width: 150px;
+  width: 160px; /* from 150px to 160px (bigger) */
   //text-align: center;
   margin-top: 0px;
 }
@@ -1414,6 +1417,7 @@ html, body {
 #copyright {
   display: block;
   margin:auto;
+  font-size: 16px;
 }
 
 #email {
@@ -1635,11 +1639,41 @@ Began: 5/24/17;
 
  /*================ Image Priorities in the footer ===============*/
 
- #footerImages ~ img {
-     /*max-width: 100%;*/
-     width: 20px;
+ /* Check-in: 5:01pm 5/25/17
+    eto... This ended up being more difficult than I expected it to be.
+    Very confused right now. A temporary fix at the moment is modifying
+    the widths of each image to a shockingly low percentage. But it doesn't look
+    the best. That is my current fix for the image priority issue.*/
+
+/* .footerImages {
+     background-size: cover;
+     background-repeat: no-repeat;
+     background-position:center;
+ }
+ 
+ .footerImages#DCC-logo {
+     background: url("http://127.0.0.1/static/images/DCC-logo.png");
  }
 
+ .footerImages#LASLA-logo {
+     background: url("http://127.0.0.1/static/images/LASLA-logo.png");
+ }
+
+ .footerImages#TriCoDH-logo {
+     background: url("http://127.0.0.1/static/images/TriCoDH-logo.png");
+ }*/
+
+ /*#footerImages ~ img {*/
+     /*background-size: cover;
+     background-repeat: no-repeat;
+     background-position:center;*/
+    /*height: 2px;
+ }*/
+
+/*================ Resizing the text on textlist.html ===================*/
+/* a very small change tbh */
  #resizetxt {
     font-size: 18px;
  }
+
+/*================= Changing Buttons */
