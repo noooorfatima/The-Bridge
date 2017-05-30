@@ -59,25 +59,70 @@
 
     <header class="body">
     </header>
+    <!--====================================================-->
+    <!-- Check In: 5/30/17 3:49pm ==========================-->
+    <!-- Name: Byron Biney =================================-->
+    <!-- Task: Link this form to a google spread sheet =====-->
+    <!-- Current reference(s):==============================-->
+    <!--https://github.com/heaversm/google-custom-form/blob/master/index.html-->
+    <!--====================================================-->
+
+    <!--===================================-->
+    <!--Check in: 5/30/17 5:50pm-->
+    <!--Okay so the google form linking isn't working at all. We'll figure this out.-->
+    <!--===================================-->
+
+    <!--A javascript library-->
+    <!--<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>-->
 
     <section class="body">
-<form class="feedback">
+    <!--Form creation, everything after feedback is added-->
+    <!-- URL in action attribute denotes the id of the google form that we are submitting to.-->
+    <!--For google form interaction, include this as an attribute: -->
+    <!-- action="https://docs.google.com/forms/d/e/1FAIpQLSdfBOTV34pge5Y7h4-jBme0oJmdn8wAlSIWZjT_vsiC6UJ0qw/formResponse" method="POST" target="no-targetk"-->
+<form id="myForm" class="feedback" action="" method="POST" target="no-target">
     <div>
     <label class="feedback">Name</label>
-    <input name="name" placeholder="Your Name" class="feedback">
+    <input id="nameInput" name="name" placeholder="Your Name" class="feedback">
     </div>
     <div>  
     <label class="feedback">Email</label>
-    <input name="email" type="email" placeholder="Your Email" class="feedback">
+    <input id="emailInput" name="email" type="email" placeholder="Your Email" class="feedback">
      </div>
     <div>  
     <label class="feedback">Message</label>
-    <textarea name="message" placeholder="Your Thoughts" class="feedback"></textarea>
+    <textarea id="messageInput" name="message" placeholder="Your Thoughts" class="feedback"></textarea>
     </div>     
     <div style="text-align: right;">
     <input id="submit-feedback" name="submit" type="submit" value="Submit">
     </div>
 </form>
+
+<!--baseURL: a url that runs as part of our prog and stores data into the spreadsheet and it requires what we have in baseURL to be the base value before it stores value -->
+<!-- enteredNameID: corresponding ID to name input on google form.-->
+<!-- enteredEmailID: corresponding ID to email input on google form.-->
+<!-- messageInput: you get the idea right?-->
+<!-- nomessageURL is a massively concatenated submission URL -->
+<iframe src="#" id="no-target" name="no-target" style="visibility:hidden"></iframe>
+<script>
+$('myForm').on('submit', function() {
+     var baseURL = "https://docs.google.com/forms/d/e/1FAIpQLSdfBOTV34pge5Y7h4-jBme0oJmdn8wAlSIWZjT_vsiC6UJ0qw/formResponse";
+     var submitRef = "&submit=Submit";
+     var enteredName = encodeURIComponent($("#nameInput").val());
+     var enteredNameID = "entry_164465297";
+     var enteredEmail = encodeURIComponent($("#emailInput").val());
+     var enteredEmailID = "entry.245652164";
+     var enteredMessage = encodeURIComponent($("#messageInput").val());
+     var enteredMessageID = "entry.1172703361";
+
+     var nomessageURL = (baseURL + enteredName + "=" + enteredNameID + "&" + enteredEmail + "=" +enteredEmailID + "&" + enteredMessage + "=" + enteredMessageID + submitRef);
+
+     console.log(submitURL);
+     console.log("hello");
+     $(this)[0].action=submitURL;
+     $('#nameInput').addClass('active').val("Thanks!");
+     });
+</script>
 
     </section>
 
