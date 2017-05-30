@@ -1657,7 +1657,22 @@ Began: 5/24/17;
 /* Check-in 1:49pm 5/26/17
  * I think the best way to proceed for today is to attempt to prioritize
  * the Haverford logo when the page's width goes below 420 px.*/
-/*
+
+
+/* Check-in 1:42pm 5/30/17
+ * While a source told me to include this code... Currently, if the window size gets too small
+ * Then the TriCo DH logo disappears entirely. At this point I feel
+ * I should keep this code around.
+ */
+ /*
+
+ /*========================================================
+ ==========================================================
+       Footer image resizing solved (5/30/17)
+ ==========================================================
+ =========================================================*/
+
+ /*
  @media (max-width: 767px) {
      .p5.col-xs-4 {
        padding: 0 5px;
@@ -1665,9 +1680,33 @@ Began: 5/24/17;
      .m5.row {
         margin: 0 -5px;
      }
+ }*/
+
+.col-centered{
+    /*float: none;*/
+    margin: 0 auto;
+}
+
+ @media (max-width: 550px) {
+    #firstColumnFooter, img {
+       display: none;
+    }
+
+    /*#haverfordRepos {
+       display: block;
+       margin-left: auto;
+       margin-right: auto;
+    }*/
+    .col-centered {
+      float: none;
+    }
+
+    #thirdColumnFooter, img {
+      display: none;
+    }
  }
 
-  @media (max-width: 767px) {
+/*  @media (max-width: 767px) {
      .p5.col-xs-6 {
        padding: 0 5px;
      }
