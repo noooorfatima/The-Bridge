@@ -72,14 +72,24 @@ DATABASES = {
             #'PASSWORD': 'bridge',
             #'PORT': '',                      # Set to empty string for default.
        
-	'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'bridge',
+	#'default': {
+            #'ENGINE': 'django.db.backends.mysql',
+            #Engine changed on May 5/31/17 at 4:55pm due to issues with socket.
+           # 'ENGINE': 'django.db.backends.sqlite3', 
+            #'NAME': 'bridge',
+            #NAME changed too
+           # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
             #'OPTIONS': {'charset': 'utf8mb4'},
-            'USER': 'root',
-            'PASSWORD': 'safari77',
-            'PORT': '',
-    }
+            #'USER': 'root',
+            #'PASSWORD': 'safari77',
+           # 'PORT': #  }
+       'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'dbsqlite3'),
+            'OPTIONS': {
+                     'timeout': 100,
+                     }
+            }
 }
 
 # Internationalization
