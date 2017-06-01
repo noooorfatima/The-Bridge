@@ -56,13 +56,15 @@
                         <div class="toggle-container col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" id="all_or_selection">
                             <div class="btn-group" data-toggle="buttons">
                                 <label class="btn btn-primary active" value="All">
-                                    <input type="radio" name="formselector" value="All" id="All" checked>All
+                                    <input type="radio" name="formselector" value="All" id="All" checked>List
                                 </label>
                                 <label class="btn btn-primary" value="Selection">
-                                    <input type="radio" name="formselector" value="Selection" id="Selection">Selection
+                                    <input type="radio" name="formselector" value="Selection" id="Selection">Text
+                                </label>
+                                <label class="btn btn-primary" value="Selection">
+                                    <input type="radio" name="formselector" value="Selection" id="Selection">Textbook
                                 </label>
                             </div>
-                        </div>
                         <div id="text_selection" style="display: none;">
                             <div class="input-group-container">
                                 <div class="input-group">
@@ -87,6 +89,15 @@
                                 <option value="{{ each }}" class="greekbook" onclick="showTip()"> {{ each }} </option>
                                 {% endfor %}
                             </select>
+                        </div>
+                        <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-primary active" value="All">
+                                    <input type="radio" name="formselector" value="All" id="All" checked>All
+                                </label>
+                                <label class="btn btn-primary" value="Selection">
+                                    <input type="radio" name="formselector" value="Selection" id="Selection">Selection
+                                </label>
+                            </div>
                         </div>
                         <!--
                         <br />
@@ -122,7 +133,7 @@
                 <div class="panel-heading" role="tab" id="headingThree">
                     <div class="row">
                         <div class="panel-title">
-                            Exclude/Include words from:
+                            Include or Exclude Words From One or More Texts
                         </div>
                         <div class="panel-contents">
                         </div>

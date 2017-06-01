@@ -256,6 +256,9 @@ div.navbar.navbar-default::before {
 	.toggle-container .btn-group {
 width: 40%;
 min-width: 200px;
+/*Changing padding currently has no effect*/
+/*Changing idsplay to block doesn't do anything either*/
+/*changing width here doesn't change width of buttons*/
 	}
 
 
@@ -554,7 +557,7 @@ a.boxclose-about{
     font-family: Georgia, serif;
     font-size: 1.5em;
     padding: 1px 8px 1px 8px;
-    width: 50%;
+    width: 33%;
     text-align: center;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1660,15 +1663,15 @@ Began: 5/24/17;
 
 
 /* Check-in 1:42pm 5/30/17
- * While a source told me to include this code... Currently, if the window size gets too small
- * Then the TriCo DH logo disappears entirely. At this point I feel
- * I should keep this code around.
+ * Currently, everything's functional. When the width of the windo reaches 550px,
+ * then everything except for the Haverford logo disappears.
+ * This can be altered by changing max width: (int)px to something else.;
  */
  /*
 
  /*========================================================
  ==========================================================
-       Footer image resizing solved (5/30/17)
+       Footer image resizing/repositioning solved (5/30/17)
  ==========================================================
  =========================================================*/
 
@@ -1683,7 +1686,6 @@ Began: 5/24/17;
  }*/
 
 .col-centered{
-    /*float: none;*/
     margin: 0 auto;
 }
 
@@ -1691,13 +1693,12 @@ Began: 5/24/17;
     #firstColumnFooter, img {
        display: none;
     }
-
-    /*#haverfordRepos {
-       display: block;
-       margin-left: auto;
-       margin-right: auto;
-    }*/
     .col-centered {
+      /* [INQUIRY]
+      * Originally "float: none" was supposed to be a part of .col-centered but ir
+      * prevented the third column from being visible at all. So I moved it here
+      * and now it works. I wonder why though.
+      */
       float: none;
     }
 
@@ -1705,47 +1706,6 @@ Began: 5/24/17;
       display: none;
     }
  }
-
-/*  @media (max-width: 767px) {
-     .p5.col-xs-6 {
-       padding: 0 5px;
-     }
-     .m5.row {
-        margin: 0 -5px;
-     }
- }
-
-   @media (max-width: 767px) {
-     .p5.col-xs-3 {
-       padding: 0 5px;
-     }
-   }
-*/
-
-/* .footerImages {
-     background-size: cover;
-     background-repeat: no-repeat;
-     background-position:center;
- }
- 
- .footerImages#DCC-logo {
-     background: url("http://127.0.0.1/static/images/DCC-logo.png");
- }
-
- .footerImages#LASLA-logo {
-     background: url("http://127.0.0.1/static/images/LASLA-logo.png");
- }
-
- .footerImages#TriCoDH-logo {
-     background: url("http://127.0.0.1/static/images/TriCoDH-logo.png");
- }*/
-
- /*#footerImages ~ img {*/
-     /*background-size: cover;
-     background-repeat: no-repeat;
-     background-position:center;*/
-    /*height: 2px;
- }*/
 
 /*================ Resizing the text on textlist.html ===================*/
 /* a very small change tbh */
