@@ -557,7 +557,7 @@ a.boxclose-about{
     font-family: Georgia, serif;
     font-size: 1.5em;
     padding: 1px 8px 1px 8px;
-    width: 33%;
+    width: 50%;
     text-align: center;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -921,7 +921,7 @@ background-color: gray;
 
 .panel-heading .row  * {
    font-family: Georgia,serif;
-   font-size: 1.5em;
+   font-size: 1.4em;
    white-space: nowrap; 
    overflow: hidden;
    display: inline-block;
@@ -1714,3 +1714,7 @@ Began: 5/24/17;
  }
 
 /*================= Changing Buttons */
+.type_of_txt_btn_group .btn {
+  width: 23%;
+  margin-bottom: 5px;
+}
