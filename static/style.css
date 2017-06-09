@@ -1421,7 +1421,7 @@ html, body {
 
 #haverfordlogo img {
   //display: block;
-  width: 160px; /* from 150px to 160px (bigger) */
+  width: 140px; 
   //text-align: center;
   margin-top: 0px;
 }
