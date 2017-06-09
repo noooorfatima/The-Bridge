@@ -148,14 +148,17 @@
                             </label>
                         </div>
                     </div>
-                    <div class="row" id="booklist" data-toggle="tooltip" data-placement="bottom" title="Choose a text/texts that you have read to remove words you already know.">
+                        <div class="row" id="booklist">
 
-                        <div id="booklist_container">
+                         <div id="booklist_container">
+                    <!--<div class="row" id="booklist" data-toggle="tooltip" data-placement="bottom">
+
+                        <div id="booklist_container" title="Choose a text/texts that you have read to remove words you already know.">-->
                             {% for each in booklist_latin %}
-                            <div class="col-xs-6 col-md-3 latinbookthumb">
+                            <div class="col-xs-6 col-md-3 latinbookthumb" data-toggle="tooltip" data-placement="bottom" title="hooray!">
                                 <div class="thumbnail" id="{{ each }}">
-                                    <button class='btn btn-default btn-block' type='button' name="book" value="{{ each }}" >
-                                        <div class=text_name">
+                                    <button class='btn btn-default btn-block' type='button' name="book" value="{{ each }}">
+                                        <div class="text_name">
                                             {{ each }}
                                         </div>
                                     </button>
@@ -184,7 +187,7 @@
                             {% for each in booklist_greek %}
                             <div class="col-xs-6 col-md-3 greekbookthumb">
                                 <div class="thumbnail" id="{{ each }}">
-                                    <button class='btn btn-default btn-block' type='button' name="book" value="{{ each }}" >
+                                    <button class='btn btn-default btn-block' type='button' name="book" value="{{ each }}" data-toggle="tooltip" data-placement="bottom" title="{{ each }}">
                                         <div> 
                                             {{ each }}
                                         </div>
