@@ -575,7 +575,24 @@ function handleMediaQuery(mq) {
 }
 
 /*Configures giant_form to match the language selected by the user. */
+
+        $("#txtbutton_id").on("click", function() {
+            //What happens when you click the text button.
+
+        });
+/*function textFormConfiguration(e) {
+    //Make all books invisible then only reveal based on the button clicked.
+    for all in $("#textlist").find("[class$='book']") {
+        books.filter(all).css("display", "none");
+    }
+    //Then depending on button...
+}*/
+
 function configureForm(e) {
+    /****************************************/
+    /*Where filtering takes place for languages, so let's add filtering for buttons (or pay attention)*/
+    /****************************************/
+    console.log("configuring form")
     var lang = e.data.language;
     // Set the redirect page to the appropriate lang:
     $("#giant_form").attr("action", "words_page_redirect/" + lang + "/");
@@ -587,6 +604,11 @@ function configureForm(e) {
     books.not("[class*='" + lang + "']").css("display", "none");
     // Show all which are part of the selected language:
     books.filter("[class*='" + lang + "']").css("display", "block");
+    //What if I had a function that took books as an arg, and then applied filters based on event.
+    if (lang == "greek") {
+        //We're going ton eed to filter everything that doesn't fit into the Core Lists category
+        console.log("greek detected")
+    }
 
     //Clear and hide panel-contents in SOURCE TEXT TAB:
     $("#headingTwo .panel-contents").text("");
@@ -660,7 +682,7 @@ function switchFormTabs(current, next) {
 }
 
 function showTip() {
-    var selects = $('textlist');
+    var selects = $('textlist'); //What is textlist's value? Where does this come from
     var selectedValue = selects.val();
     //Shows all or selection under textlist
     $('#all_or_selection').css("display", "block");
