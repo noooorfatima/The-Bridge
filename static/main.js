@@ -592,11 +592,13 @@ function configureForm(e) {
     /****************************************/
     /*Where filtering takes place for languages, so let's add filtering for buttons (or pay attention)*/
     /****************************************/
-    console.log("configuring form")
+    console.log("configuring form");
     var lang = e.data.language;
     // Set the redirect page to the appropriate lang:
     $("#giant_form").attr("action", "words_page_redirect/" + lang + "/");
-
+    console.log("modifying text");
+    $("#testingJavascript").css("display", "none");
+    console.log("completed");
     // Configure SOURCE TEXT TAB to only show texts from specified lang:
     var books = $("#textlist").find("[class$='book']");
     books = books.add($("#booklist").find("[class$='bookthumb']"));

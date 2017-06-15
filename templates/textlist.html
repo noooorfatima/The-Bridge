@@ -74,8 +74,8 @@
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
-                            <select class="form-control" name="textlist" size="4" id="textlist" select-one required data-toggle="tooltip" data-placement="bottom" title="Choose a text that you are currently reading to generate words you will need to know for that text." >
-                                <option value="" selected disabled>Select a text:</option>
+                            <select class="form-control" name="textlist" size="4" id="textlist" select-one required data-toggle="tooltip" data-placement="bottom" title="Choose a text that you are currently reading to generate words you will need to know for that text." style="display:none;" >
+                                <option value="" selected disabled>Select a text:</option> 
                                 {% for each in booklist_latin %}
                                 <option value="{{ each }}" class="latinbook" onclick="showTip()"> {{ each }} </option>
                                 {% endfor %}
