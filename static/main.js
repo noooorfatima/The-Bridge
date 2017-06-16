@@ -575,7 +575,6 @@ function handleMediaQuery(mq) {
 }
 
 /*Configures giant_form to match the language selected by the user. */
-
         $("#txtbutton_id").on("click", function() {
             //What happens when you click the text button.
 
@@ -592,25 +591,34 @@ function configureForm(e) {
     /****************************************/
     /*Where filtering takes place for languages, so let's add filtering for buttons (or pay attention)*/
     /****************************************/
-    console.log("configuring form");
     var lang = e.data.language;
     // Set the redirect page to the appropriate lang:
+    console.log(lang);
     $("#giant_form").attr("action", "words_page_redirect/" + lang + "/");
-    console.log("modifying text");
-    $("#testingJavascript").css("display", "none");
-    console.log("completed");
     // Configure SOURCE TEXT TAB to only show texts from specified lang:
     var books = $("#textlist").find("[class$='book']");
     books = books.add($("#booklist").find("[class$='bookthumb']"));
-    // Hide all text/book elements NOT part of the selected language:
-    books.not("[class*='" + lang + "']").css("display", "none");
-    // Show all which are part of the selected language:
-    books.filter("[class*='" + lang + "']").css("display", "block");
-    //What if I had a function that took books as an arg, and then applied filters based on event.
-    if (lang == "greek") {
-        //We're going ton eed to filter everything that doesn't fit into the Core Lists category
-        console.log("greek detected")
+        if(lang=="greek") {
+        //hide the latin selector.
+        console.log("greek has been clicked");
+        $("#latinTextsDropDown").css("display", "none");
+        $("#greekTextsDropDown").css("display", "block");
+        //Make it so that all Latin text buttons are hidden.
+        $(".latinbookthumb").css("display", "none");
+        $(".greekbookthumb").css("display", "inline");
     }
+    else if (lang=="latin") {
+        console.log("latin has been clicked");
+        $("#greekTextsDropDown").css("display", "none");
+        $("#latinTextsDropDown").css("display", "block");
+        $(".greekbookthumb").css("display", "none");
+        $(".latinbookthumb").css("display", "inline");
+    }
+    // Hide all text/book elements NOT part of the selected language:
+   // books.not("[class*='" + lang + "']").css("display", "none");
+    // Show all which are part of the selected language:
+   // books.filter("[class*='" + lang + "']").css("display", "block");
+    //What if I had a function that took books as an arg, and then applied filters based on event.
 
     //Clear and hide panel-contents in SOURCE TEXT TAB:
     $("#headingTwo .panel-contents").text("");

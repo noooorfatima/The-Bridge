@@ -18,12 +18,13 @@ import ast
 
 def IndexView(request):
         sorted_latin_books=sorted(BookTitles.objects.all(),key=lambda book: (book.book_type,book.title_of_book))
-        booklist_latin= [book.title_of_book 
+        booklist_latin= [(book.title_of_book, book.book_type) 
                 for book in sorted_latin_books]
-        sorted_greek_books=sorted(BookTitlesGreek.objects.all(),key=lambda book: (book.book_type,book.title_of_book))
-        print sorted_greek_books        
-        booklist_greek= [book.title_of_book 
+        print booklist_latin
+        sorted_greek_books=sorted(BookTitlesGreek.objects.all(),key=lambda book: (book.book_type,book.title_of_book))        
+        booklist_greek= [(book.title_of_book, book.book_type) 
                 for book in sorted_greek_books]
+        print booklist_greek
 	return render(request, 'index.html', 
                 {"booklist_latin":booklist_latin,"booklist_greek":booklist_greek})
 	
