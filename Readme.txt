@@ -44,14 +44,14 @@ And now here are the lines of code that should show the table's end:
 		</table>
 Don't go beyond the <table> tags.
 
-There are 4 steps to outline here, but each step is explained more in depth below. 
+There are 5 steps to outline here, but each step is explained more in depth below. 
 1. If you have a Greek text to add, find the Greek section. If you have a Latin text, go to the Latin section. 
 Each section is divided by starting and ending <td> tags.
 2. Now find the subsection that to enter your text in. The subsection corresponds with what type of text you have.
 3. Keep entries in alphabetical order and add your entry. (Note: this step also shows how to use the <a> and
 <em> tags for linking and italicizing respectively)
 4. Be weary of syntactical errors, and other reminders.
-5. Pushing your changes and seeing them live on the website (last updated 7/13/17)
+5. Make your changes visible on the dev site, and save your changes by pushing to the pretty branch of this git repository (last updated 7/13/17)
 
 
 1. If you have a Greek text to add, find the Greek section. If you have a Latin text, go to the Latin section. 
