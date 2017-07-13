@@ -51,6 +51,7 @@ Each section is divided by starting and ending <td> tags.
 3. Keep entries in alphabetical order and add your entry. (Note: this step also shows how to use the <a> and
 <em> tags for linking and italicizing respectively)
 4. Be weary of syntactical errors, and other reminders.
+5. Pushing your changes and seeing them live on the website (last updated 7/13/17)
 
 
 1. If you have a Greek text to add, find the Greek section. If you have a Latin text, go to the Latin section. 
@@ -113,3 +114,20 @@ within the table will not look right at all.
 -    Want to leave a comment in the html file? Comments will be visible to whoever is writing code for the 
      page, and will not show up on the page. If you have something in mind that could be useful to people 
      updating the about page in the future, leave a comment. A comment starts with '<!--' and ends with '-->'
+
+Please go over all of these reminders before proceeding.
+
+5. Saving your changes, making your changes live, pushing them onto git and seeing them. (last updated 7/13/17)
+
+At the moment, the dev site is currently being run on a droplet server. You can access the url by typing in 138.197.41.195, like a website. The about page is here: http://138.197.41.195/about
+
+__Keep in mind that the name of the about page is "newabout.html". Also, make sure that you are only pushing the about page file. __
+
+-Working on the droplet-
+If you made changes on the droplet (that is, if you ssh'd onto the droplet server and used Vim text editor) then your changes will be visilbe immediately on the about page for the dev server. Please skip ahead to pushing your changes to the git repository, so that they can be saved.
+
+-Working locally-
+If you made changes locally, or not on the droplet (if you never ssh'd at any point) then you need to push your changed about file to the "pretty" branch on git, then log on the droplet (ssh onto it) and pull them.
+When you log onto the droplet, remember... Unless you log on as a root user, you can't use git commands nor edit files without putting the term "sudo" at the start. So you will have to type "sudo git pull" in your terminal.
+
+Regardless of whether or not you're working locally or on the droplet, you must push your changes to the "pretty" branch of the bridge-repository.
