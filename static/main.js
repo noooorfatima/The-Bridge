@@ -1,4 +1,56 @@
+//*****************************************************************************************************/
+/* NOTE
+ * Date: 7/6/17
+ * As of today, people who are working on this project should be aware that this javascript file
+ * among new ones that have been briefly made and tested, RUN THEMSELVES TWO TIMES.
+ * So the following code creates a global namespace called "namesp" and a function called isFirstLoad.
+ * Then the first conditional calls isFirstLoad to make sure that this is the first time this javascript
+ * file has been loaded. To learn more about how this works, visit
+ * https://blog.michaelckennedy.net/2012/10/11/preventing-javascript-files-from-loading-multiple-times/
+ * If you delete this code, then Javascript should return to running twice. Addiitionally, one of the most
+ * important problems with this is when you generate a vocabulary list, page, an alert message appears
+ * saying something along the lines of "error, cannot reinitialise data tables." 
+ ****************************************************************************************************/
+
+
+/*switching the buttons. Check configureForm. There's some rather odd behavior with that.*/
+
+
+
+
+var namesp = namesp || {};
+var isFirstLoad = function(namesp) {
+   var isFirst = namesp.firstLoad === undefined;
+   console.log("isFirst is: " + isFirst);
+   namesp.firstLoad = false;
+   if (!isFirst) {
+       console.log("warning, this file has been loaded more than once.");
+    }
+   return isFirst;
+ };
+
+
+
+var iter = 0;
+var globalLang = "";
+var dontRunTwice = true;
+var itercheck=0;
+//var iter2 = 0;
+//var iter3 = 0;
+//iter3 = iter3 + 1
+//console.log("iter 3 value: " + iter3);
+
 $(document).ready(function() {
+    if (!isFirstLoad(namesp)) {
+    console.log("this conditional was activated");
+    //throw new Error("something went wrong");
+    return;
+ } else {
+    console.log(isFirstLoad(namesp));
+    console.log("failure to identify isFirstLoad as false");
+  }   
+
+    //console.log("iter 2: " + iter2);
     // Set up fancy nav bar resizing:
     $('.kwicks').kwicks({
         maxSize: "35%",
@@ -35,13 +87,17 @@ $(document).ready(function() {
 
         //Validate form data:
       $("#giant_form_submit").on("click", function(e) {
-            listItems = $("#textlist");
 	    var key = true;
-            var selects = $('#textlist');
-	    var selectedValue = "";
-	    if (selects.val()){
-		selectedValue = selects.val();
-	    }
+            var selectedValue = "";
+            if($("#tabTwo .panel-contents").text()) {
+                selectedValue = $("#tabTwo .panel-contents").text();
+            } 
+           /* $("#dropDownDiv select").each(function() {
+                if ($(this).attr("display") == "none") {
+                   console.log($(this).attr("id"));
+                   $(this).attr("name", "");
+                }
+            });*/
             if (selectedValue == "") {
                 alert("Please choose a text.");
                 return false;
@@ -124,11 +180,11 @@ $(document).ready(function() {
         }
 
         //Shows the correct tip to choose boxes
-        $('#Selection').on('click', function() {
+       /* $('#Selection').on('click', function() {
             var selects = $('#textlist');
             var selectedValue = selects.val();
-            console.log(selectedValue);
-            if (selectedValue == "DCC Latin Core" ||
+            console.log(selectedValue); */
+           /* if (selectedValue == "DCC Latin Core" ||
                 selectedValue == "DCC Greek Core" ||
                 selectedValue ==
                 "Herodotus Book 1 Core (412 words > 10 times)") {
@@ -137,8 +193,8 @@ $(document).ready(function() {
             } else {
                 $("#core_tip").css("display", "none");
                 $("other_tip").css("display", "block");
-            }
-        });
+            } */
+       // });
 
         /* EVENT HANDLERS FOR THE GIANT_FORM: */
 
@@ -146,6 +202,9 @@ $(document).ready(function() {
         //click is bound twice to these so I unbounded first
         //Really a fine solution, but also kind of a hack
         $("#booklist .thumbnail :button").unbind("click").on("click", function() {
+           /***************************************************************/
+           // onClick handler for the button thumbnails in exclude/include section
+          /***************************************************************/
             var div = $(this).parent().find(
                 ".range-select-toggle");
             if (div.css("display") == "none") {
@@ -247,7 +306,9 @@ $(document).ready(function() {
             $("html").css("height","auto");
         });
 
-
+        $(".intro-text").on("click", function() {
+           $(".intro-text").css("color", "#FFF");
+         });
 
         //TEXT ALL/SELECTION TOGGLE:
         $("#all_or_selection").on("click", function(e) {
@@ -282,20 +343,178 @@ $(document).ready(function() {
         });
 
         // TEXT SELECT LIST:
-        $("#textlist").on("click", function() {
+        /*$("#textlist").on("click", function() {
             selectedText = $("#textlist").val();
             if ($("#tabTwo .panel-contents").text() !=
                 selectedText.text) {
                 $("#tabTwo .panel-contents").text(selectedText);
-            }
+            }*/
             //Show panel-contents if it's hidden and contains text:
-            if ($("#tabTwo .panel-contents").text() !== "" &&
+            /*if ($("#tabTwo .panel-contents").text() !== "" &&
                 $("#tabTwo .panel-contents").css("display") ===
                 "none") {
                 $("#tabTwo .panel-contents").css("display",
                     "inline-block");
             }
+        });*/
+
+       $("#latin_TE_DropDown").on("click", function() {
+            selectedText = $("#latin_TE_DropDown").val();
+            if ($("#tabTwo .panel-contents").text() != selectedText) {
+               $("#tabTwo .panel-contents").text(selectedText);
+            }
+
+           else if($("#tabTwo .panel-contents").text() !== "" &&
+               $("#tabTwo .panel-contents").css("display") ===
+               "none") {
+               $("#tabTwo .panel-contents").text(selectedText);
+               $("#tabTwo .panel-contents").css("display", "inline-block");
+             }
         });
+
+       
+      $("#latin_TK_DropDown").on("click", function() {
+            selectedText = $("#latin_TK_DropDown").val();
+            if ($("#tabTwo .panel-contents").text() != selectedText) {
+               $("#tabTwo .panel-contents").text(selectedText);
+            }
+            else if($("#tabTwo .panel-contents").text() !== "" &&
+               $("#tabTwo .panel-contents").css("display") ===
+               "none") {
+               $("#tabTwo .panel-contents").text(selectedText);
+               $("#tabTwo .panel-contents").css("display", "inline-block");
+             }
+        });
+
+       $("#latin_LI_DropDown").on("click", function() {
+            selectedText = $("#latin_LI_DropDown").val();
+            if ($("#tabTwo .panel-contents").text() != selectedText) {
+               $("#tabTwo .panel-contents").text(selectedText);
+            }
+            else if($("#tabTwo .panel-contents").text() !== "" &&
+               $("#tabTwo .panel-contents").css("display") ===
+               "none") {
+               $("#tabTwo .panel-contents").text(selectedText);
+               $("#tabTwo .panel-contents").css("display", "inline-block");
+             }
+        });
+
+       $("#greek_TE_DropDown").on("click", function() {
+            selectedText = $("#greek_TE_DropDown").val();
+            if ($("#tabTwo .panel-contents").text() != selectedText) {
+               $("#tabTwo .panel-contents").text(selectedText);
+            }
+            else if($("#tabTwo .panel-contents").text() !== "" &&
+               $("#tabTwo .panel-contents").css("display") ===
+               "none") {
+               $("#tabTwo .panel-contents").text(selectedText);
+               $("#tabTwo .panel-contents").css("display", "inline-block");
+             }
+        });
+
+       $("#greek_TK_DropDown").on("click", function() {
+            selectedText = $("#greek_TK_DropDown").val();
+            if ($("#tabTwo .panel-contents").text() != selectedText) {
+               $("#tabTwo .panel-contents").text(selectedText);
+            }
+            else if($("#tabTwo .panel-contents").text() !== "" &&
+               $("#tabTwo .panel-contents").css("display") ===
+               "none") {
+               $("#tabTwo .panel-contents").text(selectedText);
+               $("#tabTwo .panel-contents").css("display", "inline-block");
+             }
+        });
+
+       $("#greek_LI_DropDown").on("click", function() {
+            selectedText = $("#greek_LI_DropDown").val();
+            if ($("#tabTwo .panel-contents").text() != selectedText) {
+               $("#tabTwo .panel-contents").text(selectedText);
+            }
+            else if($("#tabTwo .panel-contents").text() !== "" &&
+               $("#tabTwo .panel-contents").css("display") ===
+               "none") {
+               $("#tabTwo .panel-contents").text(selectedText);
+               $("#tabTwo .panel-contents").css("display", "inline-block");
+             }
+        });
+
+
+
+        $("#dropDownDiv select > option").on("click", function () {
+           $("#dropDownDiv").children().each( function() {
+		if ($(this).css("display") == "none") {
+                $(this).attr("name", "");
+                console.log($(this).attr("id"));
+                console.log($(this).attr("name"));
+              }
+             if ($(this).css("display") == "block") {
+                $(this).attr("name", "textlist");
+                console.log($(this).attr("id"));
+                console.log($(this).attr("name"));
+              }
+           });
+        });
+      
+ 
+$(".type_of_txt_btn_group label").on("click", function() {
+ /********************************************************
+  * #INFO: This is responsible for manipulating the three
+  * Text, Textbook, and List buttons
+  *******************************************************/
+           var label = $(this).attr('value');
+           var idcomp = globalLang + "_" + label + "_DropDown";
+           $("#dropDownDiv select").each(function() {
+                var buttoncomp = $(this).attr('id');
+                $(this).css("display", "none");
+                if(buttoncomp == idcomp) {
+                    $(this).css("display", "block");
+                }              
+          }); 
+});
+
+
+
+/*$("#dropDownDiv select").on("click", function() {
+      selectedValue = $(this).attr('value');
+      console.log(selectedValue);
+ });*/
+
+
+
+      /*$("#latinTextsDropDown").on("click", function() {
+           selectedText = $("#latinTextsDropDown").val();
+           console.log(selectedText);
+          if ($("#tabTwo .panel-contents").text() != 
+               selectedText.text) {
+              console.log("panel was not equal to selectedText (latin)"); 
+              $("#tabTwo .panel-contents").text(selectedText);
+          }
+         if ($("#tabTwo .panel-contents").text !== "" &&
+             $("#tabTwo .panel-contents").css("display") ===
+             "none") {
+             console.log("panel was not empty but it was on display none. (latin)");
+             $("#tabTwo .panel-contents").text(selectedText);
+             $("#tabTwo .panel-contents").css("display", "inline-block");
+         }
+      });
+
+      $("#greekTextsDropDown").on("click", function() {
+          selectedText = $("#greekTextsDropDown").val();
+          if ($("#tabTwo .panel-contents").text() !=
+               selectedText.text) {
+              console.log("panel was not equal to selectedText (greek)");
+              $("#tabTwo .panel-contents").text(selectedText);
+          }
+         if ($("#tabTwo .panel-contents").text !== "" &&
+             $("#tabTwo .panel-contents").css("display") ===
+             "none") {
+             console.log("panel was not empty but it was on display none. (greek)");
+             $("#tabTwo .panel-contents").text(selectedText);
+             $("#tabTwo .panel-contents").css("display", "inline-block");
+         }
+      });*/
+    
+
     } //END of event bindings for INDEX.HTML!
 
 
@@ -435,6 +654,14 @@ var tableToExcel = (function () {
         }
     })();
 
+
+
+
+
+
+
+
+
     //Function that allows the print button on words page to work
     function printData()
     {
@@ -452,7 +679,7 @@ var tableToExcel = (function () {
 //console.log(tableToExcel)
         /* FILTERING/CHECKBOX BINDINGS: */
         
-        // Filter Function
+        // Filter buttons on click event
         $('.panel-body .checkdiv').click(function() {
             setCheckdiv(this);
             filterTable();
@@ -507,9 +734,12 @@ var tableToExcel = (function () {
             '/'+words_metadata.bookslist+'/'+words_metadata.text_from+
             '/'+words_metadata.text_to+'/'+words_metadata.add_remove+'/';
         console.log(requestUrl);
+        itercheck = itercheck + 1;
+        console.log("before JSON, itercheck = " + itercheck);
         $.getJSON(requestUrl)
             .done(function(receivedData) {
                 words_data = loadWordData(receivedData);
+                console.log("itercheck's value: " + itercheck);
                 // Hide "loading" notifications, show "loaded" ones:
                 //$("#loading_gif").css("display","none"); //bye kitty!
                 $("#word_load_info").css("display","none");
@@ -520,7 +750,7 @@ var tableToExcel = (function () {
                 initTable(); 
                 // Make sure slideout isn't overlapping head/foot:
                 resizeSlideoutPanel();
-                // Enable slideout panel slide behavior once words load:
+                // Enable s/lideout panel slide behavior once words load:
                 $("#slideout-pulltab").css({
                     "background":"gray",
                     "border":"1px solid gray"
@@ -538,11 +768,22 @@ var tableToExcel = (function () {
             })
 
           .fail(function(receivedData) {
+   /**************************************************************************************/
+   /************* THIS IS WHAT HAPPENS WHEN THERE IS A FAILURE TO RECEIVE DATA ***********/
+   /**************************************************************************************/
                console.log("failed!");
                console.log(receivedData);
-            });
+               $("#word_load_info").css("display", "none");
+               $("#word_load_failure").css("display", "block");
+               resizeSlideoutPanel();
+               toggleSlideoutPanel();
+               //$("#slideout-pulltab").on("click",function(e) {
+                 
+               //});            
+          });
         
     } // END of event bindings for WORDS_LIST.HTML and GREEK_WORDS_LIST.HTML!
+
 
 }); // END OF $(document).ready!
 
@@ -575,47 +816,72 @@ function handleMediaQuery(mq) {
 }
 
 /*Configures giant_form to match the language selected by the user. */
-        $("#txtbutton_id").on("click", function() {
-            //What happens when you click the text button.
-
-        });
-/*function textFormConfiguration(e) {
-    //Make all books invisible then only reveal based on the button clicked.
-    for all in $("#textlist").find("[class$='book']") {
-        books.filter(all).css("display", "none");
-    }
-    //Then depending on button...
-}*/
-
 function configureForm(e) {
     /****************************************/
     /*Where filtering takes place for languages, so let's add filtering for buttons (or pay attention)*/
     /****************************************/
     var lang = e.data.language;
+    globalLang = lang;
+    console.log(lang + globalLang);
     // Set the redirect page to the appropriate lang:
-    console.log(lang);
     $("#giant_form").attr("action", "words_page_redirect/" + lang + "/");
     // Configure SOURCE TEXT TAB to only show texts from specified lang:
     var books = $("#textlist").find("[class$='book']");
     books = books.add($("#booklist").find("[class$='bookthumb']"));
+    $(".type_of_txt_btn_group label").each(function() {
+          $(this).removeClass("active");
+     });
+     if(!$("#first-active").hasClass("active")) {
+        $("#first-active").addClass("active");
+      }
+
         if(lang=="greek") {
         //hide the latin selector.
-        console.log("greek has been clicked");
-        $("#latinTextsDropDown").css("display", "none");
-        $("#greekTextsDropDown").css("display", "block");
+        $(".intro-text").css({'color':'#1E9E6B','-webkit-transition':'color 0.4s ease','-moz-transition':'color 0.4s ease','-o-transition':'color 0.4s ease','transition':'color 0.4s ease'}); //#457798 shade of green
+        $("#dropDownDiv [id*='latin']").css("display", "none");
+        $("#dropDownDiv [id*='greek']").css("display", "block");
+        $("#greek_LI_DropDown").css("display", "block");
+        $("#greek_TK_DropDown").css("display", "none");
+        $("#greek_TE_DropDown").css("display", "none");
         //Make it so that all Latin text buttons are hidden.
         $(".latinbookthumb").css("display", "none");
         $(".greekbookthumb").css("display", "inline");
+        $(".greekbookthumb").each(function() {  
+	   if($(this).hasClass("booktypeTE")) { 
+                 $(this).append("#thumbTE");
+           }
+           else if ($(this).hasClass("booktypeLI")) {
+                 $("#thumbLI").append($(this));
+         } else if ($(this).hasClass("booktypeTK")) {
+             $("#thumbTK").append($(this));
+         } 
+       });
     }
     else if (lang=="latin") {
-        console.log("latin has been clicked");
-        $("#greekTextsDropDown").css("display", "none");
-        $("#latinTextsDropDown").css("display", "block");
+        $(".intro-text").css({'color':'#cb4332','-webkit-transition':'color 0.4s ease','-moz-transition':'color 0.4s ease','-o-transition':'color 0.4s ease','transition':'color 0.4s ease'}); //#cb4332 is the same shade of red as the latin button
+        $("#dropDownDiv [id*='greek']").css("display", "none");
+        $("#dropDownDiv [id*='latin']").css("display", "block");
+        $("#latin_LI_DropDown").css("display", "block");
+        $("#latin_TK_DropDown").css("display", "none");
+        $("#latin_TE_DropDown").css("display", "none");
         $(".greekbookthumb").css("display", "none");
         $(".latinbookthumb").css("display", "inline");
+        $(".latinbookthumb").each(function() { 
+           if($(this).hasClass("booktypeTE")) {
+                 $("#thumbTE").append($(this));
+           }
+           else if ($(this).hasClass("booktypeLI")) {
+                 console.log("latin list detected");
+                 $("#thumbLI").append($(this));
+         } else if ($(this).hasClass("booktypeTK")) {
+             console.log("latin textbook detected");
+             $("#thumbTK").append($(this));
+         }
+       });
+
     }
     // Hide all text/book elements NOT part of the selected language:
-   // books.not("[class*='" + lang + "']").css("display", "none");
+    books.not("[class*='" + lang + "']").css("display", "none");
     // Show all which are part of the selected language:
    // books.filter("[class*='" + lang + "']").css("display", "block");
     //What if I had a function that took books as an arg, and then applied filters based on event.
@@ -650,27 +916,65 @@ function configureForm(e) {
     $("#tabTwo").attr("data-toggle", "collapse");
 }
 
+/*if(!$("#tabThree").hasClass("collapsed")) {
+    console.log("currently collapsed");
+}*/
+
+/***********************************************************
+ * FUNCTIONING FOR MAKING "EXCLUDE PART FOLLOW WHEN YOU SCROLL
+ * making changes
+*************************************************************/
+/*$("#headingThree").parent().scroll(function() { 
+    $('#headingThree').css('top', $(this).scrollTop());
+});*/
+
+/*alert($("#headingThree").parent().attr("id"));*/
+
 function userFormInteract(e) {
     var clickedTab = $(e.target).parents("[id^='tab']");
+    console.log(clickedTab.attr("id"));
+    console.log("active form tab: " + active_form_tab);
+    console.log(clickedTab.attr("id") != active_form_tab);
+    if ((clickedTab.attr("id") == "tabOne") && (active_form_tab == "tabOne")) {
+        console.log("gotcha!");
+        if ($("#tabOne").attr("aria-expanded") == "false") {
+           console.log("yessss");
+           return;
+        }
+     } //lat time no dragon ball z we learned that this accurately identifies the scenario it needs to
+       //when one tries to click the select a language bit right at the home page.
+       //However, adding the return statement does nothing. something else is changing stuff.
     if ((clickedTab.attr("id") != active_form_tab) && 
         ($("#giant_form").attr("action") != "")) {
+        console.log("we still got here!");
         switchFormTabs($("#" + active_form_tab), clickedTab);
-    } else {
-        console.log("PLEASE SELECT A LANGUAGE FIRST!");
-        $("headingOne").animate({
+     } /*else if ((clickedTab.attr("id") == "tabOne") && (active_form_tab == "tabOne")) {
+        console.log("gotcha!");
+        if ($("#tabOne").attr("aria-expanded") == "true") {
+           console.log("yessss");
+           return;*/
+        /* else {
+          console.log(clickedTab.attr("aria-expanded"));
+        }*/
+      
+      else {
+        console.log("PLEASE SELECT A LANGUAGE FIRST!"); //switch in "headingOne"
+        /*$(".intro-text").animate({
             opacity: 0.25
-        }, 1000, function() {});
+        }, 1000, function() {});*/ //Commented this out because this currntly isn't having a good effect.
     }
 }
 
 function switchFormTabs(current, next) {
     /* Formats and hides/shows accordion tabs in the main form.
      *
+
      * current and next are both <a> elements, the clickable part of an 
      *  accordion tab.
      */
 
     //Change current's tab header to look "inactive", and COLLAPSE it:
+
     current.find(".panel-heading").css("background-color", "#FFFFFF");
     current.find(".panel-title").css("color", "black");
     current.find(".panel-contents").css("color", "gray");
@@ -691,13 +995,13 @@ function switchFormTabs(current, next) {
     active_form_tab = next.attr("id");
 }
 
-function showTip() {
-    var selects = $('textlist'); //What is textlist's value? Where does this come from
-    var selectedValue = selects.val();
+//function showTip() {
+    //var selects = $('textlist'); //What is textlist's value? Where does this come from
+    //var selectedValue = selects.val();
     //Shows all or selection under textlist
-    $('#all_or_selection').css("display", "block");
+    /* Commenting out 6/20/17, doesn't seem to do anything? $('#all_or_selection').css("display", "block");*/
 
-    if (selectedValue == "DCC Latin Core" ||
+    /*if (selectedValue == "DCC Latin Core" ||
         selectedValue == "DCC Greek Core" ||
         selectedValue == "Herodotus Book 1 Core (412 words > 10 times)" &&
         $("#Selection").checked == true) {
@@ -711,8 +1015,9 @@ function showTip() {
         $("#core_tip").popover('hide');
         $("#other_tip").popover('hide');
 
-    }
-}
+    }*/
+    
+//}
 
 // Makes sure that selection input is correct
 function validateTextSelect() {
@@ -935,6 +1240,7 @@ function greek_def_function() {
 }
 
 function lemma_function() {
+    //console.log($("#Dictionary Entry (macron)"));
     if ($("#Dictionary Entry (macron)").checked == true) {
         hide_column(2);
         show_column(1);
@@ -966,6 +1272,9 @@ function initTable() {
     //Determine columns from data attrs of <th> elements: 
     //  data-fieldname is the name of a property in WordTable.fields.
     //  data-visible determines whether this col is shown by default.
+    iter = iter + 1;
+    console.log("iteration: " + iter);
+
     var columns = [];
     var valid_ths = []; // list of <th>s turned into DataTables columns.
     var fields;
@@ -978,6 +1287,7 @@ function initTable() {
     }
     // Get field names and visibility from table column headers:
     $("#words_generated th").each(function() {
+        console.log($(this).data("fieldname"));
         if (fields.hasOwnProperty($(this).data("fieldname"))) { //if valid prop 
             valid_ths.push(this);
             // Create dataTables column based on <th> data-attrs:
@@ -998,6 +1308,8 @@ function initTable() {
                 $(this).text() +'\'.');
             $(this).remove();
         }
+       console.log("columns:");
+       console.log(columns);
     });
 
     // Get filter states and initialize DataTable object:
@@ -1019,6 +1331,7 @@ function initColumnFilters(th_list) {
     var toggle_prototype = $(".colFilters_container .col-toggle-box");
     // Sort by field type:
     var fieldtypes = {};
+    console.log("Thlist length: " + th_list.length);
     for (var i=0; i<th_list.length; i++) {
         var fieldtype = $(th_list[i]).data("fieldtype");
         // Add <th> to existing array, else create a new array:
@@ -1028,9 +1341,13 @@ function initColumnFilters(th_list) {
         else {
             fieldtypes[fieldtype] = [th_list[i]];
         }
-    }
+    } 
+    var n=0;
     // Build radio toggle button-groups or checkdivs for each data column:
     for (fieldtype in fieldtypes) {
+        n = n + 1
+        console.log("iteration: " + n + "   fieldtype: " + fieldtype);
+        //debugger;
         if (fieldtypes.hasOwnProperty(fieldtype)) {  // skip inherited prop.s
             if ($(fieldtypes[fieldtype][0]).data('radio')) {
                 buildToggle(fieldtypes[fieldtype]);
@@ -1065,6 +1382,7 @@ function buildToggle(field_options) {
         btn.text(field.text());
         // Add to btn-group, BEFORE "none" btn.
         btn.insertBefore(proto_btn);
+        //debugger;
     }
     toggle.find('.btn-group').css('width','100%');
     toggle.find('.btn').css('width',
@@ -1107,6 +1425,8 @@ function buildToggle(field_options) {
         //toggle visibility (visible col. indicated by .btn class 'active'):
         var thisCol = $(this).attr('value');
         var activeCol = $(this).siblings('.active').attr('value');
+        console.log("thisCol: " + thisCol);
+        console.log("activeCol: " + activeCol);
         words_table.column(activeCol+':name').visible(false);
         // If none, don't show any columns:
         if (thisCol !== 'none') {
@@ -1142,8 +1462,8 @@ function buildCheckdivs(field_options) {
         var checkdiv = proto_checkdiv.clone(true); //'true' keeps event binding
         var checkdiv_checkbox = checkdiv.find(".checkdiv-checkbox").first();
         checkdiv_checkbox.attr('value',field.data('fieldname'));
-        //d/console.log(field.data('fieldname'))
-        //d/console.log(field[0].attributes['data-visible'].value=='true')
+        console.log(field.data('fieldname')) //debug
+        console.log(field[0].attributes['data-visible'].value=='true') //debug
         checkdiv_checkbox.attr('name',field.data('fieldtype'));
         checkdiv.find('.checkdiv-label').text(field.text());
         container.append(checkdiv);
@@ -1155,6 +1475,7 @@ function buildCheckdivs(field_options) {
         var fieldname = $(this).find('.checkdiv-checkbox').attr('value');
         console.log(fieldname);
         words_table.column(fieldname + ":name").visible(isVisible);
+        debugger;
     });
 }
 
@@ -1181,6 +1502,7 @@ function filterTable() {
     
     // Re-draw words_table based on state of filtering checkboxes:
     var filter_states = determineFilterState()
+   // console.log(filter_states);
     var word_data_filtered = filterWordData(filter_states);
     words_table.clear().draw();
     words_table.rows.add(word_data_filtered).draw();
@@ -1326,6 +1648,7 @@ function loadWordData(data) {
     var words_data = {}; // Obj containing array of wordTables objects
     for (var i=0; i<data.length; i++) {
         var word = data[i];
+        if(i < 50) { console.log(word + word.fields["part_of_speech"]);}
         var pos = word.fields["part_of_speech"];
         // Add declension or conjugation to part of speech:
         if (pos == "Noun" || pos == "Adjective") {
@@ -1487,5 +1810,12 @@ function getScrollbarWidth() {
 
     return widthNoScroll - widthWithScroll;
 }
+
+  //$(".type_of_txt_btn_group label").on("click", function() {
+    //  console.log("you clicked correctly");
+      /*var label = $(this).attr('value');
+      var buttoncomp = globalLang + "_" + ($(this).attr('id')) + "_DropDown";
+      alert(buttoncomp);*/
+  //});
 
 

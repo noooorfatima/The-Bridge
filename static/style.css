@@ -1088,6 +1088,13 @@ screen and (min-width: 900px){
 
 }
 
+/*making changes to headingThree*/
+
+/*#headingThree {
+   position: sticky; 
+   top: 0px;
+   z-index: 10000;
+}*/ 
 
 /* Read-book select stuff: */
 button > div {
@@ -1175,6 +1182,7 @@ button > div {
 #slideout-panel .panel-body {
     text-align: center;
     padding: 0px 10px;
+    padding-bottom:5px;
 }
 
 #filters_panel_body {
@@ -1233,13 +1241,13 @@ button > div {
     border-radius: 4px;
     line-height: 27px;
     margin-top: 3px;
-    width: 49%;
+    width: 58%;
     text-align: center;
 }
 
-.checkdiv-wide {
+/*.checkdiv-wide {
     width: 100%;
-}
+}*/
 
 .checkdiv-checkbox {
     display: inline-block;
@@ -1319,6 +1327,10 @@ button > div {
     text-align: center;
 }
 
+.pos-subcategory-box > .checkdiv {
+    height: 55px;
+}
+
 #words_generated_length select {
     min-width: 60px;
 }
@@ -1339,6 +1351,10 @@ button > div {
 
 .colFilters_container {
     margin-bottom: 10px;
+}
+
+.colFilters_container .btn-group-vertical {
+   width: 210px;
 }
 
 .col-toggle-box .btn {
@@ -1717,4 +1733,21 @@ Began: 5/24/17;
 .type_of_txt_btn_group .btn {
   width: 23%;
   margin-bottom: 5px;
+}
+
+.checkdiv .glyphicon {
+  font-size: .95em;
+}
+
+.mini_text {
+   font-size: .7em;
+   font-weight: bold;
+}
+
+.book-type-row {
+   padding-left: 15px;
+}
+
+#excludePanelTitle {
+  white-space: normal;
 }

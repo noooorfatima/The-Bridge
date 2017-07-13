@@ -4,7 +4,6 @@
 <title>The Bridge: Customizable Greek and Latin Vocabulary Lists</title>
 <body class = "home blog custom-background img-responsive" data-title="words_page">
     {% include "navbar.html" %}
-    {% include 'about.html' %}
     <div id="background" class = "custom-background img-responsive">
     <div class="page-wrap">
         <div class="alert alert-info word-load-alert" id="word_load_info" role="alert">
@@ -13,6 +12,9 @@
         <div class="alert alert-success word-load-alert" id="word_load_success" role="alert">
             <strong> Success! </strong>Your search generated <span></span> words.
             <strong>Your selection: </strong>{{ text_from_formatted}} {{ text_to_formatted }} of <em>{{ text }}</em>, {{ add_remove_formatted }}: <em>{{ bookslist_formatted }}</em>.
+        </div>
+        <div class="alert alert-danger word-load-alert" id="word_load_failure" role="alert" style="display: none;">
+           <strong> Error! </strong>Failure to find your selection {{ text_from_formatted}} {{text_to_formatted}} of <em>{{ text }}</em> within The Bridge database. Please try again.
         </div>
         <!--img id="loading_gif" src="/static/images/loading.gif"-->
         <div id="slideout-container" data-stowed=true style="width: 360px; overflow-y: scroll;">

@@ -1,6 +1,6 @@
 <div class="panel panel-default" id="export_panel">
 <!--=================Glyphicon=============-->
-    <div class="panel-heading" id="export_panel_heading"><span class="glyphicon glyphicon-info-sign" title="Word lists are exported in TSV file format"></span>Export
+    <div class="panel-heading" id="export_panel_heading"><span id="icon_in_slidepanel" class="glyphicon glyphicon-info-sign" title="Print or download a vocabulary list in TSV format. To print all vocabulary, please make sure all entries are currently shown. By default, only 100 entries are shown."></span>Export<p class="mini_text"><em>Only currently displayed entries will be exported</em></p> <!--<p class="mini_text"><em>only exports currently shown entries</em></p>-->
     </div>
         <div class="btn-group btn-group-justified">
             <div class="btn-group">
@@ -130,20 +130,20 @@
                             <div class="checkdiv-checkbox" name="adj_decl" id="Adjective_1" value="Adjective_1" data-state=true>
                                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                             </div>
-                            <div class="checkdiv-label">1st-2nd</div>
+                            <div class="checkdiv-label">1st-2nd</div> <!-- Originally: 1st-2nd -->
                         </div>
                         <div class="checkdiv">
                             <div class="checkdiv-checkbox" name="adj_decl" id="Adjective_3" value="Adjective_3" data-state=true>
                                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                             </div>
-                            <div class="checkdiv-label">3rd</div>
+		            <div class="checkdiv-label">3rd</div> <!-- Originally: 3rd -->
                         </div>
                         <div class="checkdiv">
                             <div class="checkdiv-checkbox" name="adj_decl" id="Adjective_5" value="Adjective_5" data-state=true>
                                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                             </div>
-                            <div class="checkdiv-label">Others</div>
-                            <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="bottom" title="Defective or Indeclinable" ></span>
+                            <div class="checkdiv-label">Other</div> <!-- Orginally: other-->
+                            <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="bottom"></span>
                         </div>
                     </div>
                 </div>
@@ -224,19 +224,25 @@
                             <div class="checkdiv-checkbox" name="adj_decl" id="Adjective_1" value="Adjective_1" data-state=true>
                                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                             </div>
-                            <div class="checkdiv-label">1st-2nd</div>
+                            <div class="checkdiv-label">1st-2nd<br>(2-(1)-2)</div> <!--Originally: 1st-->
+                        </div>
+                        <div class="checkdiv">
+                            <div class="checkdiv-checkbox" name="adj_decl" id="Adjective_2" value="Adjective_2" data-state=true>
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </div>
+                            <div class="checkdiv-label">1st-3rd<br>(3-1-3)</div> <!--Originally: 3rd,adjective_3-->
                         </div>
                         <div class="checkdiv">
                             <div class="checkdiv-checkbox" name="adj_decl" id="Adjective_3" value="Adjective_3" data-state=true>
                                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                             </div>
-                            <div class="checkdiv-label">3rd</div>
-                        </div>
+                            <div class="checkdiv-label">3rd</div> <!--Originally: Other, adjective_5 also had a glyphicon-->
+                   </div>
                         <div class="checkdiv">
                             <div class="checkdiv-checkbox" name="adj_decl" id="Adjective_5" value="Adjective_5" data-state=true>
                                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                             </div>
-                            <div class="checkdiv-label">Others</div>
+                            <div class="checkdiv-label">Irregular</div> <!-- new button-->
                             <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="bottom" title="Defective or Indeclinable" ></span>
                         </div>
                     </div>
@@ -278,12 +284,13 @@
                             <div class="checkdiv-checkbox" name="noun_decl" id="Noun_6" value="Noun_6" data-state=true>
                                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                             </div>
-                            <div class="checkdiv-label">Others</div>
-                            <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="bottom" title="Irregular, Defective, or Indeclinable" ></span>
+                            <div class="checkdiv-label">Irregular</div> <!--originally: Other w/ id=Noun_6-->
+                            <span  class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="bottom" title="Irregular, Defective, or Indeclinable" ></span>
+
                         </div>
                     </div>
                 </div>
-                <div class="checkdiv checkdiv-wide">
+                <div class="checkdiv">
                     <div class="checkdiv-checkbox" name="POS" class="POS" id="Verb" value="Verb" data-state=true>
                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                     </div>
@@ -350,12 +357,11 @@
                 <h3 class="etc">καὶ τὰ λοιπά</h3>
                 {% endif %}
                 <div>
-                    <div class="checkdiv checkdiv-wide">
+                    <div class="checkdiv">
                         <div class="checkdiv-checkbox" name="Reg_Adv" id="Reg_Adv" value="1" data-state=true>
                             <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                         </div>
-                        <div class="checkdiv-label">Special Adverbs & Adjectives</div>
-                        <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="bottom" title="Regularly-formed adverbs, comparative & superlative adjectives" ></span>
+                        <div class="checkdiv-label" style="line-height: 18px">Special Adverbs & Adjectives</div><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="bottom" title="Regularly-formed adverbs, comparative & superlative adjectives" ></span>
                     </div>
                     <div class="checkdiv">
                         <div class="checkdiv-checkbox" name="Idiom" id="Idiom" value="Idiom" data-state=true>

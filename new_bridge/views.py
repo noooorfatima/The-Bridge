@@ -20,13 +20,31 @@ def IndexView(request):
         sorted_latin_books=sorted(BookTitles.objects.all(),key=lambda book: (book.book_type,book.title_of_book))
         booklist_latin= [(book.title_of_book, book.book_type) 
                 for book in sorted_latin_books]
-        print booklist_latin
         sorted_greek_books=sorted(BookTitlesGreek.objects.all(),key=lambda book: (book.book_type,book.title_of_book))        
         booklist_greek= [(book.title_of_book, book.book_type) 
                 for book in sorted_greek_books]
-        print booklist_greek
+        booklist_latin_TE = []
+        booklist_latin_TK = []
+        booklist_latin_LI = []
+        booklist_greek_TE = []
+        booklist_greek_TK = []
+        booklist_greek_LI = []
+        for book in sorted_latin_books:
+             if (book.book_type == "TE"):
+                booklist_latin_TE.append(book.title_of_book)
+             elif (book.book_type == "TK"): 
+                booklist_latin_TK.append(book.title_of_book)
+             elif (book.book_type == "LI"):
+                booklist_latin_LI.append(book.title_of_book)
+        for book in sorted_greek_books:
+             if (book.book_type == "TE"):
+                 booklist_greek_TE.append(book.title_of_book)
+             elif (book.book_type == "TK"):
+                 booklist_greek_TK.append(book.title_of_book)
+             elif (book.book_type == "LI"):
+                  booklist_greek_LI.append(book.title_of_book)
 	return render(request, 'index.html', 
-                {"booklist_latin":booklist_latin,"booklist_greek":booklist_greek})
+                {"booklist_latin":booklist_latin,"booklist_greek":booklist_greek,"booklist_latin_TE":booklist_latin_TE,"booklist_latin_TK":booklist_latin_TK,"booklist_latin_LI":booklist_latin_LI,"booklist_greek_TE":booklist_greek_TE,"booklist_greek_TK":booklist_greek_TK,"booklist_greek_LI":booklist_greek_LI})
 	
 	
 def AboutView(request):
@@ -57,6 +75,10 @@ def words_page_redirect(request,language):
     # This makes sure it does not mess up the url
     if not request.POST["textlist"] == "":
 	text = request.POST["textlist"]
+	#print text,"identifying text in conditional" # delete
+    #print request.POST["textlist"],"what happens when request.POST[textlist]"
+    #print request.POST,"hello world request post"
+    #print request.POST["textlist"]
     text_meta = TextMetadata.objects.get(name_for_humans=text)
     text_machine = text_meta.name_for_computers
     if ('book' in request.POST) == True:
@@ -73,6 +95,7 @@ def words_page_redirect(request,language):
 		    to_sec = request.POST[i + " to"]
 		except Exception as e:
 		    print "ERROR: " + str(e)
+                    print "exception as e conditional triggered." 
 
 		if from_sec != "" and to_sec != "":
                     i = i + "$_" + from_sec + "_" + to_sec
@@ -176,6 +199,14 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
     #Also note that there was an issue with the fact and the apostrophe appearing in a title.
     #I think I switched to machine names in the spot the error was occuring, but I was considering switching it everywhere.
     # I still might do that because it will be REALLY inconvinient to switch once all of the data is uploaded.
+    #debuggingthingy = true
+    #if debuggingthingy:
+       #print "\nAll paremeters for get words\n"
+       ##rint request
+       #print language
+       #print text
+       #print add_remove
+       #print '\n'
     text_meta = TextMetadata.objects.get(name_for_computers=text)
     text = text_meta.name_for_humans
     if bookslist != 'none': 
@@ -220,6 +251,7 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
             print WordAppearencesLatin,language,text,text_from,text_to,bookslist,add_remove
             word_ids = generateWords(WordAppearencesLatin,language,text,text_from,text_to,bookslist,add_remove)
             word_property_table = WordPropertyLatin
+            #print("\nword_property_table for Latin: " + word_property_table)
         else:
             word_ids = generateWords(WordAppearencesGreek,language,text,
                 text_from,text_to,bookslist,add_remove)
