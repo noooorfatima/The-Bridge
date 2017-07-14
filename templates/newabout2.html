@@ -1,12 +1,12 @@
 <!-- NEW ABOUT PAGE ======================-->
 <!--=======================================-->
-
 {% include "head.html" %}
+<!DOCTYPE html>
+{% include "navbar.html" %}
 <title>The Bridge: About</title>
-
 <body>
-<div class="modal about-modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+<!--<div class="modal about-modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
     <div class="modal-content" id="about_content">
 	<div class="modal-header">
 	    <button type="button" class="close" data-dismiss="modal">
@@ -14,9 +14,8 @@
 	      <span class="sr-only">Close</span>
 	    </button>
 	    <h4 class="modal-title" id="about_title" style="font-family: Georgia, serif">About</h4>
-	</div>
-	<div class="modal-body">
-
+	</div>-->
+	<div class="about-body" style="margin: 50px">
 		<p align="right"><em>Customizable Latin and Greek Vocabulary Lists</em></p>
 
 		<div class="embed-responsive embed-responsive-16by9" id="tutorial_video">
@@ -31,7 +30,7 @@
 		  <p>Would you like to see a list, textbook, or text added to The Bridge? To make a suggestion or to inquire about contributing to the project, please contact Bret Mulligan (bmulliga@haverford.edu).</p>
 	    </blockquote>
 		<p>The Bridge currently includes vocabulary from following works. Additional information about each text (provenance, special features, etc.) is available after the summary table.</p>
-		<br />
+		<br/>
 		
 	        <!--========= TABLE STARTS HERE! ============-->
             <!--==========================================================================-->
@@ -324,7 +323,7 @@
 
 <h4><strong>Abelard,&nbsp;<em>Historia Calamitatum</em></strong></h4>
 <p style="padding-left: 30px;">Includes:&nbsp;Chapters 5 &amp; 6</p>
-<p style="padding-left: 30px;">Format: Data supports search by&nbsp;<strong>Chapter</strong></p>
+<p style="padding-left: 30px;">Format: Data supports search by&nbsp;<strong>CHAPTER</strong></p>
 <p style="padding-left: 30px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E.g. 5 to 6, 5 to 6</p>
 <p style="padding-left: 30px;">Text:&nbsp;<em>unknown</em></p>
 <p style="padding-left: 30px;">Provenance:&nbsp;manually&nbsp;coded data, spring&nbsp;2017 (B. Mulligan, Haverford College)</p>
@@ -419,7 +418,7 @@
 <p style="padding-left: 30px;">Text:</p>
 <p style="padding-left: 30px;">Provenance:&nbsp;manually&nbsp;coded data (<a title="LASLA" href="http://www.cipl.ulg.ac.be/Lasla/">LASLA</a>), modified&nbsp;summer&nbsp;2015 (B. Mulligan, Haverford College)</p>
 
-<h4>Civis Romanus Reader (Cobban &amp; Colebourn) [DONE!]</h4>
+<h4><strong>Civis Romanus Reader (Cobban &amp; Colebourn) [DONE!]<strong></h4>
 <p style="padding-left: 30px;">Includes:&nbsp;entire text</p>
 <p style="padding-left: 30px;">Format: Data supports search by <b>STORY</b></p>
 <p style="padding-left: 30px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; E.g. 1 to 1; 2 to 4</p>
@@ -463,7 +462,7 @@
 
 <h4><em>Gesta&nbsp;Romanorum</em>&nbsp;(Selections)</h4>
 <p style="padding-left: 30px;">Includes:&nbsp;69 stories</p>
-<p style="padding-left: 30px;">Format: Data supports search by <b>Story</b></p>
+<p style="padding-left: 30px;">Format: Data supports search by <b>STORY</b></p>
 <p style="padding-left: 60px;">E.g. 1 to 1; 2&nbsp;to 4</p>
 <p style="padding-left: 30px;"><span style="line-height: 1.5;">Special:&nbsp;none</span></p>
 <p style="padding-left: 30px;">Text:&nbsp;<a href="http://iris.haverford.edu/bridge/files/2015/08/Gesta-Romanorum-1-50.pdf">available here</a></p>
@@ -749,5 +748,5 @@
 	</div>
 	</div>
      </div>
-  </div>
  </body>
+</html>
