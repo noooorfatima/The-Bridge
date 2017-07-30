@@ -46,30 +46,41 @@
                                 {% if loc_def %}
                                 <th class="def" data-fieldname='english_definition' data-fieldtype='Definitions' data-radio=true data-visible=false>English Definition</th>
                                 <th class="def" data-fieldname='logeion_def' data-fieldtype='Definitions' data-radio=true data-visible=false>Logeion Definition</th>
-                                <th class="def" data-fieldname='local_def' data-fieldtype='Definitions' data-radio=true data-visible=true>Text Specific Definition</th>
+                                <th class="def" data-fieldname='local_def' data-fieldtype='Definitions' data-radio=true data-visible=true>Text-Specific</th>
                                 {% else %}
                                 <th class="def" data-fieldname='english_definition' data-fieldtype='Definitions' data-radio=true data-visible=true>English Definition</th>
                                 <th class="def" data-fieldname='logeion_def' data-fieldtype='Definitions' data-radio=true data-visible=false>Logeion Definition</th>
                                 {% endif %}
                                 <th class="Appearance" data-fieldname='position' data-fieldtype='Appearances' data-radio=true data-visible=false>First Appearance</th>
-                                <th class="count" data-fieldname='count' data-fieldtype='Appearances' data-radio=true data-visible=false>Number of Appearances</th> 
+                                <th class="count" data-fieldname='count' data-fieldtype='Appearances' data-radio=true data-visible=false>Number of Appearances</th>
+
+                                <th class="pos" data-fieldname='part_of_speech' data-fieldtype='' data-radio=false data-visible=false>Part of Speech</th>
+                                <th class="logurl" data-fieldname='logeion_url' data-fieldtype='' data-radio=false data-visible=false>Logeion Link</th>
+                                <th class="logUrl2" data-fieldname='logeion_url' data-fieldtype='' data-radio=false data-visible=false>Full Logeion Link</th>
+                                <th class="crank" data-fieldname='corpus_rank' data-fieldtype'' data-radio=false data-visible=false>Corpus Rank</th>
                             </tr>
                         </thead>
                         {% else %}
                         <thead>
                             <tr>
-                                <th class="lemma" data-fieldname='display_lemma' data-fieldtype='Dictionary Entry' data-radio=true data-visible=true>Dictionary Entry</th>
-                                <th class="lemma" data-fieldname='display_lemma_macronless' data-fieldtype='Dictionary Entry' data-radio=true data-visible=false>Dictionary Entry (Macronless)</th>
-                                <th class="def" data-fieldname='english_extended' data-fieldtype='Definitions' data-radio=true data-visible=false>Full English</th>
+                                <th class="lemma" data-fieldname='display_lemma_macronless' data-fieldtype='Dictionary Entry' data-radio=true data-visible=true>Dictionary Entry</th>
+                                <th class="lemma" data-fieldname='display_lemma' data-fieldtype='Dictionary Entry' data-radio=true data-visible=false>Dictionary Entry (macrons)</th>
+                                <th id="latinBasicDef" class="def" data-fieldname='english_core' data-fieldtype='Definitions' data-radio=true data-visible=true>Basic English</th>
                                 {% if loc_def %}
-                                <th class="def" data-fieldname='english_core' data-fieldtype='Definitions' data-radio=true  data-visible=false>Basic English</th>
-                                 <th class="def" data-fieldname='local_def' data-fieldtype='Definitions' data-radio=true data-visible=true>Text Specific Definition</th>
+                                <script>
+                                    $("#latinBasicDef").attr("data-visible", "false");
+                                </script>
+                                <th class="def" data-fieldname='english_extended' data-fieldtype='Definitions' data-radio=true  data-visible=false>Full English</th>
+                                 <th class="def" data-fieldname='local_def' data-fieldtype='Definitions' data-radio=true data-visible=true>Text-Specific</th>
                                 {% else %}
-                                <th class="def" data-fieldname='english_core' data-fieldtype='Definitions' data-radio=true  data-visible=true>Basic English</th>
+                                <th class="def" data-fieldname='english_extended' data-fieldtype='Definitions' data-radio=true  data-visible=false>Full English</th>
                                 {% endif %}
                                 <th class="Appearance" data-fieldname='position' data-fieldtype='Appearances' data-radio=true data-visible=false>First Appearance</th>
                                 <th class="count" data-fieldname='count' data-fieldtype='Appearances' data-radio=true data-visible=false>Number of Appearances</th>                               
-                                <th class="pos" data-fieldname='part_of_speech' data-fieldtype='' data-radio=false data-visible=true>Part of Speech</th>
+                                <th class="pos" data-fieldname='part_of_speech' data-fieldtype='' data-radio=false data-visible=false>Part of Speech</th>
+                                <th class="logUrl" data-fieldname='logeion_url' data-fieldtype='' data-radio=false data-visible=false>Logeion Link</th>
+                                <th class="logUrl2" data-fieldname='logeion_url' data-fieldtype='' data-radio=false data-visible=false>Full Logeion Link</th>
+                                <th class="crank" data-fieldname='corpus_rank' data-fieldtype='' data-radio=false data-visible=false>Corpus Rank</th>
 
 
                             </tr>

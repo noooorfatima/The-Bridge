@@ -59,6 +59,8 @@ class Command(BaseCommand):
 			print item, "ITEM"
 			if item in fields:
 				wanted_list=wanted_list+[index]
+                        elif item == 'LOGEION LINK':
+                                wanted_list = wanted_list + [index]
 			elif item == 'LNM DEFENITION': #you see this shit? That's not how you spell definition
 				wanted_list=wanted_list+[index]
 			#Spreadsheet will eventually change without change to models, hardcoding for changes
@@ -70,8 +72,10 @@ class Command(BaseCommand):
 				updated2=True
 			elif item == 'LOGEIONDEF':
 				wanted_list = wanted_list + [index]
+			#elif item == 'LOGEION LINK':
+				#wanted_list = wanted_list + [index]
 			index = index + 1
-		#print wanted_list
+		print wanted_list
 
 
 		new_headers = []
@@ -83,8 +87,7 @@ class Command(BaseCommand):
 			else:
 				unwanted = unwanted + [header]
 			index = index + 1
-		#print new_headers, "new_headers"
-
+		print new_headers, "new_headers"
 		index = 0
 		for item in data_dict:
 			data_dict[index]['id']=index+1
@@ -127,6 +130,7 @@ class Command(BaseCommand):
 				    'reg_adj_adv' : item['Reg Adj/Adv'] ,
 				    'proper' : item['Proper'],
 				    'part_of_speech' : item['Part Of Speech'] ,
+                                    'logeion_url' : item['LOGEION LINK'],
 			    	}
 			    	 )
 				except KeyError:
@@ -141,8 +145,16 @@ class Command(BaseCommand):
 			#Anyways, just add this in if it needs to be 
 			#'questions' : item['questions'],
 			#Same for exclude_1_0 and notes
+                        #print("what happens at key LOGEION LINK?")
+                        #for i in range(len(data_dict)):
+                         #   print data_dict[i]
+                        #accu =0
 			for item in data_dict:
+                                #accu+=1
                                 #print item, "item for greek"
+                                #if accu < 2:
+                                #print item
+                                #return
 				#try:
 				WordPropertyGreek.objects.update_or_create(
 				title = item['TITLE'],
@@ -161,6 +173,7 @@ class Command(BaseCommand):
 				'reg_adj_adv' : item['REG ADJ/ADV'],
 				'proper' : item['PROPER'],
 				'part_of_speech' : item['PART-OF-SPEECH'],
+                                'logeion_url' : item['LOGEION LINK'],
 				}
 				)
 				#except KeyError:

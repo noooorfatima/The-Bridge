@@ -21,10 +21,10 @@
 var namesp = namesp || {};
 var isFirstLoad = function(namesp) {
    var isFirst = namesp.firstLoad === undefined;
-   console.log("isFirst is: " + isFirst);
+   //console.log("isFirst is: " + isFirst);
    namesp.firstLoad = false;
    if (!isFirst) {
-       console.log("warning, this file has been loaded more than once.");
+       //console.log("warning, this file has been loaded more than once.");
     }
    return isFirst;
  };
@@ -35,6 +35,7 @@ var iter = 0;
 var globalLang = "";
 var dontRunTwice = true;
 var itercheck=0;
+var forms_are_visible = false;
 //var iter2 = 0;
 //var iter3 = 0;
 //iter3 = iter3 + 1
@@ -42,12 +43,12 @@ var itercheck=0;
 
 $(document).ready(function() {
     if (!isFirstLoad(namesp)) {
-    console.log("this conditional was activated");
+    //console.log("this conditional was activated");
     //throw new Error("something went wrong");
     return;
  } else {
-    console.log(isFirstLoad(namesp));
-    console.log("failure to identify isFirstLoad as false");
+    //console.log(isFirstLoad(namesp));
+    //console.log("failure to identify isFirstLoad as false");
   }   
 
     //console.log("iter 2: " + iter2);
@@ -112,7 +113,7 @@ $(document).ready(function() {
             $('.range_select_box').each(function() {
 		var new_tuple = []
                 $('input:visible', this).each(function(index, value) {
-			console.log(value.value);
+			//console.log(value.value);
 			new_tuple.push(value.value);
 		});
 		pairs.push(new_tuple);
@@ -209,6 +210,10 @@ $(document).ready(function() {
                 ".range-select-toggle");
             if (div.css("display") == "none") {
                 div.slideDown(100);
+                $(this).children().css("white-space", "normal");
+                /*div.slideUp(30, function() {
+                  div.css("white-space", "normal");
+                });*/
                 $(this).parent().css("border",
                     "3px solid #07315B");
                 //add a hidden checkbox to include this book in the form:
@@ -226,6 +231,10 @@ $(document).ready(function() {
                     $(this).parent().css("border",
                         "1px solid #ccc");
                 });
+                /*div.slideDown(30, function() {
+                    div.css("white-space", "nowrap");
+                });*/
+                $(this).children().css("white-space", "nowrap");
                 //remove any hidden checkboxes to exclude this book from the form:
                 $(".hiddencheck", this).remove();
             }
@@ -241,18 +250,20 @@ $(document).ready(function() {
                     var bookTitle = $(this).parent().attr(
                         "value");
                     // Shorted book titles to first 7 characters:
-                    if (bookTitle.length >= 20) {
+                    /*if (bookTitle.length >= 20) {
                         headerStr = headerStr +
                             bookTitle.substr(0, 20) +
                             "...,";
                     } else {
                         headerStr = headerStr +
                             bookTitle + ", ";
-                    }
+                    }*/
+                  headerStr = headerStr + bookTitle + ", "; //each is added to headerrStr and separated by a comma and space.
                 });
-            }
-            headerStr = headerStr.substr(0, headerStr.length -
-                4); //rmv trailing "...,"
+            } 
+            //headerStr = headerStr.substr(0, headerStr.length -
+              //  4); //rmv trailing "...,"
+             //^the above was written becaue previously, each title was separated by '...'
             $("#headingThree .panel-contents").text(headerStr);
 
             // Hide panel-contents div if empty. Avoids showing a big empty box:
@@ -308,6 +319,8 @@ $(document).ready(function() {
 
         $(".intro-text").on("click", function() {
            $(".intro-text").css("color", "#FFF");
+           //if(!$("#collapseOne").hasClass("in")) {
+              
          });
 
         //TEXT ALL/SELECTION TOGGLE:
@@ -315,9 +328,9 @@ $(document).ready(function() {
             displayForm2(e.target);
         });
 
-        $("#Selection").on("click", function(e) {
+        /*$("#Selection").on("click", function(e) {
             displayForm2(e.target);
-        });
+        });*/
 
         //READ TEXT INCLUDE/EXCLUDE TOGGLE:
         $("#include_or_exclude .btn-group").on("click", function(e) {
@@ -444,16 +457,38 @@ $(document).ready(function() {
            $("#dropDownDiv").children().each( function() {
 		if ($(this).css("display") == "none") {
                 $(this).attr("name", "");
-                console.log($(this).attr("id"));
-                console.log($(this).attr("name"));
+                //console.log($(this).attr("id"));
+                //console.log($(this).attr("name"));
               }
              if ($(this).css("display") == "block") {
                 $(this).attr("name", "textlist");
-                console.log($(this).attr("id"));
-                console.log($(this).attr("name"));
+                //console.log($(this).attr("id"));
+                //console.log($(this).attr("name"));
               }
            });
         });
+
+
+       $("#include_or_exclude label").on("click", function() {
+           //console.log($(this).attr("value"));
+           if($(this).attr("value") == "exclude") {
+              $("#filtering_note").text("You can choose to filter all words in one or more texts or selections of one or more texts");
+           } else if ($(this).attr("value") == "include") {
+              $("#filtering_note").text("You can choose to make a list that includes only those words that appear in your text and one or more texts or selections of texts.");
+           }
+       });
+
+      /* $("#include_or_exclude label").each(function() {
+          if($(this).hasClass("active")) {
+           console.log($(this).attr("value") + "is the value");
+           if($(this).attr("value") == "exclude") {
+             $("#filtering_note").text("You can choose to filter all words in one or more texts or selections of one or more texts");
+           }
+           else if($(this).attr("value") == "include") {
+             $("#filtering_note").text("You can choose to make a list that includes only those words that appear in your text and one or mmore texts or selections of texts.");
+           }
+          }
+       })*/;
       
  
 $(".type_of_txt_btn_group label").on("click", function() {
@@ -580,10 +615,13 @@ $(".type_of_txt_btn_group label").on("click", function() {
             *
         });
 */
- function exportTableToTSV($table, filename) {
 
-        var $rows = $table.find('tr:has(td)'),
+//make a column
 
+
+
+ function exportTableToTSV($table, filename) {       
+       var $rows = $table.find('tr:has(td)'),
             // Temporary delimiter characters unlikely to be typed by keyboard
             // This is to avoid accidentally splitting the actual contents
             tmpColDelim = String.fromCharCode(11), // vertical tab character
@@ -623,7 +661,7 @@ $(".type_of_txt_btn_group label").on("click", function() {
 
     // This must be a hyperlink
     $(".tab_export").on('click', function (event) {
-        // CSV
+        // CSV 
         exportTableToTSV.apply(this, [$('#words_generated'), 'export.tsv']);
         
         // IF CSV, don't do event.preventDefault() or return false
@@ -665,16 +703,111 @@ var tableToExcel = (function () {
     //Function that allows the print button on words page to work
     function printData()
     {
+       //var previouslen = words_table.page.len();
+       //words_table.page.len(-1);
+       //words_table.draw();
+       //$("#words_generated") = words_table;
        var divToPrint=document.getElementById("words_generated");
+       //words_table.page.len(previouslen);
        newWin= window.open("");
        newWin.document.write(divToPrint.outerHTML);
+       //words_table.page.len(previouslen);
+       //words_table.draw();
        newWin.print();
+       //words_table.page.len(previouslen);
+       //words_table.draw();
        newWin.close();
     }
+
+/*function renderFn( column, display, data) {
+    return;
+
+}
+
+    function renderDatatableCell(table, row, column, renderFn ) {
+          var data = row.data();
+          var cell = $(table.rows().nodes(row)).children("td:nth-child(" + (column + 1) + ")");
+          $(cell).html( renderFn( data[column], "display", data ) );
+        }
+
+       function renderDatatableColumn( oTable, column ) {
+          var rows = oTable.fnGetData().length;
+          if (rows > 0) {
+            var renderFn = oTable.fnSettings().aoColumns[column].mRender;
+            for (row = 0; row < rows; row ++) {
+            renderDatatableCell( oTable, row, column, renderFn );
+            }
+          }
+       }*/
+    $("#tag4exportAll").on('click', function (event) {
+        // CSV
+        //console.log("DEBUG YOU CLICKED THIS");
+        visibility_list = []
+        words_table.columns().every( function() {
+          if (this.visible()) {
+            visibility_list.push(true);
+          } else {
+            visibility_list.push(false);              
+          }
+       });
+        //console.log("DEBUG", visibility_list);
+        //make every row displayed
+        var accu=0;
+        /*var table_columns = words_table.settings().init().columns;
+        table_columns.every( function() {
+          this.visible(true);
+        });*/
+        words_table.columns().every( function() {
+           this.visible(true);
+        });
+           // words_table.columns($(global_columns[i]).data("fieldname")).visible(true);
+        //};
+       /* function renderDatatableCell( oTable, row, column, renderFn ) {
+          var data = oTable.fnGetData( row ); 
+          var cell = $(oTable.fnGetNodes( row )).children("td:nth-child(" + (column + 1) + ")");
+          $(cell).html( renderFn( data[column], "display", data ) );
+        }
+
+       function renderDatatableColumn( oTable, column ) {
+          var rows = oTable.fnGetData().length;
+          if (rows > 0) {
+            var renderFn = oTable.fnSettings().aoColumns[column].mRender;
+            for (row = 0; row < rows; row ++) {
+            renderDatatableCell( oTable, row, column, renderFn );
+            }
+          }
+       }*/
+        var previouslen = words_table.page.len();
+        words_table.page.len(-1);
+        words_table.draw();
+        /*words_table.rows().every( function() {
+           renderDatatableCell(words_table, this, words_table.column(7), renderFn);
+        });*/
+        //console.log("HEADERS", words_table.columns().header());
+        //console.log("DEBUG here we are.");
+        exportTableToTSV.apply(this, [$('#words_generated'), 'export.tsv']);
+        var visList_accu = 0;
+        words_table.columns().every( function() {
+           this.visible(visibility_list[visList_accu]);
+           visList_accu+=1;
+        });
+        words_table.page.len(previouslen);
+        words_table.draw();
+
+        // IF CSV, don't do event.preventDefault() or return false
+        // We actually need this to be a typical hyperlink
+});
+
+
+
     //not sure if this one works
     $('#printSubmit').on('click',function(){
     printData();
-    })
+    });
+
+    /*$("#printAllRows").on("click", function() {
+      printAllData();
+    });*/
 
 //console.log(tableToExcel)
         /* FILTERING/CHECKBOX BINDINGS: */
@@ -771,7 +904,7 @@ var tableToExcel = (function () {
    /**************************************************************************************/
    /************* THIS IS WHAT HAPPENS WHEN THERE IS A FAILURE TO RECEIVE DATA ***********/
    /**************************************************************************************/
-               console.log("failed!");
+               console.log("failure to generate vocabulary list");
                console.log(receivedData);
                $("#word_load_info").css("display", "none");
                $("#word_load_failure").css("display", "block");
@@ -822,7 +955,7 @@ function configureForm(e) {
     /****************************************/
     var lang = e.data.language;
     globalLang = lang;
-    console.log(lang + globalLang);
+    //console.log(lang + globalLang);
     // Set the redirect page to the appropriate lang:
     $("#giant_form").attr("action", "words_page_redirect/" + lang + "/");
     // Configure SOURCE TEXT TAB to only show texts from specified lang:
@@ -871,10 +1004,10 @@ function configureForm(e) {
                  $("#thumbTE").append($(this));
            }
            else if ($(this).hasClass("booktypeLI")) {
-                 console.log("latin list detected");
+                 //console.log("latin list detected");
                  $("#thumbLI").append($(this));
          } else if ($(this).hasClass("booktypeTK")) {
-             console.log("latin textbook detected");
+             //console.log("latin textbook detected");
              $("#thumbTK").append($(this));
          }
        });
@@ -932,21 +1065,25 @@ function configureForm(e) {
 
 function userFormInteract(e) {
     var clickedTab = $(e.target).parents("[id^='tab']");
-    console.log(clickedTab.attr("id"));
-    console.log("active form tab: " + active_form_tab);
+    /*console.log(clickedTab.attr("id"));
+    console.log(active_form_tab);
     console.log(clickedTab.attr("id") != active_form_tab);
     if ((clickedTab.attr("id") == "tabOne") && (active_form_tab == "tabOne")) {
         console.log("gotcha!");
-        if ($("#tabOne").attr("aria-expanded") == "false") {
-           console.log("yessss");
+         console.log("the clickedtab id: " + clickedTab.attr("id"));
+        console.log("the active form tab: " + active_form_tab);
+        if ($("#tabOne").attr("aria-expanded") == "true") {
+           console.log("oh no you don't!");
+           $("#tabOne").attr("aria-expanded", "true");
            return;
         }
-     } //lat time no dragon ball z we learned that this accurately identifies the scenario it needs to
+     }*/ 
+       //lat time no dragon ball z we learned that this accurately identifies the scenario it needs to
        //when one tries to click the select a language bit right at the home page.
        //However, adding the return statement does nothing. something else is changing stuff.
     if ((clickedTab.attr("id") != active_form_tab) && 
         ($("#giant_form").attr("action") != "")) {
-        console.log("we still got here!");
+        //console.log("we still got here!");
         switchFormTabs($("#" + active_form_tab), clickedTab);
      } /*else if ((clickedTab.attr("id") == "tabOne") && (active_form_tab == "tabOne")) {
         console.log("gotcha!");
@@ -1081,13 +1218,13 @@ function validateBookSelect(a) {
 function displayForm2(c) {
     var btnText = $(c).attr("value");
     if (btnText == "All") {
-        $("#text_selection").slideUp(60);
+        $("#text_selection").slideUp(60); //slideUp?
         $("text_from").val("");
         $("text_to").val("");
         $("text_from").required = false;
         $("#text_to").required = false;
     } else if (btnText == "Selection") {
-        $("#text_selection").slideDown(60);
+        $("#text_selection").slideDown(60); //slideDown?
         $("#text_from").required = true;
         $("#text_to").required = true;
     } else {}
@@ -1126,6 +1263,7 @@ function togglePOSToggle(clicked) {
     }
 }
 
+//var pos_flag=false;
 /* Sets the state (checked/unchecked) of a checkdiv.
  * Sets state to check, or flips state if check is undefined. */
 function setCheckdiv(clicked,check) {
@@ -1134,12 +1272,17 @@ function setCheckdiv(clicked,check) {
     if (check===undefined) {
         check = !(checkbox.data("state"));
     }
+    //console.log("check: " + check);
+    //console.log(checkbox.data("state"));
     checkbox.data("state",check);
+    //console.log(checkbox.data("state"));
     // Apply appropriate styles to checkbox:
     if (check) {
+        //console.log("check did exist");
         checkbox.css("background-color","#808080");
     }
     else {
+        //console.log("check didn't exist");
         checkbox.css("background-color","#F1F1F1");
     }
 }
@@ -1267,40 +1410,104 @@ function generateFilename(text, text_from, text_to) {
     return filename
 }
 
+global_valid_ths = [];
+global_columns = [];
+
 /* Determine settings of and initialize the words_table: */
 function initTable() { 
     //Determine columns from data attrs of <th> elements: 
     //  data-fieldname is the name of a property in WordTable.fields.
     //  data-visible determines whether this col is shown by default.
-    iter = iter + 1;
-    console.log("iteration: " + iter);
+
+    //iter = iter + 1;
+    //console.log("iteration: " + iter);
 
     var columns = [];
     var valid_ths = []; // list of <th>s turned into DataTables columns.
     var fields;
+    var accu2=0;
     // Find a wordTable object, used for validating fieldname:
     for (var prop in words_data) {
+        //accu2+=1;
+        //console.log("accu's value followed by prop: " + accu2);
+        //console.log(prop);//words data actually contains... every WordProperty model. That's where you were.
         if (words_data.hasOwnProperty(prop) && words_data[prop].length > 0) {
             fields = words_data[prop][0].fields;
             break; //this was break, maybe supposed to be continue?
-        }
+        } else {
+          //console.log(prop);
+         }
     }
+    //console.log("FIELDS", fields);
+    //console.log("FIELDS.LOGEION", fields.logeion_url);
     // Get field names and visibility from table column headers:
-    $("#words_generated th").each(function() {
-        console.log($(this).data("fieldname"));
+    $("#words_generated th").each(function() { //The first step in adding a new column is to add it as a words_generated th. 
+        //console.log("[inittable] fieldname: " + $(this).data("fieldname"));
         if (fields.hasOwnProperty($(this).data("fieldname"))) { //if valid prop 
             valid_ths.push(this);
             // Create dataTables column based on <th> data-attrs:
-            columns.push({
+            // Note
+            if ($(this).data("fieldname") == "logeion_url" && !$(this).hasClass("logUrl2")) {
+               //console.log("CREATING LOGEION URL COLUMN");
+               columns.push({
+                  "name": $(this).data("fieldname"),
+                  "data" : "fields."+$(this).data("fieldname"),
+                  "render" : function ( data, type, full, meta ) {
+                     return '<a href="'+data+'">Logeion</a>';
+                   },
+                  "visible" : $(this).data("visible")
+              });
+            } else if ($(this).data("fieldname") == "logeion_url" && $(this).hasClass("logUrl2")) {
+              //console.log("FULL LINK DETECTED");
+              columns.push({
+                  "name": $(this).data("fieldname"),
+                  "data" : "fields."+$(this).data("fieldname"),
+                  "visible" : false,
+                });
+           } else if ($(this).data("fieldname") == "corpus_rank") {
+                columns.push({
+                  "name": $(this).data("fieldname"),
+                  "data": "fields."+$(this).data("fieldname"),
+                  "render": function( data, type, full, meta) {
+                      if (data < 20) {
+                        return "rare";
+                      } else {
+                        return data;
+                     }
+                   },
+                  "visible": $(this).data("visible"),
+             });
+           } else if ($(this).data("fieldname") == "english_extended") {
+             columns.push({
+               "name": $(this).data("fieldname"),
+               "data": "fields."+$(this).data("fieldname"),
+               "visible": $(this).data("visible"),
+               "width": "20%"
+            });
+          }
+
+
+
+
+              //a second row for the full unrendered logeion URL is pushed.
+              /*columns.push({
+                 "name": "FullUrl",
+                 "data": "fields."+$(this).data("fieldname"),
+                 "visible" : false,
+              });*/
+             else { 
+                 columns.push({
                     "name" : $(this).data("fieldname"),
                     "data" : "fields."+$(this).data("fieldname"),
                     "visible" : $(this).data("visible")
-            });
+                    });
+               }
+         }
+      
             //I THINK THIS WAS BAD- DYLAN
             //if (!($(this).data("visible"))) { // hide table header of non-visible columns.
                 //$(this).css("display","none");
-            //}
-        }
+            
         else {
             console.log('WARNING!\nCouldn\'t find field \'' + 
                 $(this).data('fieldname') + 
@@ -1308,20 +1515,38 @@ function initTable() {
                 $(this).text() +'\'.');
             $(this).remove();
         }
-       console.log("columns:");
-       console.log(columns);
-    });
+       });
+       //console.log("columns:");
+    var accu=0
+    /*$("tr td:nth-child(1)").each( function() {
+       console.log("CONDITIONAL");
+       console.log("NTH CHILD", $(this));
+    var colNum = $(this).index();
+    var rowNum = $(this).parent().index();
+        $(this).wrap('<a href="example.com/hello.html?column=' + colNum + '&row=' + rowNum +'">');
+    });*/
+
+    global_valid_ths = valid_ths;
+    global_columns = columns;
 
     // Get filter states and initialize DataTable object:
     var filter_states = determineFilterState();
+    //console.log("filter states");
+    //console.log(filter_states);
     var word_data_filtered = filterWordData(filter_states);
     words_table = $("#words_generated").DataTable({
         "data" : word_data_filtered,
-        "columns" : columns,
+        "columns" : columns,	 //should this be global_ocolumns
         "aLengthMenu": [[25, 50, 100, 200, -1],
                 [25, 50, 100, 250, "All"]],
-        "pageLength": 100
+        "pageLength": 100,
     });
+    //console.log("CORPUS RANK COLUMN", words_table.column("corpus_rank").nodes());
+    /*words_table.column("corpus_rank").nodes().each( function(cell, i) {
+        console.log(words_table.cell(i, 2).data());
+    });*/
+    //words_table.buttons.export_data
+    //words_table.buttons().container().appendTo(words_table.table().container());
     initColumnFilters(valid_ths);
 }
 
@@ -1331,7 +1556,7 @@ function initColumnFilters(th_list) {
     var toggle_prototype = $(".colFilters_container .col-toggle-box");
     // Sort by field type:
     var fieldtypes = {};
-    console.log("Thlist length: " + th_list.length);
+    //console.log("Thlist length: " + th_list.length);
     for (var i=0; i<th_list.length; i++) {
         var fieldtype = $(th_list[i]).data("fieldtype");
         // Add <th> to existing array, else create a new array:
@@ -1382,6 +1607,7 @@ function buildToggle(field_options) {
         btn.text(field.text());
         // Add to btn-group, BEFORE "none" btn.
         btn.insertBefore(proto_btn);
+       // console.log(field_options);
         //debugger;
     }
     toggle.find('.btn-group').css('width','100%');
@@ -1392,6 +1618,7 @@ function buildToggle(field_options) {
     var toggled = false
     for (var i=0; i<field_options.length; i++) {
         var field = $(field_options[i])
+        //console.log("in buildToggle, field on " + i)
         //console.log(field)
 
         if (field[0].attributes['data-visible'].nodeValue=='true') {
@@ -1425,8 +1652,8 @@ function buildToggle(field_options) {
         //toggle visibility (visible col. indicated by .btn class 'active'):
         var thisCol = $(this).attr('value');
         var activeCol = $(this).siblings('.active').attr('value');
-        console.log("thisCol: " + thisCol);
-        console.log("activeCol: " + activeCol);
+        //console.log("thisCol: " + thisCol);
+        //console.log("activeCol: " + activeCol);
         words_table.column(activeCol+':name').visible(false);
         // If none, don't show any columns:
         if (thisCol !== 'none') {
@@ -1456,16 +1683,27 @@ function buildCheckdivs(field_options) {
         class: 'colFilters_container'
     });
     // Build a checkdiv from attr.s of each <th>:
+    //console.log("legnh of field options: " + field_options.length);
     var proto_checkdiv = $('#prototype_container .checkdiv');
     for (var i=0; i<field_options.length; i++) {
+        //console.log("field options positon " + i + ": " + field_options[i]);
         var field = $(field_options[i]);
+        if (field.hasClass('logUrl2')) {
+           continue; //don't build checkbox!
+        }
         var checkdiv = proto_checkdiv.clone(true); //'true' keeps event binding
         var checkdiv_checkbox = checkdiv.find(".checkdiv-checkbox").first();
         checkdiv_checkbox.attr('value',field.data('fieldname'));
-        console.log(field.data('fieldname')) //debug
-        console.log(field[0].attributes['data-visible'].value=='true') //debug
+        //console.log(field.data('fieldname')); //debug
+        //console.log(field[i]);
+        //console.log(field[i].attributes['data-visible'].value=='true'); //debug
         checkdiv_checkbox.attr('name',field.data('fieldtype'));
         checkdiv.find('.checkdiv-label').text(field.text());
+        if (field.data('fieldname') == "part_of_speech" || field.data('fieldname') == "logeion_url" || field.data('fieldname') == "corpus_rank") {
+         //Special conditional for part_of_speech so that it does not keep its check mark.
+             checkdiv.attr("data-state", "false");
+             checkdiv_checkbox.css("background-color", "#F1F1F1");
+        }
         container.append(checkdiv);
     }
     // Add to DOM and bind event handlers:
@@ -1473,9 +1711,8 @@ function buildCheckdivs(field_options) {
     container.find('.checkdiv').on('click',function() {
         var isVisible = $(this).find('.checkdiv-checkbox').data('state');
         var fieldname = $(this).find('.checkdiv-checkbox').attr('value');
-        console.log(fieldname);
         words_table.column(fieldname + ":name").visible(isVisible);
-        debugger;
+        //debugger;
     });
 }
 
@@ -1502,13 +1739,27 @@ function filterTable() {
     
     // Re-draw words_table based on state of filtering checkboxes:
     var filter_states = determineFilterState()
-   // console.log(filter_states);
+    //console.log(filter_states);
     var word_data_filtered = filterWordData(filter_states);
     words_table.clear().draw();
     words_table.rows.add(word_data_filtered).draw();
     $("#cover").remove() //remove the gray div
+     
 }
 
+/*$('#words_generated').on('draw.dt', function (e, settings) {
+   console.log("CORPUS RANK DRAW EVENT TRIGGERED");
+   if(column("corpus_rank").visible()) {
+    console.log("CORPUS RANK COLUMN VISIBLE");
+    $(settings.nTBody).find('tr td:last-child').each(function(idx, ele) {
+        console.log("IN DRAWING FUNCTION");
+        console.log(ele.textContent);
+        if (+ele.textContent < 40) {
+            ele.textContent = 'unranked';
+        }
+    });
+  }
+}).DataTable();*/
 
 /* Determines which words to filter based on state of filter checkboxes.
  * Returns a list of the parts of speech whose words will be displayed. */
@@ -1537,10 +1788,13 @@ function determineFilterState() {
     $(".panel-body .checkdiv-checkbox")
         .not('[name$="_decl"]').not("[name='verb_conj']")
         .each(function() {
+            //console.log($(this));
             if ($(this).data("state")) {
                 included_pos.push($(this).attr("id"));
             }
     });
+    //console.log("included pos: ");
+    //console.log(included_pos);
     return included_pos;
 }
 
@@ -1553,6 +1807,7 @@ function filterWordData(pos_list) {
 
     var words_data_filtered = [];
     var words_data_keys = Object.getOwnPropertyNames(words_data);
+    //console.log("WORDS DATA KEYS",  words_data_keys);
     /* So needed to do is identify 'Adverb, preposition' as 'adverb'
      * and 'preposition'. I made a dictionary (pos_dictionary) with a
      * list of everything it should add when it finds that word.
@@ -1645,11 +1900,16 @@ function filterWordData(pos_list) {
 /* Sort array of words (as WordTables objects) by part of speech */
 function loadWordData(data) {
     // Group word objects by filtering category:
-    var words_data = {}; // Obj containing array of wordTables objects
+    var words_data = {}; // Obj containing array of wordTables objects. Logging these will allow you see the word objects with all of their fields as populated by django.
     for (var i=0; i<data.length; i++) {
         var word = data[i];
-        if(i < 50) { console.log(word + word.fields["part_of_speech"]);}
         var pos = word.fields["part_of_speech"];
+        //if(word.fields["proper"] == 1) {
+        
+        if( word.fields["proper"] == 1) {
+            //Reading the Proper column of the database to determine if there's a proper noun.
+            pos = "Proper_nouns"
+        }
         // Add declension or conjugation to part of speech:
         if (pos == "Noun" || pos == "Adjective") {
             pos = pos+ ("_" + word.fields["decl"]);
@@ -1811,11 +2071,19 @@ function getScrollbarWidth() {
     return widthNoScroll - widthWithScroll;
 }
 
+  /*  $(window).resize( function() {
+            if( $(window).width() >= ('992px') ) {
+                $(".btn .btn-primary").each( function() {
+                   $(this).css("font-size", ".8em");
+                 });
+            }
+        
+    }); */
+
+
   //$(".type_of_txt_btn_group label").on("click", function() {
     //  console.log("you clicked correctly");
       /*var label = $(this).attr('value');
       var buttoncomp = globalLang + "_" + ($(this).attr('id')) + "_DropDown";
       alert(buttoncomp);*/
-  //});
-
-
+  //})

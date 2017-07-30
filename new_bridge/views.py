@@ -15,6 +15,7 @@ import json
 import pdb
 from StringIO import StringIO
 import ast
+import mysql.connector
 
 def IndexView(request):
         sorted_latin_books=sorted(BookTitles.objects.all(),key=lambda book: (book.book_type,book.title_of_book))
@@ -48,8 +49,7 @@ def IndexView(request):
 	
 	
 def AboutView(request):
-
-     return render(request,'newabout.html')
+     return render(request,'newabout2.html')
 
 #class HelpView(generic.ListView):
 #	template_name = 'help.html'
@@ -245,10 +245,10 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
     word_property_table = None
 
     try:
-        print WordAppearencesLatin,language,text,text_from,text_to,bookslist,add_remove
+        #print WordAppearencesLatin,language,text,text_from,text_to,bookslist,add_remove
         if language == "latin":
 	    #pdb.set_trace()
-            print WordAppearencesLatin,language,text,text_from,text_to,bookslist,add_remove
+            #print WordAppearencesLatin,language,text,text_from,text_to,bookslist,add_remove
             word_ids = generateWords(WordAppearencesLatin,language,text,text_from,text_to,bookslist,add_remove)
             word_property_table = WordPropertyLatin
             #print("\nword_property_table for Latin: " + word_property_table)
@@ -264,15 +264,32 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
     words_list = []
     print "length of word ids: " + str(len(word_ids))
     #print type(word_ids)
+    #accu1=0
+    #print "NEW PRINT STATEMENT"
+    #accu1
     try:
+        #print "INSIDE TRY STATEMENT"
         for each in word_ids:
+            #accu1+=1
+            #print "WORD LOOP", accu1
+            if language == "latin":
+               count = WordAppearencesLatin.objects.filter(word__exact=each).count()
+            else:
+               count = WordAppearencesGreek.objects.filter(word__exact=each).count()
+            print "DEBUG IS THIS CAUSING PROBLEMS"
+            word = word_property_table.objects.filter(id__exact=each)[0]
+            word.corpus_rank = count
+            word.save()
             words_list.append(word_property_table.objects.filter(id__exact=each)[0])
+            #if accu1 < 5:
+               #print "debug: words_list add on " + accu1
+               #print words_list
     except Exception, e:
 	print "get words error 1"
-        print e
-    #print words_list
+        print e 
     json_words = serializers.serialize("json",words_list)
     #D#print type(json_words)
+    print "WORD PROPERTY  TABLE", word_property_table #debug:
     json_words2 = json.loads(json_words)
     final_list = [] 
     test_for_in_final = {}
@@ -440,6 +457,8 @@ def generateWords(word_appearences,lang,text,
     else:
         # don't need to modify list; nothing to add/remove
         vocab_final = vocab_intersection_ids
+    #OUTSIDE OF CONDITIONALS
+    print "WHY DON'T YOU WORK WHY"
     return vocab_final
 
 

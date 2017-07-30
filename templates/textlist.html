@@ -12,13 +12,13 @@
     {% csrf_token %}
     <div class="home-header-wrap">
         <div class="panel-group col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2" id="accordion" role="tablist" aria-multiselectable="true">
-            <div class=""header-content-wrap"> <!--Add two quotation marks before header-content-wrap, then rem-->
+            <div class=""header-content-wrap"> <!--Add two quotation marks before header-content-wrap, then rem--> 
                 <a id="tabOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                    <!--<div role="tab" id="headingOne">-->
-                             <div class="intro-text">
-                         <!--   <div class="intro-text">-->
+                             <!--<div class="intro-text"> #uncomment this-->
+                          <div class="intro-text">
                                 Select a language
-                            </div>
+                          </div>
                     <!--</div>-->
                 </a>
                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
@@ -46,7 +46,7 @@
                     <div class="panel-body">
                         <p id="resizetxt" data-toggle="tooltip" data-placement="bottom" title="Choose a text that you are currently reading to generate words you will need to know for that text.">
                             <span class="glyphicon glyphicon-info-sign"></span>
-                            Please choose one text (required): 
+                            Please choose one list, textbook, or text (required): 
                         </p>
                        <div class="toggle-container col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" id="all_or_selection">
 		    <div class="button-holder type_of_txt_btn_group" role="group" data-toggle="buttons" aria-label="Select one of three buttons to filter our dropdown menu and only see 'Texts', 'Textbooks', and 'Lists'">
@@ -56,7 +56,6 @@
 
                                 <!-- ADD A GLYPHICON EXPLAINING THE BUTTON FUNCTION-->
 <!--Switching buttons: about to change value's and text to proper orders. CHeck how this affects Javascript.-->
-
                                 <label id="first-active" class="btn btn-primary active" value="LI">
                                     <input name="list" type="radio">List
                                 </label>
@@ -67,21 +66,7 @@
                                     <input name="list" type="radio" value="list">Text
                                 </label>
                             </div>
-
-                        <div id="text_selection" style="display: none;">
-                            <div class="input-group-container">
-                                <div class="input-group">
-                                    <span class="input-group-addon" id="sizing-addon3">From</span>
-                                    <input type="text" class="form-control" name="text_from" id="text_from" placeholder="ex: 1.2.30" aria-describedby="sizing-addon3">
-                                </div> 
-                            </div>
-                            <div class="input-group-container">
-                                <div class="input-group">
-                                    <span class="input-group-addon" id="sizing-addon3">To</span>
-                                    <input type="text" class="form-control" name="text_to" id="text_to" aria-describedby="sizing-addon3">
-                                </div>
-                            </div>
-                        </div>
+                        <!--where it was-->
                         <div id="dropDownDiv" class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
                             <select id="latin_TE_DropDown" class="form-control" name="textlist" size="8" data-toggle="tooltip" data-placement="bottom">
                                 <option value="" selected disabled>Select a text:</option>
@@ -124,7 +109,7 @@
                               {% endfor %}
                             </select>
                         </div>
-                        <div class="btn-group" data-toggle="buttons">
+                        <div class="btn-group" data-toggle="buttons" id="btns_all_or_select">
 
                                 <label class="btn btn-primary active" value="All">
                                     <input type="radio" name="formselector" value="All" id="All" checked>All
@@ -133,7 +118,24 @@
                                     <input type="radio" name="formselector" value="Selection" id="Selection">Selection
                                 </label>
                             </div>
+                        <!--</div> uncomment this-->
+                 <div class="toggle-container col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" id="all_or_selection">
+                        <div id="text_selection" style="width: 74%; margin: 0 auto;  display: none;">
+                            <div class="input-group-container">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="sizing-addon3">From</span>
+                                    <input type="text" class="form-control" name="text_from" id="text_from" placeholder="ex: 1.2.30" aria-describedby="sizing-addon3">
+                                </div>
+                            </div>
+                            <div class="input-group-container">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="sizing-addon3">To</span>
+                                    <input type="text" class="form-control" name="text_to" id="text_to" aria-describedby="sizing-addon3">
+                                </div>
+                            </div>
                         </div>
+                      </div>
+                     </div>
                         <!--
                         <br />
                         <button type="button" id="core_tip" class="btn btn-sm btn-info" data-toggle="popover" data-placement="right" data-container="body" title="How to Choose a Frequency Range"
@@ -168,7 +170,7 @@
                 <div class="panel-heading" role="tab" id="headingThree">
                     <div class="row">
                         <div id="excludePanelTitle" class="panel-title">
-                        Exclude or include words from one or more text types (Optional):
+                        Exclude or include words from one or more lists, textbooks, or texts (optional):
                         </div>
                         <div class="panel-contents">
                         </div>
@@ -177,14 +179,14 @@
             </a>
             <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                 <div class="panel-body">
-                    <p data-toggle="tooltip" data-placement="bottom" title="Choose a text/texts that you have read to remove words you already know."><span class="glyphicon glyphicon-info-sign"></span>You can choose to filter all words in one or more texts or selections of one or more texts.
+                    <p id="filtering_note" data-toggle="tooltip" data-placement="bottom" title="Choose a text/texts that you have read to remove words you already know."><span class="glyphicon glyphicon-info-sign"></span>You can choose to filter all words in one or more texts or selections of one or more texts.
                     </p>
                     <div class="toggle-container col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" id="include_or_exclude">
-                        <div class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-primary active">
+                        <div id="include_exclude_btn_group" class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-primary active" value="exclude">
                                 <input type="radio" name="add_remove_selector" value="Remove" id="All" autocomplete="off" checked>Exclude
                             </label>
-                            <label class="btn btn-primary">
+                            <label class="btn btn-primary" value="include">
                                 <input type="radio" name="add_remove_selector" value="Add" id="Selection" autocomplete="off">Include
                             </label>
                         </div>
