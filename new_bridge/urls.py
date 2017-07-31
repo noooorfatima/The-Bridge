@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+#from django.conf.urls import 
 from django.views.generic import RedirectView
 from django.contrib import admin
 admin.autodiscover()
@@ -6,8 +7,8 @@ from new_bridge import views
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'bridge.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
+    #url(r'^$', 'bridge.views.home', name='home'),
+   # url(r'^blog/', include('blog.urls')),
     url(r'^$', views.IndexView, name='index'),
     url(r'^admin/import', views.myimport),
     (r'^favicon\.ico$', RedirectView.as_view(url='/static/images/bridge_favicon.ico')),
@@ -19,3 +20,4 @@ urlpatterns = patterns('',
     #url(r'^contact$', views.ContactView.as_view(), name='contact'),
     url(r'^admin/', include(admin.site.urls)),
 )
+

@@ -1,29 +1,24 @@
-{% include 'head.html' %}
-{% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
-<html>
-<title>The Bridge: Customizable Greek and Latin Vocabulary Lists</title>
+<title>The Bridge: Customizable G.reek and Latin Vocabulary Lists</title>
 <body class = "home blog custom-background img-responsive">
        <div class= "preloader" style= "display: none;">
 	  <div class= "status" style="display: none;">
 	  </div>
 	</div>
-<div class="home-header-wrap">
+<div class="home-header-wrap"> 
    <div class= "header-content-wrap:>
       <div class ="container">
 
-<form id="giant_form" action="" method="POST" target="_self">
+<form id="giant_form" action="" method="POST" target="_self"> <!--Remove the asterisk-->
     {% csrf_token %}
     <div class="home-header-wrap">
         <div class="panel-group col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2" id="accordion" role="tablist" aria-multiselectable="true">
-            <div class=""header-content-wrap">
+            <div class=""header-content-wrap"> <!--Add two quotation marks before header-content-wrap, then rem--> 
                 <a id="tabOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    <!--<div role="tab" id="headingOne">-->
-                        <div>
-                            <div class="intro-text">
+                   <!--<div role="tab" id="headingOne">-->
+                             <!--<div class="intro-text"> #uncomment this-->
+                          <div class="intro-text">
                                 Select a language
-                            </div>
-                        </div>
+                          </div>
                     <!--</div>-->
                 </a>
                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
@@ -42,19 +37,80 @@
                             <div class="panel-title">
                                 What are you studying?
                             </div>
-                            <div class="panel-contents">
+                            <div class="panel-contents" id="testing_pane-contents">
                             </div>
                         </div>
                     </div>
                 </a>
                 <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                     <div class="panel-body">
-                        <p data-toggle="tooltip" data-placement="bottom" title="Choose a text that you are currently reading to generate words you will need to know for that text.">
+                        <p id="resizetxt" data-toggle="tooltip" data-placement="bottom" title="Choose a text that you are currently reading to generate words you will need to know for that text.">
                             <span class="glyphicon glyphicon-info-sign"></span>
-                            Please choose one text (required): 
+                            Please choose one list, textbook, or text (required): 
                         </p>
-                        <div class="toggle-container col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" id="all_or_selection">
-                            <div class="btn-group" data-toggle="buttons">
+                       <div class="toggle-container col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" id="all_or_selection">
+		    <div class="button-holder type_of_txt_btn_group" role="group" data-toggle="buttons" aria-label="Select one of three buttons to filter our dropdown menu and only see 'Texts', 'Textbooks', and 'Lists'">
+			      <!--  <button name="text" data-value="TE"  type="button" class="btn btn-primary active">Text</button>
+                                <button name="textbook" data-value="TK" type="button" class="btn btn-primary">Textbook</button>
+                                <button name="lists" data-value="LI" type="button" class="btn btn-primary">List</button>-->
+
+                                <!-- ADD A GLYPHICON EXPLAINING THE BUTTON FUNCTION-->
+<!--Switching buttons: about to change value's and text to proper orders. CHeck how this affects Javascript.-->
+                                <label id="first-active" class="btn btn-primary active" value="LI">
+                                    <input name="list" type="radio">List
+                                </label>
+                                <label class="btn btn-primary" name="textbook" value="TK">
+                                    <input name="textbook" type="radio">Textbook
+                                </label>
+                                <label class="btn btn-primary" name="text" value="TE">
+                                    <input name="list" type="radio" value="list">Text
+                                </label>
+                            </div>
+                        <!--where it was-->
+                        <div id="dropDownDiv" class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
+                            <select id="latin_TE_DropDown" class="form-control" name="textlist" size="8" data-toggle="tooltip" data-placement="bottom">
+                                <option value="" selected disabled>Select a text:</option>
+                                {% for each in booklist_latin_TE %}
+                                <option value = "{{ each }}" name="{{ each }}" class="latinbook"> {{ each }} </option>
+                                {% endfor %}
+                            </select>
+                            
+                            <select id="latin_TK_DropDown" class="form-control" name="textlist" size="8" data-toggle="tooltip" data-placement="bottom">
+                                <option value="" selected disabled>Select a text:</option>
+                                {% for each in booklist_latin_TK %}
+                                <option value = "{{ each }}" name="{{ each }}" class="latinbook"> {{ each }} </option>
+                                {% endfor %}
+                            </select>
+
+                            <select id="latin_LI_DropDown" class="form-control" name="textlist" size="8" data-toggle="tooltip" data-placement="bottom">
+                                <option value="" selected disabled>Select a text:</option>
+                                {% for each in booklist_latin_LI %}
+                                <option value = "{{ each }}" name="{{ each }}" class="latinbook"> {{ each }} </option>
+                                {% endfor %}
+                            </select>
+                            <select id="greek_TE_DropDown" class="form-control" name="textlist" size="8" data-toggle="tooltip" data-placement="bottom">
+                              <option value="" selected disabled>Select a text:</option>
+                              {% for each in booklist_greek_TE %}
+                              <option value = "{{ each }}" name = "{{ each }}" class="greekbook"> {{ each }} </option>
+                              {% endfor %}
+                            </select>
+
+                            <select id="greek_TK_DropDown" class="form-control" name="textlist" size="8" data-toggle="tooltip" data-placement="bottom">
+                              <option value="" selected disabled>Select a text:</option>
+                              {% for each in booklist_greek_TK %}
+                              <option value = "{{ each }}" name = "{{ each }}" class="greekbook"> {{ each }} </option>
+                              {% endfor %}
+                            </select>
+
+                            <select id="greek_LI_DropDown" class="form-control" name="textlist" size="8" data-toggle="tooltip" data-placement="bottom">
+                              <option value="" selected disabled>Select a text:</option>
+                              {% for each in booklist_greek_LI %}
+                              <option value = "{{ each }}" name = "{{ each }}" class="greekbook"> {{ each }} </option>
+                              {% endfor %}
+                            </select>
+                        </div>
+                        <div class="btn-group" data-toggle="buttons" id="btns_all_or_select">
+
                                 <label class="btn btn-primary active" value="All">
                                     <input type="radio" name="formselector" value="All" id="All" checked>All
                                 </label>
@@ -62,13 +118,14 @@
                                     <input type="radio" name="formselector" value="Selection" id="Selection">Selection
                                 </label>
                             </div>
-                        </div>
-                        <div id="text_selection" style="display: none;">
+                        <!--</div> uncomment this-->
+                 <div class="toggle-container col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" id="all_or_selection">
+                        <div id="text_selection" style="width: 74%; margin: 0 auto;  display: none;">
                             <div class="input-group-container">
                                 <div class="input-group">
                                     <span class="input-group-addon" id="sizing-addon3">From</span>
                                     <input type="text" class="form-control" name="text_from" id="text_from" placeholder="ex: 1.2.30" aria-describedby="sizing-addon3">
-                                </div> 
+                                </div>
                             </div>
                             <div class="input-group-container">
                                 <div class="input-group">
@@ -77,17 +134,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
-                            <select class="form-control" name="textlist" size="4" id="textlist" select-one required data-toggle="tooltip" data-placement="bottom" title="Choose a text that you are currently reading to generate words you will need to know for that text." >
-                                <option value="" selected disabled>Select a text:</option>
-                                {% for each in booklist_latin %}
-                                <option value="{{ each }}" class="latinbook" onclick="showTip()"> {{ each }} </option>
-                                {% endfor %}
-                                {% for each in booklist_greek %}
-                                <option value="{{ each }}" class="greekbook" onclick="showTip()"> {{ each }} </option>
-                                {% endfor %}
-                            </select>
-                        </div>
+                      </div>
+                     </div>
                         <!--
                         <br />
                         <button type="button" id="core_tip" class="btn btn-sm btn-info" data-toggle="popover" data-placement="right" data-container="body" title="How to Choose a Frequency Range"
@@ -116,13 +164,13 @@
                 </div>
             </div>
         </div>
-
         <div class="panel panel-default hidden">
             <a class="collapsed" id="tabThree" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+   
                 <div class="panel-heading" role="tab" id="headingThree">
                     <div class="row">
-                        <div class="panel-title">
-                            Exclude/Include words from:
+                        <div id="excludePanelTitle" class="panel-title">
+                        Exclude or include words from one or more lists, textbooks, or texts (optional):
                         </div>
                         <div class="panel-contents">
                         </div>
@@ -131,27 +179,32 @@
             </a>
             <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                 <div class="panel-body">
-                    <p data-toggle="tooltip" data-placement="bottom" title="Choose a text/texts that you have read to remove words you already know."><span class="glyphicon glyphicon-info-sign"></span> Choose one or more texts to filter your results (optional):
+                    <p id="filtering_note" data-toggle="tooltip" data-placement="bottom" title="Choose a text/texts that you have read to remove words you already know."><span class="glyphicon glyphicon-info-sign"></span>You can choose to filter all words in one or more texts or selections of one or more texts.
                     </p>
                     <div class="toggle-container col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" id="include_or_exclude">
-                        <div class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-primary active">
+                        <div id="include_exclude_btn_group" class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-primary active" value="exclude">
                                 <input type="radio" name="add_remove_selector" value="Remove" id="All" autocomplete="off" checked>Exclude
                             </label>
-                            <label class="btn btn-primary">
+                            <label class="btn btn-primary" value="include">
                                 <input type="radio" name="add_remove_selector" value="Add" id="Selection" autocomplete="off">Include
                             </label>
                         </div>
                     </div>
-                    <div class="row" id="booklist" data-toggle="tooltip" data-placement="bottom" title="Choose a text/texts that you have read to remove words you already know.">
-
-                        <div id="booklist_container">
+                 </div>               
+              
+       
+  <!--put class="row" on div id="booklist"-->	
+                    <div id="booklist" class="container-fluid">
+		         <div class="book-type-row row" id="thumbLI"><h2>Lists</h2></div>
+                         <div class="book-type-row row" id="thumbTK"><h2>Textbooks</h2></div>
+                         <div class="book-type-row row" id="thumbTE"><h2>Texts</h2></div>
                             {% for each in booklist_latin %}
-                            <div class="col-xs-6 col-md-3 latinbookthumb">
-                                <div class="thumbnail" id="{{ each }}">
-                                    <button class='btn btn-default btn-block' type='button' name="book" value="{{ each }}" >
-                                        <div class=text_name">
-                                            {{ each }}
+                            <div class="col-xs-6 col-md-3 latinbookthumb booktype{{ each.1 }}">
+                                <div class="thumbnail" id="{{ each.0 }}">
+                                    <button class='btn btn-default btn-block' type='button' name="book" value="{{ each.0 }}" data-toggle="tooltip" data-placement="bottom" title="{{ each.0 }}">
+                                        <div class="text_name">
+                                            {{ each.0 }}
                                         </div>
                                     </button>
                                     <div class="range-select-toggle text-center">
@@ -166,9 +219,9 @@
                                         <div class="range_select_box">
                                             <div class="input-group-container">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" name="{{ each }}" placeholder="[start]" aria-describedby="sizing-addon3">
+                                                    <input type="text" class="form-control" name="{{ each.0 }}" placeholder="[start]" aria-describedby="sizing-addon3">
                                                     <span class="input-group-addon" id="sizing-addon3">to</span>
-                                                    <input type="text" class="form-control" name="{{ each }}" placeholder="[end]" aria-describedby="sizing-addon3">
+                                                    <input type="text" class="form-control" name="{{ each.0 }}" placeholder="[end]" aria-describedby="sizing-addon3">
                                                 </div> 
                                             </div>
                                         </div>
@@ -177,11 +230,11 @@
                             </div>
                             {% endfor %}
                             {% for each in booklist_greek %}
-                            <div class="col-xs-6 col-md-3 greekbookthumb">
-                                <div class="thumbnail" id="{{ each }}">
-                                    <button class='btn btn-default btn-block' type='button' name="book" value="{{ each }}" >
+                            <div class="col-xs-6 col-md-3 greekbookthumb booktype{{ each.1 }}" value="{{ each.0 }}">
+                                <div class="thumbnail" id="{{ each.0 }}">
+                                    <button class='btn btn-default btn-block' type='button' name="book" value="{{ each.0 }}" data-toggle="tooltip" data-placement="bottom" title="{{ each.0 }}">
                                         <div> 
-                                            {{ each }}
+                                            {{ each.0 }}
                                         </div>
                                     </button>
                                     <div class="range-select-toggle text-center">
@@ -196,9 +249,9 @@
                                         <div class="range_select_box">
                                             <div class="input-group-container">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" name="{{ each }}" placeholder="[start]" aria-describedby="sizing-addon3">
+                                                    <input type="text" class="form-control" name="{{ each.0 }}" placeholder="[start]" aria-describedby="sizing-addon3">
                                                     <span class="input-group-addon" id="sizing-addon3">to</span>
-                                                    <input type="text" class="form-control" name="{{ each }}" placeholder="[end]" aria-describedby="sizing-addon3">
+                                                    <input type="text" class="form-control" name="{{ each.0 }}" placeholder="[end]" aria-describedby="sizing-addon3">
                                                 </div> 
                                             </div>
                                         </div>
@@ -206,6 +259,7 @@
                                 </div>
                             </div>
                             {% endfor %}
+                           </div>
                             <script>
                                 document.write("<div id='temp' style='display: none'></div>");
                                 $("#temp").parent().find(".range_select_box").each(function(){
@@ -214,16 +268,70 @@
                                     $(inpts[1]).attr("name",$(inpts[1]).attr("name")+" to");
                                 });
                             </script>
+                            <script>
+                               /*var bookarry = $("#booklist_container div").find("[class~=lang+ ' ' + 'bookthumb booktypeTE']");
+                               console.log(bookarry);*/
+                               //var filteringType = "TE";
+                               //$(".type_of_txt_btn_group label").on("click", function(e) {
+                                   //var label = $(this).attr('value');
+                                   //if (filteringType == label) {
+                                    //   return;
+                                  // }
+                                   //filteringType = label;
+                                   //if (globalLang == "latin") {
+                                     //If the language is latin.
+                                     //alert("you made it here!");
+                                     //var latinBooks = $("#latinTextsDropDown");
+                                    //$("#latinTextsDropDown").children().remove();
+                                    //Make the first element of the new list an unselectable elements that says "choose your text"
+                                    //So this isn't gonna work. Hmm...
+                                    // {% for each in booklist_latin %};
+                                      
+                                       /*var bookTitle = {{ each.0 }};
+                                       var bookType = {{ each.1 }};
+                                       if (bookType == filteringType) {
+                                         var opt = document.createElement("option");
+                                         opt.value = bookTitle;
+                                         opt.name = bookType;
+                                         opt.class = "latinbook";
+                                         opt.innerHTML = bookTitle;
+                                         $("#latinTextsDropDown").appendChild(opt);
+                                       }*/
+                                  // {% endfor %};
+                                // } 
+                                //else if (globalLang == "greek") {
+                                     //If the language is greek
+                                //}
+                                //});
+
+
+
+                            /*$(".type_of_txt_btn_group label").on("click", function() {
+                                var label = $(this).attr('value');
+                                var buttoncomp = globalLang + "_" + ($(this).attr('id')) + "_DropDown";
+                                var idcomp = globalLang + "_" + label + "_DropDown";
+                                console.log(buttoncomp);
+                                $("#dropDownDiv select").each(function() {
+                                    $(this).css("display", "none");
+                                    if($(
+                                    if((globalLang + "_" + ($(this).attr('id')) + "_DropDown") == idcomp) {
+                                     console.log("found the correct select box");
+                                     $(this).css("display", "block");
+                                    } 
+                                });  
+                             }); */
+                            </script>
                         </div>
                     </div>
-                </div>
+                </div><!--HERE-->
             </div>
         </div>
-    </div>
+    </div><!--panel hidden-->
 </div>
-<div class="row">
-    <div class="col-xs-8 col-xs-offset-2 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
+<div id="parentSubmitRow" class="row">
+    <div id="colSubmit" class="col-xs-8 col-xs-offset-2 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
         <button class="btn btn-lg btn-block hidden" type="submit" value="Submit" id="giant_form_submit">Submit &nbsp<span class="glyphicon glyphicon-share-alt"></span></button>
     </div>
 </div>
     </form>
+</body>

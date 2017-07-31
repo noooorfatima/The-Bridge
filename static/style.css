@@ -256,6 +256,9 @@ div.navbar.navbar-default::before {
 	.toggle-container .btn-group {
 width: 40%;
 min-width: 200px;
+/*Changing padding currently has no effect*/
+/*Changing idsplay to block doesn't do anything either*/
+/*changing width here doesn't change width of buttons*/
 	}
 
 
@@ -551,7 +554,7 @@ a.boxclose-about{
     background-color: #F8F8F8;
 }
 .toggle-container .btn {
-    font-family: Georgia, serif;
+    font-family: Sans-serif, Georgia;
     font-size: 1.5em;
     padding: 1px 8px 1px 8px;
     width: 50%;
@@ -697,7 +700,7 @@ a.boxclose-about{
 }
 
 .range-select-toggle .btn {
-    font-family: Georgia, serif;
+    font-family: Sans-serif, Georgia;
     font-size: 1.25em;
     line-height: 100%;
     width: 50%;
@@ -917,8 +920,8 @@ background-color: gray;
 }
 
 .panel-heading .row  * {
-   font-family: Georgia,serif;
-   font-size: 1.5em;
+   font-family: Sans-serif, Georgia;
+   font-size: 1.4em;
    white-space: nowrap; 
    overflow: hidden;
    display: inline-block;
@@ -967,7 +970,7 @@ line-height: 15px;
 font-size: 14px;
 padding: 15px;
 padding-top: 0px;
-padding-bottom: 5px;
+padding-bottom: 10px;
 height: auto;
 }
 
@@ -1085,6 +1088,13 @@ screen and (min-width: 900px){
 
 }
 
+/*making changes to headingThree*/
+
+/*#headingThree {
+   position: sticky; 
+   top: 0px;
+   z-index: 10000;
+}*/ 
 
 /* Read-book select stuff: */
 button > div {
@@ -1167,11 +1177,13 @@ button > div {
     border-radius: 0px;
     padding-left: 10px;
     padding-right: 5px;
+    padding-top: 10px;
 }
 
 #slideout-panel .panel-body {
     text-align: center;
     padding: 0px 10px;
+    padding-bottom:5px;
 }
 
 #filters_panel_body {
@@ -1230,13 +1242,13 @@ button > div {
     border-radius: 4px;
     line-height: 27px;
     margin-top: 3px;
-    width: 49%;
+    width: 58%;
     text-align: center;
 }
 
-.checkdiv-wide {
+/*.checkdiv-wide {
     width: 100%;
-}
+}*/
 
 .checkdiv-checkbox {
     display: inline-block;
@@ -1316,6 +1328,10 @@ button > div {
     text-align: center;
 }
 
+.pos-subcategory-box > .checkdiv {
+    height: 55px;
+}
+
 #words_generated_length select {
     min-width: 60px;
 }
@@ -1336,6 +1352,10 @@ button > div {
 
 .colFilters_container {
     margin-bottom: 10px;
+}
+
+.colFilters_container .btn-group-vertical {
+   width: 210px;
 }
 
 .col-toggle-box .btn {
@@ -1388,32 +1408,45 @@ html, body {
   bottom:0;
   z-index: 10000000; /*make it in front with some big number*/
 }
+/* UNRESOLVED ISSUE: Image sizing
+ * difficulties in manipulating the size of the following
+ * three images relative to the window width. These
+ * diffculties lead to not only an overflow in the first column, but
+ * also the pictures are way too small to be visible. */
 
 #DCC-logo {
-  margin-top: 5px;
+  margin-top: 5px; 
   height: 60px;
+  max-height: 60px;
+  min-width: 28px;
+  /*width: 20%;*/
 }
 
 #LASLA-logo {
   margin-top: 5px;
   height: 60px;
+  max-height: 60px;
+  min-width: 28px;
+  /*width: 20%;*/
 }
 
 #TriCoDH-logo {
   margin-top: 5px;
   height: 60px;
+  width: 98%;
 }
 
 #haverfordlogo img {
   //display: block;
-  width: 100px;
+  width: 140px; 
   //text-align: center;
-  margin-top: 10px;
+  margin-top: 0px;
 }
 
 #copyright {
   display: block;
   margin:auto;
+  font-size: 16px;
 }
 
 #email {
@@ -1454,9 +1487,9 @@ html, body {
 
 
 
-  width: 46px;
+ /* width: 46px;
   cursor: pointer;
-}
+}*/
 
 #twitter_link {
   //float: right;
@@ -1542,7 +1575,7 @@ background: white none repeat scroll 0% 0%;
   border-color: black;
 }
 
-/*Change all buttons to new color scheme on clicks*/
+/*Change all buttons to new color scheme on cliciks*/
 .btn-primary.active.focus,
 .btn-primary.active:focus,
 .btn-primary.active:hover,
@@ -1573,4 +1606,162 @@ background: white none repeat scroll 0% 0%;
 
 .etc {
 font-size: 18px;
+}
+
+
+
+/* STYLES FOR FEEDBACK/EMAIL/CONTACT POP UP */
+input.feedback, textarea.feedback {
+    width:439px;
+    height:37px;
+    background:#efefef;
+    border:1px solid #dedede;
+    padding:10px;
+    margin-top:3px;
+    font-size:0.9em;
+    color:#3a3a3a;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+}
+
+textarea.feedback {
+	height:213px;
+}
+
+.feedback {
+    display:block;
+    margin:0 auto;
+    width:576px;
+    text-align: left;
+}
+
+label.feedback {
+    display:block;
+    margin-top:20px;
+    letter-spacing:2px;
+}
+
+input.feedback:focus, textarea.feedback:focus {
+    border:1px solid #97d6eb;
+}
+
+#submit-feedback {
+    width:127px;
+    height:38px;
+    border:none;
+    margin-top:20px;
+    cursor:pointer;
+}
+
+#submit-feedback:hover {
+    background-color: #c9c9c9;
+}
+
+
+
+/******************************************************
+FROM THIS LINE BELOW
+Contributor: Byron Biney, Swat '19;
+Began: 5/24/17;
+********************************************************/
+
+ /*================ Image Priorities in the footer ===============*/
+
+ /* Check-in: 5:01pm 5/25/17
+    eto... This ended up being more difficult than I expected it to be.
+    Very confused right now. A temporary fix at the moment is modifying
+    the widths of each image to a shockingly low percentage. But it doesn't look
+    the best. That is my current fix for the image priority issue.*/
+
+/* Check-in 1:49pm 5/26/17
+ * I think the best way to proceed for today is to attempt to prioritize
+ * the Haverford logo when the page's width goes below 420 px.*/
+
+
+/* Check-in 1:42pm 5/30/17
+ * Currently, everything's functional. When the width of the windo reaches 550px,
+ * then everything except for the Haverford logo disappears.
+ * This can be altered by changing max width: (int)px to something else.;
+ */
+ /*
+
+ /*========================================================
+ ==========================================================
+       Footer image resizing/repositioning solved (5/30/17)
+ ==========================================================
+ =========================================================*/
+
+ /*
+ @media (max-width: 767px) {
+     .p5.col-xs-4 {
+       padding: 0 5px;
+     }
+     .m5.row {
+        margin: 0 -5px;
+     }
+ }*/
+
+.col-centered{
+    margin: 0 auto;
+}
+
+ @media (max-width: 550px) {
+    #firstColumnFooter, img {
+       display: none;
+    }
+    .col-centered {
+      /* [INQUIRY]
+      * Originally "float: none" was supposed to be a part of .col-centered but ir
+      * prevented the third column from being visible at all. So I moved it here
+      * and now it works. I wonder why though.
+      */
+      float: none;
+    }
+
+    #thirdColumnFooter, img {
+      display: none;
+    }
+ }
+
+/*================ Resizing the text on textlist.html ===================*/
+/* a very small change tbh */
+ #resizetxt {
+    font-size: 18px;
+ }
+
+/*================= Changing Buttons */
+.type_of_txt_btn_group .btn {
+  width: 23%;
+  margin-bottom: 5px;
+}
+
+.checkdiv .glyphicon {
+  font-size: .95em;
+}
+
+.mini_text {
+   font-size: .7em;
+   font-weight: bold;
+}
+
+.book-type-row {
+   padding-left: 15px;
+}
+
+#excludePanelTitle {
+  white-space: normal;
+}
+
+#btns_all_or_select {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.btn .btn-primary {
+   padding: 6px 5px;
+}
+
+.btn-default {
+   padding: 6px 5px;
 }

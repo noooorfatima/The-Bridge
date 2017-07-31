@@ -96,8 +96,9 @@ class WordPropertyLatin(models.Model):
     proper = models.CharField(max_length=1, blank=True) 
     part_of_speech = models.CharField(max_length=24, blank=True) 
     dcc_frequency_group = models.CharField(max_length=2, blank=True) 
-    dcc_semantic_group = models.CharField(max_length=34, blank=True) 
-    logeion_link = models.URLField(blank=True, null=True)
+    dcc_semantic_group = models.CharField(max_length=34, blank=True)
+    logeion_url = models.URLField(max_length=200, blank=True, null=True)
+    corpus_rank = models.IntegerField(blank=True, null=True) 
     def __unicode__(self):
         return self.title
 #I changed all the integer fields to text fields because it doesn't like importing blank integer fields
@@ -124,7 +125,8 @@ class WordPropertyGreek(models.Model):
     exclude_1_0 = models.IntegerField(blank=True, null=True) 
     notes = models.CharField(max_length=500, blank=True, null=True) 
     dcc_semantic_group = models.CharField(max_length=500, blank=True, null=True) 
-    logeion_link = models.URLField(blank=True, null=True)
+    logeion_url = models.URLField(max_length=200, blank=True, null=True)
+    corpus_rank = models.IntegerField(blank=True, null=True)
     def __unicode__(self):
         return self.title
 

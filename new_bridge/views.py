@@ -15,22 +15,41 @@ import json
 import pdb
 from StringIO import StringIO
 import ast
+import mysql.connector
 
 def IndexView(request):
         sorted_latin_books=sorted(BookTitles.objects.all(),key=lambda book: (book.book_type,book.title_of_book))
-        booklist_latin= [book.title_of_book 
+        booklist_latin= [(book.title_of_book, book.book_type) 
                 for book in sorted_latin_books]
-        sorted_greek_books=sorted(BookTitlesGreek.objects.all(),key=lambda book: (book.book_type,book.title_of_book))
-        print sorted_greek_books        
-        booklist_greek= [book.title_of_book 
+        sorted_greek_books=sorted(BookTitlesGreek.objects.all(),key=lambda book: (book.book_type,book.title_of_book))        
+        booklist_greek= [(book.title_of_book, book.book_type) 
                 for book in sorted_greek_books]
+        booklist_latin_TE = []
+        booklist_latin_TK = []
+        booklist_latin_LI = []
+        booklist_greek_TE = []
+        booklist_greek_TK = []
+        booklist_greek_LI = []
+        for book in sorted_latin_books:
+             if (book.book_type == "TE"):
+                booklist_latin_TE.append(book.title_of_book)
+             elif (book.book_type == "TK"): 
+                booklist_latin_TK.append(book.title_of_book)
+             elif (book.book_type == "LI"):
+                booklist_latin_LI.append(book.title_of_book)
+        for book in sorted_greek_books:
+             if (book.book_type == "TE"):
+                 booklist_greek_TE.append(book.title_of_book)
+             elif (book.book_type == "TK"):
+                 booklist_greek_TK.append(book.title_of_book)
+             elif (book.book_type == "LI"):
+                  booklist_greek_LI.append(book.title_of_book)
 	return render(request, 'index.html', 
-                {"booklist_latin":booklist_latin,"booklist_greek":booklist_greek})
+                {"booklist_latin":booklist_latin,"booklist_greek":booklist_greek,"booklist_latin_TE":booklist_latin_TE,"booklist_latin_TK":booklist_latin_TK,"booklist_latin_LI":booklist_latin_LI,"booklist_greek_TE":booklist_greek_TE,"booklist_greek_TK":booklist_greek_TK,"booklist_greek_LI":booklist_greek_LI})
 	
 	
 def AboutView(request):
-
-     return render(request,'aboutnew.html')
+     return render(request,'newabout2.html')
 
 #class HelpView(generic.ListView):
 #	template_name = 'help.html'
@@ -56,6 +75,10 @@ def words_page_redirect(request,language):
     # This makes sure it does not mess up the url
     if not request.POST["textlist"] == "":
 	text = request.POST["textlist"]
+	#print text,"identifying text in conditional" # delete
+    #print request.POST["textlist"],"what happens when request.POST[textlist]"
+    #print request.POST,"hello world request post"
+    #print request.POST["textlist"]
     text_meta = TextMetadata.objects.get(name_for_humans=text)
     text_machine = text_meta.name_for_computers
     if ('book' in request.POST) == True:
@@ -72,6 +95,7 @@ def words_page_redirect(request,language):
 		    to_sec = request.POST[i + " to"]
 		except Exception as e:
 		    print "ERROR: " + str(e)
+                    print "exception as e conditional triggered." 
 
 		if from_sec != "" and to_sec != "":
                     i = i + "$_" + from_sec + "_" + to_sec
@@ -175,6 +199,14 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
     #Also note that there was an issue with the fact and the apostrophe appearing in a title.
     #I think I switched to machine names in the spot the error was occuring, but I was considering switching it everywhere.
     # I still might do that because it will be REALLY inconvinient to switch once all of the data is uploaded.
+    #debuggingthingy = true
+    #if debuggingthingy:
+       #print "\nAll paremeters for get words\n"
+       ##rint request
+       #print language
+       #print text
+       #print add_remove
+       #print '\n'
     text_meta = TextMetadata.objects.get(name_for_computers=text)
     text = text_meta.name_for_humans
     if bookslist != 'none': 
@@ -213,12 +245,13 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
     word_property_table = None
 
     try:
-        print WordAppearencesLatin,language,text,text_from,text_to,bookslist,add_remove
+        #print WordAppearencesLatin,language,text,text_from,text_to,bookslist,add_remove
         if language == "latin":
 	    #pdb.set_trace()
-            print WordAppearencesLatin,language,text,text_from,text_to,bookslist,add_remove
+            #print WordAppearencesLatin,language,text,text_from,text_to,bookslist,add_remove
             word_ids = generateWords(WordAppearencesLatin,language,text,text_from,text_to,bookslist,add_remove)
             word_property_table = WordPropertyLatin
+            #print("\nword_property_table for Latin: " + word_property_table)
         else:
             word_ids = generateWords(WordAppearencesGreek,language,text,
                 text_from,text_to,bookslist,add_remove)
@@ -231,15 +264,32 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
     words_list = []
     print "length of word ids: " + str(len(word_ids))
     #print type(word_ids)
+    #accu1=0
+    #print "NEW PRINT STATEMENT"
+    #accu1
     try:
+        #print "INSIDE TRY STATEMENT"
         for each in word_ids:
+            #accu1+=1
+            #print "WORD LOOP", accu1
+            if language == "latin":
+               count = WordAppearencesLatin.objects.filter(word__exact=each).count()
+            else:
+               count = WordAppearencesGreek.objects.filter(word__exact=each).count()
+            print "DEBUG IS THIS CAUSING PROBLEMS"
+            word = word_property_table.objects.filter(id__exact=each)[0]
+            word.corpus_rank = 9617 - count
+            word.save()
             words_list.append(word_property_table.objects.filter(id__exact=each)[0])
+            #if accu1 < 5:
+               #print "debug: words_list add on " + accu1
+               #print words_list
     except Exception, e:
 	print "get words error 1"
-        print e
-    #print words_list
+        print e 
     json_words = serializers.serialize("json",words_list)
     #D#print type(json_words)
+    print "WORD PROPERTY  TABLE", word_property_table #debug:
     json_words2 = json.loads(json_words)
     final_list = [] 
     test_for_in_final = {}
@@ -436,6 +486,8 @@ def generateWords(word_appearences,lang,text,
     else:
         # don't need to modify list; nothing to add/remove
         vocab_final = vocab_intersection_ids
+    #OUTSIDE OF CONDITIONALS
+    print "WHY DON'T YOU WORK WHY"
     return vocab_final
 
 
