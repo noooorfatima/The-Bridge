@@ -280,6 +280,9 @@ def generateWords(word_appearences,lang,text,
     print text
     print read_texts
     print add_remove
+
+    # This stuff (read_texts_filter things) doesn't really do anything, but if you comment it out it breaks
+    # this is an old worse way of doing things, but it plays nicely with the old sqlite way of doing things
     read_texts_filter = Q()
     if len(read_texts) > 0:
         for text_range in read_texts:
@@ -291,8 +294,22 @@ def generateWords(word_appearences,lang,text,
             else:
                 start = "start"
                 end = "end"
-            new_filter = Q(text_name__exact = text, 
-                mindiv__range=(loc_to_mindiv(book,start), loc_to_mindiv(book,end)))
+
+            from_mindiv = loc_to_mindiv(book,start)
+            to_mindiv   = loc_to_mindiv(book,end)
+            print "got update"
+            print "For read text, from, to", from_mindiv, to_mindiv
+            if start == end:
+               print "Ooh corner case"
+               to_node = loc_to_node(book,end)
+               child = to_node
+               while not child.is_leaf():
+                  child = child.get_last_child()
+               to_mindiv = child.least_mindiv
+            print "For read text, from, to", from_mindiv, to_mindiv
+            print "book", book, "text", text
+            new_filter = Q(text_name__exact = book, 
+                mindiv__range=(from_mindiv, to_mindiv))
             # Add it to the combined filter with an OR operation.
             read_texts_filter = read_texts_filter | new_filter
             print read_texts_filter, "READ_TEXTS_FILTER"
@@ -300,6 +317,7 @@ def generateWords(word_appearences,lang,text,
     try: 
         from_mindiv = loc_to_mindiv(text,text_from)
         to_mindiv = loc_to_mindiv(text,text_to)
+        print "find me", text_from, text_to
         print from_mindiv,to_mindiv
         if text_from == text_to:
            to_node = loc_to_node(text,text_to)
@@ -363,7 +381,18 @@ def generateWords(word_appearences,lang,text,
                    start = "start"
                    end = "end"
 
-                filter_list.extend(list(word_appearences.objects.filter(text_name=book,mindiv__range=(loc_to_mindiv(book,start), loc_to_mindiv(book,end)))))
+                from_mindiv = loc_to_mindiv(book,start)
+                to_mindiv   = loc_to_mindiv(book,end)
+
+                if start == end:
+                    print "Ooh corner case"
+                    to_node = loc_to_node(book,end)
+                    child = to_node
+                    while not child.is_leaf():
+                       child = child.get_last_child()
+                    to_mindiv = child.least_mindiv
+
+                filter_list.extend(list(word_appearences.objects.filter(text_name=book,mindiv__range=(from_mindiv, to_mindiv))))
             for item in filter_list:
                 # item.word.id might need to change
                 # Make it whatever it needs to be to get the id that corresponds to the word

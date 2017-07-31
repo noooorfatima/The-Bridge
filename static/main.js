@@ -1175,6 +1175,7 @@ function determineFilterState() {
         }
         // Add checkdiv POS names to the list:
         pos_checkboxes.each(function() {
+            console.log($(this).attr("id"));
             included_pos.push($(this).attr("id"));
         });
     });
@@ -1213,13 +1214,16 @@ function filterWordData(pos_list) {
 	pos_dictionary[pos]= [];
 		
     }
-
+    if(DEBUG==true) {
+       console.log("pos_dictionary", pos_dictionary);
+    }
     // Now add (hopefully) all pos from the data appropriately
 
     // neither adj_2 or adj_ are buttons in the slideout, so we have to add them separate
     // We group them with adj_1 after we add all the other parts of speech
     var has_adj_2 = false;
     var has_adj_ = false;
+    var has_adj_6 = false;
     for (var i=0; i<words_data_keys.length; i++) {
 	var key = words_data_keys[i];
 	
@@ -1231,7 +1235,9 @@ function filterWordData(pos_list) {
         if (key == 'Adjective_'){
 	  has_adj_ = true;
 	}
-
+        if (key == 'Adjective_6'){
+	   has_adj_6 = true;
+	}
 
 
         // A regex that matches 1 or more commas and any number of spaces
@@ -1254,6 +1260,9 @@ function filterWordData(pos_list) {
     }
     if (has_adj_ && pos_dictionary['Adjective_1'] != undefined){
       pos_dictionary['Adjective_1'].push('Adjective_');
+    }
+    if (has_adj_6 && pos_dictionary['Adjective_5'] != undefined){
+	pos_dictionary['Adjective_5'].push('Adjective_6');
     }
     if (DEBUG == true){
       console.log(pos_dictionary, "POS_DICT");
@@ -1312,6 +1321,7 @@ function loadWordData(data) {
             words_data[pos] = [word];
         }
     }
+    console.log("WORDS_DATA", words_data);
     return words_data;
 }
 

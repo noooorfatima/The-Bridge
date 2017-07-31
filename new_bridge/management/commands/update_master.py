@@ -70,6 +70,8 @@ class Command(BaseCommand):
 				updated2=True
 			elif item == 'LOGEIONDEF':
 				wanted_list = wanted_list + [index]
+			elif item == "LOGEION LINK":
+				wanted_list.append(index)
 			index = index + 1
 		#print wanted_list
 
@@ -127,6 +129,7 @@ class Command(BaseCommand):
 				    'reg_adj_adv' : item['Reg Adj/Adv'] ,
 				    'proper' : item['Proper'],
 				    'part_of_speech' : item['Part Of Speech'] ,
+				    'logeion_link' : item['LOGEION LINK'],
 			    	}
 			    	 )
 				except KeyError:
@@ -161,6 +164,7 @@ class Command(BaseCommand):
 				'reg_adj_adv' : item['REG ADJ/ADV'],
 				'proper' : item['PROPER'],
 				'part_of_speech' : item['PART-OF-SPEECH'],
+				'logeion_link' : item['LOGEION LINK'],
 				}
 				)
 				#except KeyError:
