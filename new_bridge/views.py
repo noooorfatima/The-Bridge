@@ -278,7 +278,7 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
                count = WordAppearencesGreek.objects.filter(word__exact=each).count()
             print "DEBUG IS THIS CAUSING PROBLEMS"
             word = word_property_table.objects.filter(id__exact=each)[0]
-            word.corpus_rank = count
+            word.corpus_rank = 9617 - count
             word.save()
             words_list.append(word_property_table.objects.filter(id__exact=each)[0])
             #if accu1 < 5:

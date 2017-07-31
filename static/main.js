@@ -1469,7 +1469,7 @@ function initTable() {
                   "name": $(this).data("fieldname"),
                   "data": "fields."+$(this).data("fieldname"),
                   "render": function( data, type, full, meta) {
-                      if (data < 5) {
+                      if (data > 9600) {
                         return "rare";
                       } else {
                         return data;
