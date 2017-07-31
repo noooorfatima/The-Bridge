@@ -15,7 +15,6 @@ import json
 import pdb
 from StringIO import StringIO
 import ast
-import mysql.connector
 
 def IndexView(request):
         sorted_latin_books=sorted(BookTitles.objects.all(),key=lambda book: (book.book_type,book.title_of_book))
@@ -988,3 +987,8 @@ def myimport(request):
                 return render(request, 'admin/myimport.html',{"success" : True, 'query_results' : query_results,'text_name_results' : text_name_results})               
     else:
         return render(request, 'admin/myimport.html', {'query_results' : query_results,'text_name_results' : text_name_results})
+
+def handler404(request):
+	response = render_to_response('404.html', {}, context_instance=RequestContext(request))
+	response.status_code = 404
+	return response
