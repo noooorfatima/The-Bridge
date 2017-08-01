@@ -10,6 +10,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.db.models import Count
 from treebeard.mp_tree import MP_Node
 
 class TextStructureNode(MP_Node):
@@ -99,8 +100,17 @@ class WordPropertyLatin(models.Model):
     dcc_semantic_group = models.CharField(max_length=34, blank=True)
     logeion_url = models.URLField(max_length=200, blank=True, null=True)
     corpus_rank = models.IntegerField(blank=True, null=True) 
+    word_frequency = models.IntegerField(blank=True, null=True)
     def __unicode__(self):
         return self.title
+    def ranking(self):
+       #method for populating and returning the corpus rank of a word
+       word_freq = self.wordappearenceslatin_set.count() #this is how many WordAppearance objects have this word as a foreign key.
+       self.word_frequency = word_freq
+       aggregate = WordPropertyLatin.objects.filter(word_frequency__lt=self.word_frequency).aggregate(ranking=Count('word_frequency'))
+       return aggregate['ranking'] + 1
+    def calculateWordFrequency(self):
+       self.word_frequency = self.wordpropertylatin_set.count()
 #I changed all the integer fields to text fields because it doesn't like importing blank integer fields
 #Note exlude is still int because the spreadsheet doesn't have it 
 class WordPropertyGreek(models.Model):
@@ -127,8 +137,14 @@ class WordPropertyGreek(models.Model):
     dcc_semantic_group = models.CharField(max_length=500, blank=True, null=True) 
     logeion_url = models.URLField(max_length=200, blank=True, null=True)
     corpus_rank = models.IntegerField(blank=True, null=True)
+    word_frequency = models.IntegerField(blank = True, null=True)
     def __unicode__(self):
         return self.title
+    def ranking(self):
+        word_freq = self.wordpropertygreek_set.count()
+        self.word_frequency = word_freq
+        aggregate = WordPropertyGreek.objects.filter(word_frequency__lt=self.word_frequency).aggregate(ranking=Count('word_frequency'))
+        return aggregate['ranking'] + 1
 
 class BookTitlesGreek(models.Model):
     #book type for sorting on home page
