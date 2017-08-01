@@ -1,8 +1,11 @@
 <div class="panel panel-default" id="export_panel">
+<!--=================Glyphicon=============-->
+    <div class="panel-heading" id="export_panel_heading"><span id="icon_in_slidepanel" class="glyphicon glyphicon-info-sign" title="Print or download a vocabulary list in TSV format. To print all vocabulary, please make sure all entries are currently shown. By default, only 100 entries are shown."></span>Export<p class="mini_text"><em>Only currently displayed entries will be exported</em></p> <!--<p class="mini_text"><em>only exports currently shown entries</em></p>-->
+    </div>
         <div class="btn-group btn-group-justified">
             <div class="btn-group">
                 <button type="button" class="btn btn-default export-table" id="printSubmit" value="Print"
-                    data-toggle="tooltip" data-placement="bottom" title="Print table">Print Page</button>
+                    data-toggle="tooltip" data-placement="bottom" title="Print table">Print</button>
             </div>
             <!--================Changing buttons===================-->
             <!--<div class="btn-group">
@@ -13,14 +16,10 @@
             </div>-->
             <!--====================================================-->
             <div class="btn-group">
-             <a id="tag4exportAll">
-               <button type="button" class="btn btn-default export-table" id="exportAllRows" value="tab_delim_export" data-toggle="tooltip" data-placement="bottom" title="Save as a .tsv file - can be uploaded into Anki or Mnemosyne">Export All</button></a>
-            </div> 
-            <!--<div class="btn-group">
                 <a class="tab_export"><button type="button" class="btn btn-default export-table" id="tab_delim_export" value="tab_delim_export"
                         data-toggle="tooltip" data-placement="bottom" 
                         title="Save as a .tsv file - can be uploaded into Anki or Mnemosyne">Download</button></a>
-            </div>-->
+            </div>
         </div>
     <div class="panel-body" id="export_panel_body">
     </div>
@@ -38,7 +37,7 @@
                 </div>
             </div>
             <div class="checkdiv">
-                <div class="checkdiv-checkbox" name="" class="" id="" value="" data-state=false>
+                <div class="checkdiv-checkbox" name="" class="" id="" value="" data-state=true>
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                 </div>
                 <div class="checkdiv-label">Prototype Checkdiv</div>
@@ -51,7 +50,7 @@
     <div class="panel-body" id="filters_panel_body">
         {% if language == "latin" %}
         <div class="filters_container">
-            <h3>Filters</h3>
+            <h3> Parts of Speech</h3>
             <div>
                 <div class="toggleAll_container">
                     <button type="button" class="btn btn-primary toggleAll" data-toggle="button" data-check="true" aria-pressed="false" autocomplete="off">
@@ -359,10 +358,10 @@
                 {% endif %}
                 <div>
                     <div class="checkdiv">
-                        <div class="checkdiv-checkbox" style="display: inline-block;" name="Reg_Adv" id="Reg_Adv" value="1" data-state=true>
+                        <div class="checkdiv-checkbox" name="Reg_Adv" id="Reg_Adv" value="1" data-state=true>
                             <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                         </div>
-                        <div class="checkdiv-label" style="line-height: 18px; display: inline;">Special Adverbs & Adjectives</div><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="bottom" title="Regularly-formed adverbs, comparative & superlative adjectives" ></span>
+                        <div class="checkdiv-label" style="line-height: 18px">Special Adverbs & Adjectives</div><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="bottom" title="Regularly-formed adverbs, comparative & superlative adjectives" ></span>
                     </div>
                     <div class="checkdiv">
                         <div class="checkdiv-checkbox" name="Idiom" id="Idiom" value="Idiom" data-state=true>

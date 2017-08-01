@@ -251,15 +251,6 @@ def main(csvfilename, language):
         listified_csv = list(csv_reader)
         print listified_csv
         text_name=listified_csv[0][2]
- 
-        # Remove any old entries
-        if language.lower() == "latin":
-	   print "Deleting this many old entries:", len(WordAppearencesLatin.objects.filter(text_name=text_name))
-           WordAppearencesLatin.objects.filter(text_name=text_name).delete()
-
-        else:
-	   print "Deleting this many old entries:", len(WordAppearencesGreek.objects.filter(text_name=text_name))
-           WordAppearencesGreek.objects.filter(text_name=text_name).delete()        
         
         # Get sorted list of word locations and corresponding words,
         #   and a list of all unique locations in the .csv:

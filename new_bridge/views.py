@@ -48,7 +48,8 @@ def IndexView(request):
 	
 	
 def AboutView(request):
-     return render(request,'newabout2.html')
+
+     return render(request,'newabout.html')
 
 #class HelpView(generic.ListView):
 #	template_name = 'help.html'
@@ -244,10 +245,10 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
     word_property_table = None
 
     try:
-        #print WordAppearencesLatin,language,text,text_from,text_to,bookslist,add_remove
+        print WordAppearencesLatin,language,text,text_from,text_to,bookslist,add_remove
         if language == "latin":
 	    #pdb.set_trace()
-            #print WordAppearencesLatin,language,text,text_from,text_to,bookslist,add_remove
+            print WordAppearencesLatin,language,text,text_from,text_to,bookslist,add_remove
             word_ids = generateWords(WordAppearencesLatin,language,text,text_from,text_to,bookslist,add_remove)
             word_property_table = WordPropertyLatin
             #print("\nword_property_table for Latin: " + word_property_table)
@@ -263,10 +264,8 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
     words_list = []
     print "length of word ids: " + str(len(word_ids))
     #print type(word_ids)
-    #accu1=0
-    #print "NEW PRINT STATEMENT"
-    #accu1
     try:
+<<<<<<< HEAD
         rank = 1
         previous_val = 0
         first_loop_flag = False
@@ -290,16 +289,16 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
             word = word_property_table.objects.filter(id__exact=each)[0]
             word.corpus_rank = 9617 - count
             word.save()
+=======
+        for each in word_ids:
+>>>>>>> ee3dd5d84344ebd7426f1aa63f4c218d1aa54bbe
             words_list.append(word_property_table.objects.filter(id__exact=each)[0])
-            #if accu1 < 5:
-               #print "debug: words_list add on " + accu1
-               #print words_list
     except Exception, e:
 	print "get words error 1"
-        print e 
+        print e
+    #print words_list
     json_words = serializers.serialize("json",words_list)
     #D#print type(json_words)
-    print "WORD PROPERTY  TABLE", word_property_table #debug:
     json_words2 = json.loads(json_words)
     final_list = [] 
     test_for_in_final = {}
@@ -340,9 +339,6 @@ def generateWords(word_appearences,lang,text,
     print text
     print read_texts
     print add_remove
-
-    # This stuff (read_texts_filter things) doesn't really do anything, but if you comment it out it breaks
-    # this is an old worse way of doing things, but it plays nicely with the old sqlite way of doing things
     read_texts_filter = Q()
     if len(read_texts) > 0:
         for text_range in read_texts:
@@ -354,22 +350,8 @@ def generateWords(word_appearences,lang,text,
             else:
                 start = "start"
                 end = "end"
-
-            from_mindiv = loc_to_mindiv(book,start)
-            to_mindiv   = loc_to_mindiv(book,end)
-            print "got update"
-            print "For read text, from, to", from_mindiv, to_mindiv
-            if start == end:
-               print "Ooh corner case"
-               to_node = loc_to_node(book,end)
-               child = to_node
-               while not child.is_leaf():
-                  child = child.get_last_child()
-               to_mindiv = child.least_mindiv
-            print "For read text, from, to", from_mindiv, to_mindiv
-            print "book", book, "text", text
-            new_filter = Q(text_name__exact = book, 
-                mindiv__range=(from_mindiv, to_mindiv))
+            new_filter = Q(text_name__exact = text, 
+                mindiv__range=(loc_to_mindiv(book,start), loc_to_mindiv(book,end)))
             # Add it to the combined filter with an OR operation.
             read_texts_filter = read_texts_filter | new_filter
             print read_texts_filter, "READ_TEXTS_FILTER"
@@ -377,7 +359,6 @@ def generateWords(word_appearences,lang,text,
     try: 
         from_mindiv = loc_to_mindiv(text,text_from)
         to_mindiv = loc_to_mindiv(text,text_to)
-        print "find me", text_from, text_to
         print from_mindiv,to_mindiv
         if text_from == text_to:
            to_node = loc_to_node(text,text_to)
@@ -441,18 +422,7 @@ def generateWords(word_appearences,lang,text,
                    start = "start"
                    end = "end"
 
-                from_mindiv = loc_to_mindiv(book,start)
-                to_mindiv   = loc_to_mindiv(book,end)
-
-                if start == end:
-                    print "Ooh corner case"
-                    to_node = loc_to_node(book,end)
-                    child = to_node
-                    while not child.is_leaf():
-                       child = child.get_last_child()
-                    to_mindiv = child.least_mindiv
-
-                filter_list.extend(list(word_appearences.objects.filter(text_name=book,mindiv__range=(from_mindiv, to_mindiv))))
+                filter_list.extend(list(word_appearences.objects.filter(text_name=book,mindiv__range=(loc_to_mindiv(book,start), loc_to_mindiv(book,end)))))
             for item in filter_list:
                 # item.word.id might need to change
                 # Make it whatever it needs to be to get the id that corresponds to the word
@@ -496,8 +466,6 @@ def generateWords(word_appearences,lang,text,
     else:
         # don't need to modify list; nothing to add/remove
         vocab_final = vocab_intersection_ids
-    #OUTSIDE OF CONDITIONALS
-    print "WHY DON'T YOU WORK WHY"
     return vocab_final
 
 
@@ -998,8 +966,3 @@ def myimport(request):
                 return render(request, 'admin/myimport.html',{"success" : True, 'query_results' : query_results,'text_name_results' : text_name_results})               
     else:
         return render(request, 'admin/myimport.html', {'query_results' : query_results,'text_name_results' : text_name_results})
-
-def handler404(request):
-	response = render_to_response('404.html', {}, context_instance=RequestContext(request))
-	response.status_code = 404
-	return response

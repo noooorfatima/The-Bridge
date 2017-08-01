@@ -24,7 +24,6 @@ class Command(BaseCommand):
 		parser.add_argument("language",nargs=1, type=str, help="The language we are importing for (Greek or Latin)")
 
 	def handle(self, *args, **options):
-                print args
 		headers = get_headers(args[0])
 		lang=args[1]
 		print lang
@@ -51,7 +50,6 @@ class Command(BaseCommand):
 			index = index + 1
 		new_headers2 = ['word_id'] + headers
 		write_data_dicts('temp_output.csv', new_headers2, data_dict2)
-		print the_title, "TITALUR"
 		error = text_import.main('temp_output.csv',lang)
 		if error != None:
 			return str(error)

@@ -16,8 +16,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         name=False
-        print args
-        WordAppearencesGreek.objects.filter(text_name="BLABLABLA").delete()
         to_delete = args[0]
         if len(args)==2:
             text_name=args[1]
@@ -87,10 +85,7 @@ class Command(BaseCommand):
                     ids = TextStructureNode.objects.filter(path__startswith=path).values_list('pk', flat=True)
                     for the_id in ids:
                        TextStructureNode.objects.filter(pk = the_id).delete()
-                elif to_delete == 'WordAppearancesLatin':
-                   WordAppearancesLatin.objects.filter(text_name=text_name).delete()
-                elif to_delete == 'WordAppearencesGreek':
-                   WordAppearancesGreek.objects.filter(text_name=text_name).delete()
+ 
         elif cont[0].lower()=='n':
             print "Okay! Did not delete"
         else:

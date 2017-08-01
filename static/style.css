@@ -554,7 +554,7 @@ a.boxclose-about{
     background-color: #F8F8F8;
 }
 .toggle-container .btn {
-    font-family: Sans-serif, Georgia;
+    font-family: Georgia, serif;
     font-size: 1.5em;
     padding: 1px 8px 1px 8px;
     width: 50%;
@@ -700,7 +700,7 @@ a.boxclose-about{
 }
 
 .range-select-toggle .btn {
-    font-family: Sans-serif, Georgia;
+    font-family: Georgia, serif;
     font-size: 1.25em;
     line-height: 100%;
     width: 50%;
@@ -920,7 +920,7 @@ background-color: gray;
 }
 
 .panel-heading .row  * {
-   font-family: Sans-serif, Georgia;
+   font-family: Georgia,serif;
    font-size: 1.4em;
    white-space: nowrap; 
    overflow: hidden;
@@ -970,7 +970,7 @@ line-height: 15px;
 font-size: 14px;
 padding: 15px;
 padding-top: 0px;
-padding-bottom: 10px;
+padding-bottom: 5px;
 height: auto;
 }
 
@@ -1177,7 +1177,6 @@ button > div {
     border-radius: 0px;
     padding-left: 10px;
     padding-right: 5px;
-    padding-top: 10px;
 }
 
 #slideout-panel .panel-body {
@@ -1575,7 +1574,7 @@ background: white none repeat scroll 0% 0%;
   border-color: black;
 }
 
-/*Change all buttons to new color scheme on cliciks*/
+/*Change all buttons to new color scheme on clicks*/
 .btn-primary.active.focus,
 .btn-primary.active:focus,
 .btn-primary.active:hover,
@@ -1751,17 +1750,4 @@ Began: 5/24/17;
 
 #excludePanelTitle {
   white-space: normal;
-}
-
-#btns_all_or_select {
-  margin-top: 10px;
-  margin-bottom: 5px;
-}
-
-.btn .btn-primary {
-   padding: 6px 5px;
-}
-
-.btn-default {
-   padding: 6px 5px;
 }
