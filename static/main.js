@@ -981,7 +981,7 @@ function configureForm(e) {
         $(".greekbookthumb").css("display", "inline");
         $(".greekbookthumb").each(function() {  
 	   if($(this).hasClass("booktypeTE")) { 
-                 $(this).append("#thumbTE");
+                 $("$thumbTE").append($(this));
            }
            else if ($(this).hasClass("booktypeLI")) {
                  $("#thumbLI").append($(this));
@@ -1453,7 +1453,7 @@ function initTable() {
                   "name": $(this).data("fieldname"),
                   "data" : "fields."+$(this).data("fieldname"),
                   "render" : function ( data, type, full, meta ) {
-                     return '<a href="'+data+'">Logeion</a>';
+                     return '<a target="_blank" href="'+data+'">Logeion</a>';
                    },
                   "visible" : $(this).data("visible")
               });

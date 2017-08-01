@@ -268,12 +268,23 @@ def get_words(request,language,text,bookslist,text_from,text_to,add_remove):
     #print "NEW PRINT STATEMENT"
     #accu1
     try:
-        #print "INSIDE TRY STATEMENT"
+        rank = 1
+        previous_val = 0
+        first_loop_flag = False
         for each in word_ids:
-            #accu1+=1
-            #print "WORD LOOP", accu1
+            
             if language == "latin":
                count = WordAppearencesLatin.objects.filter(word__exact=each).count()
+               #count = 9617 - count #9617 is what is currently known as the most common word frequency in the database. This number will need to be recalculated or checked
+                                    #with each update of the database, otherwise you'll risk seeing negative numbers appear or overall inaccurate information.
+                                    #To recalculate this number please run the script sql.py which can currently be found in /home/byronbiney/.
+               #if count < 0:
+                   #print("ERROR MAXIMUM WORD FREQUENCY EXCEEDED, CORPUS RANK INFORMATION NEEDS TO BE RECALCULATED."
+                   #return
+               #if first_loop_flag == False:
+                   #previous_val = count
+                   
+                
             else:
                count = WordAppearencesGreek.objects.filter(word__exact=each).count()
             print "DEBUG IS THIS CAUSING PROBLEMS"
