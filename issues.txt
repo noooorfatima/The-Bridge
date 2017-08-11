@@ -1,0 +1,38 @@
+=====CURRENT ISSUES WITH AUTOLEMMA.PY======
+
+ENCLITICS:
+    Currently program does not recognize enclitics (-que, -ne, etc.) on
+      input words.
+
+    EXAMPLE:
+        INPUT       puellaeque
+        EXPECTED    processed as two words,  "puellae" and "que"
+        ACTUAL      processed as one word, "puellaeque", which isn't in dataset.
+
+    Possible fix:
+        Check if input word ends in enclitic ending.
+        If it does, check also that it itsn't a word which looks like it has
+          an enclitic ending, but doesn't (e.g., "quisque", "ratione", etc.).
+            (This would just be a lookup table.)
+
+LINE NUMBERING:
+    Currently the program detects "blank lines" by checking how many words
+      are in a line.  If there are fewer than 3 words, the line is not given
+      a number.
+    This may not work for some latin verse, which can have <3 word lines.
+
+    Possible fix:
+        Require that all extranneous lines be removed from text before it is 
+          given to autoLemma.py
+
+UGLY SPAGHETTI CODE:
+    Need to add some more comments -- look for "TODO"s in code.
+    No longer need xlsx input functionality.
+    The makeNewWorkbook() method, or whatever it's called, has gotten bloated.
+        (I think I pointed this out in the code)
+
+
+=============FUTURE FEATURES==============
+
+GUI FRONTEND
+    Make a nice little GUI for autoLemma.py!

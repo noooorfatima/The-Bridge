@@ -1,0 +1,19 @@
+{% include "head.html" %}
+<!--{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+<html>
+<head>
+</head -->
+<title>The Bridge: Customizable Greek and Latin Vocabulary Lists</title>
+<body id="body" data-title="index" class = "home blog custom-background img-responsive">
+<div class= "preloader" style= "display: none;">
+		<div class= "status" style="display: none;">
+		</div>
+	</div>
+	{% include "navbar.html" %}
+	{% include "about.html" %}
+
+  <div class="page-wrap">
+        {% include "textlist.html" with booklist_latin=booklist_latin booklist_greek=booklist_greek %}
+ </div>
+        

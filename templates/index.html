@@ -1,0 +1,17 @@
+{% include "head.html" %}
+<title>The Bridge: Customizable Greek and Latin Vocabulary Lists</title>
+<body id="body" data-title="index" class = "home blog">
+<div class= "preloader" style= "display: none;">
+		<div class= "status" style="display: none;">
+		</div>
+	</div>
+	{% include "navbar.html" %}     
+<div id="background" class = "custom-background img-responsive">
+  <div class="page-wrap">
+        {% include "textlist.html" with booklist_latin=booklist_latin booklist_greek=booklist_greek %}
+ </div>
+</div>
+</div></div></div></div> <!--- Close everything that should be closed but goodness knows is not. If you have some free time and good spirit you could try to find where these actually go-->
+{% include "footer.html" %}
+<!--<div style="display:block; background-color:white;"><h1>Howdy</h1>
+</div>-->

@@ -1,0 +1,1 @@
+aeneid_definition,catullus_definition,conj,dcc_frequency_group,dcc_semantic_group,decl,display_lemma,display_lemma_macronless,english_core,english_extended,id,lnm_definition,part_of_speech,proper,reg_adj_adv,title,wordappearenceslatin,
