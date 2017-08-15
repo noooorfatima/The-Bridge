@@ -1487,6 +1487,13 @@ function initTable() {
                "visible": $(this).data("visible"),
                "width": "20%"
             });
+          } else if ($(this).data("fieldname") == "local_def") {
+             columns.push({
+               "name": $(this).data("fieldname"),
+               "data": "fields."+$(this).data("fieldname"),
+               "visible": $(this).data("visible"),
+               "width": "50%"
+             });
           }
 
 
@@ -1570,11 +1577,11 @@ function initColumnFilters(th_list) {
             fieldtypes[fieldtype] = [th_list[i]];
         }
     } 
-    var n=0;
+    //var n=0;
     // Build radio toggle button-groups or checkdivs for each data column:
     for (fieldtype in fieldtypes) {
-        n = n + 1
-        console.log("iteration: " + n + "   fieldtype: " + fieldtype);
+        //n = n + 1
+        //console.log("iteration: " + n + "   fieldtype: " + fieldtype);
         //debugger;
         if (fieldtypes.hasOwnProperty(fieldtype)) {  // skip inherited prop.s
             if ($(fieldtypes[fieldtype][0]).data('radio')) {
