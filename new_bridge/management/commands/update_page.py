@@ -24,7 +24,6 @@ class Command(BaseCommand):
 		parser.add_argument("language",nargs=1, type=str, help="The language we are importing for (Greek or Latin)")
 
 	def handle(self, *args, **options):
-                print args
 		headers = get_headers(args[0])
 		lang=args[1]
 		print lang
@@ -39,19 +38,30 @@ class Command(BaseCommand):
 		for item in data_dict2:
 			the_title = data_dict2[index]['TITLE']
 			if lang == "Latin":
-                                print the_title
-				word_id=WordPropertyLatin.objects.get(title=the_title).id
+				try:
+					print the_title
+					word_id=WordPropertyLatin.objects.get(title=the_title).id
+				except:
+					print "exception: %s" % the_title
+					pass
+
 			elif lang == "Greek":
-				print index
-				print the_title
-				print WordPropertyGreek.objects.filter(title=the_title)
-				print ""
-				word_id=WordPropertyGreek.objects.get(title=the_title).id
-			data_dict2[index]['word_id']=word_id
-			index = index + 1
+				try:
+					print index
+					print the_title
+					print WordPropertyGreek.objects.filter(title=the_title)
+					print ""
+					word_id=WordPropertyGreek.objects.get(title=the_title).id
+				except:
+					print "exception: %s" % the_title
+					pass
+				data_dict2[index]['word_id']=word_id
+				index = index + 1
+
+
 		new_headers2 = ['word_id'] + headers
 		write_data_dicts('temp_output.csv', new_headers2, data_dict2)
-		print the_title, "TITALUR"
 		error = text_import.main('temp_output.csv',lang)
 		if error != None:
 			return str(error)
+
