@@ -1826,37 +1826,75 @@ function filterWordData(pos_list) {
      * 'Adverb' : ['Adverb', 'Adverb, Conjunction', 'Adverb, Preposition'] etc.
      */
 
+    // #################################################
+    /* We used to add it based on the thing we were adding, but now we make it based on all possibilties
+     * This separates out what we want to include and make pos_dict
     // Intialize a dictionary with all the parts of speech we want to add
     var pos_dictionary = {};
     for (var i=0; i<pos_list.length; i++){
 	var pos = pos_list[i];
 	pos_dictionary[pos]= [];
-		
+
     }
+    */		
+
+    var  pos_dictionary = {
+  "Adjective_1": [],
+  "Adjective_2": [],
+  "Adjective_3": [],
+  "Adjective_5": [],
+  "Adjective_6": [],
+  "Adjective_" : [],
+  "Noun_1": [],
+  "Noun_2": [],
+  "Noun_3": [],
+  "Noun_6": [],
+  "Verb": [],
+  "Article": [],
+  "Particle": [],
+  "Adverb": [],
+  "Conjunction": [],
+  "Interjection": [],
+  "Preposition": [],
+  "Pronoun": [],
+  "Reg_Adv": [],
+  "Idiom": [],
+  "Number": [],
+  "Proper_nouns": [],
+  "": [],
+  "CATCH_BAD" : [],
+  "Noun_" : [],
+    };
+
+    // Push on blank on there, meaning blank part of speech will always be included
+    pos_list.push("");
+
     if(DEBUG==true) {
        console.log("pos_dictionary", pos_dictionary);
     }
     // Now add (hopefully) all pos from the data appropriately
 
     // neither adj_2 or adj_ are buttons in the slideout, so we have to add them separate
-    // We group them with adj_1 after we add all the other parts of speech
-    var has_adj_2 = false;
-    var has_adj_ = false;
-    var has_adj_6 = false;
+    // We group them with adj_1 
     for (var i=0; i<words_data_keys.length; i++) {
 	var key = words_data_keys[i];
-	
-	// neither of these are buttons in the slideout, so we have to add them separate
-	// We group them with adj_1 after we add all the other data
+
+
+        // These things aren't 'real' parts of speech, so they would 
+        // always get filtered in this function.
+        // To get around that, we 'tie' them to a real POS!	
         if (key == 'Adjective_2'){
-          has_adj_2 = true;
+          pos_dictionary['Adjective_1'].push('Adjective_2');
         }
         if (key == 'Adjective_'){
-	  has_adj_ = true;
+          pos_dictionary['Adjective_1'].push('Adjective_');
 	}
         if (key == 'Adjective_6'){
-	   has_adj_6 = true;
+	   pos_dictionary['Adjective_5'].push('Adjective_6');
 	}
+        if (key == 'Noun_'){
+           pos_dictionary['Noun_1'].push('Noun_');
+        }
 
 
         // A regex that matches 1 or more commas and any number of spaces
@@ -1867,32 +1905,37 @@ function filterWordData(pos_list) {
 	      pos_dictionary[prop].push(key);
            }
 	   else{
-             if (DEBUG == true){
-               console.log("Part of speech: ", prop, "from key: ", key, " will not be included in the data");
-	     }
+               console.log("WARNING: Part of speech: ", prop, "from key: ", key, " is being added to CATCH_BAD which will always be displayed");
+               console.log("See instuctions at this line in main.js")
+               /* Basically, there is a lot of weird POS data that you
+                * can't make any assumptions about. You can 'tie' the
+                * bad data to good data by adding the bad pos to a
+                * a real one in pos_dictionary.
+                * For example, if "Noun_" is being caught by catch bad
+                * (1) Make a note of how many items are currently being returned in the search as indicated AT THE BOTTOM OF THE PAGE
+                      The top return number sometimes fibs
+                * (2) Add the bad POS ("Noun_") to the if statements above, and push it onto the pos we want to tie to (I chose Noun_1, but ask Bret).
+                * (3) In the initial pos_dictionary definition, add the bas pos ("Noun_")
+                * (4) Check to make sure the warning isn't diplayed and the number of items being returned is the same 
+                */
+
+               pos_dictionary['CATCH_BAD'].push(key) 
            }
 	}
 	
     }
-    if (has_adj_2 && pos_dictionary['Adjective_1'] != undefined){
-      pos_dictionary['Adjective_1'].push('Adjective_2');
-    }
-    if (has_adj_ && pos_dictionary['Adjective_1'] != undefined){
-      pos_dictionary['Adjective_1'].push('Adjective_');
-    }
-    if (has_adj_6 && pos_dictionary['Adjective_5'] != undefined){
-	pos_dictionary['Adjective_5'].push('Adjective_6');
-    }
+
     if (DEBUG == true){
       console.log(pos_dictionary, "POS_DICT");
     }
     // pos_dictionary now complete
 
+    // modified should probably be called added
     var modified = {}; // modified: tracks the things we have already changed so we don't double add
     for (var i=0; i<words_data_keys.length; i++) {
         var key = words_data_keys[i];
         var key_index = pos_list.indexOf(key);
-	if (key_index>=0) {
+	if (key_index>=0){
 	    for(var j=0; j<pos_dictionary[key].length; j++){
 	      var prop = pos_dictionary[key][j];
 	      if (modified[prop] == undefined){
@@ -1908,6 +1951,17 @@ function filterWordData(pos_list) {
 	   // but then you couldn't properly view the list in console
 	   // so I switched it, but here is the line a removed
            // pos_list.splice(key_index,1); //rm that key from pos_list
+        }
+    }
+    for(var j=0; j<pos_dictionary['CATCH_BAD'].length; j++){
+        var prop = pos_dictionary['CATCH_BAD'][j];
+        if (modified[prop] == undefined){
+	   modified[prop] = true;
+	   if (DEBUG == true){
+              console.log(prop, "POS added to data");
+           }
+
+           words_data_filtered = words_data_filtered.concat(words_data[prop]);
         }
     }
     if (DEBUG == true){
