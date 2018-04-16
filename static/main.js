@@ -1790,16 +1790,14 @@ function determineFilterState() {
         }
         // Add checkdiv POS names to the list:
         pos_checkboxes.each(function() {
-            console.log($(this).attr("id"));
             included_pos.push($(this).attr("id"));
         });
     });
 
     //Get other checkboxes' states:
-    $(".panel-body .checkdiv-checkbox")
+    $(".panel-body  .POS-toggler")
         .not('[name$="_decl"]').not("[name='verb_conj']")
         .each(function() {
-            //console.log($(this));
             if ($(this).data("state")) {
                 included_pos.push($(this).attr("id"));
             }
@@ -1814,7 +1812,6 @@ function determineFilterState() {
 function filterWordData(pos_list) {
     // can turn to true for some helpful console logs!
     var DEBUG = false;
-
 
     var words_data_filtered = [];
     var words_data_keys = Object.getOwnPropertyNames(words_data);
@@ -1839,17 +1836,26 @@ function filterWordData(pos_list) {
     */		
 
     var  pos_dictionary = {
+  "Adjective"  : [],
   "Adjective_1": [],
   "Adjective_2": [],
   "Adjective_3": [],
   "Adjective_5": [],
   "Adjective_6": [],
   "Adjective_" : [],
+  "Noun"  : [],
   "Noun_1": [],
   "Noun_2": [],
   "Noun_3": [],
+  "Noun_4": [],
+  "Noun_5": [],
   "Noun_6": [],
   "Verb": [],
+  "Verb_1" : [], 
+  "Verb_2" : [], 
+  "Verb_3" : [], 
+  "Verb_4" : [], 
+  "Verb_5" : [], 
   "Article": [],
   "Particle": [],
   "Adverb": [],
@@ -1866,8 +1872,6 @@ function filterWordData(pos_list) {
   "Noun_" : [],
     };
 
-    // Push on blank on there, meaning blank part of speech will always be included
-    pos_list.push("");
 
     if(DEBUG==true) {
        console.log("pos_dictionary", pos_dictionary);
@@ -1889,6 +1893,9 @@ function filterWordData(pos_list) {
         if (key == 'Adjective_'){
           pos_dictionary['Adjective_1'].push('Adjective_');
 	}
+        if (key == 'Adjective'){
+          pos_dictionary['Adjective_1'].push('Adjective');
+	}
         if (key == 'Adjective_6'){
 	   pos_dictionary['Adjective_5'].push('Adjective_6');
 	}
@@ -1896,7 +1903,12 @@ function filterWordData(pos_list) {
            pos_dictionary['Noun_1'].push('Noun_');
         }
 
+        if (key == 'Noun'){
+           pos_dictionary['Noun_1'].push('Noun');
+        }
 
+        // Now we split things listed like "Pronoun, Adjective"
+        // and add "Pronoun, Adjective" to both "Pronoun" and "Adjective"
         // A regex that matches 1 or more commas and any number of spaces
         prop_list = key.split(/,+\s*/);
 	for (var j=0; j<prop_list.length; j++){
@@ -1905,7 +1917,7 @@ function filterWordData(pos_list) {
 	      pos_dictionary[prop].push(key);
            }
 	   else{
-               console.log("WARNING: Part of speech: ", prop, "from key: ", key, " is being added to CATCH_BAD which will always be displayed");
+               console.log("WARNING: Part of speech: '" + prop + "' from key: '" + key + "' is being added to CATCH_BAD which will always be displayed");
                console.log("See instuctions at this line in main.js")
                /* Basically, there is a lot of weird POS data that you
                 * can't make any assumptions about. You can 'tie' the
@@ -1913,11 +1925,17 @@ function filterWordData(pos_list) {
                 * a real one in pos_dictionary.
                 * For example, if "Noun_" is being caught by catch bad
                 * (1) Make a note of how many items are currently being returned in the search as indicated AT THE BOTTOM OF THE PAGE
-                      The top return number sometimes fibs
+                      because the top return number sometimes fibs
                 * (2) Add the bad POS ("Noun_") to the if statements above, and push it onto the pos we want to tie to (I chose Noun_1, but ask Bret).
                 * (3) In the initial pos_dictionary definition, add the bas pos ("Noun_")
                 * (4) Check to make sure the warning isn't diplayed and the number of items being returned is the same 
+                  
+                * SIDE RELATED TIP: sometimes, there are non-english characters in the POS that look
+                * TOTALLY NORMAL. For instance 'Αdjective' != 'Adjective'. So if it is not finding something in the POS_dictionary that
+                * you clearly of just put in the dictionary, you probably have this sort of problem on your hands.
+                * What should you do? Probably just complain on the Bridge Slack channel (politely).
                 */
+ 
 
                pos_dictionary['CATCH_BAD'].push(key) 
            }
@@ -1929,6 +1947,9 @@ function filterWordData(pos_list) {
       console.log(pos_dictionary, "POS_DICT");
     }
     // pos_dictionary now complete
+
+    console.log("pos_list (things to be displayed)", pos_list);
+
 
     // modified should probably be called added
     var modified = {}; // modified: tracks the things we have already changed so we don't double add
@@ -1952,13 +1973,19 @@ function filterWordData(pos_list) {
 	   // so I switched it, but here is the line a removed
            // pos_list.splice(key_index,1); //rm that key from pos_list
         }
+        else {
+            if (DEBUG == true){
+                console.log("WARNING: Not displaying", key, "(this might be expected)");
+            }
+        }
     }
+    // We separately add all the things in CATCH_BAD
     for(var j=0; j<pos_dictionary['CATCH_BAD'].length; j++){
         var prop = pos_dictionary['CATCH_BAD'][j];
         if (modified[prop] == undefined){
 	   modified[prop] = true;
 	   if (DEBUG == true){
-              console.log(prop, "POS added to data");
+              console.log(prop, "POS added to data (but it was in CATCH_BAD)");
            }
 
            words_data_filtered = words_data_filtered.concat(words_data[prop]);
