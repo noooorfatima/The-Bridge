@@ -39,7 +39,7 @@ class Command(BaseCommand):
 			the_title = data_dict2[index]['TITLE']
 			if lang == "Latin":
 				try:
-					print the_title
+					print "the_title in update_page Latin", the_title
 					word_id=WordPropertyLatin.objects.get(title=the_title).id
 				except:
 					print "exception: %s" % the_title
@@ -55,8 +55,8 @@ class Command(BaseCommand):
 				except:
 					print "exception: %s" % the_title
 					pass
-				data_dict2[index]['word_id']=word_id
-				index = index + 1
+			data_dict2[index]['word_id']=word_id
+			index = index + 1
 
 
 		new_headers2 = ['word_id'] + headers

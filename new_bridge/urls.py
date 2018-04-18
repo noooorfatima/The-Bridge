@@ -4,6 +4,8 @@ from django.views.generic import RedirectView
 from django.contrib import admin
 admin.autodiscover()
 from new_bridge import views
+from lemmatizer import views as lemviews
+
 
 urlpatterns = patterns('',
     # Examples:
@@ -19,5 +21,9 @@ urlpatterns = patterns('',
     #url(r'^help$', views.HelpView.as_view(), name='help'),
     #url(r'^contact$', views.ContactView.as_view(), name='contact'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'lemmatizer/', lemviews.lemmatizer, name='lemmatizer'), 
+    url(r'lemmatized', lemviews.lemmatizer, name='lematized'),
+    url(r'format/', lemviews.formatlemmatizedtext, name='format'),
+    url(r'formatted/', lemviews.formatlemmatizedtext, name='formatted'),
 )
 

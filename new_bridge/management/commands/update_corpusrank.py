@@ -4,7 +4,10 @@ from django.core.management.base import BaseCommand, CommandError
 from new_bridge.models import *
 import sys
 import os
+import mysql.connector
 
+cnx = mysql.connector.connect(user='bridge_db', password='Zoeisadog370Lancaster', host='127.0.0.1', database='bridge')
+cursor = cnx.cursor(buffered=True)
 
 #from new_bridge.models import *
 #import pandas as pd

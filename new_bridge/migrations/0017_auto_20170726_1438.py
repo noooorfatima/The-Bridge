@@ -11,16 +11,4 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='wordpropertygreek',
-            name='logeion_url',
-            field=models.URLField(null=True, blank=True),
-            preserve_default=True,
-        ),
-        migrations.AddField(
-            model_name='wordpropertylatin',
-            name='logeion_url',
-            field=models.URLField(null=True, blank=True),
-            preserve_default=True,
-        ),
     ]

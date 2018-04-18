@@ -187,7 +187,7 @@ def loc_cmp(loc1, loc2):
                 
             return 0
         except:
-            print "ERROR!"
+            print "ERROR! (line 190)"
             print loc1,'\t',loc2
             return 1
     elif len(loc1)<len(loc2):
@@ -203,7 +203,7 @@ def loc_cmp(loc1, loc2):
             #This is what is different from above    
             return -1
         except:
-            print "ERROR!"
+            print "ERROR! (line 206)"
             print loc1,'\t',loc2
             return 1
 
@@ -220,7 +220,7 @@ def loc_cmp(loc1, loc2):
             #This is what is different from above    
             return 1
         except:
-            print "ERROR!"
+            print "ERROR! (line 223)"
             print loc1,'\t',loc2
             return 1
        

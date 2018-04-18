@@ -20,9 +20,9 @@ PROJECT_ROOT = os.path.abspath(os.path.dirname(__name__))
 SECRET_KEY = 'ov6veryafbbfnd%o!jr@^u+uwgs2*68rn$mvx74$mco_4+mrp^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'new_bridge',
+    'lemmatizer',	
 )
 
 MIDDLEWARE_CLASSES = (
@@ -82,8 +83,8 @@ DATABASES = {
          #   NAME changed too
             #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
            # 'OPTIONS': {'charset': 'utf8mb4'},
-            'USER': 'root',
-            'PASSWORD': 'safari77',
+            'USER': 'bridge_db',
+            'PASSWORD': 'Zoeisadog370Lancaster',
             'HOST': 'localhost',
             'PORT': ''  }
       # 'default': {
