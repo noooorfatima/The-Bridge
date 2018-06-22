@@ -1,0 +1,1773 @@
+/*html,body {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
+}*/
+
+html {
+  background-color: #07325C;
+  background: url(images/bg.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background: cover;
+  -o-background-size: cover;
+  background-size: 100%;
+  overflow: auto;
+  height: 100%;
+  min-height: 500px;
+}
+
+@media screen and (min-height: 1000px) {
+    html {
+        height: 100%;
+    }
+}
+
+body {
+  background-color: #F1F1F1;
+  margin: 0px;
+  overflow: auto;
+  padding: 0px;
+  font-size: 18px;
+ /* line-height: 35px;*/
+  width: 100%;
+  height: 100%;
+  vertical-align: baseline;
+  line-height: 25px;
+}
+
+#background.custom-background {
+  background-image: url("http://iris.haverford.edu/bridge/files/2015/10/Pont_du_Gard_BLS-11.jpg");
+  background-repeat: no-repeat;
+  background-position: center top !important;
+  background-size: cover;
+  background-attachment: fixed !important;
+  height: 100%;
+
+}
+
+@media screen and (min-width: 860px) {
+  #background.custom-background {
+  padding: 69px;
+}
+}
+
+#background.wordspage-background {
+  background-image: url("http://iris.haverford.edu/bridge/files/2015/10/Pont_du_Gard_BLS-11.jpg");
+  background-repeat: no-repeat;
+  background-position: center top !important;
+  background-size: inherit;
+  background-attachment: fixed !important;
+  min-height: 100%;
+}
+
+.preloader {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right:0px;
+  bottom: 0px;
+  background-color: #FEFEFE;
+  z-index: 99999;
+  height: 100%;
+  width:100%;
+  overflow: hidden !important;
+}
+
+img.bg {
+  min-height: 100%;
+  min-width: 1024px;
+  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.img-responsive {
+  display: block;
+  width: auto;
+  height: auto;
+
+}
+
+.home-header-wrap {
+overflow: hidden;
+position: relative;
+}
+
+.header-content-wrap {
+background: rgba (0,0,0,0,0.5) none repeat scroll 0% 0%;
+position: relative;
+box-shadow: 0px 5px 11px 0px rgba(50,50,50,0.08);
+padding: 285px 0px 210px;
+}
+
+.masthead{
+    height: 168px;
+    background-color:#07325C;
+    /*background-image: url("/static/images/BridgeLogo.png");*/
+    background-repeat:no-repeat;
+}
+
+.masthead img {
+   padding: 20px;
+   padding-bottom: 0px;
+}
+
+@media print {
+body * {
+  display:none;
+        }
+
+body .printable {
+  display:inline;
+        }
+      }
+
+.status{
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background-image: url("images/loading.gif");
+  background-repeat: no-repeat;
+  background-position: center center;
+  margin: -100px 0px 0px -100px;
+}
+
+.blog{
+  min-height: 175px;
+  position: relative;
+  overflow: hidden;
+}
+.container {
+  width: 1170px;
+  background: white;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.nav {
+list-style: outside none none;
+}
+
+.navbar-nav>li{
+  /* FOR A VERTICAL LIST float:none;*/
+
+  position: relative;
+  display: block;
+}
+
+.navbar {
+  background-color: white;
+  border: none;
+  text-align: left;
+  margin-bottom: 0px;
+}
+
+div.navbar.navbar-default::before {
+  color: black!important;
+  font-size: 16px;
+}
+
+.navbar-nav li a {
+  color: black !important;
+}
+
+.navbar-header {
+  height: 100px;
+  margin-right: 0px;
+  margin-left: 0px;
+  float: left;
+}
+
+.navbar-brand {
+  padding: 7px 15px;
+  position: relative;
+  line-height: 60px;
+  display: inline-block;
+
+
+}
+
+.navbar-inverse.navbar-nav {
+  padding: 0px;
+  line-height: 35px;
+  margin-left: 0px;
+}
+
+.navbar-nav.navbar-right:last-child {
+  margin-right: -15px;;
+}
+
+.navbar-right {
+  float: right !important;
+  /*background-color: black !important;*/
+}
+
+.navbar-collapse.collapse {
+  display: block !important;
+  height: auto !important;
+  padding-bottom: 0px;
+  overflow: visible !important;
+}
+
+.navbar-collapse {
+  width: auto;
+  border-top: 0px none;
+  box-shadow: none;
+  max-height: 340px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.navbar-toggle.collapsed{
+  background-color: #808080 !important;
+}
+
+.navbar-inverse.navbar-toggle{
+  border-color: #333;
+}
+
+.navbar-toggle{
+  display: none;
+  position: relative;
+  float:right;
+  margin-right:15px;
+  padding:9px 10px;
+  margin-bottom: 8px;
+  background-image: none;
+  border-radius: 4px;
+  border: 0px none;
+  margin-top:23px;
+}
+
+
+	.toggle-container .btn-group {
+width: 40%;
+min-width: 200px;
+/*Changing padding currently has no effect*/
+/*Changing idsplay to block doesn't do anything either*/
+/*changing width here doesn't change width of buttons*/
+	}
+
+
+#nav_stripe {
+  background-color: #0A0A0A;
+  height: 8px;
+  width:100%;
+}
+
+#banner {
+  height: 8%;
+  width: 100%;
+  background-color: #07325C;
+  font-family: Georgia, serif;
+  text-align: center;
+  vertical-align: middle;
+  margin-top: 0%;
+  margin-bottom: 0%;
+}
+
+#banner img {
+  padding: 30px;
+  margin-bottom: 0%;
+}
+
+#navbar{
+  width:100%;
+  margin-top:0%;
+  margin-bottom:30px;
+  background-color: ;
+  height: 80px;
+  cursor: pointer;
+}
+
+button {
+text-align: center;
+text-transform: uppercase;
+margin: 10px;
+box-shadow: none;
+text-shadow: none;
+font-weight: 400;
+vertical-align: middle;
+cursor: pointer;
+color: #040404;
+white-space: nowrap;
+font-size: 14px;
+line-height: 1.5;
+overflow: visible;
+font: inherit;
+}
+
+.red-btn {
+color: #FFF;
+background: #E96656 !important;
+}
+
+.green-btn {
+color: #FFF;
+background: #1E9E6B !important;
+text-align: center;
+vertical-align: middle;
+margin: 10px;
+border-radius: 4px;
+}
+
+.custom-button {
+display: inline-block !important;
+text-align: center;
+text-transform: uppercase;
+padding: 13px 35px;
+border-radius: 4px;
+margin: 10px;
+border: medium none;
+}
+
+.sr-only {
+position: absolute;
+width: 1px;
+height: 1px;
+margin: -1px;
+padding: 0px;
+overflow: hidden;
+clip: rect(0px, 0px, 0px, 0px);
+border: 0px none;
+}
+
+span {
+font-size: 16px;
+font-style: inherit;
+font-weight: inherit;
+vertical-align: baseline;
+}
+
+/*----Menu----*/
+@media screen and (min-width: 860px) {
+.menu {
+width: 100%;
+padding: 10px 18px;
+box-shadow: 0px 1px 1px rgba (0,0,0,0.15);
+border-radius: 3px;
+background: #303030;
+}
+}
+
+.menu ul {
+display: inline-block;
+}
+
+.menu li {
+margin: 0px 50px 0px 0px;
+float: left;
+list-style: none;
+font-size: 17px;
+}
+
+.menu li:last-child {
+margin-right: 0px;
+}
+
+.menu a {
+text-shadow: 0px 1px 0px rgba(0,0,0,0.5);
+color:#777;
+transition:color linear 0.15s;
+}
+
+.glyphicon {
+color: black;
+}
+
+.kwick1 {
+color: black;
+line-height: 35px;
+font-size: 16px;
+}
+
+.kwick2 {
+color: black;
+line-height: 35px;
+font-size: 16px;
+}
+
+.kwick3 {
+color: black;
+line-height: 35px;
+font-size: 16px;
+}
+
+
+.kwicks {
+ width:100%;
+ position:relative;
+ height: 60px;
+ margin:0px;
+ padding:0px;
+ margin-bottom:10px;
+ }
+
+ .kwicks > a {
+ position:relative;
+ display:inline-block;
+ white-space:nowrap;
+ color:white;
+ padding-top:20px;
+ padding-bottom:20px;
+ text-align:center;
+ /* overridden by kwicks but good for when JavaScript is disabled */
+ width:20%;
+ margin:0px;
+ float: center;
+ border-right:1px solid #134D00;
+ background-color: #30688D;
+ /*30688D*/
+ font-family: arial;
+ font-variant: small-caps;
+ font-size:larger;
+ }
+
+/*.kwicks > a:hover {
+background-color: #457798;
+}*/
+
+
+.overlay-about{
+    background:rgba(0,0,0,0.6);
+    position:fixed;
+    overflow: auto;
+    height: auto;
+    top:0px;
+    bottom:0px;
+    left:0px;
+    right:0px;
+    z-index:100;
+}
+
+#about_content {
+   //overflow-y:scroll;
+   //height: 600px;
+   font-size: 14px;
+}
+
+#about_content a {
+   font-size: 14px;
+}
+
+#about_content p {
+   font-size: 14px;
+}
+
+#about_content th {
+   margin-bottom:2px;
+   text-align: center;
+}
+
+#about_content table {
+   width: 85%;
+   margin: auto;
+}
+
+#about_content table td {
+   padding-left: 10px;
+   padding-right: 10px;
+   margin: 0px;
+}
+
+#about_content table h3 {
+   text-align: center;
+   margin: 0px;
+}
+
+#tutorial_video {
+   margin: 0 auto;
+}
+
+.box-about{
+    position:fixed;
+    display: inline-block;
+    width: 1000px;
+    height: 700px;
+    top:-200px;
+    left:25%;
+    right:30%;
+    background-color:#fff;
+    color:#7F7F7F;
+    padding:20px;
+    border:2px solid #6393A9;
+    /* For Firefox users*/
+    border-radius: 20px 20px 20px 20px;
+    /*For other browsers */
+    -webkit-border-radius:20px;
+    -khtml-border-radius:20px;
+    -moz-box-shadow: 0 1px 5px #333;
+    -webkit-box-shadow: 0 1px 5px #333;
+    z-index:101;
+}
+
+.box-about p {
+    padding: 20px;
+}
+
+a.boxclose-about{
+    float:right;
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    margin-top:-30px;
+    margin-right:-30px;
+    cursor:pointer;
+    padding: 1%;
+    background-color: #F1F1F1;
+    text-align: center;
+}
+
+.box-about h1{
+    border-bottom: 1px solid #7F7F7F;
+    margin:-20px -20px 0px -20px;
+    padding:10px;
+    background-color: #6393A9;
+    color: #FFFFFF;
+    font-family: Georgia, serif;
+    /* For Firefox users */
+    border-radius:20px 20px 0px 0px;
+    /* For other browsers */
+    -webkit-border-top-left-radius: 20px;
+    -webkit-border-top-right-radius: 20px;
+    -khtml-border-top-left-radius: 20px;
+    -khtml-border-top-right-radius: 20px;
+}
+
+/* Textlist */
+
+#textlist {
+    height: 150px;
+    margin: auto;
+    margin-bottom: 20px;
+    background-color: #F8F8F8;
+}
+.toggle-container .btn {
+    font-family: Sans-serif, Georgia;
+    font-size: 1.5em;
+    padding: 1px 8px 1px 8px;
+    width: 50%;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#core_tip {
+   padding: 10px;
+   margin: auto;
+   margin-top: 10px;
+   margin-bottom: 10px;
+   border-color: #E69C53;
+   background-color: #E69C53;
+   text-align: left;
+}
+
+.popover {
+   min-width: 350px;
+   height: auto;
+   padding: 5px;
+   margin-left: 200px !important;
+}
+
+#core_selection_tip_img {
+   width: 300px;
+}
+
+.popover-content ul {
+   padding: 0;
+}
+
+#other_tip {
+   padding: 10px;
+   margin: auto;
+   margin-top: 10px;
+   margin-bottom: 10px;
+   border-color: #E69C53;
+   background-color: #E69C53;
+}
+
+/*#text_selection {
+    display: none;
+    margin-bottom: 0px;
+    text-align: center;
+}
+
+#text_selection .input-group-container {
+    display: inline-block;
+    max-width: 200px;
+    margin: 8px 3px 0px 3px;
+}
+*/
+.text_selection_box {
+    text-align: center;
+}
+
+.text_selection_box h1 {
+    font-family: Georgia, serif;
+    color: #07325C;
+}
+
+.popover{
+    display: block;
+}
+
+/* Booklist */
+
+.panel {
+   padding: 0px;
+}
+
+#include_or_exclude .btn-group {
+    margin-bottom: 10px;
+}
+#include_or_exclude .btn {
+    background-color: #E1E1E1;
+    border: 1px solid black;
+    color: black;
+}
+#include_or_exclude .btn.active {
+    background-color: gray;
+    color: white;
+}
+.exclude_selection_box {
+    padding-top: 15px;
+    padding-bottom: 60px;
+    text-align: center;
+    overflow: auto;
+    height: auto;
+}
+
+.exclude_selection_box h1 {
+    font-family: Georgia, serif;
+    color: #07325C;
+}
+
+#all_or_selection .btn {
+    background-color: #E1E1E1;
+    border: 1px solid black;
+    color: black;
+}
+#all_or_selection .btn.active {
+    background-color: gray;
+    color: white;
+}
+}
+.book_container {
+    border: 1px solid #ccc;
+    height: 150px;
+    overflow-y: scroll;
+    padding-left: 2%;
+    text-align: left;
+    background-color: #f8f8f8;
+}
+
+.left{
+   margin-left: 0px !important;
+   margin-left: -200px !important;
+}
+
+.latinbookthumb {
+    min-width: 220px;
+}
+
+.greekbookthumb {
+    min-width: 220px;
+}
+
+.thumbnail {
+    padding:3px;
+}
+
+.range-select-toggle {
+    display: none;
+    padding: 5px 5px 0px 5px;
+}
+
+.range-select-toggle .btn-group{
+    width: 90%;
+    margin-top: 2px;
+}
+
+.range-select-toggle .btn {
+    font-family: Sans-serif, Georgia;
+    font-size: 1.25em;
+    line-height: 100%;
+    width: 50%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background-color: #E1E1E1;
+    color:black;
+    border-color: black;
+}
+
+.range-select-toggle .btn.active {
+    background-color: gray;
+    color: white;
+
+}
+
+.range-select-toggle .btn:active:focus,
+.range-select-toggle .btn:active:hover,
+.range-select-toggle .btn:active:focus:hover {
+background-color: gray;
+
+}
+
+
+.range_select_box {
+    display : none;
+    padding: 0px 2px 0px 2px;
+}
+
+.range_select_box .input-group-container {
+    display: inline-block;
+    width: 51%;
+    min-width: 162px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+
+.range_select_box input {
+    text-align: center;
+}
+
+#booklist_notes {
+   margin-top: 20px;
+   padding-bottom: 5px;
+}
+
+#booklist_note_button {
+   background-color: #E69C53;
+   border-color: #E69C53;
+   margin: 5px;
+   margin-bottom: 15px;
+}
+
+#remove_add_container {
+   border: 1px solid #ccc;
+   background-color: #f8f8f8;
+   margin-bottom:5%;
+   margin-top: 2%;
+   padding:2%;
+}
+
+#checkbox_inputs {
+    float:right;
+    margin: auto;
+}
+
+#giant_form {
+   margin-top: 50px;
+}
+
+
+/* Submit Button on Textlist Page */
+#giant_form_submit {
+    background-color: gray;
+    color: white;
+    display: block;
+    margin: 5px auto 20px;;
+    font-family: arial narrow;
+    padding-bottom: 10px;
+}
+
+.alert {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+#big_wrap {
+   width: 100%;
+   height: auto;
+}
+
+/* fixes sidebar to fit in generated pages */
+#big_wrap .row {
+  margin-right: 0;
+  margin-left: 0;
+}
+#big_wrap .row .col-lg-4.col-lg-push-8 {
+  left: 60%;
+}
+
+.hidden {
+   display: none;
+}
+
+/* Definitions Filter */
+.container1 h2 {
+   text-align: center;
+   font-family: Georgia, serif;
+}
+
+/* Parts of Speech Filter*/
+.container2 h2 {
+    text-align: center;
+    font-family: Georgia, Serif;
+}
+
+.container2_greek h2 {
+    text-align: center;
+    font-family: Georgia, Serif;
+}
+
+
+/* Special Words Filter */
+.container3 h2 {
+   text-align: center;
+   font-family: Georgia, Serif;
+}
+
+.container3_greek h2 {
+   text-align: center;
+   font-family: Georgia, Serif;
+}
+
+/* Back to Top Button */
+#back_to_top {
+   display: block;
+   margin: 0 auto;
+   color: black;
+}
+
+/* Greek or Latin Buttons */
+
+.button-holder {
+   text-align: center; /* ...deal with it */
+}
+
+.button-holder > .btn {
+    display: inline-block;
+}
+
+.panel {
+   padding-left: 0px;
+   padding-right: 0px;
+}
+
+.btn-xlarge {
+    padding: 0px;
+    height: 103px;
+    width: 195px;
+    font-size: 35px;
+    border-width: 0px;
+    line-height: normal;
+    -webkit-border-radius: 8px;
+       -moz-border-radius: 8px;
+            border-radius: 8px;
+}
+
+
+
+
+#welcome_blurb h3 {
+   font-family: Georgia, serif;
+   color:#07325C;
+   text-align: center;
+}
+
+#welcome_blurb p {
+   text-align: justify;
+}
+
+#select_a_language {
+   margin-top: 2%;
+   margin-bottom:40px;
+   font-family: Georgia, serif;
+}
+
+#latin {
+    background-color: #457798;
+    margin: 10px;
+}
+
+#greek {
+   background-color: #457798;
+   margin: 10px;
+}
+
+.ex {
+    text-align: center;
+    padding: 30px;
+    background: #FFFFFF;
+    padding-bottom: 50px;
+}
+
+
+/* Accordion form stuff: */
+
+#accordion {
+    margin-bottom:0px;
+}
+
+.panel-heading .row {
+    text-align: center;
+    white-space: pre-line;
+    line-height: 0;
+}
+
+.panel-heading .row  * {
+   font-family: Sans-serif, Georgia;
+   font-size: 1.4em;
+   white-space: nowrap;
+   overflow: hidden;
+   display: inline-block;
+}
+
+.panel-title {
+    display: inline-block;
+    line-height: 1.5em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    margin-left: 10px;
+    max-width: 95%;
+    color: black;
+}
+
+.panel-contents {
+    margin-right: 5px;
+    line-height: 1.5em;
+    border: 1px solid #428BCA;
+    border-radius: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: #428BCA;
+    float: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 95%;
+}
+
+#headingOne .panel-contents {
+    display: none;
+}
+
+#headingTwo .panel-contents {
+    display: none;
+}
+
+#headingThree .panel-contents {
+    display: none;
+}
+
+.panel-body {
+line-height: 15px;
+font-size: 14px;
+padding: 15px;
+padding-top: 0px;
+padding-bottom: 10px;
+height: auto;
+}
+
+.pos-toggle-box {
+  font-size: 18px;
+}
+
+.pos-toggle-box label {
+  padding:5px;
+}
+
+#headingOne {
+    background-color: #07325C;
+    color: #F1F1F1;
+    font-weight: "bold";
+}
+
+.panel-toggle {
+   float: none;
+   line-height: 100%;
+}
+
+#headingThree .panel-contents {
+    white-space: pre-wrap;
+    float: none;
+}
+
+/* Styles for book thumbnails on very narrow screens: */
+@media
+screen and (max-width: 441px) {
+    .latinbookthumb {
+        width: 100%;
+    }
+    .greekbookthumb {
+        width: 100%;
+    }
+  }
+
+
+/* Styles for medium-sized screens: */
+@media
+screen and (min-width: 635px){
+    /* ONLY panel-contents can wrap to own line.
+     * panel-contents ONLY GETS ONE LINE.
+     * #headingTwo .panel-contents is INLINE.
+     */
+   #headingTwo .panel-title {
+       float: left;
+       max-width: 47%;
+   }
+
+   #headingOne .panel-title {
+       float: left;
+       max-width: 80%;
+   }
+
+   #headingThree .panel-toggle {
+       float: left;
+       max-width: 240px;
+   }
+
+  #headingThree .panel-title {
+       float: left;
+       max-width: 100%;
+       padding-left: 5px;
+   }
+
+   #headingThree .panel-contents {
+       float: right;
+   }
+
+
+   #headingOne .panel-contents {
+       float: right;
+       max-width: 50%;
+       white-space: nowrap;
+       overflow: hidden;
+       text-overflow: ellipsis;
+   }
+
+   #headingTwo .panel-contents {
+       float: right;
+       max-width: 50%;
+       white-space: nowrap;
+       overflow: hidden;
+       text-overflow: ellipsis;
+   }
+}
+
+
+/* Styles for larger screens: */
+@media
+screen and (min-width: 900px){
+    /* EVERYTHING on ONE LINE */
+    .panel-heading .row {
+        text-align: left;
+        white-space: normal;
+        line-height: normal;
+    }
+   .panel-title {
+       float: left;
+   }
+
+   .panel-toggle {
+       float: left;
+   }
+
+   .panel-contents {
+        float: right;
+   }
+
+   #headingThree .panel-contents {
+        float: right;
+   }
+
+}
+
+/*making changes to headingThree*/
+
+/*#headingThree {
+   position: sticky;
+   top: 0px;
+   z-index: 10000;
+}*/
+
+/* Read-book select stuff: */
+button > div {
+    padding: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/*============================ WORDS_PAGE STYLES: =============================*/
+
+.word-load-alert {
+    text-align: center;
+}
+
+#word_load_success {
+    display: none;
+}
+
+#slideout-container {
+    position: fixed;
+    z-index: 90;
+    width: 360px;
+    height: 723px;
+    top: 0px;
+    right: 0px;
+    overflow: hidden;
+    overflow-y: hidden;
+}
+
+#slideout-pulltab {
+    position: fixed;
+    top: 50%;
+    display: table;
+    width: 35px;
+    height: 125px;
+    right: 0;
+    z-index: 100;
+    border: 1px solid #7B7B7B;
+    border-right: none;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    background: #7B7B7B;
+    cursor: pointer;
+    box-shadow: -3px 0px 7px rgb(171, 170, 170);
+}
+#slideout-pulltab:hover {
+    background: #8FA8B4;
+}
+
+#slideout-pulltab > div{
+    display: table-cell;
+    vertical-align: middle;
+    text-align:center;
+}
+
+#slideout-pulltab > div > div {
+    display: block;
+    line-height: 38px;
+    font-family: arial;
+    font-variant: small-caps;
+    font-weight: bold;
+}
+
+#slideout-panel {
+    position: absolute;
+    right: -300px;
+    width: 300px;
+    z-index: 99;
+    box-shadow: -2px -2px 7px rgb(123, 123, 123);
+}
+
+#slideout-panel > .panel {
+    width: 100%;
+    margin-bottom: 0px;
+    border-radius: 0px;
+}
+
+#slideout-panel > .panel > *{
+    border-radius: 0px;
+    padding-left: 10px;
+    padding-right: 5px;
+    padding-top: 10px;
+}
+
+#slideout-panel .panel-body {
+    text-align: center;
+    padding: 0px 10px;
+    padding-bottom:5px;
+}
+
+#filters_panel_body {
+    padding-bottom: 10px;
+}
+
+#export_panel {
+    border-bottom: none;
+}
+
+#export_panel_body .btn-group {
+    margin: 10px 0px;
+}
+
+#filters_panel h3 {
+    margin: 5px;
+    margin-left: 0px;
+}
+
+#filters_panel h1 {
+    font-size: 200%;
+    font-family: Georgia, serif;
+    color: #07325C;
+}
+
+#filters_panel hr {
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+
+#filters_panel .btn-group {
+    display: block;
+}
+
+#filters_panel .btn-group .btn {
+    width: 33%;
+}
+
+#filters_panel .binary-toggle .btn {
+    width: 49%;
+}
+
+.toggleAll_container {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.toggleAll {
+    width: 80%;
+}
+
+.checkdiv {
+    display: inline-block;
+    background-color: #E1E1E1;
+    border: 1px solid black;
+    border-radius: 4px;
+    line-height: 27px;
+    margin-top: 3px;
+    width: 58%;
+    text-align: center;
+}
+
+/*.checkdiv-wide {
+    width: 100%;
+}*/
+
+.checkdiv-checkbox {
+    display: inline-block;
+    background-color: #808080;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    width: 28px;
+    text-align: center;
+    float: left;
+}
+
+.checkdiv .glyphicon {
+    visibility: visible;
+    color: #F1F1F1;
+    font-size: 1.25em;
+    vertical-align: -1px;
+}
+.checkdiv .glyphicon:hover {
+    cursor: default;
+}
+
+.checkdiv .glyphicon-info-sign {
+    color: #747474;
+    margin-left: 2px;
+}
+
+.checkdiv-label {
+    display: inline-block;
+    color: #000;
+    text-align: center;
+}
+.checkdiv-label:hover {
+    cursor: default;
+}
+
+.pos-toggle-box {
+    display: inline-block;
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 4px;
+    text-align: center;
+    padding: 2px;
+}
+.toggleAll {
+  background-color:#808080;
+}
+.pos-toggle-box .btn-group {
+    margin-top: 0px;
+}
+
+.pos-toggle-box > label {
+    margin-bottom: 0px;
+}
+
+.pos-toggle-box .btn {
+    background-color: #E1E1E1;
+    color: #000;
+    border: 1px solid black;
+}
+.pos-toggle-box .btn.active {
+    background-color:#808080;
+    color: #FFF;
+}
+
+.def-toggle-box .btn {
+    background-color: #E1E1E1;
+    color: #000;
+}
+.def-toggle-box .btn.active {
+    background-color: #337AB7;
+    color: #FFF;
+}
+
+.pos-subcategory-box {
+    display: none;
+    padding: 3px 22px;
+    text-align: center;
+}
+
+.pos-subcategory-box > .checkdiv {
+    height: 55px;
+}
+
+#words_generated_length select {
+    min-width: 60px;
+}
+
+#words_generated_div {
+    display: none;
+    background-color: white;
+    padding-top: 20px;
+}
+#words_generated::-webkit-scrollbar {
+    display: none;
+}
+
+#loading_gif {
+    display: none;
+    margin: 0 auto;
+}
+
+.colFilters_container {
+    margin-bottom: 10px;
+}
+
+.colFilters_container .btn-group-vertical {
+   width: 210px;
+}
+
+.col-toggle-box .btn {
+    border: 1px solid black;
+    text-align: center;
+    color: #000;
+    background-color: #E1E1E1;
+}
+.col-toggle-box .btn.active {
+    background-color: gray;
+    color: #FFF;
+}
+
+
+/*============================== Sticky footer: ===============================*/
+* {
+  margin: 0;
+}
+html, body {
+}
+
+.page-wrap {
+  min-height: 0%;
+  /* equal to footer height */
+  margin-bottom: 0px;
+  height: auto;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.page-wrap::-webkit-scrollbar {
+  display: none;
+}
+
+.page-wrap:after {
+  content: "";
+  display: block;
+}
+.site-footer, .page-wrap:after {
+  /* .push must be the same height as footer */
+  height: 70px;
+  width: 100%;
+  margin: auto;
+}
+.site-footer {
+  margin-top: 20px;
+  background: black;
+  line-height: 25px;
+  position:fixed;
+  bottom:0;
+  z-index: 10000000; /*make it in front with some big number*/
+}
+/* UNRESOLVED ISSUE: Image sizing
+ * difficulties in manipulating the size of the following
+ * three images relative to the window width. These
+ * diffculties lead to not only an overflow in the first column, but
+ * also the pictures are way too small to be visible. */
+
+#DCC-logo {
+  margin-top: 5px;
+  height: 60px;
+  max-height: 60px;
+  min-width: 28px;
+  /*width: 20%;*/
+}
+
+#LASLA-logo {
+  margin-top: 5px;
+  height: 60px;
+  max-height: 60px;
+  min-width: 28px;
+  /*width: 20%;*/
+}
+
+#TriCoDH-logo {
+  margin-top: 5px;
+  height: 60px;
+  width: 98%;
+}
+
+#haverfordlogo img {
+  //display: block;
+  width: 140px;
+  //text-align: center;
+  margin-top: 0px;
+}
+
+#copyright {
+  display: block;
+  margin:auto;
+  font-size: 16px;
+}
+
+#email {
+  //float: right;
+  font-size: 50px;
+  color: white;
+  //margin-right: 200px;
+  margin-top: 10px;
+  height: 55px;
+  width: 55px;
+  cursor: pointer;
+  text-align: center;
+  position: relative;
+  top: 13px;
+}
+
+#twitter_link {
+  //float: right;
+  font-size: 35px;
+  color: #CC9900;
+  margin-right: 5px;
+  margin-top: 10px;
+  height: 46px;
+  width: 46px;
+  cursor: pointer;
+}
+
+#facebook_link {
+  //float: right;
+  font-size: 35px;
+  color: #CC9900;
+  //margin-right: 5px;
+  margin-top: 10px;
+  height: 46px;
+  width: 46px;
+  cursor: pointer;
+}
+
+
+
+ /* width: 46px;
+  cursor: pointer;
+}*/
+
+#twitter_link {
+  //float: right;
+  font-size: 35px;
+  color: #CC9900;
+  margin-right: 5px;
+  margin-top: 10px;
+  height: 46px;
+  width: 46px;
+  cursor: pointer;
+}
+
+#facebook_link {
+  //float: right;
+  font-size: 35px;
+  color: #CC9900;
+  //margin-right: 5px;
+  margin-top: 10px;
+  height: 46px;
+  width: 46px;
+  cursor: pointer;
+}
+
+.col-xs-12 {
+padding-top: 0px;
+}
+
+.col-sm-12 {
+padding-top:0px;
+}
+
+col-md-12{
+padding-top: 0px;
+}
+
+col-lg-12{
+padding-top: 0px;
+}
+
+/*#main-content *.section-title {
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);*/
+
+/*wordpress styles*/
+
+.intro-text {
+text-align: center;
+color: #FFF;
+line-height: 65px;
+z-index: 0;
+text-transform: uppercase;
+font-size: 55px;
+float: none;
+font-weight: 700;
+}
+
+#tabOne:hover {
+text-decoration: none;
+}
+
+#tabOne:focus {
+text-decoration: none;
+}
+.company-details {
+color: black;
+padding-top: 10px;
+padding-bottom: 10px;
+}
+
+.copyright {
+padding-top: 10px;
+padding-bottom: 10px;
+background: white none repeat scroll 0% 0%;
+}
+.export-table {
+  margin: 0px;
+}
+#tab_delim_export {
+  border-radius: 0px 4px 4px 0px;
+}
+
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover{
+  background-color: gray;
+  border-color: black;
+}
+
+/*Change all buttons to new color scheme on cliciks*/
+.btn-primary.active.focus,
+.btn-primary.active:focus,
+.btn-primary.active:hover,
+.btn-primary.focus:active,
+.btn-primary:active:focus,
+.btn-primary:active:hover,
+.open > .dropdown-toggle.btn-primary.focus,
+.open > .dropdown-toggle.btn-primary:focus,
+.open > .dropdown-toggle.btn-primary:hover {
+  background-color: gray;
+}
+
+.btn {
+  border-color: black;
+  margin: 0 auto;
+}
+
+.green-btn:hover {
+  background: #069059 !important;
+}
+.red-btn:hover {
+  background: #cb4332 !important;
+}
+
+.pagination > li > a, .pagination > li > span {
+  color: black;
+}
+
+.etc {
+font-size: 18px;
+}
+
+
+
+/* STYLES FOR FEEDBACK/EMAIL/CONTACT POP UP */
+input.feedback, textarea.feedback {
+    width:439px;
+    height:37px;
+    background:#efefef;
+    border:1px solid #dedede;
+    padding:10px;
+    margin-top:3px;
+    font-size:0.9em;
+    color:#3a3a3a;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+}
+
+textarea.feedback {
+	height:213px;
+}
+
+.feedback {
+    display:block;
+    margin:0 auto;
+    width:576px;
+    text-align: left;
+}
+
+label.feedback {
+    display:block;
+    margin-top:20px;
+    letter-spacing:2px;
+}
+
+input.feedback:focus, textarea.feedback:focus {
+    border:1px solid #97d6eb;
+}
+
+#submit-feedback {
+    width:127px;
+    height:38px;
+    border:none;
+    margin-top:20px;
+    cursor:pointer;
+}
+
+#submit-feedback:hover {
+    background-color: #c9c9c9;
+}
+
+
+
+/******************************************************
+FROM THIS LINE BELOW
+Contributor: Byron Biney, Swat '19;
+Began: 5/24/17;
+********************************************************/
+
+ /*================ Image Priorities in the footer ===============*/
+
+ /* Check-in: 5:01pm 5/25/17
+    eto... This ended up being more difficult than I expected it to be.
+    Very confused right now. A temporary fix at the moment is modifying
+    the widths of each image to a shockingly low percentage. But it doesn't look
+    the best. That is my current fix for the image priority issue.*/
+
+/* Check-in 1:49pm 5/26/17
+ * I think the best way to proceed for today is to attempt to prioritize
+ * the Haverford logo when the page's width goes below 420 px.*/
+
+
+/* Check-in 1:42pm 5/30/17
+ * Currently, everything's functional. When the width of the windo reaches 550px,
+ * then everything except for the Haverford logo disappears.
+ * This can be altered by changing max width: (int)px to something else.;
+ */
+ /*
+
+ /*========================================================
+ ==========================================================
+       Footer image resizing/repositioning solved (5/30/17)
+ ==========================================================
+ =========================================================*/
+
+ /*
+ @media (max-width: 767px) {
+     .p5.col-xs-4 {
+       padding: 0 5px;
+     }
+     .m5.row {
+        margin: 0 -5px;
+     }
+ }*/
+
+.col-centered{
+    margin: 0 auto;
+}
+
+ @media (max-width: 550px) {
+    #firstColumnFooter, img {
+       display: none;
+    }
+    .col-centered {
+      /* [INQUIRY]
+      * Originally "float: none" was supposed to be a part of .col-centered but ir
+      * prevented the third column from being visible at all. So I moved it here
+      * and now it works. I wonder why though.
+      */
+      float: none;
+    }
+
+    #thirdColumnFooter, img {
+      display: none;
+    }
+ }
+
+/*================ Resizing the text on textlist.html ===================*/
+/* a very small change tbh */
+ #resizetxt {
+    font-size: 18px;
+ }
+
+/*================= Changing Buttons */
+.type_of_txt_btn_group .btn {
+  width: 23%;
+  margin-bottom: 5px;
+}
+
+.checkdiv .glyphicon {
+  font-size: .95em;
+}
+
+.mini_text {
+   font-size: .7em;
+   font-weight: bold;
+}
+
+.book-type-row {
+   padding-left: 15px;
+}
+
+#excludePanelTitle {
+  white-space: normal;
+}
+
+#btns_all_or_select {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.btn .btn-primary {
+   padding: 6px 5px;
+}
+
+.btn-default {
+   padding: 6px 5px;
+}
+
+#dropDownDiv select {
+    font-size: 16px;
+}

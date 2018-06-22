@@ -1,0 +1,33 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<head>
+  
+  <!-- EXTERNAL resources: -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css"/>
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+  <script src="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css"></script>
+  <script src="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/tabletools/2.2.4/css/dataTables.tableTools.min.css"/>
+  <script src="https://cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.min.js"></script>
+  <script src="https://cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls_pdf.swf"></script>
+
+  <script src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.print.min.js"></script>
+  <script src="//cdn.datatables.net/plug-ins/1.10.15/api/column().title().js"></script>
+  <!-- LOCAL resources: -->
+  <link rel="stylesheet" type="text/css" href="{% static 'table.css' %}">
+  <script src="{% static 'swatches.js' %}"></script>
+  <link rel="stylesheet" type=text/css href="{% static 'swatches.css' %}">
+  <script src="{% static 'csrf_cookie.js' %}"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+  <script src="{% static 'spin.js' %}"> </script>
+  <script src="{% static 'main.js' %}"> </script>
+  <link rel="stylesheet" type="text/css" href="{% static 'icon_style.css' %}">
+  <meta charset="utf-8">
+  <!-- The following allows for the site to be more responsive on mobile screens -->
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+</head>

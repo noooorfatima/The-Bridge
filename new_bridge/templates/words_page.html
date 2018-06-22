@@ -1,0 +1,107 @@
+{% include 'head.html' %}
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+<title>The Bridge: Customizable Greek and Latin Vocabulary Lists</title>
+<body class = "home blog custom-background img-responsive" data-title="words_page">
+    {% include "navbar.html" %}
+    <div id="background" class = "custom-background img-responsive">
+    <div class="page-wrap">
+        <div class="alert alert-info word-load-alert" id="word_load_info" role="alert">
+            <strong> Loading vocab: </strong>{{ text_from_formatted}} {{ text_to_formatted }} of <em>{{ text }}</em>, {{ add_remove_formatted }}: {{ bookslist_formatted }}.
+        </div>
+        <div class="alert alert-success word-load-alert" id="word_load_success" role="alert">
+            <strong> Success! </strong>Your search generated <span></span> words.
+            <strong>Your selection: </strong>{{ text_from_formatted}} {{ text_to_formatted }} of <em>{{ text }}</em>, {{ add_remove_formatted }}: <em>{{ bookslist_formatted }}</em>.
+        </div>
+        <div class="alert alert-danger word-load-alert" id="word_load_failure" role="alert" style="display: none;">
+           <strong> Error! </strong>Failure to find your selection {{ text_from_formatted}} {{text_to_formatted}} of <em>{{ text }}</em> within The Bridge database. Please try again.
+        </div>
+        <!--img id="loading_gif" src="/static/images/loading.gif"-->
+        <div id="slideout-container" data-stowed=true style="width: 360px; overflow-y: scroll;">
+            <div id="slideout-pulltab" style="right: 313px;">
+                <div>
+                    <div>
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </div>
+                    <!--div>
+                        filters
+                    </div-->
+                    <div>
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </div>
+                </div>
+            </div>
+            <div id="slideout-panel" data-state="stowed" style="right: 0px;">
+                {% include "slideout_panel.html" %}
+            </div>
+        </div>
+        <div id="big_wrap">
+            <div class="row">
+                <div id="words_generated_div" class="table-wrapper table-responsive col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3 col-lg-9 col-lg-offset-5 col-lg-pull-4">
+                    <table class="table table-striped table-hover table-condensed" name="words_generated" id="words_generated" style="width: 100%;">
+                        {% if language == "greek" %}
+                        <thead>
+                            <tr>
+                                <th class="lemma" data-fieldname='display_lemma' data-fieldtype='Dictionary Entry' data-radio=true data-visible=true>Dictionary Entry</th>
+                                <th class="lemma" data-fieldname='search_lemma' data-fieldtype='Dictionary Entry' data-radio=true data-visible=false>No Diacriticals (For Sorting)</th>
+                                {% if loc_def %}
+                                <th class="def" data-fieldname='english_definition' data-fieldtype='Definitions' data-radio=true data-visible=false>English Definition</th>
+                                <th class="def" data-fieldname='logeion_def' data-fieldtype='Definitions' data-radio=true data-visible=false>Logeion Definition</th>
+                                <th class="def" data-fieldname='local_def' data-fieldtype='Definitions' data-radio=true data-visible=true>Text-Specific</th>
+                                <!--<th class="def" data-fieldname='search_lemma' data-fieldtype='Definitions' data-radio=true data-visible=false>Accentless Words</th>-->
+                                {% else %}
+                                <th class="def" data-fieldname='english_definition' data-fieldtype='Definitions' data-radio=true data-visible=true>English Definition</th>
+                                <th class="def" data-fieldname='logeion_def' data-fieldtype='Definitions' data-radio=true data-visible=false>Logeion Definition</th>
+                                <!--<th class="def" data-fieldname='search_lemma' data-fieldtype='Definitions' data-radio=true data-visible=false>Accentless Words</th>-->
+                                {% endif %}
+                                <th class="Appearance" data-fieldname='position' data-fieldtype='Appearances' data-radio=true data-visible=false>First Appearance</th>
+                                <th class="count" data-fieldname='count' data-fieldtype='Appearances' data-radio=true data-visible=false>Number of Appearances</th>
+
+                                <th class="pos" data-fieldname='part_of_speech' data-fieldtype='' data-radio=false data-visible=false>Part of Speech</th>
+                                <th class="logurl" data-fieldname='logeion_url' data-fieldtype='' data-radio=false data-visible=false>Logeion Link</th>
+                                <th class="logUrl2" data-fieldname='logeion_url' data-fieldtype='' data-radio=false data-visible=false>Full Logeion Link</th>
+                                <th class="crank" data-fieldname='corpus_rank' data-fieldtype'' data-radio=false data-visible=false>Bridge Corpus Rank</th>
+                            </tr>
+                        </thead>
+                        {% else %}
+                        <thead>
+                            <tr>
+                                <th class="lemma" data-fieldname='display_lemma_macronless' data-fieldtype='Dictionary Entry' data-radio=true data-visible=true>Dictionary Entry</th>
+                                <th class="lemma" data-fieldname='display_lemma' data-fieldtype='Dictionary Entry' data-radio=true data-visible=false>Dictionary Entry (macrons)</th>
+                                <th id="latinBasicDef" class="def" data-fieldname='english_core' data-fieldtype='Definitions' data-radio=true data-visible=true>Basic English</th>
+                                {% if loc_def %}
+                                <script>
+                                    $("#latinBasicDef").attr("data-visible", "false");
+                                </script>
+                                <th class="def" data-fieldname='english_extended' data-fieldtype='Definitions' data-radio=true  data-visible=false>Full English</th>
+                                 <th class="def" data-fieldname='local_def' data-fieldtype='Definitions' data-radio=true data-visible=true>Text-Specific</th>
+                                {% else %}
+                                <th class="def" data-fieldname='english_extended' data-fieldtype='Definitions' data-radio=true  data-visible=false>Full English</th>
+                                {% endif %}
+                                <th class="Appearance" data-fieldname='position' data-fieldtype='Appearances' data-radio=true data-visible=false>First Appearance</th>
+                                <th class="count" data-fieldname='count' data-fieldtype='Appearances' data-radio=true data-visible=false>Number of Appearances</th>
+                                <th class="pos" data-fieldname='part_of_speech' data-fieldtype='' data-radio=false data-visible=false>Part of Speech</th>
+                                <th class="logUrl" data-fieldname='logeion_url' data-fieldtype='' data-radio=false data-visible=false>Logeion Link</th>
+                                <th class="logUrl2" data-fieldname='logeion_url' data-fieldtype='' data-radio=false data-visible=false>Full Logeion Link</th>
+                                <th class="crank" data-fieldname='corpus_rank' data-fieldtype='' data-radio=false data-visible=false>Bridge Corpus Rank</th>
+
+
+                            </tr>
+                        </thead>
+                        {% endif %}
+                    </table>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            console.log("{% autoescape on %}{{language}}","{{text}}","{{text_comp}}","{{bookslist_comp}}","{{text_from}}","{{text_to}}","{{add_remove}}{% endautoescape %}")
+            setVocabMetadata("{% autoescape on %}{{language}}","{{text}}","{{text_comp}}","{{bookslist_comp}}","{{text_from}}","{{text_to}}","{{add_remove}}{% endautoescape %}");
+        </script>
+        <a href="#top" id ="backToTopBtn"><button class="btn btn-default" id="back_to_top"><span class="glyphicon glyphicon-chevron-up"></span><br/>Back to Top</button></a>
+
+    </div>
+</div>
+</div>
+<iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
+</body>
+{% include "footer.html" %}
