@@ -13,7 +13,7 @@
     <div class="home-header-wrap">
         <div class="panel-group col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2" id="accordion" role="tablist" aria-multiselectable="true">
             <div class=""header-content-wrap"> <!--Add two quotation marks before header-content-wrap, then rem-->
-                <a id="tabOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <a id="tabOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style=" color :#131b15;">
                    <!--<div role="tab" id="headingOne">-->>
                           <div class="intro-text">
                                 Select a language
@@ -137,6 +137,7 @@
                           </div>
                         <!--
                         <br />
+
                         <button type="button" id="core_tip" class="btn btn-sm btn-info" data-toggle="popover" data-placement="right" data-container="body" title="How to Choose a Frequency Range"
                             data-content='<ul><img id="core_selection_tip_img" src="/static/images/core_selection_tip.jpg">This selection would yield a list of the 100 most commonly used words.</ul>'
                             data-html="true" style="display:none"><span class="glyphicon glyphicon-question-sign"  style="padding-right: 5px"></span>Choosing a Frequency Range</button>
@@ -159,7 +160,8 @@
                                 <img id="selection_tip_7" src="/static/images/selection_tip_7.jpg"></ul>'
                             data-html="true" style="display: none"><span class="glyphicon glyphicon-question-sign" style="padding-right: 5px"></span>Choosing a Selection</button>
                     </div>
-                    -->
+                    for some reason when this is un commented, the texts to choose from disappear.
+      -->
                 </div>
             </div>
         </div>
@@ -220,7 +222,7 @@
 
                                         <div class="range_select_box" id= '{{ each.0 }} range_select_box'>
                                           <button class="add_form_field" id= '{{ each.0 }} add_button'
-                                          onclick = "save_button_ID(this.id)" >Add New Field  </button>
+                                          onclick = "save_button_ID(this.id)" >Add Section  </button>
                                             <div class="input-group-container">
                                                 <div class="input-group">
                                                   <input type="text" class="form-control" name="no name, just a placeholder" placeholder="[]" aria-describedby="sizing-addon3" style='display: none'> <!-- something weird was happening where the first one of these was always named {{ each.0 }} to, which is the correct name for the end, but destroys the beggining-->
@@ -254,12 +256,17 @@
                                                 <input type="radio">Selection
                                             </label>
                                         </div>
-                                        <div class="range_select_box" id="{{ each.0 }}">
+
+                                        <div class="range_select_box" id= '{{ each.0 }} range_select_box'>
+                                          <button class="add_form_field" id= '{{ each.0 }} add_button'
+                                          onclick = "save_button_ID(this.id)" >Add Section  </button>
                                             <div class="input-group-container">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" name="{{ each.0 }}" placeholder="[start]" aria-describedby="sizing-addon3">
-                                                    <span class="input-group-addon" id="sizing-addon3">to</span>
-                                                    <input type="text" class="form-control" name="{{ each.0 }}" placeholder="[end]" aria-describedby="sizing-addon3">
+                                                  <input type="text" class="form-control" name="no name, just a placeholder" placeholder="[]" aria-describedby="sizing-addon3" style='display: none'> <!-- something weird was happening where the first one of these was always named {{ each.0 }} to, which is the correct name for the end, but destroys the beggining-->
+
+                                                  <input type="text" class="form-control" name="{{ each.0 }} from" placeholder="[start]" aria-describedby="sizing-addon3">
+                                                  <span class="input-group-addon" id="sizing-addon3">to</span>
+                                                  <input type="text" class="form-control" name="{{ each.0 }} to" placeholder="[end]" aria-describedby="sizing-addon3">
                                                 </div>
                                             </div>
                                         </div>

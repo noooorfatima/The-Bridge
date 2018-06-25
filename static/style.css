@@ -157,6 +157,17 @@ body .printable {
   padding-right: 15px;
 }
 
+.loader {
+border-radius: 100%;
+width: 3000px;
+height: 3000px;
+animation: spin 2s linear infinite;
+border-top: 16px solid blue;
+border-right: 16px solid green;
+border-bottom: 16px solid red;
+}
+
+
 .nav {
 list-style: outside none none;
 }

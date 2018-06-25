@@ -42,7 +42,7 @@ def IndexView(request):
 			booklist_greek_TK.append(book.title_of_book)
 		elif (book.book_type == "LI"):
 			booklist_greek_LI.append(book.title_of_book)
-	print("calling on index.html")
+	#print("calling on index.html")
 	return render(request,
 	'index.html',{"booklist_latin":booklist_latin,"booklist_greek":booklist_greek,"booklist_latin_TE":booklist_latin_TE,"booklist_latin_TK":booklist_latin_TK,"booklist_latin_LI":booklist_latin_LI,"booklist_greek_TE":booklist_greek_TE,"booklist_greek_TK":booklist_greek_TK,"booklist_greek_LI":booklist_greek_LI})
 
@@ -62,9 +62,9 @@ def AboutView(request):
 @require_http_methods(["POST"])
 def words_page_redirect(request, language):
 	print ("in words_page_redirect")
-	print(request.POST, "request.POST")
-	print(request.GET, 'request.GET')
-	print(request.POST.get('section', ''))
+	#print(request.POST, "request.POST")
+	#print(request.GET, 'request.GET')
+	#print(request.POST.get('section', ''))
 	# Need to make sure all of the values are there, otherwise save as none
 	text = "none"
 	bookslist = []
@@ -76,7 +76,7 @@ def words_page_redirect(request, language):
 	add_remove = "Remove"
 	# This makes sure it does not mess up the url
 	if not request.POST["textlist"] == "":
-		print("in if")
+		#print("in if")
 		text = request.POST["textlist"]
 	#print text,"identifying text in conditional" # delete
 	print( "TEXT: ", text)
@@ -97,16 +97,16 @@ def words_page_redirect(request, language):
 		#assert(False)
 		#bookslist = list_of_lists(bookslist)
 		num_books = len(bookslist)
-		print( "num_books", num_books)
+		#print( "num_books", num_books)
 		loop_count = 0
 		for i in bookslist:
-			print(i, "i")
+			#print(i, "i")
 			loop_count +=1
 
 			try:
-				print(request.POST.getlist(i + " from"), "from")
-				print(request.POST.getlist(i + " to"), "to")
-				print(request.POST.getlist(i), "maybe the rest of from???")
+				#print(request.POST.getlist(i + " from"), "from")
+				#print(request.POST.getlist(i + " to"), "to")
+				#print(request.POST.getlist(i), "maybe the rest of from???")
 				from_secs = request.POST.getlist(i + " from")
 				to_secs = request.POST.getlist(i + " to")
 				print(from_secs, 'from sex')
@@ -116,30 +116,30 @@ def words_page_redirect(request, language):
 				print("ERROR: " + str(e))
 				print("exception as e conditional triggered.")
 				assert(False)
-				
+
 			for from_to in zip(from_secs, to_secs):
 				from_sec = from_to[0]
 				to_sec = from_to[1]
 				if from_sec != '' and to_sec != "":
-					print("in case 1")
+					#print("in case 1")
 					add_to_booklist = i + "$_" + from_sec + "_" + to_sec
-					print(add_to_booklist)
+					#print(add_to_booklist)
 				elif from_sec != '' and to_sec == "":
-					print("in case 2")
+					#print("in case 2")
 					add_to_booklist = i + "$_" + from_sec + "_" + "end"
-					print(add_to_booklist)
+					#print(add_to_booklist)
 				elif from_sec == '' and to_sec != "":
-					print("in case 3")
+					#print("in case 3")
 					add_to_booklist = i + "$_" + "start" + "_" + to_sec
-					print(add_to_booklist)
+					#print(add_to_booklist)
 				elif from_sec == '' and to_sec == "":
-					print("in case 4")
+					#print("in case 4")
 					add_to_booklist = i + "$_" + "start" + "_" + "end"
-					print(add_to_booklist)
+					#print(add_to_booklist)
 
 				add_to_booklist = add_to_booklist + str("+")
 				bookslist_string = bookslist_string + add_to_booklist #but we always need to add to the bookslist string
-			print(bookslist_string, "bookslist_string")
+			#print(bookslist_string, "bookslist_string")
 
 	else:
 		bookslist_string = "none"
@@ -160,7 +160,7 @@ def words_page_redirect(request, language):
 			new_bookslist_string.append(models.TextMetadata.objects.get(name_for_humans=book2).name_for_computers+book[marker:])
 
 		new_bookslist_string = "+".join(new_bookslist_string)
-		print(new_bookslist_string)
+		#print(new_bookslist_string)
 	else:
 		new_bookslist_string = 'none'
 	print(language, text_machine, new_bookslist_string, text_from, text_to, add_remove)
@@ -177,12 +177,12 @@ def words_page(request, language, text, bookslist, text_from, text_to, add_remov
 	text = text_meta.name_for_humans
 	new_bookslist_string = []
 	bookslist_comp = bookslist
-	print(bookslist, "original bookslist for words_page")
+	#print(bookslist, "original bookslist for words_page")
 	if bookslist != 'none': #this just changes the booklist to use human names instead of machine names. Irony noted Dylan.
 		for book in bookslist.split('+'):
 			try:
 				marker = book.index('$')
-				print(marker, 'marker')
+				#print(marker, 'marker')
 			except:
 				marker = len(book)
 			book2=book[:marker]
@@ -235,7 +235,7 @@ def get_words(request, language, text, bookslist, text_from,text_to, add_remove)
 	#I think I switched to machine names in the spot the error was occuring, but I was considering switching it everywhere.
 	# I still might do that because it will be REALLY inconvinient to switch once all of the data is uploaded.
 	#leaving it for now, because the list of titles is just never going to be that big
-	debuggingthingy = True
+	debuggingthingy = False
 	if debuggingthingy:
 		print( "\nAll paremeters for get words\n")
 		print( request)
@@ -258,7 +258,7 @@ def get_words(request, language, text, bookslist, text_from,text_to, add_remove)
 				marker = len(book)
 			book2=book[:marker]
 			new_bookslist_string.append(models.TextMetadata.objects.get(name_for_computers=book2).name_for_humans+book[marker+1:])
-			print(new_bookslist_string, "new_bookslist_string")
+			#print(new_bookslist_string, "new_bookslist_string")
 			bookslist = "+".join(new_bookslist_string)
 	# Split read_texts into a list of lists of the form
 	#[ [text_name, text_from, text_to], etc.]:
@@ -285,7 +285,7 @@ def get_words(request, language, text, bookslist, text_from,text_to, add_remove)
 		if language == "latin":
 			#pdb.set_trace()
 		#print models.WordAppearencesLatin,language,text,text_from,text_to,bookslist,add_remove
-			print(bookslist, "BOOKSLIST THAT GOES INTO GENERATE WORDS")
+			#print(bookslist, "BOOKSLIST THAT GOES INTO GENERATE WORDS")
 			word_ids = generateWords(models.WordAppearencesLatin, language, text, text_from, text_to, bookslist, add_remove)
 			word_property_table = models.WordPropertyLatin
 		#print("\nword_property_table for Latin: " + word_property_table)
@@ -293,39 +293,30 @@ def get_words(request, language, text, bookslist, text_from,text_to, add_remove)
 			word_ids = generateWords(models.WordAppearencesGreek, language, text,
 			text_from, text_to,bookslist, add_remove)
 			word_property_table = models.WordPropertyGreek
+		print("generated words")
 	except Exception as e:
 		print("get words error 0")
 		print(e)
 
 	# take word ids and find the correct data for these words in correct table (word table)
-	words_list = []
-	#print "length of word ids: " + str(len(word_ids))
-	#print type(word_ids)
-	#accu1=0
-	#print "NEW PRINT STATEMENT"
-	#accu1
+	words_list =[]
 	try:
 		#print "INSIDE TRY STATEMENT"
+
+		print(len(word_ids), "getting word data for this many ids")
 		for each in word_ids:
-	#accu1+=1
-	#print "WORD LOOP", accu1
-		#if language == "latin":
-			#count = models.WordAppearencesLatin.objects.filter(word__exact=each).count()
-		#else:
-			#count = models.WordAppearencesGreek.objects.filter(word__exact=each).count()
-			#print "DEBUG IS THIS CAUSING PROBLEMS"
-			#word = word_property_table.objects.filter(id__exact=each)[0]
-			#word.corpus_rank = 9617 - count
-			#word.save()
 			words_list.append(word_property_table.objects.filter(id__exact=each)[0])
+		print("got them!!")
 	#if accu1 < 5:
 	   #print "debug: words_list add on " + accu1
 	   #print words_list
 	except Exception as e:
 		print("get words error 1")
 		print(e)
-	from_mindiv = loc_to_mindiv(text,text_from)
-	to_mindiv = loc_to_mindiv(text,text_to) #we need these to get the number of times a word appears in the user's selection
+		assert(False)
+	if (text_from != 'start' and text_to != 'end') or (text_from != '' and text_to != ''):
+		from_mindiv = loc_to_mindiv(text,text_from)
+		to_mindiv = loc_to_mindiv(text,text_to) #we need these to get the number of times a word appears in the user's selection
 
 	json_words = serializers.serialize("json",words_list)
 	#D#print type(json_words)
@@ -334,24 +325,28 @@ def get_words(request, language, text, bookslist, text_from,text_to, add_remove)
 	test_for_in_final = {}
 	#I might make this a seperate function, just because it has had so many problems.
 	#print len(json_words2), "length of json words before adding appearances"
+	print('last step')
+	final_keys = set()
 	for item in json_words2: #the final list is sent to words_page.html
-	#print(item, "item")
-		if item['pk'] not in list(test_for_in_final.keys()):
+		if item['pk'] not in final_keys:
 			if language != 'greek':
 				word_app = models.WordAppearencesLatin.objects.filter(word=item['pk'],text_name=text)
 	#print (word_app.local_def, "here is the word_apps local def")
 	#print( word_app, "WORD APPEARENCE")
 	#print "^^^^^^^^^^^ that is a word_app"
 			else:
-				print("looking at a greek word appearence")
 				word_app = models.WordAppearencesGreek.objects.filter(word=item['pk'],text_name=text)
 			#print(from_mindiv, "from mindiv")
 			#print(to_mindiv , "to_mindv")
 			total_count = len(word_app) #the total number of times the word appears in this text
 			#print("Total count", total_count, word_app[0].word.title)
-			useful_appearance_data = [word_apperance for word_apperance in word_app if from_mindiv <= word_apperance.mindiv <= to_mindiv] #this is all the times the word appears
-			#in thet user selection. The length is  how many times the word appears in the section, and the first item is the first appearance of the word in  the section
-			#print (useful_appearance_data, 'all appearances')
+			#print('got total count')
+			try: #this takes a long time, so if the user is studying the whole text, we don't want to do it
+				useful_appearance_data = [word_apperance for word_apperance in word_app if from_mindiv <= word_apperance.mindiv <= to_mindiv] #this is all the times the word appears
+			except:
+				pass
+			#in the user selection. The length is  how many times the word appears in the section, and the first item is the first appearance of the word in  the section
+			#print (len(useful_appearance_data), 'all appearances in section')
 
 			item['fields']['count'] = len(useful_appearance_data)
 			item['fields']['total_count'] = total_count
@@ -362,23 +357,24 @@ def get_words(request, language, text, bookslist, text_from,text_to, add_remove)
 			else:
 				item['fields']['local_def']="None"
 			test_for_in_final[item['pk']] = item
+			final_keys.add(item['pk']) 
 
 	#make the appearance list sorted and then just take the first one
 	json_words = json.dumps(list(test_for_in_final.values()))
 
 	#I do not know why it gets so big at this time
 	#It's ok, json_words just has all of the information about the word.
-	print(len(json_words),"length aftering adding appearances")
+	print('last return in views.py!')
 	return HttpResponse(json_words, content_type="application/json")
 
 def generateWords(word_appearences, lang, text, text_from, text_to, read_texts, add_remove):
 	#Create a database filter for the texts+ranges in read_texts:
-	#print(text_from)
-	#print(text_to)
-	#print(lang)
-	#print(text)
-	#print(read_texts)
-	#print(add_remove)
+	print(text_from)
+	print(text_to)
+	print(lang)
+	print(text)
+	print(read_texts)
+	print(add_remove)
  # Get WordAppearence objects for words appearing in main text:
 	try:
 		from_mindiv = loc_to_mindiv(text,text_from)
@@ -393,7 +389,7 @@ def generateWords(word_appearences, lang, text, text_from, text_to, read_texts, 
 			while not child.is_leaf():
 				child = child.get_last_child()
 			to_mindiv = child.least_mindiv
-			print( from_mindiv,to_mindiv)
+			#print( from_mindiv,to_mindiv)
 		vocab = word_appearences.objects.filter(text_name__exact=text, mindiv__range=(from_mindiv, to_mindiv))
 	#print len(vocab), "words"
 	#loc_list = []
@@ -403,17 +399,13 @@ def generateWords(word_appearences, lang, text, text_from, text_to, read_texts, 
 		print("try 2 error: ")
 		print(e)
 
-	# makes a list of dictionaries that contain the id num of all of the words in vocab variable
-	# looks like: [{'word': 1001}, {'word': 2030'}, ...} etc.
-
-
-	list_of_dict_of_words = vocab.values('word')
-	#print len(list_of_dict_of_words), 'list_of_dict_of_words'
-	# makes a list of these id numbers
-	list_word_ids = []
-	for each in list_of_dict_of_words:
-		list_word_ids.append(each['word'])
-	print(len(list_word_ids))
+	print("about to make the list of word ids")
+	print(vocab, "vocab")
+	# makes a set of the id numbers
+	list_of_dicts = vocab.values('word')
+	list_word_ids = set()
+	for dict in list_of_dicts:
+		list_word_ids.add(dict['word'])
 
 	if len(read_texts)==0:
 		print (len(list(set(list_word_ids))),"Word IDS without duplicates, about to return cause we made it through generate words and now we are free") #yes this was written while listening to the soundtrack of Gladiator
@@ -421,57 +413,41 @@ def generateWords(word_appearences, lang, text, text_from, text_to, read_texts, 
 	else:
 		try:
 			# Get words which appear in main text and any of the read_texts:
-			list_word_ids=list(set(list_word_ids))
-			vocab_intersection =[]
-			vocab_non_intersection =[]
+
+
 			filtered_words= words_in_read_texts(word_appearences, read_texts)
 			print(len(filtered_words), "length of read words")
 			print(len(list_word_ids), 'words being studied')
-			for item in filtered_words:
-			# item.word.id might need to change
-			# Make it whatever it needs to be to get the id that corresponds to the word
-				if item.word.id in list_word_ids:
-					vocab_intersection.append(item.word)
-			print(len(vocab_intersection))
+			print(type(filtered_words), type(list_word_ids))
+			vocab_intersection_ids = filtered_words & list_word_ids
 		except Exception as e:
 			print("try 3 error: ")
 			print(e)
-			assert(False)
+
 
 	# Remove or exclusively include words appearing in read_texts:
 	#print vocab_intersection
 	vocab_final = []
 
-	#THIS IS NEEDED FOR PRODUCTION
-	#PSYCHE, MAYBE NOT
-	#vvvvvvvvvvvvvvvvvvv UNCOMMENT
-	#vocab_intersection = vocab_intersection.values('word')
-	#UNCOMMENT^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-	#So far this has been working fine on the devserver, but this should be the first change if anything breaks in production
-	vocab_intersection_ids = []
-	for each in vocab_intersection:
-		vocab_intersection_ids.append(each.id)
-	print(len(vocab_intersection_ids))
-	#pdb.set_trace()
-	#print len(vocab_intersection_ids),"len of vocab_intersection"
+	print(len(vocab_intersection_ids),"len of vocab_intersection")
 	if len(read_texts) > 0:
 		if add_remove == 'Add': # Add is a bit of a mis-nomer: all it is (and all we want it to be) is the intersection: the words in the new text that you have seen before.
-			return list(set(vocab_intersection_ids))
+			return list(vocab_intersection_ids)
 
 		else: # If user wants words appearing ONLY in the main text
-			vocab_final = [word for word in list_word_ids if word not in vocab_intersection_ids]
+			vocab_final = list_word_ids - vocab_intersection_ids
 			print(len(vocab_final), "returning this many words")
-			return vocab_final
+			return list(vocab_final)
 	else:
 	# don't need to modify list; nothing to add/remove
 		return list(set(vocab_intersection_ids))
 
-#THIS FUNCTION IS FAR MORE VERSITILE THAN IT SOUNDS
+#THIS FUNCTION IS FAR MORE VERSITILE THAN IT SOUNDS, but is pretty slow, sometimes causing a write error in larger queries
 def words_in_read_texts(word_appearences, read_texts): #returns a list of words in read_texts. read_texts just needs to a list of texts, not necessarially ones that have been read.
-	print("read_texts", read_texts)
-	r=[]
+	#print("read_texts", read_texts)
+	r = set()
 	for text_range in read_texts: #text range is meant to be a list where [0] is the book title, [1] is the start, and [2] is the end.
-		print(text_range, 'text_range')
+		#print(text_range, 'text_range')
 		book = text_range[0]
 		if len(text_range) > 1:
 			start = text_range[1]
@@ -479,10 +455,10 @@ def words_in_read_texts(word_appearences, read_texts): #returns a list of words 
 		else:
 			start = "start"
 			end = "end"
-		#print("vocaturus from_mindiv and to_mindiv with these inputs" , 'book=', book, 'start = ', start, 'end = ', end)
+		print("vocaturus from_mindiv and to_mindiv with these inputs" , 'book=', book, 'start = ', start, 'end = ', end)
 		from_mindiv = loc_to_mindiv(book, start)
 		to_mindiv = loc_to_mindiv(book, end)
-		#print("For read text, from, " , from_mindiv, "to, ",  to_mindiv)
+		print("For read text, from, " , from_mindiv, "to, ",  to_mindiv)
 		if start == end:
 			print("Ooh corner case")
 			to_node = loc_to_node(book,  end)
@@ -492,8 +468,17 @@ def words_in_read_texts(word_appearences, read_texts): #returns a list of words 
 				to_mindiv = child.least_mindiv
 		#print("For read text,  from,  to",  from_mindiv,  to_mindiv)
 		#print("book",  book)
-		#print (text_range, 'text range')
-		r.extend(list(word_appearences.objects.filter(text_name=book,mindiv__range=(from_mindiv, to_mindiv))))
+		print (text_range, 'text range')
+		#was crashing when returning large requests, so I swithed from a list to a set. set membership checks are faster, and there will not be duplicates, which is important when we iterate over this later.
+		new_vocab = word_appearences.objects.filter(text_name=book, mindiv__range=(from_mindiv, to_mindiv))
+		list_of_dicts = new_vocab.values('word')
+		ids = set()
+		for dict in list_of_dicts:
+			ids.add(dict['word'])
+		r = r|ids
+
+		print(len(r), "len(r)")
+
 	return r
 
 
@@ -574,10 +559,10 @@ def myimport(request):
 		print(fileName)
 		with open('temp_csv_for_importing.csv','wb') as f:
 			f.write(the_file.read())
-		print('wrote the binary file')
+		#print('wrote the binary file')
 		#this is capturing the output of management.call_command, which can only be a string
 		out = StringIO()
-		print(out, 'haha printout')
+		#print(out, 'haha printout')
 	#print('IN for call_command: ', 'update_master','temp_csv_for_importing.csv',lang, stdout=out)
 		management.call_command('update_master','temp_csv_for_importing.csv',lang,stdout=out)
 		error = out.getvalue().strip()
