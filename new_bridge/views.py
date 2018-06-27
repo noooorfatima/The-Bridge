@@ -88,17 +88,23 @@ def words_page_redirect(request, language):
 
 	print(text_from, 'from 0')
 	text_from = text_from[0]
-	text_from = text_from.replace(" ", '')
-	print(text_from, 'from 1')
-	text_from = text_from.split(",")
-	print(text_from, 'from 2')
+	if text_from == '':
+		text_from = 'start'
+	else:
+		text_from = text_from.replace(" ", '')
+		print(text_from, 'from 1')
+		text_from = text_from.split(",")
+		print(text_from, 'from 2')
 
 	print(text_to, 'to 0')
 	text_to = text_to[0]
-	text_to = text_to.replace(" ", '')
-	print(text_to, 'to 1')
-	text_to = text_to.split(",")
-	print(text_to, 'to 2')
+	if text_to == '':
+		text_to = "end"
+	else:
+		text_to = text_to.replace(" ", '')
+		print(text_to, 'to 1')
+		text_to = text_to.split(",")
+		print(text_to, 'to 2')
 
 
 
@@ -179,8 +185,10 @@ def words_page_redirect(request, language):
 		#print(new_bookslist_string)
 	else:
 		new_bookslist_string = 'none'
-	text_from = "_".join(text_from)
-	text_to = "_".join(text_to)
+	if text_from != "start":
+		text_from = "_".join(text_from)
+	if text_to != "end":
+		text_to = "_".join(text_to)
 	print(language, text_machine, new_bookslist_string, text_from, text_to, add_remove)
 	url = '/words_page/'+language+'/'+text_machine+'/'+new_bookslist_string+'/'+text_from+'/'+text_to+'/'+add_remove+'/'
 	return HttpResponseRedirect(url)
@@ -475,8 +483,8 @@ def generateWords(word_appearences, lang, text, text_from, text_to, read_texts, 
 					to_mindiv = child.least_mindiv
 				print( from_mindiv,to_mindiv)
 			vocab= vocab.union(word_appearences.objects.filter(text_name__exact=text, mindiv__range=(from_mindiv, to_mindiv)))
-			print(vocab, 'vocab after union')
-	#print len(vocab), "words"
+
+		print("we got ", len(vocab), " words")
 	#loc_list = []
 	#for vcab in vocab:
 	#loc_list.append(vcab.mindiv)
@@ -485,7 +493,6 @@ def generateWords(word_appearences, lang, text, text_from, text_to, read_texts, 
 		print(e)
 
 	print("about to make the list of word ids")
-	print(vocab, "vocab")
 	# makes a set of the id numbers
 	list_of_dicts= vocab.values('word')
 
@@ -611,15 +618,8 @@ def loc_to_node(text,location):
 			node = node.get_children().get(subsection_id__exact=subsection)
 	return node
 
-"""
-def texts_with_most_overlap(request, read_texts, texts, language):
-	unreads = [text for text in texts if text not in read_texts] #make sure each item is the the familiar format: text[0] = book title, [1]=start section, [2]=end section
-	important = [] #this will be a list of lists of json strings of words appearing in unread texts
-	for text in unreads:
-	   important.append(get_words(request, language, text[0], bookslist, text[1], text_to[2], "Remove")) #note that we must use append, not extend, becasue extend will give us a flat list
-	important.sort(key =len) #sorts important by length
-	return render(request, "texts with most overlap.html ")
-"""
+
+
 def admin(request):
 	return render(request,'admin.html')
 
