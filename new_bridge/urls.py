@@ -18,9 +18,8 @@ urlpatterns = [
     path('words_page/<language>/<text>/<bookslist>/<text_from>/<text_to>/<add_remove>/', views.words_page),
     path('get_words/<language>/<text>/<bookslist>/<text_from>/<text_to>/<add_remove>/', views.get_words),
     path('about', views.AboutView),
-    path('lemmatizer/', lemviews.lemmatizer, name='lemmatizer'), 
+    path('lemmatizer/', lemviews.lemmatizer, name='lemmatizer'),
     path('lemmatized', lemviews.lemmatizer, name='lematized'),
     path('format/', lemviews.formatlemmatizedtext, name='format'),
     path('formatted/', lemviews.formatlemmatizedtext, name='formatted'),
 ]
-
