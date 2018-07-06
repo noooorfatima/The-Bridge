@@ -20,22 +20,22 @@ class TextStructureGlossaryAdmin(admin.ModelAdmin):
     list_display = ['text_name','subsection_level','subsection_name']
     list_filter = ['text_name']
 
-#class TextStructureNode(admin.MP_NodeAdmin):
-#    search_fields = ['text_name','subsection_level']
-#    list_display = ['text_name','subsection_level']
-#    list_filter = ['text_name']
+class TextStructureNodeAdmin(admin.ModelAdmin):
+    search_fields = ['text_name','subsection_level']
+    list_display = ['text_name','subsection_level']
+    list_filter = ['text_name']
 
 class TextMetadataAdmin(admin.ModelAdmin):
     search_fields = ['name_for_humans','name_for_computers','language','local_def']
     list_display = ['name_for_humans','name_for_computers','language','local_def']
 
 class WordAppearencesLatinAdmin(admin.ModelAdmin):
-    search_fields = ['text_name','word','appearance','mindiv']
+    search_fields = ['text_name','word__field3','appearance','mindiv']
     list_display = ['text_name','word','appearance','mindiv']
-    list_filter = ['word']
+    list_filter = ['text_name']
 
 class WordAppearencesGreekAdmin(admin.ModelAdmin):
-    search_fields = ['text_name','word','appearance','mindiv']
+    search_fields = ['text_name','word__field3','appearance','mindiv']
     list_display = ['text_name','word','appearance','mindiv']
     list_filter = ['text_name']
 
@@ -53,7 +53,7 @@ admin.site.register(WordPropertyLatin,WordPropertyLatinAdmin)
 admin.site.register(WordPropertyGreek,WordPropertyGreekAdmin)
 admin.site.register(TextStructureGlossary,TextStructureGlossaryAdmin)
 admin.site.register(TextMetadata,TextMetadataAdmin)
-admin.site.register(TextStructureNode)
+admin.site.register(TextStructureNode, TextStructureNodeAdmin)
 admin.site.register(WordAppearencesLatin,WordAppearencesLatinAdmin)
 admin.site.register(WordAppearencesGreek,WordAppearencesGreekAdmin)
 admin.site.register(BookTitles,BookTitlesAdmin)

@@ -38,7 +38,7 @@
         <div id="big_wrap">
             <div class="row">
                 <div id="words_generated_div" class="table-wrapper table-responsive col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3 col-lg-9 col-lg-offset-5 col-lg-pull-4">
-                    <table class="table table-striped table-hover table-condensed" name="words_generated" id="words_generated" style="width: 100%;">
+                    <table class="table table-striped table-hover table-condensed" name="words_generated" id="words_generated" style="width: 100%; overflow: scroll" >
                         {% if language == "greek" %}
                         <thead>
                             <tr>
@@ -54,9 +54,9 @@
                                 <th class="def" data-fieldname='logeion_def' data-fieldtype='Definitions' data-radio=true data-visible=false>Logeion Definition</th>
                                 <!--<th class="def" data-fieldname='search_lemma' data-fieldtype='Definitions' data-radio=true data-visible=false>Accentless Words</th>-->
                                 {% endif %}
-                                <th class="Appearance" data-fieldname='position' data-fieldtype='Appearances' data-radio=true data-visible=false>First Appearance</th>
-                                <th class="count" data-fieldname='count' data-fieldtype='Appearances' data-radio=true data-visible=false>Number of Appearances</th>
-
+                                <th class="Appearance" data-fieldname='position' data-fieldtype='' data-radio=false data-visible=false>First Appearance</th>
+                                <th class="count" data-fieldname='count' data-fieldtype='' data-radio=false data-visible=false>Appearances in Section</th>
+                                <th class="total_count" data-fieldname='total_count' data-fieldtype='' data-radio=false data-visible=false>Total Appearances</th>
                                 <th class="pos" data-fieldname='part_of_speech' data-fieldtype='' data-radio=false data-visible=false>Part of Speech</th>
                                 <th class="logurl" data-fieldname='logeion_url' data-fieldtype='' data-radio=false data-visible=false>Logeion Link</th>
                                 <th class="logUrl2" data-fieldname='logeion_url' data-fieldtype='' data-radio=false data-visible=false>Full Logeion Link</th>
@@ -78,8 +78,9 @@
                                 {% else %}
                                 <th class="def" data-fieldname='english_extended' data-fieldtype='Definitions' data-radio=true  data-visible=false>Full English</th>
                                 {% endif %}
-                                <th class="Appearance" data-fieldname='position' data-fieldtype='Appearances' data-radio=true data-visible=false>First Appearance</th>
-                                <th class="count" data-fieldname='count' data-fieldtype='Appearances' data-radio=true data-visible=false>Number of Appearances</th>
+                                <th class="Appearance" data-fieldname='position' data-fieldtype='' data-radio=false data-visible=false>First Appearance</th>
+                                <th class="count" data-fieldname='count' data-fieldtype='' data-radio=false data-visible=false>Appearances in Section</th>
+                                <th class="total_count" data-fieldname='total_count' data-fieldtype='' data-radio=false data-visible=false>Total Appearances</th>
                                 <th class="pos" data-fieldname='part_of_speech' data-fieldtype='' data-radio=false data-visible=false>Part of Speech</th>
                                 <th class="logUrl" data-fieldname='logeion_url' data-fieldtype='' data-radio=false data-visible=false>Logeion Link</th>
                                 <th class="logUrl2" data-fieldname='logeion_url' data-fieldtype='' data-radio=false data-visible=false>Full Logeion Link</th>

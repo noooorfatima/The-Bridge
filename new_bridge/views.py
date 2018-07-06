@@ -1,3 +1,16 @@
+
+"""
+TODO:
+Make "What are you reading" and "Include/exclude" the same. √
+This will allow users the option to read multiple texts, and make input for dijoint subsections more user friendly.
+Make input be through autocomplete fields. √
+Once "selection" is chosen, give a prompt for the subsections based on the text's subsectioning. It is fine for gallic wars, not so fine for poems, text books, or lists.
+Fix importer
+Fix/update autoLemma.py
+Redo slideout panel filters to allow total #apps, apps in section, and corpus_rank side by side. (sort of done, needs better styling)
+
+
+"""
 #from new_bridge.models import 'insert class/model names here'
 from django.views import generic
 import unicodedata
@@ -11,42 +24,55 @@ from django.core import serializers
 from django.core import management
 import json
 #import pdb
+from dal import autocomplete
 from io import StringIO
 import ast
-models = new_bridge.models  #after switching to python 3, models wants to be explicitly referenced everytime we use it. this makes it easier.
+from new_bridge import forms
+
+models = new_bridge.models  #after switching to python3/django2.0, models wants to be explicitly referenced everytime we use it. this makes it easier. When next updating, see if you can remove it
+
+class TextMetadataLookUp_latin(autocomplete.Select2ListView):
+
+
+	def create(self, text):
+		return text
+
+	def get_list(self):
+		result_list = [model.name_for_humans for model in models.TextMetadata.objects.filter(language='latin')]
+		if self.q:
+			data = models.TextMetadata.objects.all().filter(name_for_humans__icontains=self.q, language='latin')
+			result_list = [model.name_for_humans for model in data]
+		return result_list
+
+class TextMetadataLookUp_greek(autocomplete.Select2ListView):
+
+
+	def create(self, text):
+		return text
+
+	def get_list(self):
+		result_list = [model.name_for_humans for model in models.TextMetadata.objects.filter(language='greek')]
+		if self.q:
+			data = models.TextMetadata.objects.all().filter(name_for_humans__icontains=self.q, language='greek')
+			result_list = [model.name_for_humans for model in data]
+		return result_list
+
+
 def IndexView(request):
-	print(request, "request in index view")
 
-	sorted_latin_books=sorted(models.BookTitles.objects.all(),key=lambda book: (book.book_type,book.title_of_book))
-
-	booklist_latin= [(book.title_of_book, book.book_type) for book in sorted_latin_books]
-
-	sorted_greek_books=sorted(models.BookTitlesGreek.objects.all(),key=lambda book: (book.book_type,book.title_of_book))
-
-	booklist_greek= [(book.title_of_book, book.book_type) for book in sorted_greek_books]
-	booklist_latin_TE = []
-	booklist_latin_TK = []
-	booklist_latin_LI = []
-	booklist_greek_TE = []
-	booklist_greek_TK = []
-	booklist_greek_LI = []
-	for book in sorted_latin_books:
-		if (book.book_type == "TE"):
-			booklist_latin_TE.append(book.title_of_book)
-		elif (book.book_type == "TK"):
-			booklist_latin_TK.append(book.title_of_book)
-		elif (book.book_type == "LI"):
-			booklist_latin_LI.append(book.title_of_book)
-	for book in sorted_greek_books:
-		if (book.book_type == "TE"):
-			booklist_greek_TE.append(book.title_of_book)
-		elif (book.book_type == "TK"):
-			booklist_greek_TK.append(book.title_of_book)
-		elif (book.book_type == "LI"):
-			booklist_greek_LI.append(book.title_of_book)
+	latin_books_form = forms.TextMetadataAutoForm_latin()
+	print(latin_books_form)
+	greek_books_form = forms.TextMetadataAutoForm_greek()
+	context = {"latin_books_form" : latin_books_form, "greek_books_form" : greek_books_form}
 	#print("calling on index.html")
 	return render(request,
-	'index.html',{"booklist_latin":booklist_latin,"booklist_greek":booklist_greek,"booklist_latin_TE":booklist_latin_TE,"booklist_latin_TK":booklist_latin_TK,"booklist_latin_LI":booklist_latin_LI,"booklist_greek_TE":booklist_greek_TE,"booklist_greek_TK":booklist_greek_TK,"booklist_greek_LI":booklist_greek_LI})
+	'index.html', context)
+
+#^^^ pre-autocomplete index view
+# Below code is modified from the GAM
+
+
+
 
 def AboutView(request):
 	return render(request,'newabout.html')
@@ -64,10 +90,10 @@ def AboutView(request):
 @require_http_methods(["POST"])
 def words_page_redirect(request, language):
 	print ("in words_page_redirect")
-	#print(request.POST, "request.POST")
-	#print(request.GET, 'request.GET')
+	print(request.POST)
 	#print(request.POST.get('section', ''))
 	# Need to make sure all of the values are there, otherwise save as none
+	print(request.POST["readlist"])
 	text = "none"
 	bookslist = []
 	text_from = "start"
@@ -79,45 +105,48 @@ def words_page_redirect(request, language):
 	# This makes sure it does not mess up the url
 	if not request.POST["textlist"] == "":
 		#print("in if")
-		text = request.POST["textlist"]
+		texts = request.POST.getlist("textlist")[0].split("$,")
+		#I know, this looks messy, but html only has strings. html5 has lists, but they basically only work in chrome, and maybe firefox. At #least the texts are always seperated on commas, because it comes from a javascript array. However, it makes text names with commas in #them weird, so we now add $ to the end when we add things to textlist, just to make this split nice.
 	#print text,"identifying text in conditional" # delete
-	print( "TEXT: ", text)
-	text_from = request.POST.getlist("text_from")
-	text_to = request.POST.getlist("text_to")
+	text_machine =[]
+	reading_from = []
+	reading_to = []
 	add_remove = request.POST["add_remove_selector"]
+	takencare_of_texts = set()
+	for text in texts:
+		if text in takencare_of_texts:
+			break
+		else:
+			takencare_of_texts.add(text)
+		print( "TEXT: ", text)
+		text=text.replace("$", "")
+		text_from = request.POST.getlist(text + " from")
+		text_to = request.POST.getlist(text + " to")
+		if text_from == []:
+			text_from = [""]
+		if text_to ==[]:
+			text_to =[""]
+		print(text_from, 'from 0')
 
-	print(text_from, 'from 0')
-	text_from = text_from[0]
-	if text_from == '':
-		text_from = 'start'
-	else:
-		text_from = text_from.replace(" ", '')
-		print(text_from, 'from 1')
-		text_from = text_from.split(",")
-		print(text_from, 'from 2')
+		if text_from == ['']:
+			text_from = ['start']
+		print(text_to, 'to 0')
 
-	print(text_to, 'to 0')
-	text_to = text_to[0]
-	if text_to == '':
-		text_to = "end"
-	else:
-		text_to = text_to.replace(" ", '')
-		print(text_to, 'to 1')
-		text_to = text_to.split(",")
-		print(text_to, 'to 2')
+		if text_to == ['']:
+			text_to = ["end"]
 
-
-
-
-	text_meta = models.TextMetadata.objects.get(name_for_humans=text)
-	text_machine = text_meta.name_for_computers
-	if ('book' in request.POST):
-		print ('boon in request.POST')
+		reading_from.extend(text_from)
+		reading_to.extend(text_to)
+		text_meta = models.TextMetadata.objects.get(name_for_humans=text)
+		text_machine.append(text_meta.name_for_computers)
+	print(reading_from, reading_to, "reading_from, reading_to")
+	if ('readlist' in request.POST): #get sections for things to include/exclude. the if carries over from an old way of doing things, and readlist will always be in the post request now, but it is a lot of indents to delete, vs just one if at the end.
+		print ('readlist in request.POST')
 		print( "about to make bookslist")
-		bookslist = request.POST.getlist("book")
+		bookslist = request.POST.getlist("readlist")
+
+		bookslist = bookslist[0].split(",")
 		print(bookslist, "made bookslist")
-		#assert(False)
-		#bookslist = list_of_lists(bookslist)
 		num_books = len(bookslist)
 		#print( "num_books", num_books)
 		loop_count = 0
@@ -138,34 +167,36 @@ def words_page_redirect(request, language):
 				print("ERROR: " + str(e))
 				print("exception as e conditional triggered.")
 				assert(False)
-
+			list_to_be_stringed = []
 			for from_to in zip(from_secs, to_secs): #zip makes them a generator of tuples. I just set from_sec and to_sec because that was what we used when there was only one, and i did not want to rename all of them.
 				from_sec = from_to[0]
 				to_sec = from_to[1]
 				if from_sec != '' and to_sec != "":
 					#print("in case 1")
-					add_to_booklist = i + "$_" + from_sec + "_" + to_sec
+					add_to_booklist = i + "$_" + from_sec + "_" + to_sec + str("+")
 					#print(add_to_booklist)
 				elif from_sec != '' and to_sec == "":
 					#print("in case 2")
-					add_to_booklist = i + "$_" + from_sec + "_" + "end"
+					add_to_booklist = i + "$_" + from_sec + "_" + "end" + str("+")
 					#print(add_to_booklist)
 				elif from_sec == '' and to_sec != "":
 					#print("in case 3")
-					add_to_booklist = i + "$_" + "start" + "_" + to_sec
+					add_to_booklist = i + "$_" + "start" + "_" + to_sec + str("+")
 					#print(add_to_booklist)
 				elif from_sec == '' and to_sec == "":
 					#print("in case 4")
-					add_to_booklist = i + "$_" + "start" + "_" + "end"
+					add_to_booklist = i + "$_" + "start" + "_" + "end" + str("+")
 					#print(add_to_booklist)
 
-				add_to_booklist = add_to_booklist + str("+")
-				bookslist_string = bookslist_string + add_to_booklist #but we always need to add to the bookslist string
-			#print(bookslist_string, "bookslist_string")
+				list_to_be_stringed.append(add_to_booklist)
 
-	else:
-		bookslist_string = "none"
-	#print request.POST["textlist"]
+			bookslist_string = "".join(list_to_be_stringed)
+			print(bookslist_string)
+			if not bookslist_string: # "" is falsey
+				bookslist_string = "none"
+
+
+
 
 		print (bookslist_string, "bookslist_string")
 	if bookslist_string !="none":
@@ -185,10 +216,10 @@ def words_page_redirect(request, language):
 		#print(new_bookslist_string)
 	else:
 		new_bookslist_string = 'none'
-	if text_from != "start":
-		text_from = "_".join(text_from)
-	if text_to != "end":
-		text_to = "_".join(text_to)
+
+	text_from = "_".join(reading_from)
+	text_to = "_".join(reading_to)
+	text_machine = "_".join(text_machine)
 	print(language, text_machine, new_bookslist_string, text_from, text_to, add_remove)
 	url = '/words_page/'+language+'/'+text_machine+'/'+new_bookslist_string+'/'+text_from+'/'+text_to+'/'+add_remove+'/'
 	return HttpResponseRedirect(url)
@@ -342,8 +373,7 @@ def get_words(request, language, text, bookslist, text_from,text_to, add_remove)
 		#print "INSIDE TRY STATEMENT"
 
 		print(len(word_ids), "getting word data for this many ids")
-		for each in word_ids:
-			words_list.append(word_property_table.objects.filter(id__exact=each)[0])
+		[words_list.append(word_property_table.objects.filter(id__exact=id)[0]) for id in word_ids]
 		print("got them!!")
 		#print(words_list, 'here it is')
 	#if accu1 < 5:
@@ -521,7 +551,8 @@ def generateWords(word_appearences, lang, text, text_from, text_to, read_texts, 
 	# Remove or exclusively include words appearing in read_texts:
 	#print vocab_intersection
 	vocab_final = []
-
+	#converting to a list may or may not be necessary, but it returned a list before. I think the javascript expects a list
+	#if we avoid it though, we do not want to convert to a list unnecessarily.
 	print(len(vocab_intersection_ids),"len of vocab_intersection")
 	if len(read_texts) > 0:
 		if add_remove == 'Add': # Add is a bit of a mis-nomer: all it is (and all we want it to be) is the intersection: the words in the new text that you have seen before.
@@ -533,10 +564,10 @@ def generateWords(word_appearences, lang, text, text_from, text_to, read_texts, 
 			return list(vocab_final)
 	else:
 	# don't need to modify list; nothing to add/remove
-		return list(set(vocab_intersection_ids))
+		return list(vocab_intersection_ids)
 
-#THIS FUNCTION IS FAR MORE VERSITILE THAN IT SOUNDS, but is pretty slow, sometimes causing a write error in larger queries
-def words_in_read_texts(word_appearences, read_texts): #returns a list of words in read_texts. read_texts just needs to a list of texts, not necessarially ones that have been read.
+#THIS FUNCTION IS FAR MORE VERSITILE THAN IT SOUNDS, could be the basis of bridge giving you suggestions of what to read.
+def words_in_read_texts(word_appearences, read_texts): #read_texts just needs to a list of texts, not necessarially ones that have been read.
 	#print("read_texts", read_texts)
 	r = set()
 	for text_range in read_texts: #text range is meant to be a list where [0] is the book title, [1] is the start, and [2] is the end.
@@ -566,8 +597,15 @@ def words_in_read_texts(word_appearences, read_texts): #returns a list of words 
 		new_vocab = word_appearences.objects.filter(text_name=book, mindiv__range=(from_mindiv, to_mindiv))
 		list_of_dicts = new_vocab.values('word')
 		ids = set()
-		for dict in list_of_dicts:
-			ids.add(dict['word'])
+		[ids.add(dict['word']) for dict in list_of_dicts] #adds all the word ids to the set 'ids'
+
+		# this will get us words appearing in any of the texts. to make it only get words that appear in all texts, we want to take intersection (&) instead
+		#we probably need to add another button like the include/exclude one, and make that pass along a boolean to be an input for this function
+		#so this will be more like:
+		#if any_all = any:
+			#r = r|ids
+		#else:
+			#r = r&ids
 		r = r|ids # this makes r the union of r and ids
 
 		print(len(r), "len(r)")

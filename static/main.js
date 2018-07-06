@@ -15,16 +15,16 @@
 
 /*switching the buttons. Check configureForm. There's some rather odd behavior with that.*/
 
-DEBUG = false
+DEBUG = true
 
 
 var namesp = namesp || {};
 var isFirstLoad = function(namesp) {
    var isFirst = namesp.firstLoad === undefined;
-   //console.log("isFirst is: " + isFirst);
+   console.log("isFirst is: " + isFirst);
    namesp.firstLoad = false;
    if (!isFirst) {
-       //console.log("warning, this file has been loaded more than once.");
+       console.log("warning, this file has been loaded more than once.");
     }
    return isFirst;
  };
@@ -165,32 +165,7 @@ $(document).ready(function() {
                 $(".hiddencheck", this).remove();
             }
 
-            // Build a list of selected book titles and insert into panel-contents:
-            var headerStr = "";
-            var books = $(".thumbnail :button input");
 
-            if (books.length == 1) {
-                headerStr = $(books[0]).parent().attr("value");
-            } else {
-                books.each(function() {
-                    var bookTitle = $(this).parent().attr(
-                        "value");
-                    // Shorted book titles to first 7 characters:
-                    /*if (bookTitle.length >= 20) {
-                        headerStr = headerStr +
-                            bookTitle.substr(0, 20) +
-                            "...,";
-                    } else {
-                        headerStr = headerStr +
-                            bookTitle + ", ";
-                    }*/
-                  headerStr = headerStr + bookTitle + ", "; //each is added to headerrStr and separated by a comma and space.
-                });
-            }
-            //headerStr = headerStr.substr(0, headerStr.length -
-              //  4); //rmv trailing "...,"
-             //^the above was written becaue previously, each title was separated by '...'
-            $("#headingThree .panel-contents").text(headerStr);
 
             // Hide panel-contents div if empty. Avoids showing a big empty box:
             if (headerStr == "") {
@@ -203,24 +178,6 @@ $(document).ready(function() {
 
         });
 
-        //Show/hide range select FIELDS in a booklist thumbnail:
-        $(".range-select-toggle .btn-group").on("click", function(e) {
-            var clicked = $(e.target);
-            //Only do something if inactive button is clicked:
-            if (clicked.attr("class").indexOf("active") === -1) {
-                var thumbnail = clicked.parents(".thumbnail");
-                //console.log(clicked.attr("val"));
-                if (clicked.attr("value") === "Selection") {
-                    console.log(thumbnail.find(
-                        ".range_select_box"));
-                    thumbnail.find(".range_select_box").slideDown(
-                        100);
-                } else {
-                    thumbnail.find(".range_select_box").slideUp(
-                        100);
-                }
-            }
-        });
 
         //LANGUAGE SELECT BUTTONS:
         $("#latin").on("click", {
@@ -248,16 +205,6 @@ $(document).ready(function() {
            //if(!$("#collapseOne").hasClass("in")) {
 
          });
-
-        //TEXT ALL/SELECTION TOGGLE:
-        $("#all_or_selection").on("click", function(e) {
-            displayForm2(e.target);
-        });
-
-        /*$("#Selection").on("click", function(e) {
-            displayForm2(e.target);
-        });*/
-
         //READ TEXT INCLUDE/EXCLUDE TOGGLE:
         $("#include_or_exclude .btn-group").on("click", function(e) {
             var clicked = $(e.target);
@@ -281,165 +228,28 @@ $(document).ready(function() {
             }
         });
 
-        // TEXT SELECT LIST:
-        /*$("#textlist").on("click", function() {
-            selectedText = $("#textlist").val();
-            if ($("#tabTwo .panel-contents").text() !=
-                selectedText.text) {
-                $("#tabTwo .panel-contents").text(selectedText);
-            }*/
-            //Show panel-contents if it's hidden and contains text:
-            /*if ($("#tabTwo .panel-contents").text() !== "" &&
-                $("#tabTwo .panel-contents").css("display") ===
-                "none") {
-                $("#tabTwo .panel-contents").css("display",
-                    "inline-block");
-            }
-        });*/
 
-       $("#latin_TE_DropDown").on("click", function() {
-            selectedText = $("#latin_TE_DropDown").val();
-            if ($("#tabTwo .panel-contents").text() != selectedText) {
-               $("#tabTwo .panel-contents").text(selectedText);
-            }
-
-           else if($("#tabTwo .panel-contents").text() !== "" &&
-               $("#tabTwo .panel-contents").css("display") ===
-               "none") {
-               $("#tabTwo .panel-contents").text(selectedText);
-               $("#tabTwo .panel-contents").css("display", "inline-block");
-             }
-        });
-
-
-      $("#latin_TK_DropDown").on("click", function() {
-            selectedText = $("#latin_TK_DropDown").val();
-            if ($("#tabTwo .panel-contents").text() != selectedText) {
-               $("#tabTwo .panel-contents").text(selectedText);
-            }
-            else if($("#tabTwo .panel-contents").text() !== "" &&
-               $("#tabTwo .panel-contents").css("display") ===
-               "none") {
-               $("#tabTwo .panel-contents").text(selectedText);
-               $("#tabTwo .panel-contents").css("display", "inline-block");
-             }
-        });
-
-       $("#latin_LI_DropDown").on("click", function() {
-            selectedText = $("#latin_LI_DropDown").val();
-            if ($("#tabTwo .panel-contents").text() != selectedText) {
-               $("#tabTwo .panel-contents").text(selectedText);
-            }
-            else if($("#tabTwo .panel-contents").text() !== "" &&
-               $("#tabTwo .panel-contents").css("display") ===
-               "none") {
-               $("#tabTwo .panel-contents").text(selectedText);
-               $("#tabTwo .panel-contents").css("display", "inline-block");
-             }
-        });
-
-       $("#greek_TE_DropDown").on("click", function() {
-            selectedText = $("#greek_TE_DropDown").val();
-            if ($("#tabTwo .panel-contents").text() != selectedText) {
-               $("#tabTwo .panel-contents").text(selectedText);
-            }
-            else if($("#tabTwo .panel-contents").text() !== "" &&
-               $("#tabTwo .panel-contents").css("display") ===
-               "none") {
-               $("#tabTwo .panel-contents").text(selectedText);
-               $("#tabTwo .panel-contents").css("display", "inline-block");
-             }
-        });
-
-       $("#greek_TK_DropDown").on("click", function() {
-            selectedText = $("#greek_TK_DropDown").val();
-            if ($("#tabTwo .panel-contents").text() != selectedText) {
-               $("#tabTwo .panel-contents").text(selectedText);
-            }
-            else if($("#tabTwo .panel-contents").text() !== "" &&
-               $("#tabTwo .panel-contents").css("display") ===
-               "none") {
-               $("#tabTwo .panel-contents").text(selectedText);
-               $("#tabTwo .panel-contents").css("display", "inline-block");
-             }
-        });
-
-       $("#greek_LI_DropDown").on("click", function() {
-            selectedText = $("#greek_LI_DropDown").val();
-            if ($("#tabTwo .panel-contents").text() != selectedText) {
-               $("#tabTwo .panel-contents").text(selectedText);
-            }
-            else if($("#tabTwo .panel-contents").text() !== "" &&
-               $("#tabTwo .panel-contents").css("display") ===
-               "none") {
-               $("#tabTwo .panel-contents").text(selectedText);
-               $("#tabTwo .panel-contents").css("display", "inline-block");
-             }
-        });
-
-
-
-        $("#dropDownDiv select > option").on("click", function () {
-           $("#dropDownDiv").children().each( function() {
-		if ($(this).css("display") == "none") {
-                $(this).attr("name", "");
-                //console.log($(this).attr("id"));
-                //console.log($(this).attr("name"));
-              }
-             if ($(this).css("display") == "block") {
-                $(this).attr("name", "textlist");
-                //console.log($(this).attr("id"));
-                //console.log($(this).attr("name"));
-              }
-           });
-        });
-
-
-       $("#include_or_exclude label").on("click", function() {
-           //console.log($(this).attr("value"));
-           if($(this).attr("value") == "exclude") {
-              $("#filtering_note").text("You can choose to filter all words in one or more texts or selections of one or more texts");
-           } else if ($(this).attr("value") == "include") {
-              $("#filtering_note").text("You can choose to make a list that includes only those words that appear in your text and one or more texts or selections of texts.");
-           }
-       });
-       $(".type_of_txt_btn_group label").on("click", function() {
-         /********************************************************
-         * #INFO: This is responsible for manipulating the three
-         * Text, Textbook, and List buttons
-         *******************************************************/
-           var label = $(this).attr('value');
-           var idcomp = globalLang + "_" + label + "_DropDown";
-           $("#dropDownDiv select").each(function() {
-                var buttoncomp = $(this).attr('id');
-                $(this).css("display", "none");
-                if(buttoncomp == idcomp) {
-                    $(this).css("display", "block");
-                }
-          });
-        });
 
         $("#giant_form_submit").on("click", function(e) {
            var key = true;
-            var selectedValue = "";
-            if($("#tabTwo .panel-contents").text()) {
-                selectedValue = $("#tabTwo .panel-contents").text();
+
+            var selectedValues = "";
+            var reading = textlist
+
+            console.log(textlist, "textlist")
+            var read = readlist
+            console.log(read, 'readlist')
+            if(textlist) {
+                selectedValues = textlist;
             }
-           /* $("#dropDownDiv select").each(function() {
-                if ($(this).attr("display") == "none") {
-                   console.log($(this).attr("id"));
-                   $(this).attr("name", "");
-                }
-            });*/
-              if (selectedValue == "") {
+  //selectedValue = the one(s) you are reading
+              if (selectedValues == []) {
                 alert("Please choose a text.");
                 return false;
             }
-            if ($("#text_from,#text_to").is(":visible")) {
-        if (validateTextSelect() === false) {
-            alert("Please submit a valid range.");
-            return false;
-        }};
+
+
+
         var pairs = []
         $('.range_select_box').each(function() {
             var new_tuple = []
@@ -884,70 +694,22 @@ function configureForm(e) {
     /*Where filtering takes place for languages, so let's add filtering for buttons (or pay attention)*/
     /****************************************/
     var lang = e.data.language;
+    console.log(lang, "lang");
     globalLang = lang;
-    //console.log(lang + globalLang);
+    console.log(globalLang);
     // Set the redirect page to the appropriate lang:
     $("#giant_form").attr("action", "words_page_redirect/" + lang + "/");
     // Configure SOURCE TEXT TAB to only show texts from specified lang:
-    var books = $("#textlist").find("[class$='book']");
-    books = books.add($("#booklist").find("[class$='bookthumb']"));
-    $(".type_of_txt_btn_group label").each(function() {
-          $(this).removeClass("active");
-     });
-     if(!$("#first-active").hasClass("active")) {
-        $("#first-active").addClass("active");
-      }
-
-        if(lang=="greek") {
-        //hide the latin selector.
-        $(".intro-text").css({'color':'#1E9E6B','-webkit-transition':'color 0.4s ease','-moz-transition':'color 0.4s ease','-o-transition':'color 0.4s ease','transition':'color 0.4s ease'}); //#457798 shade of green
-        $("#dropDownDiv [id*='latin']").css("display", "none");
-        $("#dropDownDiv [id*='greek']").css("display", "block");
-        $("#greek_LI_DropDown").css("display", "block");
-        $("#greek_TK_DropDown").css("display", "none");
-        $("#greek_TE_DropDown").css("display", "none");
-        //Make it so that all Latin text buttons are hidden.
-        $(".latinbookthumb").css("display", "none");
-        $(".greekbookthumb").css("display", "inline");
-        $(".greekbookthumb").each(function() {
-	   if($(this).hasClass("booktypeTE")) {
-                 $("#thumbTE").append($(this));
-           }
-           else if ($(this).hasClass("booktypeLI")) {
-                 $("#thumbLI").append($(this));
-         } else if ($(this).hasClass("booktypeTK")) {
-             $("#thumbTK").append($(this));
-         }
-       });
+    if (lang == 'latin') {
+        $(".greekbooks").hide();
+        $(".latinbooks").show();
+    } else {
+        $(".latinbooks").hide();
+        $(".greekbooks").show();
     }
-    else if (lang=="latin") {
-        $(".intro-text").css({'color':'#cb4332','-webkit-transition':'color 0.4s ease','-moz-transition':'color 0.4s ease','-o-transition':'color 0.4s ease','transition':'color 0.4s ease'}); //#cb4332 is the same shade of red as the latin button
-        $("#dropDownDiv [id*='greek']").css("display", "none");
-        $("#dropDownDiv [id*='latin']").css("display", "block");
-        $("#latin_LI_DropDown").css("display", "block");
-        $("#latin_TK_DropDown").css("display", "none");
-        $("#latin_TE_DropDown").css("display", "none");
-        $(".greekbookthumb").css("display", "none");
-        $(".latinbookthumb").css("display", "inline");
-        $(".latinbookthumb").each(function() {
-           if($(this).hasClass("booktypeTE")) {
-                 $("#thumbTE").append($(this));
-           }
-           else if ($(this).hasClass("booktypeLI")) {
-                 //console.log("latin list detected");
-                 $("#thumbLI").append($(this));
-         } else if ($(this).hasClass("booktypeTK")) {
-             //console.log("latin textbook detected");
-             $("#thumbTK").append($(this));
-         }
-       });
 
-    }
-    // Hide all text/book elements NOT part of the selected language:
-    books.not("[class*='" + lang + "']").css("display", "none");
-    // Show all which are part of the selected language:
-   // books.filter("[class*='" + lang + "']").css("display", "block");
-    //What if I had a function that took books as an arg, and then applied filters based on event.
+
+
 
     //Clear and hide panel-contents in SOURCE TEXT TAB:
     $("#headingTwo .panel-contents").text("");
@@ -1062,29 +824,6 @@ function switchFormTabs(current, next) {
     active_form_tab = next.attr("id");
 }
 
-//function showTip() {
-    //var selects = $('textlist'); //What is textlist's value? Where does this come from
-    //var selectedValue = selects.val();
-    //Shows all or selection under textlist
-    /* Commenting out 6/20/17, doesn't seem to do anything? $('#all_or_selection').css("display", "block");*/
-
-    /*if (selectedValue == "DCC Latin Core" ||
-        selectedValue == "DCC Greek Core" ||
-        selectedValue == "Herodotus Book 1 Core (412 words > 10 times)" &&
-        $("#Selection").checked == true) {
-        $("#core_tip").css("display", "block");
-        $("#other_tip").css("display", "none");
-        $("#core_tip").popover('hide');
-        $("#other_tip").popover('hide');
-    } else if ($("#Selection").checked == true) {
-        $("#core_tip").css("display", "none");
-        $("#other_tip").css("display", "block");
-        $("#core_tip").popover('hide');
-        $("#other_tip").popover('hide');
-
-    }*/
-
-//}
 
 // Makes sure that selection input is correct
 function validateTextSelect() {
@@ -1967,8 +1706,9 @@ function loadWordData(data) {
 /* Sets GLOBAL VAR words_metadata, containing parameters for Ajax call.
  * Called by inline script. */
 function setVocabMetadata(lang, text, text_comp, bookslist, text_from, text_to, add_remove) {
-    console.log(bookslist, 'BOOKLIST')
+
     words_metadata = {"language":lang, "text":text, "text_comp":text_comp, "bookslist":bookslist, "text_from":text_from, "text_to":text_to, "add_remove":add_remove};
+      console.log(words_metadata);
 }
 
 

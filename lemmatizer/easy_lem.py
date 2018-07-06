@@ -1,18 +1,18 @@
 import os
 import subprocess
 path = os.path.dirname(os.path.realpath(__file__))
-import sys 
+import sys
 
 def lemmatize(language,filename,format,lem_level, concordance):
     print ("in lemmatize in easy_lem.py")
     print((os.environ , "os environ"))
     print(('inputs', language,filename,format,lem_level, concordance))
-    try: 
-        
+    try:
+
         if lem_level == 'Ambiguous':
             key = '-a'
         else:
-            key = '' 
+            key = ''
         if format == 'bridge':
             ui = '--force-ui'
         else:
@@ -31,9 +31,9 @@ def lemmatize(language,filename,format,lem_level, concordance):
 
         #convert lemma format to Bridge
         #if language == 'latin':
-        #    os.system('python3 /srv/bridge-repo/lemmatizer/convert_lemmata_format.py {0} import /srv/bridge-repo/lemmatizer/morpheus-bridge.xlsx'.format(language))   
+        #    os.system('python3 /srv/bridge-repo/lemmatizer/convert_lemmata_format.py {0} import /srv/bridge-repo/lemmatizer/morpheus-bridge.xlsx'.format(language))
         #elif language == 'greek':
-        #    os.system('python3 /srv/bridge-repo/lemmatizer/convert_lemmata_format.py {0} import /srv/bridge-repo/lemmatizer/Convert-bridge-morpheus-greek.xlsx'.format(language))   
+        #    os.system('python3 /srv/bridge-repo/lemmatizer/convert_lemmata_format.py {0} import /srv/bridge-repo/lemmatizer/Convert-bridge-morpheus-greek.xlsx'.format(language))
 
         new_filename = filename.split('.')[0] + '.xlsx'
         if format == 'bridge':
@@ -42,12 +42,13 @@ def lemmatize(language,filename,format,lem_level, concordance):
 
         else:
             pass
-         
-    except:
-        print ('Unable to lemmatize file.')   
+
+    except Exception as e:
+        print(e)
+        print ('Unable to lemmatize file.')
 
 
-        #Output is a file with filename_Input.xlsx 
+        #Output is a file with filename_Input.xlsx
 
 
 #lemmatize('greek','greek_text.txt','bridge')

@@ -50,7 +50,7 @@ class TextStructureGlossary(models.Model):
 class WordAppearencesLatin(models.Model):
     text_name = models.CharField(max_length=100, blank=False)
     text_name_for_computers = models.CharField(max_length=100, blank=True, null=True)
-    word = models.ForeignKey('WordPropertyLatin', blank=False,null=True, on_delete=models.CASCADE)
+    word = models.ForeignKey('WordPropertyLatin', blank=False,null=True, on_delete=models.CASCADE, related_name = "field3")
     mindiv = models.SmallIntegerField(blank=False)
     appearance = models.CharField(max_length=52, blank=False,null=True)
     local_def = models.CharField(max_length=1168, blank=True,null=True)
@@ -60,15 +60,27 @@ class WordAppearencesLatin(models.Model):
         s += '\nLOCATION:\t'+str(self.mindiv)
         s += ' WORD: ' + self.word.title
         return s
+    def __str__(self):
+        s = 'TEXT:\t'+self.text_name
+        s += '\nWORD ID:\t'+str(self.word_id)
+        s += '\nLOCATION:\t'+str(self.mindiv)
+        s += '\nLOCAL DEF:\t' + str(self.local_def)
+        return s
 
 class WordAppearencesGreek(models.Model):
     text_name = models.CharField(max_length=100, blank=False)
     text_name_for_computers = models.CharField(max_length=100, blank=True, null=True)
-    word = models.ForeignKey('WordPropertyGreek', blank=False,null=True, on_delete=models.CASCADE)
+    word = models.ForeignKey('WordPropertyGreek', blank=False,null=True, on_delete=models.CASCADE, related_name = "field3")
     mindiv = models.SmallIntegerField(blank=False)
     appearance = models.CharField(max_length=100, blank=False,null=True)
     local_def = models.CharField(max_length=1168, blank=True,null=True)
     def __unicode__(self):
+        s = 'TEXT:\t'+self.text_name
+        s += '\nWORD ID:\t'+str(self.word_id)
+        s += '\nLOCATION:\t'+str(self.mindiv)
+        s += '\nLOCAL DEF:\t' + str(self.local_def)
+        return s
+    def __str__(self):
         s = 'TEXT:\t'+self.text_name
         s += '\nWORD ID:\t'+str(self.word_id)
         s += '\nLOCATION:\t'+str(self.mindiv)
@@ -104,6 +116,9 @@ class WordPropertyLatin(models.Model):
     corpus_rank = models.IntegerField(blank=True, null=True)
     def __unicode__(self):
         return self.title
+    def __str__(self):
+        return self.title
+
 #I changed all the integer fields to text fields because it doesn't like importing blank integer fields
 #Note exlude is still int because the spreadsheet doesn't have it
 class WordPropertyGreek(models.Model):
@@ -132,6 +147,8 @@ class WordPropertyGreek(models.Model):
     corpus_rank = models.IntegerField(blank=True, null=True)
     def __unicode__(self):
         return self.title
+    def __str__(self): #for greek it probably should use unicode, since it does not use the latin alphabet, but this is a django 1 to 2 thing.
+        return self.title
 
 class BookTitlesGreek(models.Model):
     #book type for sorting on home page
@@ -151,18 +168,7 @@ class BookTitlesGreek(models.Model):
     class Meta:
         managed = True
         db_table = 'book_titles_greek'
-'''
-class BookTable(models.Model):
-    id = models.IntegerField(primary_key=True)
-    title = models.CharField(db_column='Title', max_length=30, blank=True)
-    appearences = models.CharField(db_column='Appearences', max_length=17360, blank=True)
-    field_book_text = models.CharField(db_column='BookText', max_length=52, blank=True)
-    def __unicode__(self):
-        return self.title
-    class Meta:
-        managed = True
-        db_table = 'book_table'
-'''
+
 #Shouldn't use plurals
 class BookTitles(models.Model):
     title_of_book = models.TextField(db_column='Title of Book')
@@ -182,15 +188,3 @@ class BookTitles(models.Model):
     class Meta:
         managed = True
         db_table = 'book_titles'
-'''
-class BookTableGreek(models.Model):
-    id = models.IntegerField(primary_key=True)
-    title = models.CharField(db_column='Title', max_length=43, blank=True)
-    appearences = models.CharField(db_column='Appearences', max_length=8, blank=True)
-    field_book_text = models.CharField(db_column=' Book/Text', max_length=44, blank=True)
-    def __unicode__(self):
-        return self.title
-    class Meta:
-        managed = True
-        db_table = 'book_table_greek'
-'''

@@ -7,18 +7,17 @@
 <div class="home-header-wrap">
    <div class= "header-content-wrap:>
       <div class ="container">
-
 <form id="giant_form" action="" method="POST" target="_self">
     {% csrf_token %}
     <div class="home-header-wrap">
         <div class="panel-group col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2" id="accordion" role="tablist" aria-multiselectable="true">
-            <div class=""header-content-wrap"> <!--Add two quotation marks before header-content-wrap, then rem-->
+            <div class=""header-content-wrap">
                 <a id="tabOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style=" color :#131b15;">
-                   <!--<div role="tab" id="headingOne">-->>
+
                           <div class="intro-text">
                                 Select a language
                           </div>
-                    <!--</div>-->
+
                 </a>
                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                     <div class="buttons" pull-right>
@@ -48,123 +47,31 @@
                             Please choose one list, textbook, or text (required):
                         </p>
                        <div class="toggle-container col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" id="all_or_selection">
-		                       <div class="button-holder type_of_txt_btn_group" role="group" data-toggle="buttons" aria-label="Select one of three buttons to filter our dropdown menu and only see 'Texts', 'Textbooks', and 'Lists'">
-			      <!--  <button name="text" data-value="TE"  type="button" class="btn btn-primary active">Text</button>
-                                <button name="textbook" data-value="TK" type="button" class="btn btn-primary">Textbook</button>
-                                <button name="lists" data-value="LI" type="button" class="btn btn-primary">List</button>-->
 
-                                <!-- ADD A GLYPHICON EXPLAINING THE BUTTON FUNCTION-->
-			<!--Switching buttons: about to change value's and text to proper orders. CHeck how this affects Javascript.-->
-                                <label id="first-active" class="btn btn-primary active" value="LI">
-                                    <input name="list" type="radio">List
-                                </label>
-                                <label class="btn btn-primary" name="textbook" value="TK">
-                                    <input name="textbook" type="radio">Textbook
-                                </label>
-                                <label class="btn btn-primary" name="text" value="TE">
-                                    <input name="list" type="radio" value="list">Text
-                                </label>
-                            </div>
-                        <!--where it was-->
-                        <div id="dropDownDiv" class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
-                            <select id="latin_TE_DropDown" class="form-control" name="textlist" size="8" data-toggle="tooltip" data-placement="bottom">
-                                <option value="" selected disabled>Select a text:</option>
-                                {% for each in booklist_latin_TE %}
-                                <option value = "{{ each }}" name="{{ each }}" class="latinbook"> {{ each }} </option>
-                                {% endfor %}
-                            </select>
-
-                            <select id="latin_TK_DropDown" class="form-control" name="textlist" size="8" data-toggle="tooltip" data-placement="bottom">
-                                <option value="" selected disabled>Select a text:</option>
-                                {% for each in booklist_latin_TK %}
-                                <option value = "{{ each }}" name="{{ each }}" class="latinbook"> {{ each }} </option>
-                                {% endfor %}
-                            </select>
-
-                            <select id="latin_LI_DropDown" class="form-control" name="textlist" size="8" data-toggle="tooltip" data-placement="bottom">
-                                <option value="" selected disabled>Select a text:</option>
-                                {% for each in booklist_latin_LI %}
-                                <option value = "{{ each }}" name="{{ each }}" class="latinbook"> {{ each }} </option>
-                                {% endfor %}
-                            </select>
-                            <select id="greek_TE_DropDown" class="form-control" name="textlist" size="8" data-toggle="tooltip" data-placement="bottom">
-                              <option value="" selected disabled>Select a text:</option>
-                              {% for each in booklist_greek_TE %}
-                              <option value = "{{ each }}" name = "{{ each }}" class="greekbook"> {{ each }} </option>
-                              {% endfor %}
-                            </select>
-
-                            <select id="greek_TK_DropDown" class="form-control" name="textlist" size="8" data-toggle="tooltip" data-placement="bottom">
-                              <option value="" selected disabled>Select a text:</option>
-                              {% for each in booklist_greek_TK %}
-                              <option value = "{{ each }}" name = "{{ each }}" class="greekbook"> {{ each }} </option>
-                              {% endfor %}
-                            </select>
-
-                            <select id="greek_LI_DropDown" class="form-control" name="textlist" size="8" data-toggle="tooltip" data-placement="bottom">
-                              <option value="" selected disabled>Select a text:</option>
-                              {% for each in booklist_greek_LI %}
-                              <option value = "{{ each }}" name = "{{ each }}" class="greekbook"> {{ each }} </option>
-                              {% endfor %}
-                            </select>
+                        <div class= "latinbooks" name = "textlist">
+                            {% csrf_token %}
+                            {{ latin_books_form.as_p }}
+                            {{ latin_books_form.media }}
                         </div>
-                        <div class="btn-group" data-toggle="buttons" id="btns_all_or_select">
+                        <div class= "greekbooks" name = "textlist">
+                              {% csrf_token %}
+                              {{ greek_books_form.as_p }}
+                              {{ greek_books_form.media }}
+                        </div>
+                             <div id= "reading wrapper">
 
-                                <label class="btn btn-primary active" value="All">
-                                    <input type="radio" name="formselector" value="All" id="All" checked>All
-                                </label>
-                                <label class="btn btn-primary" value="Selection">
-                                    <input type="radio" name="formselector" value="Selection" id="Selection">Selection
-                                </label>
-                            </div>
-
-                        <div class="toggle-container col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" id="all_or_selection">
-                               <div id="text_selection" style="width: 74%; margin: 0 auto;  display: none;">
-                                   <div class="input-group-container">
-                                       <div class="input-group">
-                                           <span class="input-group-addon" id="sizing-addon3">From</span>
-                                           <input type="text" class="form-control" name="text_from" id="text_from" placeholder="ex: 1.2.30" aria-describedby="sizing-addon3">
-                                       </div>
-                                   </div>
-                                   <div class="input-group-container">
-                                       <div class="input-group">
-                                           <span class="input-group-addon" id="sizing-addon3">To</span>
-                                           <input type="text" class="form-control" name="text_to" id="text_to" aria-describedby="sizing-addon3">
-                                       </div>
-                                   </div>
-                               </div>
                              </div>
+                             <button id="choose_book" class = "add_button" type="button"
+                             onclick="get_text_name(this.id)"> Add this text </button>
+
+
+
+
+                         </div>
                           </div>
-                        <!--
-                        <br />
-
-                        <button type="button" id="core_tip" class="btn btn-sm btn-info" data-toggle="popover" data-placement="right" data-container="body" title="How to Choose a Frequency Range"
-                            data-content='<ul><img id="core_selection_tip_img" src="/static/images/core_selection_tip.jpg">This selection would yield a list of the 100 most commonly used words.</ul>'
-                            data-html="true" style="display:none"><span class="glyphicon glyphicon-question-sign"  style="padding-right: 5px"></span>Choosing a Frequency Range</button>
-
-                        <button type="button" id="other_tip" class="btn btn-sm btn-info" data-toggle="popover" data-placement="right" data-container="body" title="How to Choose a Selection"
-                            data-content='<ul><b>For works divided only into chapters, poems, or other sections:</b>
-                                <br /><br />You can select a single unit...</br/>
-                                <img id="selection_tip_1" src="/static/images/selection_tip_1.jpg">
-                                <br /><br />Or a range of units...<br />
-                                <img id="selection_tip_2" src="/static/images/selection_tip_2.jpg">
-                                <br /><br /> <b>For works whose sections are subdivided:</b>
-                                <br /><br />You can select a single sub-division...<br />
-                                <img id="selection_tip_3" src="/static/images/selection_tip_3.jpg">
-                                <br /><br /> Or a range within a section:<br/ >
-                                <img id="selection_tip_4" src="/static/images/selection_tip_4.jpg">
-                                <br /><br /> Or a range with the whole work:<br />
-                                <img id="selection_tip_5" src="/static/images/selection_tip_5.jpg">
-                                <br /><br />It is easy to indicate the start of a section or its end. Just omit the sub-divisions:<br />
-                                <img id="selection_tip_6" src="/static/images/selection_tip_6.jpg"><br /><br />
-                                <img id="selection_tip_7" src="/static/images/selection_tip_7.jpg"></ul>'
-                            data-html="true" style="display: none"><span class="glyphicon glyphicon-question-sign" style="padding-right: 5px"></span>Choosing a Selection</button>
-                    </div>
-                    for some reason when this is un commented, the texts to choose from disappear.
-      -->
                 </div>
             </div>
-        </div>
+
         <div class="panel panel-default hidden">
             <a class="collapsed" id="tabThree" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
 
@@ -192,95 +99,116 @@
                             </label>
                         </div>
                     </div>
+
+
+                        <div class="toggle-container col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" id="all_or_selection">
+
+                         <div class= "latinbooks" name = "textlist">
+                             {% csrf_token %}
+                             {{ latin_books_form.as_p }}
+                             {{ latin_books_form.media }}
+                         </div>
+                         <div class= "greekbooks" name = "textlist">
+                               {% csrf_token %}
+                               {{ greek_books_form.as_p }}
+                               {{ greek_books_form.media }}
+                         </div>
+                              <div id= "read_wrapper">
+
+                              </div>
+                              <button id="exclude" class = "add_button" type="button"
+                              onclick="get_text_name(this.id)"> Add this text </button>
+                          </div>
+                           </div>
+                           </div>
                  </div>
+             </div>
+              </div>
 
-
-  <!--put class="row" on div id="booklist"-->
                     <div id="booklist" class="container-fluid">
+                      <input
+                      type="hidden" value = ""  name= "readlist" id="readlist_id">
+                      </input>
+                      <input
+                      type="hidden" value = ""  name= "textlist" id="textlist_id">
+                      </input>
 
-		         <div class="book-type-row row" id="thumbLI"><h2>Lists</h2></div>
-                         <div class="book-type-row row" id="thumbTK"><h2>Textbooks</h2></div>
-                         <div class="book-type-row row" id="thumbTE"><h2>Texts</h2></div>
-                            {% for each in booklist_latin %}
-                            <div class="col-xs-6 col-md-3 latinbookthumb booktype{{ each.1 }}">
-                                <div class="thumbnail" id="{{ each.0 }}">
-                                    <button class='btn btn-default btn-block' type='button' name="book" value="{{ each.0 }}" data-toggle="tooltip" data-placement="bottom" title="{{ each.0 }}">
-                                        <div class="text_name">
-                                            {{ each.0 }}
-                                        </div>
-                                    </button>
 
-		                                    <div class="range-select-toggle text-center">
-                		                        <div class="btn-group" data-toggle="buttons">
-                                		            <label class="btn btn-primary active" value="All">
-                                        		        <input type="radio" checked>All
-                                       			     </label>
-                                            <label class="btn btn-primary" value="Selection">
-                                                <input type="radio">Selection
-                                            </label>
-                                        </div>
 
-                                        <div class="range_select_box" id= '{{ each.0 }} range_select_box'>
-                                          <button class="add_form_field" id= '{{ each.0 }} add_button'
-                                          onclick = "save_button_ID(this.id)" >Add Section  </button>
-                                            <div class="input-group-container">
-                                                <div class="input-group">
-                                                  <input type="text" class="form-control" name="no name, just a placeholder" placeholder="[]" aria-describedby="sizing-addon3" style='display: none'> <!-- something weird was happening where the first one of these was always named {{ each.0 }} to, which is the correct name for the end, but destroys the beggining-->
-
-                                                  <input type="text" class="form-control" name="{{ each.0 }} from" placeholder="[start]" aria-describedby="sizing-addon3">
-                                                  <span class="input-group-addon" id="sizing-addon3">to</span>
-
-                                                  <input type="text" class="form-control" name="{{ each.0 }} to" placeholder="[end]" aria-describedby="sizing-addon3">
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                </div>
-                            </div>
-                        </div>
-                            {% endfor %}
-                            {% for each in booklist_greek %}
-                            <div class="col-xs-6 col-md-3 greekbookthumb booktype{{ each.1 }}" value="{{ each.0 }}">
-                                <div class="thumbnail" id="{{ each.0 }}">
-                                    <button class='btn btn-default btn-block' type='button' name="book" value="{{ each.0 }}" data-toggle="tooltip" data-placement="bottom" title="{{ each.0 }}">
-                                        <div>
-                                            {{ each.0 }}
-                                        </div>
-                                    </button>
-                                    <div class="range-select-toggle text-center">
-                                        <div class="btn-group" data-toggle="buttons">
-                                            <label class="btn btn-primary active" value="All">
-                                                <input type="radio" checked>All
-                                            </label>
-                                            <label class="btn btn-primary" value="Selection">
-                                                <input type="radio">Selection
-                                            </label>
-                                        </div>
-
-                                        <div class="range_select_box" id= '{{ each.0 }} range_select_box'>
-                                          <button class="add_form_field" id= '{{ each.0 }} add_button'
-                                          onclick = "save_button_ID(this.id)" >Add Section  </button>
-                                            <div class="input-group-container">
-                                                <div class="input-group">
-                                                  <input type="text" class="form-control" name="no name, just a placeholder" placeholder="[]" aria-describedby="sizing-addon3" style='display: none'> <!-- something weird was happening where the first one of these was always named {{ each.0 }} to, which is the correct name for the end, but destroys the beggining-->
-
-                                                  <input type="text" class="form-control" name="{{ each.0 }} from" placeholder="[start]" aria-describedby="sizing-addon3">
-                                                  <span class="input-group-addon" id="sizing-addon3">to</span>
-                                                  <input type="text" class="form-control" name="{{ each.0 }} to" placeholder="[end]" aria-describedby="sizing-addon3">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endfor %}
                             <script>
                             var calls1 = 0;
                             var calls2 =0;
                             var new_name = '';
                             var wrapper = '';
                             var add_button = '';
+                            var text_name = ''
+                            var wrapper0 = ""
+                            var readlist =[];
+                            var textlist =[];
+                            var last_add = '';
 
+
+                            function get_text_name(clicked_id){
+                            if (clicked_id == "choose_book") {
+                              wrapper0 = document.getElementById("reading wrapper")
+                              console.log("adding a book to reading ID =", clicked_id)
+                              text_name = document.getElementById('select2-id_books4-container').title;
+                              console.log(text_name, "(local)");
+                              textlist.push(text_name + "$");
+                              console.log(textlist)
+                              document.getElementById('textlist_id').value = textlist
+                              last_add = "textlist"
+                            }
+                            else {
+                              wrapper0 = document.getElementById("read_wrapper")
+                              console.log("adding a book to read", clicked_id)
+                              text_name = document.getElementById("select2-id_books32-container").title;
+                              readlist.push(text_name + "$");
+                              document.getElementById('readlist_id').value = readlist
+                              last_add = "readlist"
+                            }
+
+
+                            console.log("I HAVE BEEN CLICKED!!!");
+
+                            $(wrapper0).append('<div id="holder for '+text_name+'"> <div class="thumbnail" id="'+text_name+'"> <button class="btn btn-default btn-block" type="button" name="book" value="'+text_name+'" data-toggle="tooltip" data-placement="bottom" title=" "> <div class="'+text_name+'"> '+text_name+'</div></button>');
+
+                            $(wrapper0).append('<p id = "description for '+text_name+'">Optional: select a section of this text. Leave blank for all the words in the text.</p><div <div class="input-group-container" id="'+text_name+' input-group-container"> <button type=button class="add_form_field" id= "'+text_name+' add_button" onclick = "save_button_ID(this.id)" >Add Another Section</button> <div class="input-group"><input type="text" class="form-control" name="'+text_name+' from" placeholder="[start]" aria-describedby="sizing-addon3"><span class="input-group-addon" id="sizing-addon3">to</span><input type="text" class="form-control" name="'+text_name+' to" placeholder="[end]" aria-describedby="sizing-addon3"></div></div></div></div></div> <button type=button  id="delete '+text_name+'" class="delete" onclick = "delete_add(this.id)"> undo last addtext  </button> </div> <br> </div>');
+                            clicked_id = ""
+                            wrapper0 = ""
+                          };
+                          function delete_add(clicked){
+                          clicked= clicked.slice(7)
+                                console.log(clicked);
+                              $("div[id*='"+clicked+"']").remove();
+                              $("p[id*='"+clicked+"']").remove();
+                              $("button[id*='"+clicked+"']").remove();
+                                if (last_add == "readlist"){
+                                  readlist = readlist[-1];
+                                  document.getElementById('readlist_id').value = readlist
+                                  if (readlist){
+
+                                    textlist= textlist;
+                                  }else {
+                                    console.log("deleted readlist, setting it to empty instead");
+                                    readlist = [];
+                                  }
+                                }else if (last_add == "textlist") {
+                                  textlist = textlist[-1];
+                                  document.getElementById('textlist_id').value = textlist
+                                  console.log(textlist);
+                                  if (textlist){
+
+                                    textlist= textlist;
+                                  }else {
+                                    console.log("deleted textlist, setting it to empty instead");
+                                    textlist = [];
+                                  }
+
+                                }else {
+                                  true
+                                }
+                              }
 
                             function save_button_ID(clicked_id)
                             {
@@ -290,12 +218,10 @@
                               new_name = new_name.slice(0, -11);
                               wrapper = '';
                               console.log(new_name, "new_name right after it was set")
-
                               //saves the name of the button so that we add to the correct range_select_box and so that the data is submitted.
                             $(document).ready(function(e) {
-
-                                          console.log(''+new_name+' range_select_box')
-                                          wrapper_id =''+new_name+' range_select_box'
+                                          console.log(''+new_name+' input-group-container')
+                                          wrapper_id =''+new_name+' input-group-container'
                                           console.log($(document.getElementById(wrapper_id)), "about to be wrapper")
                                           var max_fields = 10;
                                           wrapper  = $(document.getElementById(wrapper_id));
@@ -303,8 +229,6 @@
                                           console.log(add_button)
                                           var x = 1;
                                           console.log(wrapper, "wrapper")
-
-
                                       $(add_button).click(function(e) {
                                           e.preventDefault();
                                           calls2++;
@@ -313,7 +237,7 @@
                                           if(x < max_fields){
                                               x++; // ++ just means change by 1.
                                               console.log(wrapper, 'wrapper we are about to add to')
-                                             $(wrapper).append( '<div class = "input-group-container"> <div class="input-group"> <input type="text" class="form-control" name= "'+new_name+' from"  placeholder="[start]" aria-describedby="sizing-addon3"><span class="input-group-addon" id="sizing-addon3">to</span> <input type="text" class="form-control" name= "'+new_name+' to" placeholder="[end]" aria-describedby="sizing-addon3"></div><a href="#" class="delete">Delete</a></div>')
+                                             $(wrapper).append('<div class="input-group"> <input type="text" class="form-control" name= "'+new_name+' from"  placeholder="[start]" aria-describedby="sizing-addon3"><span class="input-group-addon" id="sizing-addon3">to</span> <input type="text" class="form-control" name= "'+new_name+' to" placeholder="[end]" aria-describedby="sizing-addon3">  <a href="#" class="delete">Delete this section</a> </div>')
                             //add input boxes.
                             console.log('did the visuals for adding a new input box')
                                                             }
@@ -324,46 +248,29 @@
                                         }
                                         else
                                         {
+                                          console.log(calls1, calls2)
                                         calls1 = 0;
                                         calls2 = 0;
                                         }
                                       });
-
                                     $(wrapper).on("click",".delete", function(e){
-                                              e.preventDefault(); $(this).parent('div').remove(); x--;
-                                    })
+                                              e.preventDefault(); $(this).parent('div').remove();
+                                              x--;
 
+                                    })
                             });
                           };
-
                             </script>
-                          </div> <!-- this is the one that closes booklist -->
+                          </div>
                         </div>
                     </div>
-                </div><!--HERE-->
-            </div>
-        </div>
-    </div><!--panel hidden-->
-</div>
 
 
-                            <script>
-
-                            document.write("<div id='temp' style='display: none'></div>");
-                            $("#temp").parent().find(".range_select_box").each(function(){
-                                    var inpts = $(this).find(":input");
-
-                                        $(inpts[0]).attr("name",$(inpts[0]).attr("name")+" from");
-                                        $(inpts[1]).attr("name",$(inpts[1]).attr("name")+" to");
-
-				                                });
-
-
-                            </script>
 <div id="parentSubmitRow" class="row">
     <div id="colSubmit" class="col-xs-8 col-xs-offset-2 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
         <button class="btn btn-lg btn-block hidden" type="submit" value="Submit" id="giant_form_submit">Submit &nbsp<span class="glyphicon glyphicon-share-alt"></span></button>
     </div>
+</div>
 </div>
     </form>
 </body>
