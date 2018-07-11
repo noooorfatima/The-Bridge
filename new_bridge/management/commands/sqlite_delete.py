@@ -38,7 +38,7 @@ class Command(BaseCommand):
                 elif to_delete == 'WordAppearencesLatin':
                   while WordAppearencesLatin.objects.count():
                     ids = WordAppearencesLatin.objects.values_list('pk', flat=True)[:100]
-                    WordAppearencesLatin.objects.filter(pk__in = ids).delete()              
+                    WordAppearencesLatin.objects.filter(pk__in = ids).delete()
                 elif to_delete == 'WordPropertyGreek':
                     while WordPropertyGreek.objects.count():
                        ids = WordPropertyGreek.objects.values_list('pk', flat=True)[:100]
@@ -49,23 +49,22 @@ class Command(BaseCommand):
                        ids = WordAppearencesGreek.objects.values_list('pk', flat=True)[:100]
                        WordAppearencesGreek.objects.filter(pk__in = ids).delete()
                 elif to_delete == 'TextStructureNodeCLEAN':
-                 titles = TextMetadata.objects.all()
-                 for tit in titles:
-                   text_name = tit.name_for_humans
-                   print("Deleting old entries for",text_name)
-                   print("There are this many entries:")
-                   print(len(TextStructureNode.objects.filter(text_name=text_name)),TextStructureNode.objects.filter(text_name=text_name))
-                   index = 1
-                   while len(TextStructureNode.objects.filter(text_name=text_name))>1:
-                    print(index,text_name)
-                    path = TextStructureNode.objects.filter(text_name=text_name)[0].path
-                    if True:
-                      ids = TextStructureNode.objects.filter(path__startswith=path).values_list('pk', flat=True)
-                      for the_id in ids:
-                         TextStructureNode.objects.filter(pk = the_id).delete()
-                    index +=1
+                    titles = TextMetadata.objects.all()
+                    for tit in titles:
+                       text_name = tit.name_for_humans
+                       print("Deleting old entries for",text_name)
+                       print("There are this many entries:")
+                       print(len(TextStructureNode.objects.filter(text_name=text_name)),TextStructureNode.objects.filter(text_name=text_name))
+                       index = 1
+                       while len(TextStructureNode.objects.filter(text_name=text_name))>1:
+                           print(index,text_name)
+                           path = TextStructureNode.objects.filter(text_name=text_name)[0].path
+                           ids = TextStructureNode.objects.filter(path__startswith=path).values_list('pk', flat=True)
+                           for the_id in ids:
+                               TextStructureNode.objects.filter(pk = the_id).delete()
+                           index +=1
 
-               
+
                 else:
                     print("That is not currently an option for deleting! You can add it in new_bridge/management/commands/sqlite_delete.py")
             else:

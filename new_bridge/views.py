@@ -1,15 +1,8 @@
 
 """
 TODO:
-Make "What are you reading" and "Include/exclude" the same. √
-This will allow users the option to read multiple texts, and make input for dijoint subsections more user friendly.
-Make input be through autocomplete fields. √
-Once "selection" is chosen, give a prompt for the subsections based on the text's subsectioning. It is fine for gallic wars, not so fine for poems, text books, or lists.
-fix "addsection" button in textlist.html
-fully allow user to be reading multiple texts
 Fix importer
 Fix/update autoLemma.py
-Redo slideout panel filters to allow total #apps, apps in section, and corpus_rank side by side. (sort of done, needs better styling)
 
 eventually: see if I can do anything about intial load time, since it has been kind of slow since switching to autocompletes
 
@@ -37,7 +30,6 @@ models = new_bridge.models  #after switching to python3/django2.0, models wants 
 
 class TextMetadataLookUp_latin(autocomplete.Select2ListView):
 
-
 	def create(self, text):
 		return text
 
@@ -50,10 +42,8 @@ class TextMetadataLookUp_latin(autocomplete.Select2ListView):
 
 class TextMetadataLookUp_greek(autocomplete.Select2ListView):
 
-
 	def create(self, text):
 		return text
-
 	def get_list(self):
 		result_list = [model.name_for_humans for model in models.TextMetadata.objects.filter(language='greek')]
 		if self.q:
@@ -65,9 +55,24 @@ class TextMetadataLookUp_greek(autocomplete.Select2ListView):
 def IndexView(request):
 
 	latin_books_form = forms.TextMetadataAutoForm_latin()
-	print(latin_books_form)
 	greek_books_form = forms.TextMetadataAutoForm_greek()
-	context = {"latin_books_form" : latin_books_form, "greek_books_form" : greek_books_form}
+	subsection_data = {}
+	for model in models.TextStructureGlossary.objects.all():
+		s = model.subsection_level
+		ns = ""
+		for i in range(1, s+1):
+			if i != s:
+				ns = ns + str(i) + "."
+			else:
+				ns = ns + str(i)
+
+
+		subsection_data[model.text_name] = ns
+	print(subsection_data)
+	name_for_humans_to_name_for_computers = {}
+	for model in models.TextMetadata.objects.all():
+		name_for_humans_to_name_for_computers[model.name_for_humans] = model.name_for_computers
+	context = {"latin_books_form" : latin_books_form, "greek_books_form" : greek_books_form, "subsection_data" : subsection_data, "name_for_humans_to_name_for_computers" : name_for_humans_to_name_for_computers}
 	#print("calling on index.html")
 	return render(request,
 	'index.html', context)
@@ -120,16 +125,25 @@ def words_page_redirect(request, language):
 		text_from = []
 		text_to = []
 
-		text_from.extend(request.POST.getlist(text + " from") )
-		text_to.extend(request.POST.getlist(text + " to"))
-
+		text_from.extend(request.POST.getlist(text + " reading from") )
+		text_to.extend(request.POST.getlist(text + " reading to"))
+		if text_from == [] or text_to == []: #something went wrong with removing
+			assert(False)
 		if text_from == ['']:
 			text_from = ["start"]
 		if text_to ==['']:
 			text_to =["end"]
 		text_to.append("$")
 		text_from.append("$")
+
+		for i in range(len(text_from)):
+			if not text_from[i]:
+				text_from[i] = "start"
 		print(text_from, 'from 0')
+
+		for i in range(len(text_to)):
+			if not text_to[i]:
+				text_to[i] = "start"
 		print(text_to, 'to 0')
 
 		reading_from.extend(text_from)
@@ -146,7 +160,7 @@ def words_page_redirect(request, language):
 			bookslist = bookslist[0].split("$")
 		else:
 			bookslist = bookslist[0].split("$,")
-			bookslist[-1]= bookslist[-1][:-1] #removes the trailing $ from the last item
+			bookslist[-1]= bookslist[-1][:-1]
 		print(bookslist, "made bookslist")
 		num_books = len(bookslist)
 		#print( "num_books", num_books)
@@ -475,7 +489,6 @@ def get_words(request, language, text, bookslist, text_from,text_to, add_remove)
 
 	for item in json_words2: #the final list is sent to words_page.html
 		for text in text_list:
-			print(text)
 			if item['pk'] not in final_keys:
 				if language != 'greek':
 					#print(item['pk'])
@@ -484,40 +497,40 @@ def get_words(request, language, text, bookslist, text_from,text_to, add_remove)
 					#print( "^^^^^^^^^^^ that is a word_app")
 				else:
 					word_app = models.WordAppearencesGreek.objects.filter(word=item['pk'],text_name=text[0])
-				if word_app.exists():
+				if word_app.exists(): #not guarrenteed that this word exists in both texts.
 					total_count = len(word_app) #the total number of times the word appears in this text
 					#print("Total count", total_count, word_app[0].word.title)
 					#print('got total count')
 					#try: #this takes a long time, so if the user is studying the whole text, we don't want to do it
-					if len(mindivs) >= 1: #ie, we have some mindivs
-						useful_appearance_data = []
-						for word_apperance in word_app:
-							#print("in top loop")
-							for each in mindivs:
-								from_mindiv = each[0]
-								to_mindiv = each[1]
-								if from_mindiv <= word_apperance.mindiv <= to_mindiv: #this is all the times the word appears in the selection
-									#print("adding word app")
-									useful_appearance_data.append(word_apperance)
-						if useful_appearance_data == []:
-							print (word_app.word_id, "OFFENDING WORD_ID")
-							print(mindivs, "MINDIV RANGE")
-							print("ERROR: that word id (number two above this) does not appear in any of the ranges (directly above this)")
-							assert(False)
-					item['fields']['source_text'] = text
-					item['fields']['count'] = len(useful_appearance_data)
-					item['fields']['total_count'] = total_count
-					#print(useful_appearance_data)
-					word_app = useful_appearance_data[0] # now word_app is the first appearance of the word in the user's subsection
-					item['fields']['position']=word_app.appearance
-					if (word_app.local_def) and word_app.local_def !="":
-						item['fields']['local_def']=word_app.local_def
+					useful_appearance_data = []
+					for word_apperance in word_app:
+						#print("in top loop")
+						for each in mindivs:
+							from_mindiv = each[0]
+							to_mindiv = each[1]
+							if from_mindiv <= word_apperance.mindiv <= to_mindiv: #this is all the times the word appears in the selection
+								#print("adding word app")
+								useful_appearance_data.append(word_apperance)
+					if useful_appearance_data != []:
+						item['fields']['source_text'] = " ".join(text)
+						item['fields']['count'] = len(useful_appearance_data)
+						item['fields']['total_count'] = total_count
+						#print(useful_appearance_data)
+						word_app = useful_appearance_data[0] # now word_app is the first appearance of the word in the user's subsection
+						item['fields']['position']=word_app.appearance
+						if (word_app.local_def) and word_app.local_def !="":
+							item['fields']['local_def']= word_app.local_def
+						else:
+							if language != "greek":
+								item['fields']['local_def']= word_app.word.english_core
+							else:
+								item['fields']['local_def']= word_app.word.english_definition
+						test_for_in_final[item['pk']] = item
+						final_keys.add(item['pk'])
 					else:
-						item['fields']['local_def']="None"
-					test_for_in_final[item['pk']] = item
-					final_keys.add(item['pk'])
+						pass #so this is a wierd case where the user has selected two texts, and a word appears in both texts over all, but not in both of the subsections they selected, and this is the case where it is not in any of our sections. 
 				else:
-					print("that word does not appear in that text, will try again with the other text later")
+					pass
 
 	#make the appearance list sorted and then just take the first one
 	json_words = json.dumps(list(test_for_in_final.values()))
@@ -676,9 +689,6 @@ def loc_to_node(text,location):
 
 
 
-def admin(request):
-	return render(request,'admin.html')
-
 #An admin page for importing updated spreadsheets
 def myimport(request):
 	query_results = models.TextStructureGlossary.objects.all()
@@ -687,61 +697,70 @@ def myimport(request):
 	if request.method == 'POST':
 		update_option = request.POST['update_option']
 		lang = request.POST['select_lang']
-	if update_option == "update_master":
-		print(update_option)
-		print("please be 1", len(request.FILES.getlist('datafile')))
-		try:
-			if len(request.FILES.getlist('datafile')) != 1:
-				return render(request, 'admin/myimport.html',{'multi_file' : True, 'query_results' : query_results,'text_name_results' : text_name_results})
+		if update_option == "update_master":
+			print(update_option)
+			print("please be 1", len(request.FILES.getlist('datafile')))
+			try:
+				if len(request.FILES.getlist('datafile')) != 1:
+					return render(request, 'admin/myimport.html',{'multi_file' : True, 'query_results' : query_results,'text_name_results' : text_name_results})
 				the_file = request.FILES['datafile']
-		except:
-			return render(request, 'admin/myimport.html',{'failed' : True, 'query_results' : query_results,'text_name_results' : text_name_results})
-
-		if the_file.content_type != 'text/csv':
-			return render(request, 'admin/myimport.html',{'failed' : True, 'query_results' : query_results,'text_name_results' : text_name_results})
-		fileName = the_file.name
-		print(fileName)
-		with open('temp_csv_for_importing.csv','wb') as f:
-			f.write(the_file.read())
-		#print('wrote the binary file')
-		#this is capturing the output of management.call_command, which can only be a string
-		out = StringIO()
-		#print(out, 'haha printout')
-	#print('IN for call_command: ', 'update_master','temp_csv_for_importing.csv',lang, stdout=out)
-		management.call_command('update_master','temp_csv_for_importing.csv',lang,stdout=out)
-		error = out.getvalue().strip()
-		print(error)
-		if error != str():
-			error = ast.literal_eval(error)
-	#text_name_error no longer relevant
-		if "text_name_error" in error:
-			return render(request, 'admin/myimport.html',{'query_results' : query_results,'text_name_error' : True, 'text_name' : error['text_name_error'],'text_name_results' : text_name_results })
-		elif "lang_error" in error:
-			return render(request, 'admin/myimport.html',{'query_results' : query_results,'lang_error' : True,'text_name_results' : text_name_results })
-		return render(request, 'admin/myimport.html',{"success" : True, 'query_results' : query_results,'text_name_results' : text_name_results})
-	elif update_option == "update_page":
-		texts = request.FILES.getlist('datafile')
-		if len(texts) == 0:
-			return render(request, 'admin/myimport.html',{'failed' : True, 'query_results' : query_results,'text_name_results' : text_name_results})
-		for fileName in texts:
-			if fileName.content_type != 'text/csv':
+			except:
 				return render(request, 'admin/myimport.html',{'failed' : True, 'query_results' : query_results,'text_name_results' : text_name_results})
+
+			if the_file.content_type != 'text/csv':
+				return render(request, 'admin/myimport.html',{'failed' : True, 'query_results' : query_results,'text_name_results' : text_name_results})
+			fileName = the_file.name
+			print(fileName)
 			with open('temp_csv_for_importing.csv','wb') as f:
-				f.write(fileName.read())
-		out = StringIO()
-		management.call_command('update_page','temp_csv_for_importing.csv',lang,stdout=out)
-		print("Successfully updated page!")
-		print("Now cleaning up all TextStructureNodes") #If there are two text structures for a text, removes all the older ones (not just for this updated text)
-		management.call_command('sqlite_delete',"TextStructureNodeCLEAN")
-		error = out.getvalue().strip()
-		print(error)
-		if error != str():
-			error = ast.literal_eval(error)
-		if "text_name_error" in error:
-			return render(request, 'admin/myimport.html',{'query_results' : query_results,'text_name_error' : True, 'text_name' : error['text_name_error'],'text_name_results' : text_name_results })
-		elif "lang_error" in error:
-			return render(request, 'admin/myimport.html',{'query_results' : query_results,'lang_error' : True,'text_name_results' : text_name_results })
-		return render(request, 'admin/myimport.html',{"success" : True, 'query_results' : query_results,'text_name_results' : text_name_results})
+				f.write(the_file.read())
+			#print('wrote the binary file')
+			#this is capturing the output of management.call_command, which can only be a string
+			out = StringIO()
+			#print(out, 'haha printout')
+			print('IN for call_command: ', 'update_master','temp_csv_for_importing.csv',lang, out)
+			management.call_command('update_master','temp_csv_for_importing.csv',lang,stdout=out)
+			error = out.getvalue().strip()
+			print(error, 'ERROR')
+			if error != str():
+				error = ast.literal_eval(error)
+			#text_name_error no longer relevant
+			if "text_name_error" in error:
+				return render(request, 'admin/myimport.html',{'query_results' : query_results,'text_name_error' : True, 'text_name' : error['text_name_error'],'text_name_results' : text_name_results })
+			elif "lang_error" in error:
+				return render(request, 'admin/myimport.html',{'query_results' : query_results,'lang_error' : True,'text_name_results' : text_name_results })
+			return render(request, 'admin/myimport.html',{"success" : True, 'query_results' : query_results,'text_name_results' : text_name_results})
+
+		elif update_option == "update_page":
+			texts = request.FILES.getlist('datafile')
+			if len(texts) == 0:
+				return render(request, 'admin/myimport.html',{'failed' : True, 'query_results' : query_results,'text_name_results' : text_name_results})
+			for fileName in texts:
+				if fileName.content_type != 'text/csv':
+					return render(request, 'admin/myimport.html',{'failed' : True, 'query_results' : query_results,'text_name_results' : text_name_results})
+				with open('temp_csv_for_importing.csv','wb') as f:
+					f.write(fileName.read())
+			out = StringIO()
+			management.call_command('update_page','temp_csv_for_importing.csv',lang,stdout=out)
+			error = out.getvalue().strip()
+			print(error, "ERROR")
+			if error != str():
+				error = ast.literal_eval(error)
+			if "lang_error" in error:
+				return render(request, 'admin/myimport.html',{'query_results' : query_results,'lang_error' : True,'text_name_results' : text_name_results })
+			if "name_error" in error:
+				return render(request, 'admin/myimport.html',{'query_results' : query_results,'text_name_error' : True, 'text_name' : error['name_error'],'text_name_results' : text_name_results })
+			if "dots_error" in error:
+				return render(request, 'admin/myimport.html',{'query_results' : query_results,'dots_error' : True, 'location' : error['dots_error'],'text_name_results' : text_name_results })
+
+			print("Successfully updated page!")
+			print("Now cleaning up all TextStructureNodes") #If there are two text structures for a text, removes all the older ones (not just for this updated text)
+			management.call_command('sqlite_delete',"TextStructureNodeCLEAN")
+			error = out.getvalue().strip()
+			print(error, "ERROR")
+			if error != str():
+				error = ast.literal_eval(error)
+
+			return render(request, 'admin/myimport.html',{"success" : True, 'query_results' : query_results,'text_name_results' : text_name_results})
 	else:
 		return render(request, 'admin/myimport.html', {'query_results' : query_results,'text_name_results' : text_name_results})
 

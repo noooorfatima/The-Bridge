@@ -10,7 +10,7 @@ from new_bridge.models import WordPropertyLatin,WordPropertyGreek, TextStructure
 from . import text_import
 #Might need to add argument specifying which sort it is (greek|latin)
 '''
-Adds a manage.py command that does ALL of the heavy lifting 
+Adds a manage.py command that does ALL of the heavy lifting
 that used to be involved in updating the database.
 Basically this part of the script formats the csv and then calls Jack's script, text_import.py
 
@@ -26,23 +26,44 @@ class Command(BaseCommand):
 	def handle(self, *args, **options):
 		print(args, 'args')
 		headers = get_headers(args[0])
+
 		lang=args[1]
 		print(lang)
 		data_dict2 = get_data_list_of_dicts(args[0])
 		index = 0
 		name = headers[1]
+		try:
+			TextMetadata.objects.get(name_for_humans=name)
+		except Exception as e:
+			print( "Got an error, text name does not match any text metadata")
+			print ("Current text is:", name)
+			error =  {'name_error' : name}
+			return str(error)
 		if "LOCALDEF" in headers:
-			print("Local def exists for", name)
 			tmd = TextMetadata.objects.get(name_for_humans=name)
 			tmd.local_def=True
 			tmd.save()
-		for item in data_dict2:
+		for item in data_dict2: #would love to make this a list comprehension
 			the_title = data_dict2[index]['TITLE']
+			print(item)
+			locations = item[name].split(",")
+
+			for loc in locations:
+				try:
+					if loc.count(".") > 0:
+						raise ValueError
+				except ValueError:
+					print( "Got a ValueError, are there . instead of _?")
+					print ("Loction with a problem is:", loc)
+					error =  {'dots_error' : loc}
+					return str(error)
+
 			if lang == "Latin":
 				try:
 					#print("the_title in update_page Latin", the_title)
 					word_id=WordPropertyLatin.objects.get(title=the_title).id
 				except:
+					print(item)
 					print("exception: %s" % the_title)
 					pass
 
@@ -56,13 +77,20 @@ class Command(BaseCommand):
 				except:
 					print("exception: %s" % the_title)
 					pass
-			data_dict2[index]['word_id']=word_id
-			index = index + 1
+			try:
+				data_dict2[index]['word_id']=word_id
+				index = index + 1
+			except UnboundLocalError:
+				print( "Got a UnboundLocalError, likely picked wrong language")
+				print ("Current language is:", lang)
+				error =  {'lang_error' : lang}
+				return str(error)
 
 
-		new_headers2 = ['word_id'] + headers
-		write_data_dicts('temp_output.csv', new_headers2, data_dict2)
+
+
+		headers.insert(0, 'word_id') #edits the existing list, we don't need it in its old form so we don't need to create a new list
+		write_data_dicts('temp_output.csv', headers, data_dict2)
 		error = text_import.main('temp_output.csv',lang)
 		if error != None:
 			return str(error)
-

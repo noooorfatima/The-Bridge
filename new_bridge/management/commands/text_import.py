@@ -7,7 +7,7 @@ Usage: python text_import.py DATAFILE.csv TEXT_NAME LANGUAGE
     DATAFILE.csv is the filename of the csv file with text+word data.
     TEXT_NAME is the name of the text whose data will be imported.
         NOTE! This must match the column label which appears in DATAFILE.csv.
-            ALSO must match the text's "name_for_computers" in the 
+            ALSO must match the text's "name_for_computers" in the
              TextMetaData table.  That table doesn't need to be populated at time
              of import, but the names should be consistent accross tables.
     LANGUAGE is latin or greek.
@@ -23,12 +23,19 @@ from new_bridge.models import *
 # text_name is the machine-readable name (i.e. purged of special characters)
 #   of the text.  So, in the "TextMetadata" table, the "name_for_computers".
 def add_word_appearances(is_greek, appearance_list, loc_list, text_name,listified_csv):
-    print(appearance_list, "Appearance List")
-    print(loc_list,"Loc_list")
-    print(text_name, "text name")
-    print(listified_csv, "listified csv")
+    #print(appearance_list, "Appearance List")
+    #print(loc_list,"Loc_list")
+    #print(text_name, "text name")
+    #print(listified_csv, "listified csv")
     loc_list_index = 0
     #check if there are local_defs
+    try:
+        print(text_name)
+        TextMetadata.objects.get(name_for_humans=text_name)
+    except Exception as e:
+        print("ERROR", e)
+        error = e
+        assert(False)
     if TextMetadata.objects.get(name_for_humans=text_name).local_def:
         local_def_dict = {}
         for entry in listified_csv[1:]:
@@ -45,7 +52,8 @@ def add_word_appearances(is_greek, appearance_list, loc_list, text_name,listifie
             entry.save()
     else:
         for appearance in appearance_list:
-            #print appearance, "APPEARANCE"
+            print( appearance, "APPEARANCE")
+            #print( loc_list, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' )
             #print len(appearance_list), "app list"
             if appearance[0].strip() != loc_list[loc_list_index].strip():
                 loc_list_index +=1
@@ -54,18 +62,21 @@ def add_word_appearances(is_greek, appearance_list, loc_list, text_name,listifie
                         word_id=appearance[1].strip(),mindiv=loc_list_index,appearance= loc_list[loc_list_index].replace('_','.'))
             else:
                 entry = WordAppearencesLatin(text_name=text_name,
-                        word_id=appearance[1].strip(),mindiv=loc_list_index, appearance= loc_list[loc_list_index].replace('_','.'))
-            print(entry)
+                        word_id=appearance[1].strip(),
+                        mindiv=loc_list_index,
+                        appearance= loc_list[loc_list_index].replace('_','.'))
+            #print(entry)
             entry.save()
     return
+
 
 # Helper function for build_text_tree.  Builds root node and then calls b_t_t.
 #
 # txt_name is a str, the name of the text.
-# loc_list points to a list of (location, word) tuples sorted by location. 
+# loc_list points to a list of (location, word) tuples sorted by location.
 # Returns the root node of the text structure tree.
 def build_text_tree_helper(txt_name, loc_list):
-    root = TextStructureNode.add_root(text_name=txt_name, 
+    root = TextStructureNode.add_root(text_name=txt_name,
             subsection_level=-1, subsection_id='0', least_mindiv=0)
     # Call recursive fn to build tree for each top-level subsection:
     next_index = build_text_tree(loc_list,0,0,root)
@@ -88,15 +99,15 @@ def build_text_tree(loc_list, index, subsection_lvl, parent):
     location_split1 = location.split('.')
     location_split = []
     for i in location_split1:
-        location_split=location_split + i.split('_')
+        location_split.extend(i.split('_'))
     subsection_id = location_split[subsection_lvl]
     node = TextStructureNode(subsection_level=subsection_lvl,
             subsection_id=subsection_id.strip(), least_mindiv=index)
-    # Make current node a child to node from calling function.  
+    # Make current node a child to node from calling function.
     #   Saves current node in the db, enabling it to have its own children:
     parent = TextStructureNode.objects.get(pk=parent.pk) #get() node to save it
     parent.add_child(instance=node)
-    ### Recursive case 1: 
+    ### Recursive case 1:
     #   Build descendant nodes represented by current location.
     #       e.g.:  if loc='1.2.3' and node = 1.x.x then build 1.2.x and 1.2.3
     if subsection_lvl < len(location_split)-1:
@@ -110,15 +121,14 @@ def build_text_tree(loc_list, index, subsection_lvl, parent):
             if subsection_lvl < len(location_split)-1:
                 index = build_text_tree(loc_list, index, subsection_lvl+1, node)
             else: #I added this. I think it fixed the problem, but I did so with minimal understanding, so it probably is causing a different problem - Dylan
-                index = build_text_tree(loc_list, index, subsection_lvl+1, node)
+                print("help")
+                #index = build_text_tree(loc_list, index, subsection_lvl+1, node)
     ### Base case: no more descendant nodes.
-    return index 
+    return index
 
 # True if location loc2 is descendant of node specified by loc1 & subsectn_lvl
 def is_descendant(loc1, subsection_lvl, loc2):
-    print("in is_descendant")
     loc1, loc2 = loc1.split('_'),loc2.split('_') #split into sections list #Changed to '_' from '.' to reflect new spreadsheet
-    print(loc1, subsection_lvl, loc2)
     try:
         for i in range(subsection_lvl+1):
             if re.search('[0-9]',loc1[i]) is not None:
@@ -133,7 +143,7 @@ def is_descendant(loc1, subsection_lvl, loc2):
         print(loc1,'\t',loc2)
         return False
 
-    
+
 
 # Sorts csv data into sorted list of word locations.
 #
@@ -160,43 +170,43 @@ def parse_csv(listified_csv, text_name):
     ### Sort word appearances by location:
     text_locations.sort(key = lambda loc: loc[0])
     ### Create a list of unique locations:
-    unique_locations = [text_locations[0][0]]
-    for appearance in text_locations:
-        if loc_cmp(unique_locations[-1],appearance[0]) != 0:
-            unique_locations.append(appearance[0])
+    unique_locations = set()
+    [unique_locations.add(appearance[0]) for appearance in text_locations]
+    unique_locations = list(unique_locations)
+    unique_locations.sort()
     return text_locations, unique_locations
-    
+
 # Compare function for word locations.
 #
-# Locations formatted as [section].[subsection].[sub-subsection], 
+# Locations formatted as [section].[subsection].[sub-subsection],
 #   e.g. [book].[chapter].[verse]
 # Location compare
 def loc_cmp(loc1, loc2):
+    if (loc1.count(".") > 0 or loc1.count(".") > 0):
+        print("USE UNDERSCORES INSTEAD OF DOTS")
+        assert(False)
+
     #Might need to change this to underscores for update
     loc1, loc2 = loc1.split('_'),loc2.split('_') #split into sections list
-    #somethings are _, some are still . need to make a way to validate
     if len(loc1)==len(loc2):
         #D#print "Going in 1"
-        try: 
+        try:
             for i in range(len(loc1)):
                 if re.search('[0-9]',loc1[i]) is not None:
-                    print("in if 1")
                     loc1[i] = int(loc1[i])
                 if re.search('[0-9]',loc2[i]) is not None:
-                    print("in if 2")
                     loc2[i] = int(loc2[i])
                 if loc1[i] != loc2[i]:
-                    print
                     return cmp(loc1[i],loc2[i])
-                
+
             return 0
         except:
-            print("ERROR! (line 190)")
+            print("ERROR! (line 190) Try using _ instead of .")
             print(loc1,'\t',loc2)
             return 1
     elif len(loc1)<len(loc2):
         #D#print "Venturing down 2"
-        try: 
+        try:
             for i in range(len(loc1)):
                 if re.search('[0-9]',loc1[i]) is not None:
                     loc1[i] = int(loc1[i])
@@ -204,7 +214,7 @@ def loc_cmp(loc1, loc2):
                     loc2[i] = int(loc2[i])
                 if loc1[i] != loc2[i]:
                     return cmp(loc1[i],loc2[i])
-            #This is what is different from above    
+            #This is what is different from above
             return -1
         except:
             print("ERROR! (line 206)")
@@ -213,7 +223,7 @@ def loc_cmp(loc1, loc2):
 
     elif len(loc1)>len(loc2):
         #D#print "Exploring 3"
-        try: 
+        try:
             for i in range(len(loc2)):
                 if re.search('[0-9]',loc1[i]) is not None:
                     loc1[i] = int(loc1[i])
@@ -221,18 +231,18 @@ def loc_cmp(loc1, loc2):
                     loc2[i] = int(loc2[i])
                 if loc1[i] != loc2[i]:
                     return cmp(loc1[i],loc2[i])
-            #This is what is different from above    
+            #This is what is different from above
             return 1
         except:
             print("ERROR! (line 223)")
             print(loc1,'\t',loc2)
             return 1
-       
+
 
     else:
         print("Something is horribly wrong")
 
-        
+
 def cmp(a, b): #cmp was a built on function for python 2, but it is gone in 3. it did a useful thing, so we are defining it here based on the docs for python2
     if a > b:
       return 1
@@ -245,7 +255,7 @@ def cmp(a, b): #cmp was a built on function for python 2, but it is gone in 3. i
 def cmd_parse():
     if len(sys.argv) == 4:
         dataFile_name, targetText_name, language = sys.argv[1::]
-        return dataFile_name, targetText_name, language 
+        return dataFile_name, targetText_name, language
     # If invalid input:
     else:
         progname = os.path.basename(sys.argv[0])
@@ -261,18 +271,18 @@ def main(csvfilename, language):
     with open(csvfilename) as csvfile:
         csv_reader = csv.reader(csvfile,delimiter=',',quotechar='"')
         listified_csv = list(csv_reader)
-        print(listified_csv)
         text_name=listified_csv[0][2]
- 
+
         # Remove any old entries
         if language.lower() == "latin":
+           print(text_name, "text_name, line 263 of text_import")
            print("Deleting this many old entries:", len(WordAppearencesLatin.objects.filter(text_name=text_name)))
            WordAppearencesLatin.objects.filter(text_name=text_name).delete()
 
         else:
            print("Deleting this many old entries:", len(WordAppearencesGreek.objects.filter(text_name=text_name)))
-           WordAppearencesGreek.objects.filter(text_name=text_name).delete()        
-        
+           WordAppearencesGreek.objects.filter(text_name=text_name).delete()
+
         # Get sorted list of word locations and corresponding words,
         #   and a list of all unique locations in the .csv:
         try:
@@ -280,16 +290,24 @@ def main(csvfilename, language):
         except ValueError:
             return  {"text_name_error":text_name}
         print('Unique locations:\t%s' % len(unique_locations))
-        
+
         # Build text structure tree and store it in db.
         print("about to start build_text_tree_helper")
         root = build_text_tree_helper(text_name,unique_locations)
         print('Successfully built structure tree!')
-        
+
         # Add word appearances to word appearances table:
         is_greek = (language.lower() == "greek")
-        add_word_appearances(is_greek, sorted_appearances,
-           unique_locations, text_name,listified_csv)
+
+        catch_error = add_word_appearances(is_greek, sorted_appearances,
+           unique_locations, text_name, listified_csv) #ok so this is really, really weird, bear with me:
+           #add_word_appearances should not return anything, and is a purely imperative function. However, for error catching purposes, if there is an error, we return it.
+        if catch_error:
+            print("add_word_appearances failed")
+            print(catch_error)
+        else:
+            print('Added word appearance info to DB. Done!')
+
         print('Added word appearance info to DB. Done!')
 
 
@@ -300,18 +318,17 @@ if __name__ == "__main__":
     with open(csvfilename) as csvfile:
         csv_reader = csv.reader(csvfile,delimiter=',',quotechar='"')
         listified_csv = list(csv_reader)
-        
+
         # Get sorted list of word locations and corresponding words,
         #   and a list of all unique locations in the .csv:
         sorted_appearances, unique_locations = parse_csv(listified_csv, text_name)
         print('Unique locations:\t%s' % len(unique_locations))
-        
+
         # Build text structure tree and store it in db.
         root = build_text_tree_helper(text_name,unique_locations)
         print('Successfully built structure tree!')
-        
+
         # Add word appearances to word appearances table:
         is_greek = (language.lower() == "greek")
         add_word_appearances(is_greek, sorted_appearances,
-           unique_locations, text_name)
-        print('Added word appearance info to DB. Done!')
+               unique_locations, text_name,listified_csv)

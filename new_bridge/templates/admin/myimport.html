@@ -11,17 +11,23 @@
 	<h2>There was an error. Make sure you are using a '.csv' file</h2>
 	{% endif %}
 	{% if text_name_error %}
-	<h2>There was an error. Selected text name, {{ text_name }}, was not found in the header of the spread sheet</h2>
+	<h2>There was an error. Selected text name, {{ text_name }}, was not found in the TextMetadata</h2>
 	{% endif %}
 	{% if lang_error %}
 	<h2>There was an error. Did you select the right language?</h2>
 	{% endif %}
+	{% if dots_error %}
+	<h2>There was an error. {{ location }} raised an error, probably has "." instead of "_"</h2>
+	{% endif %}
+
+
+
 	{% if no_text %}
 	<h2>Please select a text</h2>
 	{% endif %}
 	{% if multi_file %}
 	<h2>Error: Multiple files selected for Update Master</h2>
-	{% endif %}	
+	{% endif %}
 {% endif %}
 
 <div>
@@ -70,7 +76,7 @@
         <th>Subsection Name</th>
     </tr>
     {% for item in query_results %}
-    <tr> 
+    <tr>
         <td>{{ item.text_name }}</td>
         <td>{{ item.subsection_level }}</td>
         <td>{{ item.subsection_name }}</td>

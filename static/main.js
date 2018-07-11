@@ -15,7 +15,7 @@
 
 /*switching the buttons. Check configureForm. There's some rather odd behavior with that.*/
 
-DEBUG = true
+DEBUG = false
 
 
 var namesp = namesp || {};
@@ -632,10 +632,17 @@ var tableToExcel = (function () {
                     togglePOSToggle(this); // apply appropriate styles to pos-toggle.
                 }
             });
+
             // Check/uncheck all checkboxes:
             $("#filters_panel .checkdiv").each(function() {
                 setCheckdiv(this,check);
+
             });
+            $("th").each(function() {
+                setCheckdiv(this,check);
+
+            });
+
             $(this).data("check",!(check)); // Flip button function.
             filterTable(); // Update table.
         });
@@ -697,6 +704,7 @@ function configureForm(e) {
     console.log(lang, "lang");
     globalLang = lang;
     console.log(globalLang);
+
     // Set the redirect page to the appropriate lang:
     $("#giant_form").attr("action", "words_page_redirect/" + lang + "/");
     // Configure SOURCE TEXT TAB to only show texts from specified lang:
@@ -715,17 +723,7 @@ function configureForm(e) {
     $("#headingTwo .panel-contents").text("");
     $("#headingTwo .panel-contents").css("display", "none");
 
-    //Deselect any texts in the READ TEXT TAB:
-    //(selected texts have a checkbox input child to their :button)
-    // Remove the hidden checkbox:
-    $(".hiddencheck").remove();
-    // Remove any book titles in the read text tab:
-    $("#headingThree .panel-contents").text("");
-    $("#headingThree .panel-contents").css("display", "none");
-    $(".thumbnail").css("background", "#FFFFFF");
-    $(".thumbnail").css("border", "1px solid #ccc");
-    $(".range_select_box").css("display", "none");
-    $(".range-select-toggle").css("display", "none");
+
 
     //Modify language select accordion tab to reflect selected lang.:
     $("#headingOne .panel-title").css("text-align", "left");
@@ -912,7 +910,7 @@ function displayForm2(c) {
 
 
 /*===========================================================================
-  ======  FUNCTION DEFS for WORDS_LIST.HTML and GREEK_WORDS_LIST.HTML  ======
+  ======  FUNCTION DEFS for WORDS_PAGE.HTML  ======
   ===========================================================================*/
 var words_metadata; // Object. Properties are parameters for vocab AJAX request.
 var words_table; // Table of words, a DataTable object.
@@ -1256,17 +1254,20 @@ function initColumnFilters(th_list) {
             fieldtypes[fieldtype] = [th_list[i]];
         }
     }
-    //var n=0;
+    var n=0;
+    console.log(fieldtypes);
     // Build radio toggle button-groups or checkdivs for each data column:
     for (fieldtype in fieldtypes) {
-        //n = n + 1
-        //console.log("iteration: " + n + "   fieldtype: " + fieldtype);
+        n ++;
+        console.log("iteration: " + n + "   fieldtype: " + fieldtype);
         //debugger;
         if (fieldtypes.hasOwnProperty(fieldtype)) {  // skip inherited prop.s
             if ($(fieldtypes[fieldtype][0]).data('radio')) {
+                console.log($(fieldtypes[fieldtype][0]).data('fieldname'));
                 buildToggle(fieldtypes[fieldtype]);
             }
             else {
+                console.log($(fieldtypes[fieldtype][0]).data('fieldname'));
                 buildCheckdivs(fieldtypes[fieldtype]);
             }
         }
@@ -1375,7 +1376,7 @@ function buildCheckdivs(field_options) {
     //console.log("legnh of field options: " + field_options.length);
     var proto_checkdiv = $('#prototype_container .checkdiv');
     for (var i=0; i<field_options.length; i++) {
-        //console.log("field options positon " + i + ": " + field_options[i]);
+        console.log("field options positon " + i + ": " + field_options[i]);
         var field = $(field_options[i]);
         if (field.hasClass('logUrl2')) {
            continue; //don't build checkbox!
@@ -1385,14 +1386,10 @@ function buildCheckdivs(field_options) {
         checkdiv_checkbox.attr('value',field.data('fieldname'));
         //console.log(field.data('fieldname')); //debug
         //console.log(field[i]);
-        //console.log(field[i].attributes['data-visible'].value=='true'); //debug
         checkdiv_checkbox.attr('name',field.data('fieldtype'));
         checkdiv.find('.checkdiv-label').text(field.text());
-        if (field.data('fieldname') == "part_of_speech" || field.data('fieldname') == "logeion_url" || field.data('fieldname') == "corpus_rank") {
-         //Special conditional for part_of_speech so that it does not keep its check mark.
-             checkdiv.attr("data-state", "false");
-             checkdiv_checkbox.css("background-color", "#F1F1F1");
-        }
+        checkdiv.attr("data-state", "false");
+        checkdiv_checkbox.css("background-color", "#F1F1F1");
         container.append(checkdiv);
     }
     // Add to DOM and bind event handlers:
@@ -1447,7 +1444,6 @@ function determineFilterState() {
         .each(function() {
         var pos_checkboxes = $(this).closest(".pos-toggle-box")
                                     .find(".checkdiv-checkbox");
-        console.log(pos_checkboxes)
         // If "select" toggled, only include checked checkdivs:
         if ($(this).attr("value") === "select") {
             pos_checkboxes = pos_checkboxes.filter(function() {
@@ -1631,9 +1627,7 @@ function filterWordData(pos_list) {
 	      var prop = pos_dictionary[key][j];
 	      if (modified[prop] == undefined){
 	        modified[prop] = true;
-	        if (DEBUG == true){
-		 console.log(prop, "POS added to data");
-                }
+
                 words_data_filtered = words_data_filtered.concat(words_data[prop]);
 	      }
 

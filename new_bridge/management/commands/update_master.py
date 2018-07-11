@@ -1,5 +1,5 @@
 #import argparse
-#	NOTE: THIS USES TABS INSTEAD OF FOUR SPACES. AS OF PYTHON 3,  	"	"!= "        " (8 SPACES). 
+#	NOTE: THIS USES TABS INSTEAD OF FOUR SPACES. AS OF PYTHON 3,  	"	"!= "        " (8 SPACES).
 import sys
 import os
 #os.environ.setdefault("DJANGO_SETTINGS_MODULE", "new_bridge.settings")
@@ -11,7 +11,7 @@ from new_bridge.models import WordPropertyLatin,WordPropertyGreek, TextStructure
 from . import text_import
 #Might need to add argument specifying which sort it is (greek|latin)
 '''
-Adds a manage.py command that does ALL of the heavy lifting 
+Adds a manage.py command that does ALL of the heavy lifting
 that used to be involved in updating the database.
 
 NOTE** I made this flexible for when the update to SHORTDEF and LONGDEF occurs
@@ -104,7 +104,7 @@ class Command(BaseCommand):
 		#print TextStructureGlossary.objects.all()
 		#print WordPropertyLatin.objects.all()
 		#print data_dict[0].keys()
-		
+
 		print("This takes a little while...")
 		if lang=='Latin':
 			#Hard coded for the spreadsheet update
@@ -198,31 +198,31 @@ class Command(BaseCommand):
                                 #if accu < 2:
                                 #print item
                                 #return
-				#try:
-				WordPropertyGreek.objects.update_or_create(
-				title = item['TITLE'],
+				try:
+					WordPropertyGreek.objects.update_or_create(
+					title = item['TITLE'],
 				# id = item['id'],
-				defaults={
+					defaults={
 				#'id' : item['id'],
 				#'title' : item['TITLE'],
 				# 'accented_lemma' : item['accented lemma'],
-				'logeion_lemma' : item['LOGEION LEMMA'],
-				'search_lemma' : item['SEARCH LEMMA'],
-				'display_lemma' : item['DISPLAY LEMMA'],
-				'english_definition' : item['SHORTDEF'],
-				'logeion_def' : item['LOGEIONDEF'],
-				'decl' : item['DECL'],
-				'idiom' : item['IDIOM'],
-				'reg_adj_adv' : item['REG ADJ/ADV'],
-				'proper' : item['PROPER'],
-				'part_of_speech' : item['PART-OF-SPEECH'],
-				'logeion_url' : item['LOGEION LINK'],
-				}
-				)
-				#except KeyError:
-				#	print "Got a key error, likely picked wrong language"
-				#	print "Current row is:",item
-				#	print "Current language is:", lang
-				#	error =  {'lang_error' : lang}
-				#	return str(error)
-			print "Imported WordPropertyGreek"
+					'logeion_lemma' : item['LOGEION LEMMA'],
+					'search_lemma' : item['SEARCH LEMMA'],
+					'display_lemma' : item['DISPLAY LEMMA'],
+					'english_definition' : item['SHORTDEF'],
+					'logeion_def' : item['LOGEIONDEF'],
+					'decl' : item['DECL'],
+					'idiom' : item['IDIOM'],
+					'reg_adj_adv' : item['REG ADJ/ADV'],
+					'proper' : item['PROPER'],
+					'part_of_speech' : item['PART-OF-SPEECH'],
+					'logeion_url' : item['LOGEION LINK'],
+					}
+					)
+				except KeyError:
+					print( "Got a key error, likely picked wrong language")
+					print ("Current row is:",item)
+					print ("Current language is:", lang)
+					error =  {'lang_error' : lang}
+					return str(error)
+			print ("Imported WordPropertyGreek")
