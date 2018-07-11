@@ -45,7 +45,6 @@ class Command(BaseCommand):
 			tmd.save()
 		for item in data_dict2: #would love to make this a list comprehension
 			the_title = data_dict2[index]['TITLE']
-			print(item)
 			locations = item[name].split(",")
 
 			for loc in locations:
@@ -63,8 +62,9 @@ class Command(BaseCommand):
 					#print("the_title in update_page Latin", the_title)
 					word_id=WordPropertyLatin.objects.get(title=the_title).id
 				except:
-					print(item)
 					print("exception: %s" % the_title)
+					error = {"dots_error" : the_title}
+					return str(error)
 					pass
 
 			elif lang == "Greek":
@@ -76,6 +76,8 @@ class Command(BaseCommand):
 					word_id=WordPropertyGreek.objects.get(title=the_title).id
 				except:
 					print("exception: %s" % the_title)
+					error = {"dots_error" : the_title}
+					return str(error)
 					pass
 			try:
 				data_dict2[index]['word_id']=word_id

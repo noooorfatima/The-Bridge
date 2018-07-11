@@ -17,7 +17,7 @@
 	<h2>There was an error. Did you select the right language?</h2>
 	{% endif %}
 	{% if dots_error %}
-	<h2>There was an error. {{ location }} raised an error, probably has "." instead of "_"</h2>
+	<h2>There was an error. {{ location }} raised an error. If {{ location }} is a location, switch to underscores. If {{ location }} is a title, make sure it is in master.  </h2>
 	{% endif %}
 
 
