@@ -120,45 +120,6 @@ class Command(BaseCommand):
 			for item in data_dict:
 				print(index)
 				try:
-					print(item, "ITEM")
-					print(item['TITLE'], "item has a title")
-					try:
-						print(item['DISPLAY LEMMA'])
-					except:
-						item['DISPLAY LEMMA'] = 'THERE REALLY SHOULD BE A DISPLAY LEMMA HERE FROM THE IMPORT DATA BUT I NEED TO MAKE SURE EVERYTHING ELSE WORKS'
-						item['DISPLAY LEMMA MACRONLESS'] = None #if there is no display lemma, there can't be a marconless version
-					try:
-						print(item[english_core], 'english core')
-					except:
-						item[english_core] = None
-					try:
-						print(item[english_extended], 'english_extended')
-					except:
-						item[english_extended] = None
-					try:
-						print(item['Decl'])
-					except:
-						item['Decl'] = None
-					try:
-						print(item['Conj'])
-					except:
-						item['Conj'] = None
-					try:
-						print(item['Reg Adj/Adv'])
-					except:
-						item['Reg Adj/Adv'] = None
-					try:
-						print(item['Proper'])
-					except:
-						item['Proper'] = 0
-					try:
-						print(item['Part Of Speech'])
-					except:
-						item['Part Of Speech'] = None
-					try:
-						print(item['LOGEION LINK'])
-					except:
-						item['LOGEION LINK'] = None
 					WordPropertyLatin.objects.update_or_create(
 					title = item['TITLE'],
 					defaults={
@@ -178,10 +139,12 @@ class Command(BaseCommand):
 				except KeyError:
 					print("Got a key error, likely picked wrong language")
 					print("Current language is:", lang)
-					error =  {'lang_error' : lang}
-					error2 = {'title_error' : item}
-					return str(error), str(error2)
+					error =  {'lang_error' : lang, 'title_error' : item}
+					return str(error)
+
+
 				index += 1
+
 			print("Imported WordPropertyLatin")
 		elif lang=='Greek':
 			#questions is in model but doesn't seem to be in the spreadsheet
@@ -223,6 +186,6 @@ class Command(BaseCommand):
 					print( "Got a key error, likely picked wrong language")
 					print ("Current row is:",item)
 					print ("Current language is:", lang)
-					error =  {'lang_error' : lang}
+					error =  {'lang_error' : lang, 'title_error' : item}
 					return str(error)
 			print ("Imported WordPropertyGreek")

@@ -15,11 +15,16 @@
 	{% endif %}
 	{% if lang_error %}
 	<h2>There was an error. Did you select the right language?</h2>
+	{% if title_bool %}
+	<h2>Oh, also checkout stuff around this title: {{ title_error }}. Might this be a text in update master?</h2>
+	{% endif %}
 	{% endif %}
 	{% if dots_error %}
 	<h2>There was an error. {{ location }} raised an error. If {{ location }} is a location, switch to underscores. If {{ location }} is a title, make sure it is in master.  </h2>
 	{% endif %}
-
+	{% if text_to_master %}
+	<h2>There was an error. {{ text_to_master }} raised an error. Did you try to add a text with the update master option?  </h2>
+	{% endif %}
 
 
 	{% if no_text %}

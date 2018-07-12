@@ -42,9 +42,9 @@
                 </a>
                 <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                     <div class="panel-body">
-                        <p id="resizetxt" data-toggle="tooltip" data-placement="bottom" title="Choose a text that you are currently reading to generate words you will need to know for that text.">
+                        <p id="resizetxt" data-toggle="tooltip" data-placement="bottom" title="Choose a text that you are currently reading">
                             <span class="glyphicon glyphicon-info-sign"></span>
-                            Please choose one list, textbook, or text (required):
+                            Start typing to see what we have.
                         </p>
                        <div class="toggle-container col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" id="all_or_selection">
 
@@ -58,8 +58,12 @@
                               {{ greek_books_form.as_p }}
                               {{ greek_books_form.media }}
                         </div>
+                        <p id="resizetxt2" data-toggle="tooltip" data-placement="bottom" title="Add the text to generate words you will need to know for that text.">
+                            <span class="glyphicon glyphicon-info-sign"></span>
+                            Click Add Reading to add a section of what you are reading (required):
+                        </p>
                         <button id="choose_book" class = "add_button" type="button"
-                        onclick="get_text_name(this.id)"> Add this text </button>
+                        onclick="get_text_name(this.id)"> Add Reading </button>
                              <div id= "reading wrapper">
 
                              </div>
@@ -115,7 +119,7 @@
                                {{ greek_books_form.media }}
                          </div>
                          <button id="exclude" class = "add_button" type="button"
-                         onclick="get_text_name(this.id)"> Add this text </button>
+                         onclick="get_text_name(this.id)"> Add read </button>
                               <div id= "read_wrapper">
 
                               </div>
@@ -157,7 +161,13 @@
                             if (clicked_id == "choose_book") {
                               wrapper0 = document.getElementById("reading wrapper")
                               console.log("adding a book to reading ID =", clicked_id)
-                              text_name = document.getElementById('select2-id_books4-container').title;
+                              console.log(globalLang, 'globalLang in textlist.html')
+                              if (globalLang == "latin") {
+                                text_name = document.getElementById('select2-id_books4-container').title;
+                              }
+                              else{
+                                  text_name = document.getElementById('select2-id_books20-container').title;
+                              }
                               console.log(text_name, "(local)");
                               textlist.push(text_name + "$");
                               console.log(textlist)
@@ -167,7 +177,12 @@
                             else {
                               wrapper0 = document.getElementById("read_wrapper")
                               console.log("adding a book to read", clicked_id)
-                              text_name = document.getElementById("select2-id_books32-container").title;
+                              if (globalLang =='latin') {
+                                text_name = document.getElementById("select2-id_books32-container").title;
+                              }
+                              else{
+                                text_name = document.getElementById("select2-id_books40-container").title;
+                              }
                               readlist.push(text_name + "$");
                               document.getElementById('readlist_id').value = readlist
                               last_add = "readlist"
@@ -184,7 +199,7 @@
                             }
                             if (wrapper0.id == "reading wrapper") {
                               $(wrapper0).append('<div class="thumbnail" id="'+text_name+' '+div_count+'"> <button class="btn btn-default btn-block" type="button" name="book" value="'+text_name+'" data-toggle="tooltip" data-placement="bottom" title=" "> <div class="'+text_name+'"> '+text_name+'</div></button>')
-                                $(wrapper0).append('<p id = "description for '+text_name+' '+div_count+'">Optional: select a section of this text. Leave blank for all the words in the text. Want multiple sections of the same text? Just click "Add Text" for each section. </p>');
+                                $(wrapper0).append('<p id = "description for '+text_name+' '+div_count+'">Optional: select a section of this text. Leave blank for all the words in the text. Want multiple sections of the same text? Just click "Add Reading" again. </p>');
                                 $(wrapper0).append('<div <div class="input-group-container" id="'+text_name+' '+div_count+' input-group-container">  <div class="input-group"><input type="text" class="form-control" name="'+text_name+' reading from" placeholder="'+subsection_for_this_text+'" aria-describedby="sizing-addon3"><span class="input-group-addon" id="sizing-addon3">to</span><input type="text" class="form-control" name="'+text_name+' reading to" placeholder="'+subsection_for_this_text+'" aria-describedby="sizing-addon3"></div></div></div></div></div> <button type=button  id="delete '+text_name+' '+div_count+'" class="delete" onclick = "delete_add(this.id)"> undo last addtext  </button> </div> <br> </div>');
                             } else {
                               $(wrapper0).append('<div class="thumbnail" id="'+text_name+' '+div_count+'"> <button class="btn btn-default btn-block" type="button" name="book_read" value="'+text_name+'" data-toggle="tooltip" data-placement="bottom" title=" "> <div class="'+text_name+'"> '+text_name+'</div></button>')

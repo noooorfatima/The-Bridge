@@ -512,9 +512,10 @@ def get_words(request, language, text, bookslist, text_from,text_to, add_remove)
 								#print("adding word app")
 								useful_appearance_data.append(word_apperance)
 					if useful_appearance_data != []:
-						item['fields']['source_text'] = " ".join(text)
+
 						item['fields']['count'] = len(useful_appearance_data)
 						item['fields']['total_count'] = total_count
+						item['fields']['source_text'] = " ".join(text)
 						#print(useful_appearance_data)
 						word_app = useful_appearance_data[0] # now word_app is the first appearance of the word in the user's subsection
 						item['fields']['position']=word_app.appearance
@@ -528,7 +529,7 @@ def get_words(request, language, text, bookslist, text_from,text_to, add_remove)
 						test_for_in_final[item['pk']] = item
 						final_keys.add(item['pk'])
 					else:
-						pass #so this is a wierd case where the user has selected two texts, and a word appears in both texts over all, but not in both of the subsections they selected, and this is the case where it is not in any of our sections. 
+						pass #so this is a wierd case where the user has selected two texts, and a word appears in both texts over all, but not in both of the subsections they selected, and this is the case where it is not in any of our sections.
 				else:
 					pass
 
@@ -720,14 +721,12 @@ def myimport(request):
 			print('IN for call_command: ', 'update_master','temp_csv_for_importing.csv',lang, out)
 			management.call_command('update_master','temp_csv_for_importing.csv',lang,stdout=out)
 			error = out.getvalue().strip()
-			print(error, 'ERROR')
+			if error:
+				print(error, 'ERROR')
 			if error != str():
 				error = ast.literal_eval(error)
-			#text_name_error no longer relevant
-			if "text_name_error" in error:
-				return render(request, 'admin/myimport.html',{'query_results' : query_results,'text_name_error' : True, 'text_name' : error['text_name_error'],'text_name_results' : text_name_results })
-			elif "lang_error" in error:
-				return render(request, 'admin/myimport.html',{'query_results' : query_results,'lang_error' : True,'text_name_results' : text_name_results })
+			if "lang_error" in error:
+				return render(request, 'admin/myimport.html',{'query_results' : query_results,'lang_error' : True, 'title_bool': True, 'title_error': error['title_error'], 'text_name_results' : text_name_results })
 			return render(request, 'admin/myimport.html',{"success" : True, 'query_results' : query_results,'text_name_results' : text_name_results})
 
 		elif update_option == "update_page":
@@ -742,7 +741,8 @@ def myimport(request):
 			out = StringIO()
 			management.call_command('update_page','temp_csv_for_importing.csv',lang,stdout=out)
 			error = out.getvalue().strip()
-			print(error, "ERROR")
+			if error:
+				print(error, "ERROR")
 			if error != str():
 				error = ast.literal_eval(error)
 			if "lang_error" in error:

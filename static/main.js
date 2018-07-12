@@ -235,15 +235,13 @@ $(document).ready(function() {
 
             var selectedValues = "";
             var reading = textlist
-
             console.log(textlist, "textlist")
+
+
+
             var read = readlist
             console.log(read, 'readlist')
-            if(textlist) {
-                selectedValues = textlist;
-            }
-  //selectedValue = the one(s) you are reading
-              if (selectedValues == []) {
+              if (textlist.length == 0) {
                 alert("Please choose a text.");
                 return false;
             }

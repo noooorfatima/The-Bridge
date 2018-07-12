@@ -43,7 +43,7 @@ class Command(BaseCommand):
 			tmd = TextMetadata.objects.get(name_for_humans=name)
 			tmd.local_def=True
 			tmd.save()
-		for item in data_dict2: #would love to make this a list comprehension
+		for item in data_dict2: #would love to make this a list comprehension, but all of our error catching happens here. 
 			the_title = data_dict2[index]['TITLE']
 			locations = item[name].split(",")
 
