@@ -1,12 +1,11 @@
 #A script for updating the word frequencies of each word.
-
+import new_bridge.models
 from django.core.management.base import BaseCommand, CommandError
-from new_bridge.models import *
 import sys
 import os
 import mysql.connector
 
-cnx = mysql.connector.connect(user='bridge_db', password='Zoeisadog370Lancaster', host='127.0.0.1', database='bridge')
+cnx = mysql.connector.connect(user='root', password='Pushkaisacat881427', host='127.0.0.1', database='new_new_bridge')
 cursor = cnx.cursor(buffered=True)
 
 #from new_bridge.models import *
@@ -24,31 +23,32 @@ class Command(BaseCommand):
           print("No argument for language detected. This script requires an argument denoting which languange's corpus ranks you would like to update.")
           print("enter either 'greek' or 'latin' as an argument")
           return
-        if lang != "greek" and lang != "latin":
-            while lang != "greek" and lang != "latin":
+        if (lang != "Greek" or lang == "greek") and (lang != "Latin" or lang == "latin"):
+            while lang != "Greek" and lang != "Latin":
                print("Please specify which language's corpus ranks you would like to update.")
                print("enter either 'greek' or 'latin' on the following line.")
                lang = input("enter either 'greek' or 'latin' (no apostrophes) to specify your language. Press CTRL+C to exit.")
-        if lang == "greek":
+        if lang == "Greek" or lang == "greek":
              query = ("SELECT title, count(title) FROM new_bridge_wordappearencesgreek a JOIN `new_bridge_wordpropertygreek`p on a.word_id = p.`id` GROUP by title ORDER BY count(title) DESC")
-        elif lang == "latin":
-             query = ("SELECT title, count(title) FROM new_bridge_wordappearenceslatin a JOIN `new_bridge_wordpropertylatin`p on a.word_id = p.`id` GROUP by title ORDER BY count(title) DESC")
-	cursor.execute(query)
-	same_count_list = []
-	prev_word_freq = 10000000
-	indexaccu = 0
-	rank = 0
+        elif lang == "Latin" or lang == "latin":
+            query = ("SELECT title, count(title) FROM new_bridge_wordappearenceslatin a JOIN `new_bridge_wordpropertylatin`p on a.word_id = p.`id` GROUP by title ORDER BY count(title) DESC")
+        assert(query)
+        cursor.execute(query)
+        same_count_list = []
+        prev_word_freq = 10000000
+        indexaccu = 0
+        rank = 0
         cur_word = ""
-	for row in cursor:
-               print("\n==============================================================================")
-               if rank == 50 or rank == 80 or rank == 100 or rank == 120 or rank == 140 or rank == 160 or rank == 180 or rank == 200 or rank == 250:
+        for row in cursor:
+               #print("\n==============================================================================")
+               if rank == 50 or rank == 80 or rank == 100 or rank == 120 or rank == 140 or rank == 160 or rank == 180 or rank == 200 or rank == 250 or rank == 500 or rank == 1000 or rank == 2000 or rank == 5000 or rank == 10000:
                     print("Currently at rank ", rank, " (note that the larger the rank, the closer you are to done)")
                cur_title = row[0]
                count = row[1]
-               if lang == "greek":
-                   cur_word = WordPropertyGreek.objects.get(title__exact=cur_title)
-               elif lang == "latin":
-                   cur_word = WordPropertyLatin.objects.get(title__exact=cur_title)
+               if lang == "greek" or lang == "Greek":
+                   cur_word = new_bridge.models.WordPropertyGreek.objects.get(title__exact=cur_title)
+               elif lang == "latin" or lang == "Latin":
+                   cur_word = new_bridge.models.WordPropertyLatin.objects.get(title__exact=cur_title)
                if prev_word_freq == count:
                    same_count_list.append(count)
                    rank+=1
@@ -66,61 +66,9 @@ class Command(BaseCommand):
                       same_count_list = []
                    cur_word.corpus_rank = rank
                cur_word.save()
-               if lang == "latin":
-                   print("\n\ttitle: ", row[0], "\tcorpus_rank: ", WordPropertyLatin.objects.get(title__exact=row[0]).corpus_rank, "\tcount: ", row[1])
-               else:
-                   print("\n\ttitle: ", row[0], "\tcorpus_rank: ", WordPropertyGreek.objects.get(title__exact=row[0]).corpus_rank, "\tcount: ", row[1])
+               #if lang == "latin":
+                #   print("\n\ttitle: ", row[0], "\tcorpus_rank: ", new_bridge.models.WordPropertyLatin.objects.get(title__exact=row[0]).corpus_rank, "\tcount: ", row[1])
+              # else:
+                #   print("\n\ttitle: ", row[0], "\tcorpus_rank: ", new_bridge.models.WordPropertyGreek.objects.get(title__exact=row[0]).corpus_rank, "\tcount: ", row[1])
 
-               '''#print "\nSTART OF FOR LOOP, RANK: ", rank
-		rank+=1
-                print "\n=========================================================================================="
-                print "\nSTART OF FOR LOOP, RANK: ", rank, "\ttitle: ", row[0]
-		#print "\n\ttitle: ", row[0], "\tcorpus_rank: ", WordPropertyGreek.objects.get(title__exact=row[0]).corpus_rank, "\tcount: ", row[1]
-    		cur_title = row[0]
-    		count = row[1]
-                #print "prev_word_freq: ", prev_word_freq
-                #print "count: ", count
-    		if prev_word_freq == count:
-                        print "prev_word_freq == count.\trank: ", rank
-			indexaccu+=1
-                        #if indexaccu==1:
-                           #same_count_list.append(prev_word_freq)
-                        same_count_list.append(count)
-                        print "SAME COUNT LIST: ", str(same_count_list)
-			prev_word_freq = count
-       			cur_word = WordPropertyGreek.objects.get(title__exact=cur_title)
-			cur_word.corpus_rank = rank - indexaccu
-                        cur_word.save()
-                        prev_rank = rank - indexaccu
-                        #last_indexaccu = indexaccu
-                        print "In first conditional, prev_rank: ", prev_rank
-                        print "INDEX ACCU: ", indexaccu
-                        
-		elif prev_word_freq > count:
-			if indexaccu != 0:
-				print "indexaccu is not 0. Rank value: ", rank, "\tindexaccu: ", indexaccu, "\tprev_rank: ", prev_rank
-				rank = prev_rank
-                                print "new rank: ", rank
-                                print "SAME COUNT LIST (prev_word > count): ", str(same_count_list)
-                                prev_word_freq = count
-                                indexaccu = 0
-				cur_word = WordPropertyGreek.objects.get(title__exact=cur_title)
-				cur_word.corpus_rank = rank + 1
-				cur_word.save()
-                                #rank+=1
-			else:
-                                print "indexaccu IS 0. RANK VALUE: ", rank, "\tprev_rank: ", prev_rank
-                                #if prev_word_freq > count:
-                                   #rank+=1
-                                print "SAME COUNT LIST (prev_word > count): ", str(same_count_list)
-				prev_word_freq = count
-				cur_word = WordPropertyGreek.objects.get(title__exact=cur_title)
-				cur_word.corpus_rank = rank
-				cur_word.save()
-    		#word_list.append((title, count),)
-		print "\n\ttitle: ", row[0], "\tcorpus_rank: ", WordPropertyGreek.objects.get(title__exact=row[0]).corpus_rank, "\tcount: ", row[1]
-                print "-------------------------------------------------------------------------------------------------"
-
-                #if count > 200:
-    		    #print cur_title, " rank: ", WordPropertyGreek.objects.get(title__exact=cur_title).corpus_rank, "\tcount : ", count'''
-	print("FINISHED")
+        print("FINISHED")

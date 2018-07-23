@@ -17,9 +17,8 @@ class TextStructureNode(MP_Node):
     text_name = models.CharField(max_length=100, blank=True)
     subsection_level = models.SmallIntegerField(blank=False)
     subsection_id = models.CharField(max_length=6, blank=False)
-    # subsection_id = models.SmallIntegerField(blank=False)
     least_mindiv = models.IntegerField(blank=False)
-
+    path =  models.CharField(max_length = 300, blank = False)
     node_order_by = ['least_mindiv']
     def __unicode__(self):
         #Climb tree to find parent location information:
@@ -105,8 +104,8 @@ class WordPropertyLatin(models.Model):
     lnm_definition = models.CharField(max_length=74, blank=True)
     aeneid_definition = models.CharField(max_length=1168, blank=True)
     catullus_definition = models.CharField(max_length=245, blank=True)
-    decl = models.CharField(db_column='decl', max_length=1, blank=True)
-    conj = models.CharField(db_column='conj', max_length=1, blank=True)
+    decl = models.CharField(db_column='decl', max_length=10, blank=True)
+    conj = models.CharField(db_column='conj', max_length=10, blank=True)
     reg_adj_adv = models.CharField(max_length=1, blank=True)
     proper = models.CharField(max_length=1, blank=True)
     part_of_speech = models.CharField(max_length=24, blank=True)

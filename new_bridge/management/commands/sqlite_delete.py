@@ -16,8 +16,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         name=False
-        print(args)
-        WordAppearencesGreek.objects.filter(text_name="BLABLABLA").delete()
         to_delete = args[0]
         if len(args)==2:
             text_name=args[1]
@@ -53,10 +51,10 @@ class Command(BaseCommand):
                     for tit in titles:
                        text_name = tit.name_for_humans
                        print("Deleting old entries for",text_name)
-                       print("There are this many entries:")
-                       print(len(TextStructureNode.objects.filter(text_name=text_name)),TextStructureNode.objects.filter(text_name=text_name))
                        index = 1
                        while len(TextStructureNode.objects.filter(text_name=text_name))>1:
+                           print("There are this many entries:")
+                           print(len(TextStructureNode.objects.filter(text_name=text_name)),TextStructureNode.objects.filter(text_name=text_name))
                            print(index,text_name)
                            path = TextStructureNode.objects.filter(text_name=text_name)[0].path
                            ids = TextStructureNode.objects.filter(path__startswith=path).values_list('pk', flat=True)

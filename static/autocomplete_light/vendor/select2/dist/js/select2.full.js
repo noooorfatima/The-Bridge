@@ -5,7 +5,7 @@
  * Released under the MIT license
  * https://github.com/select2/select2/blob/master/LICENSE.md
  */
-var counter = 0;
+ var counter =0;
 (function (factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
@@ -5135,32 +5135,32 @@ S2.define('select2/core',[
   Utils.Extend(Select2, Utils.Observable);
 
   Select2.prototype._generateId = function ($element) {
-    var id = '';
-    if (document.getElementById($element.attr('id')) == null){
-    if ($element.attr('id') != null) {
-      id = $element.attr('id');
-    } else if ($element.attr('name') != null) {
-      id = $element.attr('name') + '-' + Utils.generateChars(2);
-    } else {
-      id = Utils.generateChars(4);
-    }
-    }
-    else {
-      counter ++
-      if ($element.attr('id') != null) {
-        id = $element.attr('id');
-      } else if ($element.attr('name') != null) {
-        id = $element.attr('name') + '-' + Utils.generateChars(2);
-      } else {
-        id = Utils.generateChars(4) ;
-      }
-    }
+   var id = '';
+   if (document.getElementById($element.attr('id')) == null){
+   if ($element.attr('id') != null) {
+     id = $element.attr('id');
+   } else if ($element.attr('name') != null) {
+     id = $element.attr('name') + '-' + Utils.generateChars(2);
+   } else {
+     id = Utils.generateChars(4);
+   }
+   }
+   else {
+     counter ++
+     if ($element.attr('id') != null) {
+       id = $element.attr('id');
+     } else if ($element.attr('name') != null) {
+       id = $element.attr('name') + '-' + Utils.generateChars(2);
+     } else {
+       id = Utils.generateChars(4) ;
+     }
+   }
 
-    id = id.replace(/(:|\.|\[|\]|,)/g, '');
-    id = 'select2-' + id + counter.toString();
+   id = id.replace(/(:|\.|\[|\]|,)/g, '');
+   id = 'select2-' + id + counter.toString();
 
-    return id;
-  };
+   return id;
+ };
 
   Select2.prototype._placeContainer = function ($container) {
     $container.insertAfter(this.$element);

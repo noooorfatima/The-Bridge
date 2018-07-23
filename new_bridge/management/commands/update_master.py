@@ -119,6 +119,8 @@ class Command(BaseCommand):
 			index = 0
 			for item in data_dict:
 				print(index)
+				print(item['TITLE'])
+				print( item['Decl'], len(item['Decl']))
 				try:
 					WordPropertyLatin.objects.update_or_create(
 					title = item['TITLE'],

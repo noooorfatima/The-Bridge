@@ -610,6 +610,11 @@ a.boxclose-about{
    background-color: #E69C53;
 }
 
+.default_fieldset {
+  padding: 6px 5px;
+  font-size: 18px;
+
+}
 /*#text_selection {
     display: none;
     margin-bottom: 0px;
@@ -938,14 +943,14 @@ background-color: gray;
    white-space: nowrap;
    overflow: hidden;
    display: inline-block;
+   width: 100000000px;
 }
 
 .panel-title {
     display: inline-block;
     line-height: 1.5em;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    overflow: scroll;
     text-align: left;
     margin-left: 10px;
     max-width: 95%;
@@ -961,9 +966,9 @@ background-color: gray;
     padding-right: 5px;
     color: #428BCA;
     float: none;
-    overflow: hidden;
+    width: fit-content;
     text-overflow: ellipsis;
-    max-width: 95%;
+    overflow: hidden;
 }
 
 #headingOne .panel-contents {
@@ -1060,16 +1065,16 @@ screen and (min-width: 635px){
        float: right;
        max-width: 50%;
        white-space: nowrap;
-       overflow: hidden;
-       text-overflow: ellipsis;
+       overflow: scroll;
+
    }
 
    #headingTwo .panel-contents {
        float: right;
        max-width: 50%;
        white-space: nowrap;
-       overflow: hidden;
-       text-overflow: ellipsis;
+       overflow: scroll;
+
    }
 }
 

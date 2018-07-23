@@ -1,11 +1,6 @@
 
 """
-TODO:
-Fix importer
-Fix/update autoLemma.py
-
 eventually: see if I can do anything about intial load time, since it has been kind of slow since switching to autocompletes
-
 """
 #from new_bridge.models import 'insert class/model names here'
 from django.views import generic
@@ -30,25 +25,29 @@ models = new_bridge.models  #after switching to python3/django2.0, models wants 
 
 class TextMetadataLookUp_latin(autocomplete.Select2ListView):
 
-	def create(self, text):
-		return text
+	#def create(self, text):
+	#	return text
 
 	def get_list(self):
 		result_list = [model.name_for_humans for model in models.TextMetadata.objects.filter(language='latin')]
+		result_list.sort()
 		if self.q:
 			data = models.TextMetadata.objects.all().filter(name_for_humans__icontains=self.q, language='latin')
 			result_list = [model.name_for_humans for model in data]
+			result_list.sort()
 		return result_list
 
 class TextMetadataLookUp_greek(autocomplete.Select2ListView):
 
-	def create(self, text):
-		return text
+	#def create(self, text):
+	#	return text
 	def get_list(self):
 		result_list = [model.name_for_humans for model in models.TextMetadata.objects.filter(language='greek')]
+		result_list.sort()
 		if self.q:
 			data = models.TextMetadata.objects.all().filter(name_for_humans__icontains=self.q, language='greek')
 			result_list = [model.name_for_humans for model in data]
+			result_list.sort()
 		return result_list
 
 
@@ -62,13 +61,13 @@ def IndexView(request):
 		ns = ""
 		for i in range(1, s+1):
 			if i != s:
-				ns = ns + str(i) + "."
+				ns = ns + str(1) + "."
 			else:
-				ns = ns + str(i)
+				ns = ns + str(1)
 
 
 		subsection_data[model.text_name] = ns
-	print(subsection_data)
+	#print(subsection_data)
 	name_for_humans_to_name_for_computers = {}
 	for model in models.TextMetadata.objects.all():
 		name_for_humans_to_name_for_computers[model.name_for_humans] = model.name_for_computers
@@ -252,6 +251,7 @@ def words_page(request, language, text, bookslist, text_from, text_to, add_remov
 	#if you try to change it to, add to the number of people who went down this rabit hole: 2
 	#Note that it is ironic that the machine strictly uses the name_for_humans as opposed the the name_for_computers that was made for it
 	print(text, "TEXT")
+	print(text_from, 'text_from')
 	text = text[:-1]
 	name_for_computers = []
 	name_for_humans = []
@@ -265,6 +265,7 @@ def words_page(request, language, text, bookslist, text_from, text_to, add_remov
 		loc_def.append(models.TextMetadata.objects.get(name_for_computers=t).local_def)
 	name_for_computers = "$_".join(name_for_computers)
 	name_for_humans = " and ".join(name_for_humans)
+	print(name_for_humans)
 	new_bookslist_string = []
 	bookslist_comp = bookslist
 	#print(bookslist, "original bookslist for words_page")
@@ -292,21 +293,30 @@ def words_page(request, language, text, bookslist, text_from, text_to, add_remov
 		text_from_formatted = "from "+ text_from
 		text_to_formatted = "to "+ text_to
 	else:
+		text_formating = name_for_humans.split(" and ")
 		formating_from = text_from.replace("$", "")
 		formating_from = formating_from.split("_")
 		formating_to = text_to.replace("$", "")
 		formating_to = formating_to.split("_")
 		formating_from = list(filter(None, formating_from))
 		formating_to = list(filter(None, formating_to))
-		pairs = list(zip(formating_from, formating_to))
+		triples = list(zip(text_formating, formating_from, formating_to))
 		text_from_formatted = " "
-		for pair in pairs:
-			print(pair)
-			text_from_formatted = text_from_formatted + " from "+ pair[0] + " to " + pair[1]
-			if pair != pairs[-1]: #this format can be rather humorously be broken by including terms multiple times... but it does not 		affect the words displayed.
-				text_from_formatted = text_from_formatted + " and "
+		i =0
+		for triple in triples:
+			i += 1
+			print(triple)
+			triple = list(triple) #tuples are immutable, and we are going to mutate this a lot
+			#triple[1] = triple[1].split("_")
+			#triple[2] = triple[2].split("_")
+			#list(filter(None, triple[1]))
+			#list(filter(None, triple[2]))
+			text_from_formatted = text_from_formatted + triple[0] + ": " + triple[1] + "-" + triple[2]
+
+			if i != len(triples):
+				text_from_formatted = text_from_formatted + "; "
 			else:
-				text_to_formatted = " "
+				text_to_formatted = ""
 
 
 	# Parse the user-selected books and their ranges, & format them for human:
@@ -465,6 +475,7 @@ def get_words(request, language, text, bookslist, text_from,text_to, add_remove)
 		to_mindiv = loc_to_mindiv(text, text_to) #while seems like it would be nicer to have this in an else, sometimes even when the if triggers the while loop does not, and then to_mindiv is undefined.
 		if text_from == text_to:
 			print("a text_to is the same as as text_from")
+			print(text_to)
 			to_node = loc_to_node(text,text_to)
 			child = to_node
 			#working around python variable storage
@@ -515,17 +526,15 @@ def get_words(request, language, text, bookslist, text_from,text_to, add_remove)
 
 						item['fields']['count'] = len(useful_appearance_data)
 						item['fields']['total_count'] = total_count
-						item['fields']['source_text'] = " ".join(text)
+						item['fields']['source_text'] = str(text[0]) + ": " + "-".join(text[1:])
 						#print(useful_appearance_data)
 						word_app = useful_appearance_data[0] # now word_app is the first appearance of the word in the user's subsection
 						item['fields']['position']=word_app.appearance
-						if (word_app.local_def) and word_app.local_def !="":
+						if (word_app.local_def):
 							item['fields']['local_def']= word_app.local_def
-						else:
-							if language != "greek":
-								item['fields']['local_def']= word_app.word.english_core
-							else:
-								item['fields']['local_def']= word_app.word.english_definition
+						elif models.TextMetadata.objects.get(name_for_humans = text[0]).local_def: #local_def is a boolean in textmetadata. this is to cover the case where a text has local defs for most words, but not all (like in the DCC Latin Core)
+							item['fields']['local_def']= "No text-specific definition for this word"
+
 						test_for_in_final[item['pk']] = item
 						final_keys.add(item['pk'])
 					else:
@@ -614,7 +623,9 @@ def words_in_read_texts(word_appearences, read_texts): #read_texts just needs to
 			end = "end"
 		print("vocaturus from_mindiv and to_mindiv with these inputs" , 'book=', book, 'start = ', start, 'end = ', end)
 		from_mindiv = loc_to_mindiv(book, start)
+		print(from_mindiv)
 		to_mindiv = loc_to_mindiv(book, end)
+		print(to_mindiv)
 		print("For read text, from, " , from_mindiv, "to, ",  to_mindiv)
 		if start == end:
 			print("Ooh corner case")
@@ -633,6 +644,7 @@ def words_in_read_texts(word_appearences, read_texts): #read_texts just needs to
 		[ids.add(dict['word']) for dict in list_of_dicts] #adds all the word ids to the set 'ids'
 
 		# this will get us words appearing in any of the texts. to make it only get words that appear in all texts, we want to take intersection (&) instead
+		#now handled by the fact that the user can simply say "i am reading these two texts."
 		#we probably need to add another button like the include/exclude one, and make that pass along a boolean to be an input for this function
 		#so this will be more like:
 		#if any_all = any:
@@ -656,7 +668,7 @@ def loc_to_mindiv(text,location):
 	node = models.TextStructureNode.objects.filter(text_name=text)[0]
 	#print node, "Nodles"
 	if location == 'start':
-	#print "location = start"
+		#print "location = start"
 		return node.least_mindiv
 		pass # don't change nodes!  Root.least_mindiv is start of text.
 	elif location == 'end':
@@ -687,9 +699,6 @@ def loc_to_node(text,location):
 		for subsection in loc:
 			node = node.get_children().get(subsection_id__exact=subsection)
 	return node
-
-
-
 #An admin page for importing updated spreadsheets
 def myimport(request):
 	query_results = models.TextStructureGlossary.objects.all()
@@ -727,7 +736,7 @@ def myimport(request):
 				error = ast.literal_eval(error)
 			if "lang_error" in error:
 				return render(request, 'admin/myimport.html',{'query_results' : query_results,'lang_error' : True, 'title_bool': True, 'title_error': error['title_error'], 'text_name_results' : text_name_results })
-			return render(request, 'admin/myimport.html',{"success" : True, 'query_results' : query_results,'text_name_results' : text_name_results})
+			return render(request, 'admin/myimport.html',{"success" : True, 'query_results' : query_results, 'text_name_results' : text_name_results})
 
 		elif update_option == "update_page":
 			texts = request.FILES.getlist('datafile')
@@ -751,15 +760,22 @@ def myimport(request):
 				return render(request, 'admin/myimport.html',{'query_results' : query_results,'text_name_error' : True, 'text_name' : error['name_error'],'text_name_results' : text_name_results })
 			if "dots_error" in error:
 				return render(request, 'admin/myimport.html',{'query_results' : query_results,'dots_error' : True, 'location' : error['dots_error'],'text_name_results' : text_name_results })
+			if "structure_error" in error:
+				return render(request, 'admin/myimport.html',{'query_results' : query_results,'structure_error' : True, 'location' : error['structure_error'],'text_name_results' : text_name_results })
+			if "local_def_error" in error:
+				return render(request, 'admin/myimport.html',{'query_results' : query_results,'local_def_error' : True, 'location' : error['local_def_error'],'text_name_results' : text_name_results })
 
 			print("Successfully updated page!")
+
 			print("Now cleaning up all TextStructureNodes") #If there are two text structures for a text, removes all the older ones (not just for this updated text)
 			management.call_command('sqlite_delete',"TextStructureNodeCLEAN")
 			error = out.getvalue().strip()
 			print(error, "ERROR")
 			if error != str():
 				error = ast.literal_eval(error)
-
+			print(lang)
+			#print("cleaned, now updating corpus_rank")
+			#management.call_command('update_corpusrank', lang)
 			return render(request, 'admin/myimport.html',{"success" : True, 'query_results' : query_results,'text_name_results' : text_name_results})
 	else:
 		return render(request, 'admin/myimport.html', {'query_results' : query_results,'text_name_results' : text_name_results})

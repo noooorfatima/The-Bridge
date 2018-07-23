@@ -6,8 +6,8 @@ ForeignKeys were causing an error in search. I think there is a way to handle th
 All of the data here comes from models.py
 """
 class WordPropertyLatinAdmin(admin.ModelAdmin):
-    search_fields = ['title']
-    list_display = ['title','display_lemma']
+    search_fields = ['title', 'id']
+    list_display = ['id', 'title','display_lemma']
     list_max_show_all=100000
 
 class WordPropertyGreekAdmin(admin.ModelAdmin):
@@ -21,8 +21,8 @@ class TextStructureGlossaryAdmin(admin.ModelAdmin):
     list_filter = ['text_name']
 
 class TextStructureNodeAdmin(admin.ModelAdmin):
-    search_fields = ['text_name','subsection_level']
-    list_display = ['text_name','subsection_level']
+    search_fields = ['text_name','subsection_level', 'path', 'subsection_id']
+    list_display = ['text_name','subsection_level', 'path', "subsection_id"]
     list_filter = ['text_name']
 
 class TextMetadataAdmin(admin.ModelAdmin):

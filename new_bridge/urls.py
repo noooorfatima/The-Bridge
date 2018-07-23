@@ -14,7 +14,7 @@ urlpatterns = [
     #path('somestring_with/<variables>', 'something in views', name='name of thing in views (optional)'),
     #path('favicon.ico', RedirectView.as_view(url=settings.STATIC_URL + 'favicon.ico')),
     path('admin/', admin.site.urls),
-    
+
     path('', views.IndexView, name='index'),
     path('book_lookup_latin',
     TextMetadataLookUp_latin.as_view(),name = "book_lookup_latin"),

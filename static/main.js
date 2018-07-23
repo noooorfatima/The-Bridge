@@ -190,6 +190,7 @@ $(document).ready(function() {
 
         $("#latin").on("click", function () {
             $("html").css("height","auto");
+            $(".intro-text").css("color", "#E96656");
         });
 
         $("#greek").on("click", {
@@ -198,6 +199,7 @@ $(document).ready(function() {
         // Same as with latin
         $("#greek").on("click", function () {
             $("html").css("height","auto");
+            $(".intro-text").css("color", "#1E9E6B");
         });
 
         $(".intro-text").on("click", function() {
@@ -210,9 +212,14 @@ $(document).ready(function() {
             var clicked = $(e.target);
             //Only do something if inactive button is clicked:
             if (clicked.attr("class").indexOf("active") === -1) {
-                //Extract "Includ" or "Exclud" from button text:
-                var text = clicked.text().trim().substr(0, 6) +
-                    "ing words from:";
+                if (clicked.text().includes("EXCLUD") ||  clicked.text().includes("xclud")){
+                  var text = clicked.text().trim().substr(0, 6) +
+                      "ing words from:";
+                }
+                else{
+                  var text = "Matching words from"
+                }
+
                 $("#headingThree .panel-title").text(text);
             }
         });
@@ -702,7 +709,48 @@ function configureForm(e) {
     console.log(lang, "lang");
     globalLang = lang;
     console.log(globalLang);
+    $("label").hide()
+    console.log("RESETTING THINGS")
+    var textlist2 = [];
+    document.getElementById('textlist_id').innerHTML = "What are you reading "
+    var readlist2 =[];
+    if (textlist === undefined)
+    { }
+    else{
+      console.log(textlist)
+      for (var text in textlist) {
+        $('div[id*="'+text+'"]').remove();
+        $('p[id*="'+text+'"]').remove();
+        $('button[id*="'+text+'"]').remove();
+        $('br[class*= "'+text+'"]').remove();
+        textlist =[]
 
+        div_count = 0
+        console.log(textlist)
+      }
+
+    }
+if (readlist === undefined)
+{ }
+else {
+
+
+    console.log(readlist)
+
+    for (var read in readlist) {
+      $('div[id*="'+read+'"]').remove();
+      $('p[id*="'+read+'"]').remove();
+      $('button[id*="'+read+'"]').remove();
+      $('br[class*= "'+read+'"]').remove();
+
+    }
+
+    readlist =[]
+
+    console.log(readlist)
+
+    }
+      console.log('everything reset')
     // Set the redirect page to the appropriate lang:
     $("#giant_form").attr("action", "words_page_redirect/" + lang + "/");
     // Configure SOURCE TEXT TAB to only show texts from specified lang:
@@ -1308,7 +1356,7 @@ function buildToggle(field_options) {
         var field = $(field_options[i])
         //console.log("in buildToggle, field on " + i)
         //console.log(field)
-
+        console.log(field)
         if (field[0].attributes['data-visible'].nodeValue=='true') {
             //toggle that button!
             var name = field[0].attributes['data-fieldname'].nodeValue
@@ -1370,11 +1418,12 @@ function buildCheckdivs(field_options) {
     var container = jQuery('<div/>', {
         class: 'colFilters_container'
     });
+    container.append("<h4>Other Information</h4>")
     // Build a checkdiv from attr.s of each <th>:
     //console.log("legnh of field options: " + field_options.length);
     var proto_checkdiv = $('#prototype_container .checkdiv');
     for (var i=0; i<field_options.length; i++) {
-        console.log("field options positon " + i + ": " + field_options[i]);
+        //console.log("field options positon " + i + ": " + field_options[i]);
         var field = $(field_options[i]);
         if (field.hasClass('logUrl2')) {
            continue; //don't build checkbox!
@@ -1571,15 +1620,39 @@ function filterWordData(pos_list) {
            pos_dictionary['Noun_1'].push('Noun');
         }
 
+
         // Now we split things listed like "Pronoun, Adjective"
         // and add "Pronoun, Adjective" to both "Pronoun" and "Adjective"
         // A regex that matches 1 or more commas and any number of spaces
-        prop_list = key.split(/,+\s*/);
+        var prop_list = [];
+        console.log(key)
+
+
+          if (key.includes("_") ) {
+
+          var split = key.split("_");
+          var base_pos = split[0];
+          var extra_pos = split[1]
+          if (extra_pos){
+          var extra_pos = split[1].split(',');
+          for (var n=0; n< extra_pos.length; n++) {
+          prop_list.push(base_pos + "_" + extra_pos[n]);
+          }
+          }
+        }
+        else{
+          prop_list = key.split(/,+\s*/); // old thing which worked!
+        }
+
+        console.log(prop_list);
 	for (var j=0; j<prop_list.length; j++){
            var prop = prop_list[j];
+           console.log(prop);
 	   if(pos_dictionary[prop] != undefined){
 	      pos_dictionary[prop].push(key);
            }
+
+
 	   else{
                console.log("WARNING: Part of speech: '" + prop + "' from key: '" + key + "' is being added to CATCH_BAD which will always be displayed");
                console.log("See instuctions at this line in main.js")

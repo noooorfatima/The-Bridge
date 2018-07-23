@@ -1,7 +1,9 @@
-/* Puts the included jQuery into our own namespace using noConflict and passing
- * it 'true'. This ensures that the included jQuery doesn't pollute the global
- * namespace (i.e. this preserves pre-existing values for both window.$ and
- * window.jQuery).
- */
-var django = django || {};
-django.jQuery = jQuery.noConflict(true);
+var yl = yl || {};
+
+if (yl.jQuery === undefined) {
+    /* If the user has included another copy of jQuery use that, even in the admin */
+    if (typeof $ !== 'undefined')
+        yl.jQuery = $;
+    else if ((typeof django !== 'undefined') && (typeof django.jQuery !== 'undefined'))
+        yl.jQuery = django.jQuery;
+}

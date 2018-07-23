@@ -39,11 +39,20 @@ class Command(BaseCommand):
 			print ("Current text is:", name)
 			error =  {'name_error' : name}
 			return str(error)
-		if "LOCALDEF" in headers:
-			tmd = TextMetadata.objects.get(name_for_humans=name)
-			tmd.local_def=True
-			tmd.save()
-		for item in data_dict2: #would love to make this a list comprehension, but all of our error catching happens here. 
+
+
+		try:
+			if "LOCALDEF" in headers:
+				tmd = TextMetadata.objects.get(name_for_humans=name)
+				tmd.local_def=True
+				tmd.save()
+			elif (not TextMetadata.objects.get(name_for_humans=name).local_def) and "LOCALDEF" in headers:
+				raise IndexError
+		except IndexError:
+			print("local def error")
+			error = {'local_def_error' : text_name}
+			return str(error)
+		for item in data_dict2: #would love to make this a list comprehension, but all of our error catching happens here.
 			the_title = data_dict2[index]['TITLE']
 			locations = item[name].split(",")
 
