@@ -168,6 +168,7 @@ class BookTitlesGreek(models.Model):
         managed = True
         db_table = 'book_titles_greek'
 
+#Old thing that we might still be able to use at some point (ie, if we abandon name for humans all together, we could search based on this)
 #Shouldn't use plurals
 class BookTitles(models.Model):
     title_of_book = models.TextField(db_column='Title of Book')

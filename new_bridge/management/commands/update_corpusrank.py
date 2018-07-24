@@ -13,21 +13,12 @@ cursor = cnx.cursor(buffered=True)
 class Command(BaseCommand):
     help = "Run this command to update the corpus_rank field of all entries in the database."
     def add_arguments(self,parser):
-                parser.add_argument("language",nargs=1, type=str, help="The language we are importing for (Greek or Latin)")
+        print("adding arguments")
+        print(parser, 'parser')
+        parser.add_argument("language", nargs="+", type=str, help="The language we are importing for (Greek or Latin)")
 
     def handle(self, *args, **options):
-        lang = ""
-        try:
-           lang = args[0]
-        except:
-          print("No argument for language detected. This script requires an argument denoting which languange's corpus ranks you would like to update.")
-          print("enter either 'greek' or 'latin' as an argument")
-          return
-        if (lang != "Greek" or lang == "greek") and (lang != "Latin" or lang == "latin"):
-            while lang != "Greek" and lang != "Latin":
-               print("Please specify which language's corpus ranks you would like to update.")
-               print("enter either 'greek' or 'latin' on the following line.")
-               lang = input("enter either 'greek' or 'latin' (no apostrophes) to specify your language. Press CTRL+C to exit.")
+        lang = str(input("enter either 'greek' or 'latin' (no apostrophes) to specify your language. Press CTRL+C to exit." + '\n'))
         if lang == "Greek" or lang == "greek":
              query = ("SELECT title, count(title) FROM new_bridge_wordappearencesgreek a JOIN `new_bridge_wordpropertygreek`p on a.word_id = p.`id` GROUP by title ORDER BY count(title) DESC")
         elif lang == "Latin" or lang == "latin":

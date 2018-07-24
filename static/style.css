@@ -671,15 +671,6 @@ a.boxclose-about{
     color: #07325C;
 }
 
-#all_or_selection .btn {
-    background-color: #E1E1E1;
-    border: 1px solid black;
-    color: black;
-}
-#all_or_selection .btn.active {
-    background-color: gray;
-    color: white;
-}
 }
 .book_container {
     border: 1px solid #ccc;
@@ -943,7 +934,6 @@ background-color: gray;
    white-space: nowrap;
    overflow: hidden;
    display: inline-block;
-   width: 100000000px;
 }
 
 .panel-title {
@@ -1781,7 +1771,18 @@ Began: 5/24/17;
 }
 
 .btn-default {
-   padding: 6px 5px;
+  border-radius: 4px;
+  font-family: Sans-serif, Georgia;
+  font-size: 1.3em;
+  padding: 1px 8px 1px 8px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 6px 5px;
+  background-color: #E1E1E1;
+  color: #000;
+  border: 1px solid black;
+  width: 35%;
 }
 
 #dropDownDiv select {

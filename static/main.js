@@ -680,6 +680,145 @@ var tableToExcel = (function () {
 //id of currently selected accordion form tab:
 var active_form_tab = "tabOne";
 
+var div_count = 0;
+var calls1 = 0;
+var calls2 =0;
+var new_name = '';
+var wrapper = '';
+var add_button = '';
+var text_name = ''
+var wrapper0 = ""
+var readlist =[];
+var readlist2 =[];
+var textlist =[];
+var textlist2 =[];
+var last_add = '';
+
+
+function get_text_name(clicked_id){
+if (clicked_id == "choose_book") {
+  wrapper0 = document.getElementById("reading wrapper")
+  console.log("adding a book to reading ID =", clicked_id)
+  console.log(globalLang, 'globalLang in textlist.html')
+  if (globalLang == "latin") {
+    text_name = document.getElementById('select2-id_books4-container').title;
+  }
+  else if (globalLang == 'greek'){
+      text_name = document.getElementById('select2-id_books20-container').title;
+  }
+  if (text_name.length == 0) {
+  alert("Please choose a text.")
+  return ;
+  }
+  textlist2.push(" " + text_name);
+  document.getElementById('textlist_id').innerHTML = textlist2
+  document.getElementById('textlist_id').style = "display: inline-block; color: rgb(0, 0, 0); border: 1px solid black; overflow : hidden;"
+  textlist.push(text_name + "$");
+
+  console.log(textlist)
+  document.getElementById('textlist_id2').value = textlist
+  last_add = "textlist"
+}
+else {
+  wrapper0 = document.getElementById("read_wrapper")
+  console.log("adding a book to read", clicked_id)
+  if (globalLang =='latin') {
+    text_name = document.getElementById("select2-id_books32-container").title;
+  }
+  else{
+    text_name = document.getElementById("select2-id_books40-container").title;
+  }
+  readlist2.push(text_name);
+  //document.getElementById('readlist_id').innerHTML = readlist2
+  //document.getElementById('readlist_id').style = "display: inline-block; color: rgb(0, 0, 0); border: 1px solid black;"
+  readlist.push(text_name + "$");
+  document.getElementById('readlist_id2').value = readlist
+  last_add = "readlist"
+}
+
+
+console.log("I HAVE BEEN CLICKED!!!");
+subsection_for_this_text = important_secret_stuff[name_for_humans_to_name_for_computers[text_name]];
+
+if (! subsection_for_this_text) {
+    console.log("NO SUBSECTION DATA");
+    console.log('this is probably an error in our data base. Please tell us which text this is so we can fix it');
+
+}
+if (wrapper0.id == "reading wrapper") {
+  //we need to append more than jquery allows us to append at once: however, each of these ends up in a seperate div.
+  //I highly recommend opening this file with an editor that will wrap lines that go over 80 characters
+  $(wrapper0).append('<br class = "'+text_name+' '+div_count+'"><div class="thumbnail" id="'+text_name+' '+div_count+'"> <fieldset class="default_fieldset" name="book_read" value="'+text_name+'" data-toggle="tooltip" data-placement="bottom" title=" "> <div class="'+text_name+'"> '+text_name+'</div></fieldset>')
+
+  $(wrapper0).append('<div class="input-group-container" id="'+text_name+' '+div_count+' input-group-container">  <div class="input-group"><input type="text" class="form-control" name="'+text_name+' reading from" placeholder="'+subsection_for_this_text+'" aria-describedby="sizing-addon3"><span class="input-group-addon" id="sizing-addon3">to</span><input type="text" class="form-control" name="'+text_name+' reading to" placeholder="'+subsection_for_this_text+'" aria-describedby="sizing-addon3"></div></div></div></div></div> <br class = "'+text_name+' '+div_count+'"> <p id = "description for '+text_name+' '+div_count+'">Optional: select a section of this work. Leave blank for all the words in the work. Want multiple non-contiguous sections of the same work? Just click "Add Work" again and define the new section. </p>');
+    $(wrapper0).append('<div> <button type=button  id="delete '+text_name+' '+div_count+'" class="btn-default btn" onclick = "delete_add(this.id)"> Remove Work </button> <br class = "'+text_name+' '+div_count+'"></div>');
+} else {
+  $(wrapper0).append('<br class = "'+text_name+' '+div_count+'"><div class="thumbnail" id="'+text_name+' '+div_count+'"> <fieldset class="default_fieldset" name="book_read" value="'+text_name+'" data-toggle="tooltip" data-placement="bottom" title=" "> <div class="'+text_name+'"> '+text_name+'</div></fieldset>')
+
+  $(wrapper0).append('<div class="input-group-container" id="'+text_name+' '+div_count+' input-group-container">  <div class="input-group"><input type="text" class="form-control" name="'+text_name+' from" placeholder="'+subsection_for_this_text+'" aria-describedby="sizing-addon3"><span class="input-group-addon" id="sizing-addon3">to</span><input type="text" class="form-control" name="'+text_name+' to" placeholder="'+subsection_for_this_text+'" aria-describedby="sizing-addon3"></div></div></div></div></div> <br class = "'+text_name+' '+div_count+'"> <p id = "description for '+text_name+' '+div_count+'">Optional: select a section of this work. Leave blank for all the words in the work. Want multiple non-contiguous sections of the same work? Just click "Add Work" again and define the new section. </p>');
+    $(wrapper0).append('<div> <button type=button  id="delete '+text_name+' '+div_count+'" class="btn-default btn" onclick = "delete_add(this.id)"> Remove Work </button> <br class = "'+text_name+' '+div_count+'"></div>');
+}
+
+clicked_id = "";
+wrapper0 = "";
+div_count ++;
+};
+function delete_add(clicked){
+clicked= clicked.slice(7);
+console.log(textlist, 'reading')
+console.log($('div[id*="'+clicked+'"]')), 'about to be deleted';
+$('div[id*="'+clicked+'"]').remove();
+$('p[id*="'+clicked+'"]').remove();
+$('button[id*="'+clicked+'"]').remove();
+$('br[class*= "'+clicked+'"]').remove();
+  console.log(clicked, "clicked");
+  console.log(readlist, 'read')
+  console.log(textlist, 'reading')
+  var arraylike = document.getElementsByName("book_read");
+  console.log(arraylike, "arraylike")
+  readlist = Array.apply(null, arraylike);
+
+  for (var i in readlist) {
+      readlist[i] = readlist[i].value + "$"
+      }
+  console.log(readlist)
+
+  if (readlist){
+    readlist= readlist;
+  }else {
+    console.log("deleted readlist, setting it to empty instead");
+      readlist = [];
+      }
+    document.getElementById('readlist_id2').value = readlist
+
+    console.log(clicked + "$");
+    var arraylike= document.getElementsByName("book")
+    console.log(arraylike, "arraylike")
+    textlist = Array.apply(0, arraylike);
+    textlist2 = Array.apply(0, arraylike);
+    document.getElementById('textlist_id').innerHTML = textlist2
+    if (textlist2.length == 0) {
+    document.getElementById('textlist_id').style = "display: none; color: rgb(0, 0, 0); border: 1px solid black;"
+
+    } else {
+    document.getElementById('textlist_id').style = "display: inline-block; color: rgb(0, 0, 0); border: 1px solid black;"
+    }
+
+    for (var i in textlist) {
+    console.log(textlist[i].value)
+    textlist[i] = textlist[i].value + "$"
+    }
+      console.log(textlist, 'reading');
+      if (textlist){
+
+        textlist= textlist;
+      }else {
+        console.log("deleted textlist, setting it to empty instead");
+        textlist = [];
+      }
+        document.getElementById('textlist_id2').value = textlist
+
+    };
 
 function handleMediaQuery(mq) {
     /* Reconfigures site appearance based on CSS media queries.
@@ -713,7 +852,7 @@ function configureForm(e) {
     console.log("RESETTING THINGS")
     var textlist2 = [];
     document.getElementById('textlist_id').innerHTML = "What are you reading "
-    var readlist2 =[];
+    var readlist2 = []; //readlist2 does not really exist yet, but one day will be like textlist2
     if (textlist === undefined)
     { }
     else{

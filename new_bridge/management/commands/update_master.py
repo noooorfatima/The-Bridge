@@ -46,7 +46,7 @@ class Command(BaseCommand):
 				fields = fields + [name.upper().replace('_',' ').replace('-',' ')]
 			#print fields, "FIELDS"
 		elif lang == 'Greek':
-			for name in [f.name for f in WordPropertyLatin._meta.get_fields()]:
+			for name in [f.name for f in WordPropertyGreek._meta.get_fields()]:
 				fields = fields + [name.upper().replace('_',' ').replace('-',' ')]
 		else:
 			print("Got an unexpected language",lang)
@@ -118,10 +118,21 @@ class Command(BaseCommand):
 				english_extended = 'ENGLISH-EXTENDED'
 			index = 0
 			for item in data_dict:
-				print(index)
 				print(item['TITLE'])
-				print( item['Decl'], len(item['Decl']))
+				print(
+				'display_lemma' , item['DISPLAY LEMMA'],
+				'display_lemma_macronless' , item['DISPLAY LEMMA MACRONLESS'],
+				'english_core' , item[english_core],
+				'english_extended', item[english_extended],
+				'decl' , item['Decl'],
+				'conj' , item['Conj'],
+				'reg_adj_adv' , item['Reg Adj/Adv'] ,
+				'proper' , item['Proper'],
+				'part_of_speech' , item['Part Of Speech'] ,
+				'logeion_url',  item['LOGEION LINK'],
+				)
 				try:
+
 					WordPropertyLatin.objects.update_or_create(
 					title = item['TITLE'],
 					defaults={
@@ -135,7 +146,7 @@ class Command(BaseCommand):
 					'reg_adj_adv' : item['Reg Adj/Adv'] ,
 					'proper' : item['Proper'],
 					'part_of_speech' : item['Part Of Speech'] ,
-                                	'logeion_url' : item['LOGEION LINK'],
+                    'logeion_url' : item['LOGEION LINK'],
 			    		}
 				)
 				except KeyError:
@@ -164,6 +175,12 @@ class Command(BaseCommand):
                                 #print item
                                 #return
 				try:
+					#print(item['LOGEION LEMMA'], 'logeion lemma')
+					print(item['SEARCH LEMMA'], 'search_lemma')
+					print(item['DISPLAY LEMMA'], 'display_lemma')
+					print('english_definition', item['SHORTDEF'])
+					print('logeion_def', item['LOGEIONDEF'])
+					print('proper', item['PROPER'])
 					WordPropertyGreek.objects.update_or_create(
 					title = item['TITLE'],
 				# id = item['id'],
@@ -171,7 +188,7 @@ class Command(BaseCommand):
 				#'id' : item['id'],
 				#'title' : item['TITLE'],
 				# 'accented_lemma' : item['accented lemma'],
-					'logeion_lemma' : item['LOGEION LEMMA'],
+					#'logeion_lemma' : item['LOGEION LEMMA'],
 					'search_lemma' : item['SEARCH LEMMA'],
 					'display_lemma' : item['DISPLAY LEMMA'],
 					'english_definition' : item['SHORTDEF'],

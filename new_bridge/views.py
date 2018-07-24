@@ -119,8 +119,9 @@ def words_page_redirect(request, language):
 			break
 		else:
 			takencare_of_texts.add(text)
-		print( "TEXT: ", text)
+
 		text=text.replace("$", "")
+		print( "TEXT: ", text)
 		text_from = []
 		text_to = []
 
@@ -332,6 +333,7 @@ def words_page(request, language, text, bookslist, text_from, text_to, add_remov
 			bookslist_formatted += book+ ", "
 		bookslist_formatted = bookslist_formatted[:-2]
 
+	loc_def = all(loc_def)
 
 	try:
 		return render(request,"words_page.html", {"language":language, "text":name_for_humans,
@@ -453,7 +455,7 @@ def get_words(request, language, text, bookslist, text_from,text_to, add_remove)
 		#print "INSIDE TRY STATEMENT"
 
 		print(len(word_ids), "getting word data for this many ids")
-		[words_list.append(word_property_table.objects.filter(id__exact=id)[0]) for id in word_ids]
+		[words_list.append(word_property_table.objects.get(id__exact=id)) for id in word_ids]
 		print("got them!!")
 		#print(words_list, 'here it is')
 	#if accu1 < 5:
@@ -463,32 +465,27 @@ def get_words(request, language, text, bookslist, text_from,text_to, add_remove)
 		print("get words error 1")
 		print(e)
 		assert(False)
-	from_mindivs = []
-	to_mindivs = []
-	print(text_list)
-	for each in text_list:
-		print (each)
-		text= each[0]
-		text_from = each[1]
-		text_to = each[2]
-		from_mindivs.append(loc_to_mindiv(text, text_from)) #THIS LINE IS WHY THIS AND THE VERY SIMILAR CODE ABOVE CANNOT BE ONE FUNCTION
-		to_mindiv = loc_to_mindiv(text, text_to) #while seems like it would be nicer to have this in an else, sometimes even when the if triggers the while loop does not, and then to_mindiv is undefined.
+
+	for text in text_list:
+		print(text)
+		book = text[0]
+		text_from = text[1]
+		text_to = text[2]
+		from_mindiv = loc_to_mindiv(book, text_from)
+		to_mindiv = loc_to_mindiv(book, text_to)
 		if text_from == text_to:
-			print("a text_to is the same as as text_from")
-			print(text_to)
-			to_node = loc_to_node(text,text_to)
+		#print("a text_to is the same as as text_from")
+		#print(text_to)
+			to_node = loc_to_node(book,text_to)
 			child = to_node
-			#working around python variable storage
+		#working around python variable storage
 			while not child.is_leaf():
-				print("NOT A LEAF")
+			#print("NOT A LEAF")
 				child = child.get_last_child()
 				to_mindiv = child.least_mindiv
-			print(to_mindiv, "new to")
-		to_mindivs.append(to_mindiv) #we need these to get the number of times a word appears in the user's selection
-
-	mindivs = list(zip(from_mindivs, to_mindivs))
-	print (mindivs, "mindivs")
-
+		text.extend([from_mindiv, to_mindiv])
+	print(text_list)
+		#print(to_mindiv, "new to")
 	json_words = serializers.serialize("json", words_list)
 	#D#print type(json_words)
 	json_words2 = json.loads(json_words)
@@ -514,26 +511,24 @@ def get_words(request, language, text, bookslist, text_from,text_to, add_remove)
 					#print('got total count')
 					#try: #this takes a long time, so if the user is studying the whole text, we don't want to do it
 					useful_appearance_data = []
+					from_mindiv = text[3]
+					to_mindiv = text[4]
 					for word_apperance in word_app:
-						#print("in top loop")
-						for each in mindivs:
-							from_mindiv = each[0]
-							to_mindiv = each[1]
-							if from_mindiv <= word_apperance.mindiv <= to_mindiv: #this is all the times the word appears in the selection
-								#print("adding word app")
-								useful_appearance_data.append(word_apperance)
+						#print(from_mindiv, word_apperance.mindiv, to_mindiv)
+						if from_mindiv <= word_apperance.mindiv <= to_mindiv: #this is all the times the word appears in the selection
+							#print("adding word app")
+							useful_appearance_data.append(word_apperance)
 					if useful_appearance_data != []:
 
 						item['fields']['count'] = len(useful_appearance_data)
 						item['fields']['total_count'] = total_count
-						item['fields']['source_text'] = str(text[0]) + ": " + "-".join(text[1:])
+						item['fields']['source_text'] = str(text[0]) + ": " + "-".join(text[1:3])
 						#print(useful_appearance_data)
 						word_app = useful_appearance_data[0] # now word_app is the first appearance of the word in the user's subsection
 						item['fields']['position']=word_app.appearance
 						if (word_app.local_def):
 							item['fields']['local_def']= word_app.local_def
-						elif models.TextMetadata.objects.get(name_for_humans = text[0]).local_def: #local_def is a boolean in textmetadata. this is to cover the case where a text has local defs for most words, but not all (like in the DCC Latin Core)
-							item['fields']['local_def']= "No text-specific definition for this word"
+
 
 						test_for_in_final[item['pk']] = item
 						final_keys.add(item['pk'])
@@ -544,9 +539,6 @@ def get_words(request, language, text, bookslist, text_from,text_to, add_remove)
 
 	#make the appearance list sorted and then just take the first one
 	json_words = json.dumps(list(test_for_in_final.values()))
-
-	#I do not know why it gets so big at this time
-	#It's ok, json_words just has all of the information about the word.
 	print('last return in views.py!')
 	return HttpResponse(json_words, content_type="application/json")
 
@@ -639,7 +631,9 @@ def words_in_read_texts(word_appearences, read_texts): #read_texts just needs to
 		print (text_range, 'text range')
 		#was crashing when returning large requests, so I swithed from a list to a set. set membership checks are faster, and there will not be duplicates, which is important when we iterate over this later.
 		new_vocab = word_appearences.objects.filter(text_name=book, mindiv__range=(from_mindiv, to_mindiv))
+		print(len(new_vocab))
 		list_of_dicts = new_vocab.values('word')
+		print(len(list_of_dicts))
 		ids = set()
 		[ids.add(dict['word']) for dict in list_of_dicts] #adds all the word ids to the set 'ids'
 
@@ -665,7 +659,7 @@ def words_in_read_texts(word_appearences, read_texts): #read_texts just needs to
 def loc_to_mindiv(text,location):
 	print(text, 'text in loc_to_mindiv')
 	#print TextStructureNode.objects.filter(text_name=text)
-	node = models.TextStructureNode.objects.filter(text_name=text)[0]
+	node = models.TextStructureNode.objects.get(text_name=text)
 	#print node, "Nodles"
 	if location == 'start':
 		#print "location = start"
@@ -688,7 +682,7 @@ def loc_to_mindiv(text,location):
 	return node.least_mindiv
 
 def loc_to_node(text,location):
-	node = models.TextStructureNode.objects.filter(text_name=text)[0]
+	node = models.TextStructureNode.objects.get(text_name=text)
 	if location == 'start':
 		pass # don't change nodes!  Root.least_mindiv is start of text.
 	elif location == 'end':

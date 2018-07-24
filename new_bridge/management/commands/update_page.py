@@ -70,6 +70,9 @@ class Command(BaseCommand):
 				try:
 					#print("the_title in update_page Latin", the_title)
 					word_id=WordPropertyLatin.objects.get(title=the_title).id
+					if_display_lemma = WordPropertyLatin.objects.get(title=the_title).display_lemma
+					if len(if_display_lemma) == 0:
+						raise(ValueError)
 				except:
 					print("exception: %s" % the_title)
 					error = {"dots_error" : the_title}
