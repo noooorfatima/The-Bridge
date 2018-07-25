@@ -6,7 +6,7 @@ import random
 def romanMath():
     try:
         correct = False
-        while not correct:
+        while (correct == False):
             romanNum = ['0','I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X']
             length = len(romanNum)
             a = random.randint(1, length)

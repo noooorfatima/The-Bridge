@@ -1,0 +1,65 @@
+{% include "head.html" %}
+<!--{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+<html>
+<head>
+</head -->
+
+<style>
+#PostText {
+	min-width:200px;
+	max-width:350px;
+	margin:auto;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
+
+
+#PostBlock {
+	background:rgba(255,255,255,0.85);
+	padding:5px;
+	margin: 5px;
+	border-radius: 2.5px;
+}
+
+
+
+</style>
+
+
+<title>The Bridge: Lemmatizer</title>
+<body id="body" data-title="index" class = "home">
+	{% include "navbar.html" %}
+	{% include "about.html" %}
+
+<div id="background" class = "custom-background img-responsive">
+  <div class="page-wrap">
+	<div style="
+	text-align: left;
+    padding-left: 15px;
+    padding-right: 15px;">  
+		<h1 id="PostBlock" style="display:inline-block;"> Lemmatizer </h1>
+			<br>
+			<p id="PostBlock">With this tool you can input a Greek or Latin text file. The lemmatizer will match the text with either the Bridge or Morpheus lemmata system and create a spreadsheet file in either csv or Excel (xlsx) format. To prove your <i>humanitas</i>, please answer the math question using Roman numerals.  </p>
+			
+			<form id="post_text" style="display:inline-block;" method="post" action="Lemmatizer" enctype="multipart/form-data">
+      		{% csrf_token %}
+      		<div id="PostBlock" style="text-align:center;">
+      		
+      		{{ form.file }}<br>
+      		<p>Text Langugage: {{ form.language }}</p>
+      		<p>Output format: {{ form.out_format }}</p>
+      		<p>Lemmata Format: {{ form.lem_format }}</p>
+      		<p>Lemmatization Level: {{ form.lem_level }}</p>
+      		<p>Question: {{ form.question }}</p>
+
+      		<input type="submit" name="submit" value="Submit"> <br><p>To format a lemmatized text click <a href='/format'>here</a></div>
+ 		</form>
+  	</div>
+
+
+ </div>
+</div>
+</div></div></div> <!--- Close everything that should be closed but goodness knows is not. If you have some free time and good spirit you could try to find where these actually go -->
+{% include "footer.html" %}

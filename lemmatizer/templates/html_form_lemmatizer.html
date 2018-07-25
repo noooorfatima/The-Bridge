@@ -1,0 +1,112 @@
+{% include "head.html" %}
+<!--{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+<html>
+<head>
+</head -->
+
+<style>
+#PostText {
+	min-width:200px;
+	max-width:350px;
+	margin:auto;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
+
+
+#PostBlock {
+	background:rgba(255,255,255,0.85);
+	padding:5px;
+	margin: 5px;
+	border-radius: 2.5px;
+}
+
+
+
+</style>
+
+
+<title>The Bridge: Lemmatizer</title>
+<body id="body" data-title="index" class = "home">
+	{% include "navbar.html" %}
+	{% include "about.html" %}
+
+<div id="background" class = "custom-background img-responsive">
+  <div class="page-wrap">
+	<div style="
+    padding-left: 15px;
+    padding-right: 15px;">  
+		<h1 id="PostBlock" style="display:inline-block;"> Bridge Tools </h1>
+			<br>
+			<p id="PostBlock"> With these tools you can create a spreadsheet with a lemmatized text, specify whether you want to lemmatize all forms or only unambiguous forms, and specify the lemmata system for the spreadsheet</p>
+	</div>
+
+
+
+  <form id="PostText" method="POST" action="/lemmatized" enctype="multipart/form-data">
+  	{% csrf_token %}
+	<div id="PostBlock" style="text-align:center;" > <h4> Step 1. Enter or Upload text</h4>
+  	</div>
+	<input style="color:#fff;padding-top:5px;padding-bottom:7px;" type="file" name="file" id="file" style="color:#fff;">
+<!--	<input type="text" name="content" id="content"> -->
+	<textarea cols="36" rows="4" name="content"></textarea>
+
+	<div id="PostBlock" style="text-align:center;"> <h4> Step 2. Select Language </h4>
+
+	<label class="custom-control custom-radio">
+	  <input id="radio1" name="radiolang" type="radio" class="custom-control-input">
+	  <span class="custom-control-indicator"></span>
+	  <span class="custom-control-description">Latin</span>
+	</label>
+	<label class="custom-control custom-radio">
+	  <input id="radio2" name="radiolang" type="radio" class="custom-control-input">
+	  <span class="custom-control-indicator"></span>
+	  <span class="custom-control-description">Greek</span>
+	</label>
+	</div>
+	
+	<div id="PostBlock" style="text-align:center;" > <h4> Step 3. Select Lemmatization Level </h4>
+	 <label class="custom-control custom-radio">
+          <input id="radio1" name="radioLevel" type="radio" class="custom-control-input">
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">Lemmatize only unambiguous forms</span>
+        </label>
+        <label class="custom-control custom-radio">
+          <input id="radio2" name="radioLevel" type="radio" class="custom-control-input">
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">Lemmatize all forms ) will make best guess at ambiguous forms, if possible</span>
+        </label>
+	</div>"""
+
+
+
+
+        <div id="PostBlock" style="text-align:center;" > <h4> Step 4. Select Lemmata Format </h4>
+	<label class="custom-control custom-radio">
+          <input id="radio1" name="radioFormat" type="radio" class="custom-control-input">
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">Bridge</span>
+        </label>
+        <label class="custom-control custom-radio">
+          <input id="radio2" name="radioFormat" type="radio" class="custom-control-input">
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">Morpheus</span>
+        </label>
+
+
+        </div>
+	<br>
+	<center><button style="text-align:center;" type="submit" class="btn btn-primary">Lemmatize</button></center>
+	<br>
+   <!--- <input type="submit" name="submit" value="Submit">-->
+ </form> 
+ 
+  
+
+ </div>
+</div>
+</div></div></div> <!--- Close everything that should be closed but goodness knows is not. If you have some free time and good spirit you could try to find where these actually go -->
+{% include "footer.html" %}
+

@@ -1,0 +1,31 @@
+{% include "head.html" %}
+
+
+
+
+
+
+{% csrf_token %}
+<title>The Bridge: Lemmatizer</title>
+<body id="body" data-title="index" class = "home">
+	{% include "navbar.html" %}
+	{% include "about.html" %}
+<div id="background" class = "custom-background img-responsive">
+  <div class="page-wrap">
+<!--{% debug %}-->
+<div style="text-align:center;padding-top:30px;">
+
+
+<a class="btn btn-primary" style="margin:10px;" role="button" href="/download/{{output_file}}" download>Download Formatted File <span class="glyphicon glyphicon-save" aria-hidden="true"></span></a>
+
+<a class="btn btn-primary" style="margin:10px;" role="button" href="/format">Format Another</a>
+<a class="btn btn-primary" style="margin:10px;" role="button" href="/lemmatizer">Return to Lemmatizer</a>
+
+</div>
+
+</div>
+</div>
+
+ 
+
+{% include "footer.html" %}

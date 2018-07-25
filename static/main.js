@@ -699,7 +699,6 @@ function get_text_name(clicked_id){
 if (clicked_id == "choose_book") {
   wrapper0 = document.getElementById("reading wrapper")
   console.log("adding a book to reading ID =", clicked_id)
-  console.log(globalLang, 'globalLang in textlist.html')
   if (globalLang == "latin") {
     text_name = document.getElementById('select2-id_books4-container').title;
   }
@@ -748,15 +747,15 @@ if (! subsection_for_this_text) {
 if (wrapper0.id == "reading wrapper") {
   //we need to append more than jquery allows us to append at once: however, each of these ends up in a seperate div.
   //I highly recommend opening this file with an editor that will wrap lines that go over 80 characters
-  $(wrapper0).append('<br class = "'+text_name+' '+div_count+'"><div class="thumbnail" id="'+text_name+' '+div_count+'"> <fieldset class="default_fieldset" name="book_read" value="'+text_name+'" data-toggle="tooltip" data-placement="bottom" title=" "> <div class="'+text_name+'"> '+text_name+'</div></fieldset>')
+  $(wrapper0).append('<br class = "'+text_name+' '+div_count+'"><div class="thumbnail" id="'+text_name+' '+div_count+'"> <div class="default_fieldset" name="book" value="'+text_name+'" data-toggle="tooltip" data-placement="bottom" title=" "> <div class="'+text_name+'"> '+text_name+'</div></div>')
 
   $(wrapper0).append('<div class="input-group-container" id="'+text_name+' '+div_count+' input-group-container">  <div class="input-group"><input type="text" class="form-control" name="'+text_name+' reading from" placeholder="'+subsection_for_this_text+'" aria-describedby="sizing-addon3"><span class="input-group-addon" id="sizing-addon3">to</span><input type="text" class="form-control" name="'+text_name+' reading to" placeholder="'+subsection_for_this_text+'" aria-describedby="sizing-addon3"></div></div></div></div></div> <br class = "'+text_name+' '+div_count+'"> <p id = "description for '+text_name+' '+div_count+'">Optional: select a section of this work. Leave blank for all the words in the work. Want multiple non-contiguous sections of the same work? Just click "Add Work" again and define the new section. </p>');
-    $(wrapper0).append('<div> <button type=button  id="delete '+text_name+' '+div_count+'" class="btn-default btn" onclick = "delete_add(this.id)"> Remove Work </button> <br class = "'+text_name+' '+div_count+'"></div>');
+    $(wrapper0).append('<div> <button type=button  id="delete '+text_name+' '+div_count+'" class="btn-default add-work" onclick = "delete_add(this.id)"> Remove Work </button> <br class = "'+text_name+' '+div_count+'"></div>');
 } else {
   $(wrapper0).append('<br class = "'+text_name+' '+div_count+'"><div class="thumbnail" id="'+text_name+' '+div_count+'"> <fieldset class="default_fieldset" name="book_read" value="'+text_name+'" data-toggle="tooltip" data-placement="bottom" title=" "> <div class="'+text_name+'"> '+text_name+'</div></fieldset>')
 
   $(wrapper0).append('<div class="input-group-container" id="'+text_name+' '+div_count+' input-group-container">  <div class="input-group"><input type="text" class="form-control" name="'+text_name+' from" placeholder="'+subsection_for_this_text+'" aria-describedby="sizing-addon3"><span class="input-group-addon" id="sizing-addon3">to</span><input type="text" class="form-control" name="'+text_name+' to" placeholder="'+subsection_for_this_text+'" aria-describedby="sizing-addon3"></div></div></div></div></div> <br class = "'+text_name+' '+div_count+'"> <p id = "description for '+text_name+' '+div_count+'">Optional: select a section of this work. Leave blank for all the words in the work. Want multiple non-contiguous sections of the same work? Just click "Add Work" again and define the new section. </p>');
-    $(wrapper0).append('<div> <button type=button  id="delete '+text_name+' '+div_count+'" class="btn-default btn" onclick = "delete_add(this.id)"> Remove Work </button> <br class = "'+text_name+' '+div_count+'"></div>');
+    $(wrapper0).append('<div> <button type=button  id="delete '+text_name+' '+div_count+'" class="btn-default add-work" onclick = "delete_add(this.id)"> Remove Work </button> <br class = "'+text_name+' '+div_count+'"></div>');
 }
 
 clicked_id = "";
@@ -792,22 +791,29 @@ $('br[class*= "'+clicked+'"]').remove();
     document.getElementById('readlist_id2').value = readlist
 
     console.log(clicked + "$");
-    var arraylike= document.getElementsByName("book")
-    console.log(arraylike, "arraylike")
-    textlist = Array.apply(0, arraylike);
-    textlist2 = Array.apply(0, arraylike);
-    document.getElementById('textlist_id').innerHTML = textlist2
+    var arraylike2= document.getElementsByName("book");
+    console.log(arraylike2, "arraylike2");
+    textlist = Array.apply(null, arraylike2);
+    textlist2 = Array.apply(null, arraylike2);
+    for (var i in textlist2){
+      textlist2[i] = textlist2[i].innerText.slice(0,-1)
+    }
+
+    for (var i in textlist) {
+    console.log(textlist[i].innerText, 'NEW VALUE OF TEXTLIST')
+    textlist[i] = textlist[i].innerText.slice(0,-1) + "$"
+    }
+
+
     if (textlist2.length == 0) {
     document.getElementById('textlist_id').style = "display: none; color: rgb(0, 0, 0); border: 1px solid black;"
 
     } else {
     document.getElementById('textlist_id').style = "display: inline-block; color: rgb(0, 0, 0); border: 1px solid black;"
+    document.getElementById('textlist_id').innerHTML = textlist2
     }
 
-    for (var i in textlist) {
-    console.log(textlist[i].value)
-    textlist[i] = textlist[i].value + "$"
-    }
+
       console.log(textlist, 'reading');
       if (textlist){
 

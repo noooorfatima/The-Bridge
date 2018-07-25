@@ -23,7 +23,7 @@ class LemmaReplacer(object):  # pylint: disable=too-few-public-methods
         self.lemmata = self._load_replacement_patterns(include_ambiguous)
 
     def _load_replacement_patterns(self, include_ambiguous):
-        """Check for availability of lemmatizer for a language. 
+        """Check for availability of lemmatizer for a language.
         `include_ambiguous` specifies whether to return the most likely headword
         for an ambiguous lemma."""
         if include_ambiguous:
@@ -50,7 +50,7 @@ class LemmaReplacer(object):  # pylint: disable=too-few-public-methods
         that value is treated as the headword for any unidentifiable lemmas.
         TODO: rm check for final period, change PunktLanguageVars() to nltk_tokenize_words()
         """
-        assert (type(input_text) in [list, str])
+        assert type(input_text) in [list, str]
         if type(input_text) is str:
             punkt = PunktLanguageVars()
             tokens = punkt.word_tokenize(input_text)
@@ -66,12 +66,12 @@ class LemmaReplacer(object):  # pylint: disable=too-few-public-methods
                 token = token[:-1]
 
             # look for token in lemma dict keys
-            if token in list(self.lemmata.keys()):
+            if token in self.lemmata.keys():
                 headword = self.lemmata[token]
-            elif token.lower() in list(self.lemmata.keys()):
+            elif token.lower() in self.lemmata.keys():
                 headword = self.lemmata[token.lower()]
             else:
-                headword = token if default is None else default
+                headword = 'NONE'
 
             # re-add final period if rm'd
             if final_period:

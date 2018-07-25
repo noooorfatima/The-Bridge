@@ -1773,7 +1773,6 @@ Began: 5/24/17;
 .btn-default {
   border-radius: 4px;
   font-family: Sans-serif, Georgia;
-  font-size: 1.3em;
   padding: 1px 8px 1px 8px;
   text-align: center;
   overflow: hidden;
@@ -1782,9 +1781,11 @@ Began: 5/24/17;
   background-color: #E1E1E1;
   color: #000;
   border: 1px solid black;
-  width: 35%;
+  width: 30%;
 }
-
+.add-work{
+  font-size: 1.3em;
+}
 #dropDownDiv select {
     font-size: 16px;
 }

@@ -1,7 +1,3 @@
-# encoding=utf8
-import sys
-
-
 import os
 import xlrd
 import csv
@@ -14,7 +10,7 @@ from lemmatizer.forms import PostText, post_text, FormatFile
 from lemmatizer import easy_lem
 import tempfile
 from django.utils.encoding import smart_str
-import random 
+import random
 from openpyxl.workbook import Workbook
 from openpyxl.reader.excel import load_workbook, InvalidFileException
 
@@ -52,26 +48,26 @@ def parseEquation(strInput):
     givenAns = RomToReg(answer)
     print(first, second, answer, givenAns, correctAns)
     return givenAns == correctAns
-    
-    #print(givenAns)   
+
+    #print(givenAns)
 
 #this is the main view for the lemmatizer
 def lemmatizer(request):
 
-    print ('lemmatizer in views.py')
     if request.method == 'POST':
         form = PostText(request.POST, request.FILES)
         captcha = str(form['question'].value())
         answer = parseEquation(captcha)
-        
-        print((answer, 'should be true')) 
+
+        print(answer)
+
         if form.is_valid() and answer != False:
-            
+
             #write the uploaded file to a temporary file on the server in /tmp
             with tempfile.NamedTemporaryFile(suffix='.txt', dir='/tmp/', delete=False) as f:
-                print ('trying to make tempfile')
+
                 f.write(form['file'].value().read())#.encode("utf-8"))
-                f.close()
+                f.close
                 #TODO: Handle data from textfield
                 #f.write(form['text'].value().encode("utf-8"))
                 #with .read() gives'unicode' object has no attribute 'read'
@@ -83,21 +79,17 @@ def lemmatizer(request):
 
                 filename = f.name
                 f.close()
-            #I'm not sure why we need this, but autoLemma will read the temporary file but not find any lemmas unless we save it and reopen it. 
+            #I'm not sure why we need this, but autoLemma will read the temporary file but not find any lemmas unless we save it and reopen it.
             with open(filename) as f:
-                print(('file', filename, 'is open'))
-                f.read()
-                lem_format = str(form['lem_format'].value()) 
-                out_format = str(form['out_format'].value())
-                lem_level = str(form['lem_level'].value()) 
-                print((language, filename, lem_format, lem_level, "INPUTS TO EASY_LEM.PY"))
-                concordance = bool(form['concordance'].value())
 
+                f.read()
+                lem_format = str(form['lem_format'].value())
+                out_format = str(form['out_format'].value())
+                lem_level = str(form['lem_level'].value())
 
                 #pass variables to lemmatize function and Bret's scripts
-                print((concordance, 'should be true/yes or no/false/unknown/null'))
-
-                easy_lem.lemmatize(language,filename,lem_format,lem_level, concordance)
+                print((language,filename,lem_format,lem_level))
+                easy_lem.lemmatize(language,filename,lem_format,lem_level)
 
                 #uncomment to save form data to db
                 #form.save(commit=True)
@@ -120,6 +112,7 @@ def lemmatizer(request):
                         sh = wb.sheet_by_name(sheet_names[0])
                         your_csv_file = open('/tmp/lemmatized.csv', 'w')
                         wr = csv.writer(your_csv_file, quoting=csv.QUOTE_ALL)
+
                         for rownum in range(sh.nrows):
                             try:
                                 wr.writerow(sh.row_values(rownum))
@@ -136,6 +129,7 @@ def lemmatizer(request):
                         sh = wb.sheet_by_name(sheet_names[0])
                         your_csv_file = open('/tmp/lemmatized.csv', 'w')
                         wr = csv.writer(your_csv_file, quoting=csv.QUOTE_ALL)
+
                         for rownum in range(sh.nrows):
                             try:
                                 wr.writerow(sh.row_values(rownum))
@@ -143,7 +137,7 @@ def lemmatizer(request):
                                 pass
                         your_csv_file.close()
                         output_file = 'lemmatized.csv'
-                #Remove the tempary txt file, but keep the csv and xlsx output        
+                #Remove the tempary txt file, but keep the csv and xlsx output
                 os.unlink(filename)
                 assert not os.path.exists(filename)
 
@@ -167,18 +161,18 @@ def lemmatizer(request):
  #   return render(request, 'lemmatize.html', {'form': form})
 def formatlemmatizedtext(request):
 
-    
+
     if request.method == 'POST':
         cheese = FormatFile(request.POST, request.FILES)
         captcha = str(cheese['question'].value())
         answer = parseEquation(captcha)
-        
+
         print(answer)
         print ('Hi, I got to line 174')
 
         if answer != False: #cheese.is_valid() and
             print ('Hi, I got to line 177')
-            
+
             with tempfile.NamedTemporaryFile(suffix='.xlsx',dir='/tmp/', delete=False) as f:
                 f.write(cheese['file'].value().read())#.encode("utf-8"))
                 f.flush()
@@ -192,15 +186,15 @@ def formatlemmatizedtext(request):
 
                 filename = f.name
                 print(filename)
-                
+
                 f.close()
 
-                
+
             with open(filename) as f:
 
                 ##
-                in_format = str(cheese['in_format'].value()) 
-                out_format = str(cheese['out_format'].value()) 
+                in_format = str(cheese['in_format'].value())
+                out_format = str(cheese['out_format'].value())
 
                 #pass variables to lemmatize function and Bret's scripts
                 print((filename,in_format,out_format))
@@ -217,7 +211,7 @@ def formatlemmatizedtext(request):
                     output_file = str(f.name).split('.')[0] + '_Input.xlsx'
                     output_file = output_file.split('/')[2]
 
-                    
+
                 if out_format == 'csv':
                     output_file = str(f.name).split('.')[0] + '_Input.xlsx'
                     wb = xlrd.open_workbook(output_file)
@@ -225,7 +219,7 @@ def formatlemmatizedtext(request):
                     sh = wb.sheet_by_name(sheet_names[0])
                     your_csv_file = open('/tmp/formatted.csv', 'w')
                     wr = csv.writer(your_csv_file, quoting=csv.QUOTE_ALL)
-                        
+
                     for rownum in range(sh.nrows):
                         try:
                             wr.writerow(sh.row_values(rownum))
@@ -235,8 +229,8 @@ def formatlemmatizedtext(request):
                     output_file = 'formatted.csv'
 
 
-                    
-                #Remove the tempary txt file, but keep the csv and xlsx output        
+
+                #Remove the tempary txt file, but keep the csv and xlsx output
                 os.unlink(filename)
                 assert not os.path.exists(filename)
 
@@ -249,5 +243,3 @@ def formatlemmatizedtext(request):
 
         cheese = FormatFile()
     return render(request, 'format.html',{'cheese':cheese}) # {'form': form, 'test':'hi2'})
-
-

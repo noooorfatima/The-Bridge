@@ -16,7 +16,7 @@ Front-end
 
 Javascript:
 We make heavy use of jQuery because it is easier. Anywhere you see $(), we are just calling a jQuery function. Since we changed how the user
-interacts with the form, there are still some old, out-dated functions that can probably be safely deleted. 
+interacts with the form, there are still some old, out-dated functions that can probably be safely deleted.
 HTML:
 If an html file has the name of a view, it is the html for that view. Exceptions:
 textlist.html is the landing page
