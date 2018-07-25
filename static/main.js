@@ -747,7 +747,7 @@ if (! subsection_for_this_text) {
 if (wrapper0.id == "reading wrapper") {
   //we need to append more than jquery allows us to append at once: however, each of these ends up in a seperate div.
   //I highly recommend opening this file with an editor that will wrap lines that go over 80 characters
-  $(wrapper0).append('<br class = "'+text_name+' '+div_count+'"><div class="thumbnail" id="'+text_name+' '+div_count+'"> <div class="default_fieldset" name="book" value="'+text_name+'" data-toggle="tooltip" data-placement="bottom" title=" "> <div class="'+text_name+'"> '+text_name+'</div></div>')
+  $(wrapper0).append('<br class = "'+text_name+' '+div_count+'"><div class="thumbnail" id="'+text_name+' '+div_count+'"> <fieldset class="default_fieldset" name="book" value="'+text_name+'" data-toggle="tooltip" data-placement="bottom" title=" "> <div class="'+text_name+'"> '+text_name+'</div></fieldset>')
 
   $(wrapper0).append('<div class="input-group-container" id="'+text_name+' '+div_count+' input-group-container">  <div class="input-group"><input type="text" class="form-control" name="'+text_name+' reading from" placeholder="'+subsection_for_this_text+'" aria-describedby="sizing-addon3"><span class="input-group-addon" id="sizing-addon3">to</span><input type="text" class="form-control" name="'+text_name+' reading to" placeholder="'+subsection_for_this_text+'" aria-describedby="sizing-addon3"></div></div></div></div></div> <br class = "'+text_name+' '+div_count+'"> <p id = "description for '+text_name+' '+div_count+'">Optional: select a section of this work. Leave blank for all the words in the work. Want multiple non-contiguous sections of the same work? Just click "Add Work" again and define the new section. </p>');
     $(wrapper0).append('<div> <button type=button  id="delete '+text_name+' '+div_count+'" class="btn-default add-work" onclick = "delete_add(this.id)"> Remove Work </button> <br class = "'+text_name+' '+div_count+'"></div>');
@@ -774,12 +774,14 @@ $('br[class*= "'+clicked+'"]').remove();
   console.log(readlist, 'read')
   console.log(textlist, 'reading')
   var arraylike = document.getElementsByName("book_read");
-  console.log(arraylike, "arraylike")
+  console.log(arraylike, "arraylike");
   readlist = Array.apply(null, arraylike);
-
-  for (var i in readlist) {
-      readlist[i] = readlist[i].value + "$"
+      for (var i in readlist) {
+      console.log(readlist[i].innerText.slice(0,-1), 'NEW VALUE OF READLIST')
+      readlist[i] = readlist[i].innerText.slice(0,-1) + "$"
       }
+
+
   console.log(readlist)
 
   if (readlist){
@@ -790,18 +792,20 @@ $('br[class*= "'+clicked+'"]').remove();
       }
     document.getElementById('readlist_id2').value = readlist
 
+
+    //now resetting textlist
     console.log(clicked + "$");
     var arraylike2= document.getElementsByName("book");
     console.log(arraylike2, "arraylike2");
     textlist = Array.apply(null, arraylike2);
     textlist2 = Array.apply(null, arraylike2);
     for (var i in textlist2){
-      textlist2[i] = textlist2[i].innerText.slice(0,-1)
+      textlist2[i] = textlist2[i].innerText
     }
 
     for (var i in textlist) {
     console.log(textlist[i].innerText, 'NEW VALUE OF TEXTLIST')
-    textlist[i] = textlist[i].innerText.slice(0,-1) + "$"
+    textlist[i] = textlist[i].innerText + "$"
     }
 
 

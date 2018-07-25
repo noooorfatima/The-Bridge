@@ -121,6 +121,7 @@ def words_page_redirect(request, language):
 			takencare_of_texts.add(text)
 
 		text=text.replace("$", "")
+		text= text.strip()
 		print( "TEXT: ", text)
 		text_from = []
 		text_to = []
