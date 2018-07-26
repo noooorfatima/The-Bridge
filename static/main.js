@@ -813,7 +813,7 @@ $('br[class*= "'+clicked+'"]').remove();
     document.getElementById('textlist_id').style = "display: none; color: rgb(0, 0, 0); border: 1px solid black;"
 
     } else {
-    document.getElementById('textlist_id').style = "display: inline-block; color: rgb(0, 0, 0); border: 1px solid black;"
+    document.getElementById('textlist_id').style = "display: inline-block; color: rgb(0, 0, 0); border: 1px solid black; overflow: hidden"
     document.getElementById('textlist_id').innerHTML = textlist2
     }
 
@@ -867,18 +867,18 @@ function configureForm(e) {
     { }
     else{
       console.log(textlist)
-      for (var text in textlist) {
-        $('div[id*="'+text+'"]').remove();
-        $('p[id*="'+text+'"]').remove();
-        $('button[id*="'+text+'"]').remove();
-        $('br[class*= "'+text+'"]').remove();
+      for (var i=0; i<textlist.length; i++) {
+        $('div[id*="'+textlist[i].slice(0, -2)+'"]').remove();
+        $('p[id*="'+textlist[i].slice(0, -2)+'"]').remove();
+        $('button[id*="'+textlist[i].slice(0, -2)+'"]').remove();
+        $('br[class*= "'+textlist[i].slice(0, -2)+'"]').remove();
+      }
         textlist =[]
 
         div_count = 0
         console.log(textlist)
       }
 
-    }
 if (readlist === undefined)
 { }
 else {
@@ -886,11 +886,11 @@ else {
 
     console.log(readlist)
 
-    for (var read in readlist) {
-      $('div[id*="'+read+'"]').remove();
-      $('p[id*="'+read+'"]').remove();
-      $('button[id*="'+read+'"]').remove();
-      $('br[class*= "'+read+'"]').remove();
+    for  (var l=0; l<readlist.length; l++) {
+      $('div[id*="'+readlist[l].slice(0, -2)+'"]').remove();
+      $('p[id*="'+readlist[l].slice(0, -2)+'"]').remove();
+      $('button[id*="'+readlist[l].slice(0, -2)+'"]').remove();
+      $('br[class*= "'+readlist[l].slice(0, -2)+'"]').remove();
 
     }
 

@@ -132,23 +132,25 @@ class Command(BaseCommand):
 				'logeion_url',  item['LOGEION LINK'],
 				)
 				try:
-
-					WordPropertyLatin.objects.update_or_create(
-					title = item['TITLE'],
-					defaults={
-					#'id' : item['id'],
-					'display_lemma' : item['DISPLAY LEMMA'],
-					'display_lemma_macronless' : item['DISPLAY LEMMA MACRONLESS'],
-					'english_core' : item[english_core],
-					'english_extended' : item[english_extended],
-					'decl' : item['Decl'],
-					'conj' : item['Conj'],
-					'reg_adj_adv' : item['Reg Adj/Adv'] ,
-					'proper' : item['Proper'],
-					'part_of_speech' : item['Part Of Speech'] ,
-                    'logeion_url' : item['LOGEION LINK'],
-			    		}
-				)
+					if item['DISPLAY LEMMA'] and item['DISPLAY LEMMA MACRONLESS']:
+						WordPropertyLatin.objects.update_or_create(
+						title = item['TITLE'],
+						defaults={
+						#'id' : item['id'],
+						'display_lemma' : item['DISPLAY LEMMA'],
+						'display_lemma_macronless' : item['DISPLAY LEMMA MACRONLESS'],
+						'english_core' : item[english_core],
+						'english_extended' : item[english_extended],
+						'decl' : item['Decl'],
+						'conj' : item['Conj'],
+						'reg_adj_adv' : item['Reg Adj/Adv'] ,
+						'proper' : item['Proper'],
+						'part_of_speech' : item['Part Of Speech'] ,
+                    	'logeion_url' : item['LOGEION LINK'],
+			    			}
+						)
+					else:
+						raise KeyError
 				except KeyError:
 					print("Got a key error, likely picked wrong language")
 					print("Current language is:", lang)

@@ -30,14 +30,14 @@ class TextMetadataAdmin(admin.ModelAdmin):
     list_display = ['name_for_humans','name_for_computers','language','local_def']
 
 class WordAppearencesLatinAdmin(admin.ModelAdmin):
-    search_fields = ['text_name','word__field3','appearance','mindiv']
+    search_fields = ['text_name','word','appearance','mindiv']
     list_display = ['text_name','word','appearance','mindiv']
-    list_filter = ['text_name']
+    list_filter = ['word']
 
 class WordAppearencesGreekAdmin(admin.ModelAdmin):
-    search_fields = ['text_name','word__field3','appearance','mindiv']
+    search_fields = ['text_name','word','appearance','mindiv']
     list_display = ['text_name','word','appearance','mindiv']
-    list_filter = ['text_name']
+    list_filter = ['word']
 
 class BookTitlesAdmin(admin.ModelAdmin):
     search_fields = ['title_of_book','book_type']

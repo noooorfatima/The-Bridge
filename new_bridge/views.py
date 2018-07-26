@@ -266,7 +266,7 @@ def words_page(request, language, text, bookslist, text_from, text_to, add_remov
 		name_for_humans.append(models.TextMetadata.objects.get(name_for_computers=t).name_for_humans)
 		loc_def.append(models.TextMetadata.objects.get(name_for_computers=t).local_def)
 	name_for_computers = "$_".join(name_for_computers)
-	name_for_humans = " and ".join(name_for_humans)
+	name_for_humans = " and  ".join(name_for_humans)
 	print(name_for_humans)
 	new_bookslist_string = []
 	bookslist_comp = bookslist
@@ -295,7 +295,7 @@ def words_page(request, language, text, bookslist, text_from, text_to, add_remov
 		text_from_formatted = "from "+ text_from
 		text_to_formatted = "to "+ text_to
 	else:
-		text_formating = name_for_humans.split(" and ")
+		text_formating = name_for_humans.split(" and  ")
 		formating_from = text_from.replace("$", "")
 		formating_from = formating_from.split("_")
 		formating_to = text_to.replace("$", "")
@@ -529,6 +529,8 @@ def get_words(request, language, text, bookslist, text_from,text_to, add_remove)
 						item['fields']['position']=word_app.appearance
 						if (word_app.local_def):
 							item['fields']['local_def']= word_app.local_def
+						else:
+							item['fields']['local_def']= 'No Text-Specific Definition'
 
 
 						test_for_in_final[item['pk']] = item
@@ -567,20 +569,19 @@ def generateWords(word_appearences, lang, text, text_from, text_to, read_texts, 
 		print(e)
 		assert(False)
 
-	if len(read_texts)==0:
-		print (len(list_word_ids),"Word IDS without duplicates, about to return cause we made it through generate words and now we are free") #yes this was written while listening to the soundtrack of Gladiator
-		return list(set(list_word_ids))
-	else:
-		try:
-			# Get words which appear in main text and any of the read_texts:
-			filtered_words= words_in_read_texts(word_appearences, read_texts)
-			print(len(filtered_words), "length of read words")
-			print(len(list_word_ids), 'words being studied')
-			print(type(filtered_words), type(list_word_ids))
-			vocab_intersection_ids = filtered_words & list_word_ids
-		except Exception as e:
-			print("try 3 error: ")
-			print(e)
+	#if len(read_texts)==0:
+	#	print (len(list_word_ids),"Word IDS without duplicates, about to return cause we made it through generate words and now we are free") #yes this was written while listening to the soundtrack of Gladiator
+	#	return list(set(list_word_ids))
+	try:
+		# Get words which appear in main text and any of the read_texts:
+		filtered_words= words_in_read_texts(word_appearences, read_texts)
+		print(len(filtered_words), "length of read words")
+		print(len(list_word_ids), 'words being studied')
+		print(type(filtered_words), type(list_word_ids))
+		vocab_intersection_ids = filtered_words & list_word_ids
+	except Exception as e:
+		print("try 3 error: ")
+		print(e)
 
 
 	# Remove or exclusively include words appearing in read_texts:
@@ -589,17 +590,13 @@ def generateWords(word_appearences, lang, text, text_from, text_to, read_texts, 
 	#converting to a list may or may not be necessary, but it returned a list before. I think the javascript expects a list
 	#if we avoid it though, we do not want to convert to a list unnecessarily.
 	print(len(vocab_intersection_ids),"len of vocab_intersection")
-	if len(read_texts) > 0:
-		if add_remove == 'Add': # Add is a bit of a mis-nomer: all it is (and all we want it to be) is the intersection: the words in the new text that you have seen before.
-			return list(vocab_intersection_ids)
-
-		else: # If user wants words appearing ONLY in the main text
-			vocab_final = list_word_ids - vocab_intersection_ids
-			print(len(vocab_final), "returning this many words")
-			return list(vocab_final)
-	else:
-	# don't need to modify list; nothing to add/remove
+	if add_remove == 'Add': # Add is a bit of a mis-nomer: all it is (and all we want it to be) is the intersection: the words in the new text that you have seen before.
 		return list(vocab_intersection_ids)
+
+	else: # If user wants words appearing ONLY in the main text(s)
+		vocab_final = list_word_ids - vocab_intersection_ids
+		print(len(vocab_final), "returning this many words")
+		return list(vocab_final)
 
 #THIS FUNCTION IS FAR MORE VERSITILE THAN IT SOUNDS, could be the basis of bridge giving you suggestions of what to read.
 def words_in_read_texts(word_appearences, read_texts): #read_texts just needs to a list of texts, not necessarially ones that have been read.
@@ -631,8 +628,7 @@ def words_in_read_texts(word_appearences, read_texts): #read_texts just needs to
 		#print("book",  book)
 		print (text_range, 'text range')
 		#was crashing when returning large requests, so I swithed from a list to a set. set membership checks are faster, and there will not be duplicates, which is important when we iterate over this later.
-		new_vocab = word_appearences.objects.filter(text_name=book, mindiv__range=(from_mindiv, to_mindiv))
-		print(len(new_vocab))
+		new_vocab = word_appearences.objects.filter(text_name=book, mindiv__range=(from_mindiv, to_mindiv)) 
 		list_of_dicts = new_vocab.values('word')
 		print(len(list_of_dicts))
 		ids = set()

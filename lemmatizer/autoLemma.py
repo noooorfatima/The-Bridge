@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # coding=utf-8
+
 """
 Identifies possible lemmata and snopyses for a set of Latin or Greek words.
 
@@ -319,6 +320,7 @@ def lemmatizeToken(token, lemmatizer):
     """
     token = token.lower()
 
+
     lemmata = lemmatizer.lemmatize(token)#, default = '')
     if len(lemmata) > 1:
         raise ValueError("'{}' contains multiple lemmata".format(token))
@@ -411,8 +413,11 @@ def wordsFromFile(file, lemmatizer, *, use_line_numbers = False):
             for form in regex.split(r'(?:\P{L},.+)', token):
                 # split around punctuation
                 try:
-                    lemma = lemmatizeToken(form, lemmatizer)
-                    yield Word(form, lemma, location)
+                    if form == ',' or form == '.' or form == ':' or form == '(' or form == ')' or form == ';' or form == ']' or form == '[' or form == '?':
+                        pass
+                    else:
+                        lemma = lemmatizeToken(form, lemmatizer)
+                        yield Word(form, lemma, location)
                 except ValueError:
                     # token contains non-alphabetic characters which
                     # aren't leading or trailing, or contains no
@@ -460,6 +465,7 @@ def autoLemma(args, *, lemmatizer=None, wordsFromPathList=wordsFromPathList):
         wordsFromPathList (Callable): returns an iterable over Word tuples from
             file paths
     """
+    print("I AM NOT DEAD YET")
     if lemmatizer is None:
         lemmatizer = LemmaReplacer('latin' if args['latin'] else 'greek', include_ambiguous=args['--include-ambiguous'])
     print('set lemmatizer')

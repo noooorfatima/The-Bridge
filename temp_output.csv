@@ -1,676 +1,1000 @@
-word_id,TITLE,"Cato, Distichs"
-1,AB,"2_10_2, 4_23_1"
-1498,ABVNDO,"2_17_1, 4_13_1, 4_16_2"
-1499,ABVTOR,3_21_1
-578,ACCIPIO,1_20_2
-1741,ACQVIRO,2_1_2
-596,ADEO/1,2_0_10
-601,ADIVVO,4_21_2
-612,ADVERSVS/1,"1_18_1, 2_25_1, 4_26_1, 4_26_2"
-1787,ADVERSVS/2,2_11_1
-1827,AEGER/2,"3_24_1, 4_5_2"
-639,AEVVM,2_0_9
-12,AGO,4_7_1
-2101,ALIENVS/2,"3_13_2, 3_21_2"
-2103,ALIMENTVM,1_2_2
-2108,ALIQVA,"4_6_1, 4_39_2"
-660,ALIQVIS,"1_9_1, 1_14_1, 2_5_2, 4_19_1, 4_29_2"
-663,ALIVS,"1_5_2, 1_11_1, 1_14_2, 1_15_2"
-664,ALO,4_31_2
-14,ALTER,"1_15_1, 1_19_2, 3_7_1, 3_7_2, 4_14_2, 4_32_2"
-2180,ALTVM,4_33_2
-2251,AMICA,4_10_2
-2259,AMICVS/1,"1_34_2, 1_40_1, 3_3_2, 3_9_2"
-673,AMICVS/2,"1_11_1, 1_20_1, 1_23_1, 1_26_1, 2_1_2, 4_13_2, 4_15_1, 4_28_2, 4_36_2, 4_41_1, 4_47_2"
-674,AMITTO,"1_22_2, 2_3_2, 4_36_1"
-19,AMO,"2_0_6, 2_0_6"
-21,AMOR,1_36_2
-2381,ANIMALIS,4_11_1
-25,ANIMVS,"1_1_1, 1_10_2, 2_4_2, 2_14_1, 2_25_1, 3_1_1, 3_5_2, 3_6_2, 4_0_2, 4_1_1, 4_17_2, 4_18_1, 4_30_2, 4_31_1"
-687,ANTE/2,"2_24_2, 2_27_1, 3_3_1, 3_11_1, 4_45_2"
-2547,APTVS,"2_26_1, 4_43_2"
-708,ARATRVM,4_38_1
-710,ARBITRIVM,3_2_2
-2599,ARCANVS,"2_2_1, 2_22_1"
-2731,ARS,"1_26_2, 1_26_2, 1_28_1, 4_19_2, 4_21_1"
-751,ATQVE/1,1_15_2
-3030,AVARITIA,2_19_2
-3032,AVARVS/2,"1_29_2, 4_1_2, 4_16_1"
-2925,AVCEPS,1_27_2
-2930,AVCTOR,1_12_1
-30,AVDIO,2_0_8
-2952,AVGEO,3_8_2
-36,AVT,"2_5_2, 2_18_1, 3_7_1"
-768,AVTEM,"2_0_7, 3_0_3"
-770,AVXILIVM,"2_22_2, 3_16_1, 4_13_1"
-38,BACCHVS/N,4_30_1
-39,BEATVS,4_1_1
-783,BELLVM,2_0_4
-784,BENE,1_15_2
-40,BIBO/2,"2_21_2, 4_24_1"
-3277,BINVS,4_49_2
-3290,BIS,1_25_1
-3309,BLAESVS,3_4_1
-3313,BLANDVS,"1_27_1, 3_4_1"
-3344,BONVM,4_8_2
-3345,BONVS,"1_11_2, 1_11_2, 1_25_2, 3_22_2, 3_24_2, 4_13_2, 4_23_2"
-3374,BREVITAS,4_49_2
-3467,CAECVS,4_3_2
-3469,CAEDES,4_38_2
-803,CAELVM/1,2_2_1
-3591,CALVVS,2_26_2
-3645,CANO,"1_27_2, 3_18_2"
-51,CAPILLATVS,2_26_2
-3709,CAPTO,4_4_2
-818,CARMEN/1,"1_1_1, 2_0_3, 3_0_1"
-3758,CARPO,"3_7_1, 4_33_1"
-3765,CARVS,"1_6_1, 1_9_2, 1_11_1, 1_29_1, 1_29_1, 1_35_2, 1_40_1, 3_24_1, 4_42_1"
-3794,CASTIGO,4_40_1
-3806,CASVS,"1_32_2, 2_24_1"
-3873,CAVEA,4_43_1
-56,CAVEO,"1_18_1, 1_36_1, 3_4_1"
-832,CAVSA,"2_30_2, 4_24_2"
-57,CEDO/1,"1_34_1, 2_10_1, 4_39_1, 4_39_1"
-835,CELO,"2_7_1, 3_3_2, 4_20_2"
-3934,CENSVS,3_11_1
-3977,CERNO,"2_4_2, 2_31_2"
-3985,CERTVS,"1_13_1, 4_7_2"
-3991,CESSO,"3_1_1, 4_27_1"
-879,COEPIO,"1_9_2, 3_12_2"
-4337,COERCEO,1_23_2
-882,COGNOSCO,"1_32_2, 2_0_1, 3_0_1, 4_48_1"
-4698,COLLAVDO,2_16_1
-75,COLO/2,1_1_2
-896,COMMITTO,"2_22_1, 2_22_2"
-4476,COMMODVS,"3_0_3, 4_2_1"
-4517,COMPESCO,1_3_1
-4525,COMPLECTOR,4_30_2
-908,CONCEDO/1,4_8_1
-913,CONCORDIA,1_36_2
-4637,CONFESTIM,4_9_1
-81,CONIVNGO,"1_35_2, 4_49_2"
-927,CONIVX,"1_8_2, 3_20_1, 4_47_1"
-4719,CONSCIVS,1_17_2
-4737,CONSERVO,1_39_1
-83,CONSILIVM,"2_9_2, 2_22_1, 3_10_1"
-84,CONSTO,"1_7_1, 1_32_2"
-937,CONSVMO,"3_5_2, 3_21_2"
-4810,CONTEMNO,"2_9_1, 2_29_1, 2_29_2, 4_22_2"
-939,CONTENDO,"1_10_1, 2_4_1, 2_11_1, 3_11_2, 4_2_2, 4_34_1"
-4835,CONTINGO/1,"4_35_2, 4_48_1"
-4843,CONTRA/2,"1_10_1, 4_34_1"
-85,CONTRARIVS,"1_4_1, 2_19_2"
-4879,CONVENIO,1_4_2
-4898,CONVIVA,3_19_1
-86,COR,1_26_1
-953,CORPVS,"2_9_1, 2_22_2, 3_5_2, 4_5_1, 4_12_1, 4_37_2"
-955,CREDO,"1_8_1, 1_14_2, 2_20_1, 3_18_2, 4_38_2"
-956,CREO,1_21_1
-90,CRESCO,"1_39_2, 2_11_2, 4_27_1, 4_38_1"
-5077,CRIMEN,"1_5_2, 1_7_2, 2_19_2, 2_21_2, 3_3_2, 4_25_2, 4_46_2"
-5161,CVLPA,"1_30_2, 1_37_1, 2_21_2, 4_29_2"
-5162,CVLPO,"1_5_2, 1_30_1, 2_7_2, 2_16_1, 2_30_2"
-972,CVLTVS/1,"2_0_1, 2_13_1"
-92,CVM/2,"1_36_1, 4_30_1, 4_38_2"
-93,CVM/3,"1_4_2, 1_5_2, 1_14_1, 1_15_2, 1_16_1, 1_18_1, 1_19_1, 1_20_1, 1_21_1, 1_28_1, 1_30_2, 1_33_1, 1_33_2, 1_34_1, 1_35_1, 1_37_1, 1_39_2, 1_40_2, 2_2_2, 2_5_1, 2_14_1, 2_17_1, 2_18_1, 2_30_2, 3_0_2, 3_2_1, 3_5_2, 3_9_1, 3_19_2, 3_20_2, 3_21_2, 4_0_1, 4_3_1, 4_5_1, 4_6_1, 4_6_2, 4_10_1, 4_11_1, 4_12_1, 4_14_1, 4_15_1, 4_18_1, 4_18_2, 4_19_1, 4_32_1, 4_37_2, 4_40_1, 4_44_1, 4_47_1, 4_48_1"
-5183,CVMQVE,"1_9_1, 3_17_2"
-94,CVNCTVS,"1_10_2, 4_11_1, 4_20_1"
-5203,CVPIDVS,1_29_2
-975,CVPIO,"2_0_4, 3_16_2, 4_0_1, 4_17_1"
-976,CVR/1,4_14_1
-96,CVRA,"2_0_7, 2_30_1, 3_6_1, 4_21_2, 4_27_1"
-97,CVRO,"1_17_1, 2_2_2, 2_31_1, 3_2_1, 4_5_1, 4_22_1"
-5227,CVRSVS,1_18_2
-5329,DAMNO,"2_14_1, 3_17_2, 4_25_2, 4_41_1"
-5330,DAMNOSVS,4_10_1
-5331,DAMNVM,"1_11_2, 1_39_2, 4_36_1"
-5342,DAPSILIS,1_40_1
-104,DE,"1_8_1, 1_14_2, 1_17_2, 2_4_1, 2_12_2"
-989,DEBEO,"1_6_2, 2_28_2"
-5403,DECET,4_36_2
-992,DECIPIO,1_27_2
-5447,DEDO,1_2_1
-995,DEDVCO,2_0_9
-5454,DEFENDO,1_28_2
-5517,DELIBERO,2_12_2
-5538,DELVDO,1_26_2
-1009,DEMITTO,4_31_1
-5569,DENARIVS/1,4_4_1
-5574,DENIQVE,1_5_1
-1018,DERIDEO,3_7_2
-5634,DESERO/2,4_19_2
-5643,DESIDERO,2_5_1
-5651,DESISTO,1_9_2
-1019,DESPICIO,"3_10_1, 4_1_1"
-5679,DESVM/1,"1_24_1, 1_24_2, 3_21_2, 4_2_1"
-5693,DETINEO,4_10_1
-118,DEVS,"1_1_1, 1_3_2, 1_23_2, 2_2_1, 2_12_1, 2_27_2, 4_34_2, 4_38_1, 4_38_2"
-1027,DICO/2,"1_1_1, 1_16_1, 1_17_2, 2_0_3, 2_0_5, 3_7_1, 3_19_2, 4_3_2, 4_42_2, 4_44_2"
-1029,DIES,"1_33_2, 4_28_2"
-5807,DILIGO/3,"1_8_2, 1_11_1, 3_24_1, 4_4_1, 4_4_1"
-5822,DIMITTO,2_26_1
-5875,DISCO,"2_0_6, 2_0_8, 2_0_10, 3_1_1, 3_13_1, 4_6_1, 4_19_1, 4_23_1, 4_27_1, 4_29_2, 4_48_2, 4_48_2"
-5882,DISCRIMEN,4_32_2
-5889,DISCVTIO,4_9_1
-5908,DISPLICEO,"2_7_2, 4_32_1"
-5925,DISSIDEO,1_4_2
-1048,DIV,2_14_2
-1050,DIVES,4_5_2
-5980,DIVITIAE,"3_9_1, 4_1_1, 4_16_2"
-5962,DIVTVRNVS,1_2_2
-125,DO,"1_10_2, 1_20_1, 2_5_2, 3_8_1, 4_27_2"
-5987,DOCEO,"4_23_1, 4_29_1"
-5990,DOCTOR,"1_30_2, 3_0_4"
-5991,DOCTRINA,"3_1_2, 4_23_2"
-5992,DOCTVS,4_23_1
-6002,DOLEO,4_35_1
-6010,DOLOR,"1_37_1, 2_30_2, 4_40_2, 4_40_2"
-6024,DOMINVS,3_10_1
-127,DONO,4_8_1
-6051,DOS,3_12_1
-6075,DVBITO,1_35_1
-129,DVBIVS,"1_19_1, 1_33_1"
-1061,DVCO,"3_12_1, 4_47_2"
-131,DVLCIS,"1_27_2, 1_34_2"
-133,DVM/2,"1_25_2, 1_27_2, 2_3_2, 2_5_2, 2_29_2, 2_31_2, 3_24_2, 4_17_1, 4_40_2"
-139,EGESTAS,1_39_2
-140,EGO,"3_0_4, 3_7_1, 4_49_1"
-145,ENIM/2,"1_8_2, 1_38_2, 4_34_2"
-1091,EO/3,3_11_2
-6447,ERGO/2,2_0_10
-1105,ERIPIO,4_35_1
-6463,ERROR,4_7_2
-146,ET/2,"1_7_1, 1_16_1, 1_19_1, 1_40_1, 2_0_4, 2_0_10, 2_19_1, 3_11_1, 3_14_2, 4_20_2, 4_21_2, 4_30_1, 4_30_1, 4_31_1, 4_43_2, 4_44_2, 4_47_1"
-6502,ETENIM,"1_35_2, 2_5_2, 4_23_2"
-1111,ETIAM,"2_1_1, 3_16_2"
-6662,EXEMPLVM,"3_7_2, 3_13_1"
-1133,EXEO/1,4_6_2
-1134,EXERCEO/2,4_21_1
-6678,EXIGVVS,"1_20_1, 2_9_1, 2_17_2, 2_20_2"
-1147,EXPOSTVLO,1_7_1
-152,FACIO,"1_15_2, 1_16_1, 1_16_2, 1_16_2, 1_26_2, 1_30_1, 2_5_1, 2_16_2, 3_7_1, 3_9_2, 3_11_2, 3_13_1, 3_15_1, 3_18_1, 3_19_1, 3_22_1, 4_8_2, 4_12_2, 4_17_2, 4_48_2, 4_49_2"
-6891,FAMA,"2_19_2, 3_4_2, 3_8_2, 4_17_1, 4_47_1"
-1165,FAMVLVS/1,4_44_2
-1167,FATVM,4_22_1
-1170,FEMINA,"1_18_1, 1_40_2, 3_20_2, 4_46_2"
-155,FERO,"1_21_2, 1_38_1, 2_6_2, 2_23_1, 2_24_1, 3_0_2, 3_0_3, 3_5_1, 3_17_1, 3_23_1, 4_6_1, 4_6_2, 4_36_2"
-7040,FICTVS,3_4_2
-156,FIDELIS/2,2_22_2
-157,FIDES/2,"1_13_2, 2_20_2"
-7052,FIDVS,"1_26_1, 4_13_2, 4_15_1"
-1185,FINIS,"1_22_1, 3_9_1, 3_22_2"
-1186,FISTVLA,1_27_2
-1194,FLVMEN,"2_6_2, 4_31_2"
-1200,FORMA,4_4_1
-7198,FORSAN,4_31_2
-7202,FORTE,"2_0_1, 4_13_1"
-166,FORTIS,"2_14_1, 2_28_1, 4_12_2"
-167,FORTVNA,"2_23_2, 4_3_2, 4_15_2, 4_19_1, 4_32_1, 4_39_1"
-7222,FRAGILIS,1_19_1
-7238,FRAVS,3_4_2
-170,FRONS/1,2_26_2
-7299,FRVSTRA,3_14_2
-7305,FRVX,3_23_1
-171,FVGIO,"1_12_1, 2_6_1, 2_19_1, 3_5_1, 3_12_1, 3_13_2, 4_16_1, 4_17_2, 4_30_2"
-177,GAVDEO,"2_6_1, 2_14_2, 4_35_2, 4_46_1"
-178,GAVDIVM,"1_22_2, 2_3_2, 3_6_1, 4_17_2"
-7510,GENERO,1_36_2
-184,GLORIA,2_16_2
-1229,GRATIA,"1_35_2, 1_36_1"
-189,GRATVS,"3_0_2, 4_8_1, 4_42_1"
-190,GRAVIS,4_36_1
-7694,GVBERNO,4_3_1
-7697,GVLA,4_10_2
-1235,HABEO,"1_12_1, 3_19_2, 4_4_2, 4_5_2, 4_5_2, 4_12_2, 4_35_2"
-7747,HAEREO,4_0_2
-7793,HAVD,3_15_1
-1247,HERBA,2_0_3
-200,HIC/1,"1_1_2, 1_35_2, 2_0_7, 2_13_1, 2_16_2, 2_24_1, 2_26_2, 2_31_3, 4_0_3, 4_24_1, 4_25_2, 4_49_2"
-1255,HOMO,"1_5_1, 1_27_1, 2_8_1, 2_25_2, 4_11_2, 4_15_2, 4_19_2, 4_20_2, 4_34_1, 4_44_2"
-8000,HONESTVS,"1_31_1, 4_4_2, 4_17_1"
-203,HORA,4_43_1
-1261,HVMANVS,2_31_1
-8123,IACTVRA,4_36_1
-206,IAM,"1_39_1, 4_45_2"
-209,IDEM,"1_18_2, 4_20_2"
-1275,IDEO,1_13_2
-8186,IGNAVIA,3_5_1
-1279,IGNOSCO,2_21_1
-211,IGNOTVS,"1_32_1, 2_1_1"
-212,ILLE,"1_3_2, 1_9_1, 1_22_1, 1_28_1, 2_12_2, 2_27_2, 3_0_3, 3_22_2, 4_18_2"
-8258,IMAGO,3_1_2
-8272,IMITOR,"2_27_2, 3_15_2"
-8289,IMMINEO,2_27_1
-8319,IMPEDIO,2_4_2
-8323,IMPENDO,1_35_1
-1291,IMPERIVM,4_6_2
-218,IN,"1_19_2, 1_37_1, 1_39_2, 2_3_1, 2_25_1, 3_9_1, 3_11_1, 4_6_2, 4_7_2, 4_8_2, 4_12_1, 4_18_2, 4_26_2, 4_33_2, 4_44_1"
-219,INANIS,2_16_2
-8451,INCAVTVS,4_3_1
-8461,INCERTVS,"1_33_1, 2_4_1"
-8471,INCIPIO,1_12_1
-8483,INCOGNITVS,1_32_2
-8531,INCVSO,1_23_2
-1316,INDICO/1,4_20_2
-8563,INDIGNVS,2_23_1
-8571,INDOCTVS,4_23_1
-1321,INDVLGEO,"2_23_2, 4_10_2"
-8606,INERTIA,3_5_2
-1325,INFANS/1,1_21_1
-8639,INFERO,1_36_1
-8687,INGENIVM,4_21_2
-8696,INGREDIOR,4_37_2
-8720,INIMICITIA,2_15_2
-8722,INIMICVS/2,4_47_2
-8724,INIQVVS/2,"2_14_1, 2_14_2, 3_16_1"
-8732,INIVSTVS,4_34_2
-8771,INOPS,1_28_2
-1344,INQVIRO,2_2_1
-8810,INSIDIAE,3_20_2
-8822,INSIPIENS,2_18_1
-8843,INSPICIO,1_5_1
-8866,INSTRVO,"1_28_2, 3_1_1"
-1353,INSVM/1,4_7_2
-8903,INTENDO,2_12_1
-1355,INTER,3_19_1
-8926,INTERDVM,"1_34_1, 1_38_1, 1_40_1, 2_11_2, 2_28_1, 3_6_1"
-1362,INTERPONO,3_6_1
-1369,INVENIO,4_0_3
-1370,INVIDIA,2_13_1
-1378,IPSE,"1_4_2, 1_15_2, 1_16_2, 1_17_2, 1_23_2, 1_30_1, 1_30_2, 1_37_2, 2_5_1, 2_16_1, 2_31_2, 3_0_4, 3_16_2, 3_17_2, 4_5_2, 4_14_1, 4_23_1, 4_40_1"
-228,IRA,"1_36_2, 1_37_1, 2_4_2, 2_15_2, 4_6_2, 4_34_2"
-9101,IRASCOR,"2_4_1, 3_20_1"
-229,IS,"1_30_1, 2_7_2, 2_31_2, 3_14_1, 4_33_1"
-1393,IVDEX,"1_14_1, 2_14_2, 3_16_1, 3_17_2"
-1394,IVDICIVM,"1_32_2, 2_29_1"
-1396,IVNGO,"1_36_1, 4_30_1"
-9216,IVS/2,"1_31_2, 3_16_2"
-236,IVSTVS,"1_31_1, 4_34_1"
-238,IVVENIS/2,1_16_2
-241,LABOR/1,"1_39_1, 1_39_2, 3_6_2, 3_14_2, 4_7_2"
-242,LABOR/2,2_17_2
-9276,LABORO,"1_33_2, 2_0_2, 4_13_1, 4_47_1"
-9306,LACRIMA,3_20_2
-245,LAEDO,"2_13_1, 2_23_2, 2_24_2, 4_39_1, 4_39_2"
-9384,LANGVEO,3_5_2
-9464,LATEO,"2_8_2, 4_31_2"
-9506,LAVDO,"1_14_1, 1_20_2, 4_25_1, 4_28_1"
-9534,LAVO/1,4_30_2
-9523,LAVS,4_29_2
-9550,LECTOR,3_0_1
-250,LEGO/2,"2_0_2, 2_0_6, 2_0_10, 3_18_1"
-9584,LENIS/2,1_7_1
-9624,LETVM,2_3_1
-9644,LEVIS/1,2_24_2
-9647,LEVITAS/1,4_25_2
-251,LEX,"3_16_1, 3_16_2"
-9674,LIBET,2_0_6
-9757,LINGVA,"1_3_1, 3_23_1"
-9761,LINQVO,2_3_1
-9781,LIS,"1_36_1, 2_11_2, 2_15_1, 4_30_1, 4_30_2"
-9789,LITO,4_38_2
-9800,LITVS/2,4_33_1
-9818,LOCVPLES,4_5_1
-9820,LOCVS,"2_18_2, 4_39_1"
-9841,LONGVS,"2_17_2, 4_27_2, 4_37_1, 4_41_1"
-9845,LOQVAX,3_19_2
-256,LOQVOR,"1_12_2, 1_13_2, 1_17_1, 2_20_2, 3_2_2, 3_4_2, 3_8_2, 4_20_1"
-9866,LVCANVS/N2,2_0_5
-9891,LVCROR,2_8_1
-9892,LVCROSVS,4_8_2
-9893,LVCRVM,1_33_2
-9967,LVXVRIA,2_19_1
-10027,MACER/N,2_0_3
-10078,MAEREO,4_35_1
-263,MAGIS/2,"2_0_2, 2_6_2, 4_42_1"
-10087,MAGISTER,"4_0_3, 4_6_1"
-10089,MAGISTRA,3_13_2
-264,MAGNVS,"1_35_1, 1_38_2, 2_11_2"
-10130,MALEDICO,2_15_1
-265,MALVS/3,"1_11_2, 2_15_2, 2_23_2, 3_2_1, 3_15_2, 3_22_2, 3_23_2, 4_17_2, 4_24_2, 4_32_2, 4_46_1"
-10217,MANVS/1,4_21_2
-10260,MARS/N,2_0_5
-268,MATER,3_24_2
-10353,MEDICINA,4_40_2
-10358,MEDICVS/1,"2_22_2, 4_13_2"
-10405,MELIOR,4_26_2
-10423,MEMINI,"1_14_1, 1_15_1, 1_20_2, 1_21_2, 2_1_1, 2_6_1, 2_7_1, 2_13_1, 2_15_2, 2_19_1, 3_4_1, 3_17_1, 3_23_1, 4_0_3, 4_5_1, 4_7_1, 4_26_2, 4_31_1, 4_41_2, 4_44_2"
-10444,MENDICO,4_1_2
-273,MENS,"1_1_2, 2_31_1"
-10480,MERCOR,4_44_1
-274,MERITO/2,3_17_1
-10498,MERITVS,"1_23_1, 2_1_2"
-10540,METVO,"1_22_2, 2_3_2, 4_22_2"
-10542,METVS,2_3_1
-10596,MINIMVS,2_11_2
-10603,MINISTRO,1_2_2
-10628,MIROR,"3_18_2, 4_49_1"
-281,MISER,4_43_1
-282,MITTO,2_2_1
-10683,MODEROR,1_37_2
-10685,MODESTVS,3_19_1
-10686,MODICVS,"2_6_2, 2_17_1"
-10707,MOLESTVS,"2_13_1, 2_23_1, 3_12_2"
-10733,MONEO,"1_9_1, 1_9_1"
-10761,MORBVS,4_24_2
-286,MORIOR,4_14_1
-288,MORS,"1_19_2, 1_22_2, 2_3_2, 2_25_2, 3_1_2, 3_22_1, 4_14_2, 4_22_2, 4_37_2, 4_43_2, 4_46_1"
-10772,MORTALIS/2,"1_39_2, 2_2_2, 2_2_2"
-290,MOS,"1_5_1, 1_7_2, 1_38_2, 4_0_2, 4_20_2, 4_41_2"
-10803,MVLIER,1_8_2
-10827,MVLTO/2,4_33_2
-10830,MVLTVM/2,4_22_1
-291,MVLTVS,"1_2_1, 1_13_2, 1_13_2, 1_14_2, 1_15_1, 1_16_1, 2_7_2, 2_20_2, 2_28_2, 2_29_2, 3_0_3, 3_13_1, 3_18_1, 3_18_1, 4_11_2, 4_48_1, 4_48_2"
-10852,MVNIFICVS,3_9_2
-293,MVNVS,1_20_1
-10903,MVTO/2,"1_7_2, 4_0_3, 4_41_2"
-294,NAM,"1_2_2, 1_12_2, 1_31_2, 2_3_1, 2_19_2, 2_21_2, 2_24_2, 2_31_1, 3_1_2, 3_5_2, 3_18_2, 3_20_2, 3_23_2, 4_8_2, 4_9_2, 4_18_2, 4_19_1, 4_28_1, 4_33_1, 4_43_2"
-10959,NARRO,1_15_1
-10965,NASO/N,2_0_7
-10984,NATVRA,"1_21_1, 2_9_2, 4_2_1"
-10988,NATVS/1,1_28_1
-298,NE/4,"1_11_2, 1_12_1, 1_17_1, 1_22_1, 1_24_1, 1_25_1, 1_25_2, 1_30_1, 1_35_1, 2_0_7, 2_4_2, 2_7_2, 2_29_2, 2_31_1, 3_2_1, 3_7_2, 3_8_2, 3_10_1, 3_12_1, 3_14_1, 3_15_2, 3_19_2, 3_21_1, 3_22_2, 4_22_1, 4_25_2, 4_27_1, 4_38_2, 4_42_2, 4_43_1, 4_45_2, 4_47_1"
-11056,NEGLIGO,"3_0_4, 3_18_1, 4_9_2, 4_45_2"
-11057,NEGO,"1_31_2, 2_9_2"
-11070,NEMO,"1_5_2, 1_23_1, 2_14_2, 4_4_2"
-301,NEQVE,"1_2_1, 1_9_1, 1_26_1, 1_28_1, 1_29_2, 1_29_2, 2_16_1, 2_16_1, 2_25_2, 2_30_2, 3_1_1, 3_12_2, 3_23_2, 3_24_2, 4_0_2, 4_3_1, 4_4_2, 4_7_2, 4_13_2"
-11111,NESCIO,4_29_1
-11139,NIHIL,"1_8_1, 4_29_2, 4_48_2"
-11148,NIMIVM/2,"1_27_1, 2_6_1"
-11150,NIMIVS,"2_13_1, 4_24_2"
-11183,NOCENS,4_14_1
-11184,NOCEO,"1_6_1, 1_12_2, 1_12_2, 4_9_2"
-11201,NOLO,"1_9_2, 1_10_1, 1_13_1, 1_14_2, 1_19_2, 1_23_2, 1_27_1, 1_32_1, 2_4_1, 2_8_1, 2_9_1, 2_11_1, 2_12_1, 2_15_1, 2_20_1, 2_21_1, 2_23_1, 2_25_1, 2_26_1, 3_15_1, 3_20_1, 4_3_2, 4_10_2, 4_18_1, 4_34_1, 4_35_1, 4_37_1, 4_46_1"
-11203,NOMEN,"3_12_1, 4_16_1, 4_42_2, 4_47_2"
-307,NON,"1_18_2, 2_10_1, 2_13_1, 3_0_4, 3_2_2, 3_9_2, 3_11_1, 3_18_2, 3_22_1, 3_22_2, 3_23_2, 3_24_1, 4_3_2, 4_5_2, 4_15_2, 4_19_2, 4_22_2, 4_29_1"
-309,NOS,"1_1_1, 1_19_1, 3_2_2, 3_13_2"
-11235,NOSCO,"1_29_2, 2_0_2, 2_0_4, 2_26_1, 3_15_1"
-11246,NOTO,3_8_1
-311,NOTVS/2,"1_32_1, 1_40_1, 2_11_1, 4_13_1"
-313,NOVVS,1_12_1
-315,NVDVS,"1_21_1, 4_49_1"
-316,NVLLVS,"1_4_2, 1_12_2, 2_21_2, 2_29_2, 3_10_2, 4_2_1"
-318,NVMMVS,4_5_2
-319,NVMQVAM,"2_29_1, 4_41_1"
-11335,NVTRIO,1_36_2
-11361,OBEO/1,4_46_2
-11421,OBSEQVIVM,1_34_2
-11456,OBSVM/1,4_0_2
-324,OCCASIO,"2_26_2, 4_45_1"
-11542,ODI,1_8_2
-11546,ODIVM,1_36_2
-11585,OFFENDO,3_24_2
-11595,OFFICIPERDVS,4_42_2
-11596,OFFICIVM,"1_15_1, 4_42_1"
-331,OMNIS,"1_17_2, 2_3_1, 4_43_1"
-11659,ONVS,1_21_2
-11714,OPS,"1_6_2, 1_28_1, 4_16_1, 4_35_1"
-332,OPTO,2_31_1
-333,OPVS/1,3_14_1
-11827,OSTENDO,4_28_2
-11926,PALAM/1,4_25_1
-337,PAR/2,2_10_1
-12045,PARCO,"1_24_1, 1_37_2, 4_4_1, 4_28_1"
-12046,PARCVS,"2_28_1, 3_9_2"
-12048,PARENS/1,"3_24_1, 3_24_2"
-12052,PAREO,2_8_2
-12055,PARIO/2,"1_39_1, 2_17_2"
-12078,PARS,"2_27_2, 4_8_2"
-12103,PARVVS/2,"1_35_1, 2_6_1"
-12134,PATER,4_6_2
-12141,PATIENTER,"1_21_2, 3_17_1, 4_36_2"
-12142,PATIENTIA,1_38_2
-341,PATIOR,"3_17_1, 3_23_2"
-12163,PAVCI,"1_10_2, 2_28_2"
-342,PAVPER,"1_20_1, 4_16_2"
-12182,PAVPERTAS,1_21_2
-12203,PECCO,"2_8_1, 2_8_2, 2_21_1, 4_40_1"
-344,PER,"2_0_9, 2_31_2"
-12361,PERCIPIO,4_21_1
-12383,PERDVCO,4_0_1
-12443,PERICVLVM,1_33_1
-12465,PERLEGO/2,3_18_1
-12522,PERQVIRO,2_12_1
-12629,PETO,"1_31_1, 1_31_2, 1_35_1, 2_0_7, 4_13_1, 4_15_2"
-12786,PIETAS,3_24_1
-12790,PIGNVS,4_41_2
-12886,PLACEO,2_29_2
-12889,PLACIDVS,"1_20_2, 4_31_2"
-12892,PLACO,"4_38_1, 4_38_2"
-12931,PLENVS,1_20_2
-12945,PLORO,3_20_2
-12987,POETA,3_18_2
-13003,POLLEO,2_9_2
-13061,PONDVS,3_14_1
-355,PONO,"1_19_2, 1_33_2"
-13095,POPVLVS/1,2_29_1
-13132,POSSVM/1,"1_25_1, 1_28_2, 1_31_2, 1_34_1, 1_37_2, 1_38_1, 2_0_8, 2_1_1, 2_4_2, 2_23_2, 3_3_2, 3_6_2, 3_14_1, 3_23_2, 4_0_3, 4_8_1, 4_12_2, 4_24_1, 4_33_1, 4_39_2"
-356,POST/2,"2_15_2, 2_26_2, 4_41_1"
-13157,POSTVLO,"2_5_2, 2_18_1, 4_2_2"
-13161,POTENS,4_39_1
-13171,POTIS,"1_39_1, 4_35_2"
-13181,POTVS/2,2_21_1
-358,PRAEBEO,3_11_2
-13200,PRAECEPTVM,"3_0_2, 3_1_1, 4_0_3"
-13209,PRAECIPVE,"2_30_1, 4_11_2"
-13210,PRAECIPVVS,1_1_2
-13297,PRAEPONO,"1_6_2, 1_32_1"
-13340,PRAESTO/1,1_25_1
-13357,PRAETEREO/1,2_15_1
-13381,PRAEVALIDVS,4_12_1
-13387,PRAEVIDEO,2_24_2
-363,PRAVVS,"2_8_1, 4_34_1"
-13409,PRESSVS/1,3_14_1
-365,PRIMO,4_9_2
-13439,PRIMVM,"2_30_1, 4_45_1"
-13440,PRIMVS,"1_3_1, 1_18_2, 4_41_2, 4_45_1"
-368,PRO/1,"1_23_1, 1_33_2, 4_14_1"
-13486,PROBO,"1_27_1, 4_25_1, 4_28_1"
-13539,PRODVCO,3_3_1
-13542,PROELIVM,2_0_5
-13605,PROMITTO,"1_13_1, 1_13_1, 1_25_1, 4_37_1"
-13624,PROPAGO/2,4_23_2
-13637,PROPERVS,2_5_1
-375,PROPONO,"3_22_1, 4_11_1"
-376,PROPRIVS,4_44_1
-13686,PROSPICIO,"2_24_1, 4_20_1"
-13693,PROSVM/1,"2_1_1, 3_10_2, 4_7_1, 4_16_2, 4_39_2"
-13738,PROXIMVS/1,1_3_2
-13737,PROXIMVS/2,1_40_2
-13740,PRVDENS,2_7_1
-13742,PRVDENTIA,"2_18_2, 4_27_2"
-13778,PVDEO,"2_7_1, 4_29_1"
-13781,PVDOR,3_3_1
-382,PVERILIS,4_18_2
-13830,PVNICVS/A,2_0_4
-13835,PVPPIS,2_6_2
-387,PVRVS,1_1_2
-13863,PVTO,"1_3_1, 1_17_2, 1_24_2, 1_29_1, 2_8_1"
-388,QVAERO,"1_24_1, 2_0_5, 2_17_1, 3_21_1, 4_15_1, 4_16_1, 4_45_2"
-13943,QVALIS/1,4_28_2
-389,QVAM/1,"1_14_2, 4_13_2, 4_33_2, 4_45_1"
-390,QVAMVIS/1,"1_6_1, 4_21_1"
-13964,QVANTVSCVMQVE/1,3_3_2
-13973,QVASI/1,3_1_2
-393,QVE,"1_24_2, 2_2_1, 3_4_1, 4_19_2"
-394,QVEROR,1_8_1
-395,QVI/1,"1_3_2, 1_4_2, 1_6_1, 1_8_2, 1_16_2, 1_18_1, 1_22_1, 1_22_2, 1_24_2, 1_25_1, 1_26_1, 1_29_1, 1_29_1, 1_30_1, 1_31_1, 1_31_1, 1_31_2, 1_36_1, 1_38_1, 1_39_1, 2_0_2, 2_0_5, 2_0_8, 2_0_9, 2_0_10, 2_2_2, 2_6_1, 2_6_2, 2_7_1, 2_7_2, 2_9_2, 2_10_1, 2_13_1, 2_14_2, 2_16_2, 2_17_2, 2_21_1, 2_24_1, 2_26_1, 2_27_1, 2_27_2, 2_30_1, 2_31_1, 3_0_2, 3_5_1, 3_8_1, 3_8_2, 3_11_1, 3_11_2, 3_13_1, 3_13_2, 3_14_1, 3_15_1, 3_17_1, 3_21_2, 3_22_2, 4_0_2, 4_0_3, 4_1_2, 4_1_2, 4_2_2, 4_2_2, 4_3_2, 4_4_2, 4_7_1, 4_7_2, 4_8_1, 4_9_1, 4_9_2, 4_10_2, 4_17_2, 4_22_2, 4_24_1, 4_28_1, 4_29_1, 4_30_2, 4_31_2, 4_32_2, 4_33_1, 4_36_1, 4_36_2, 4_39_2, 4_42_2, 4_45_2, 4_46_2"
-13998,QVIA,"1_13_2, 2_20_2"
-14000,QVICVMQVE/1,"3_0_1, 4_24_2, 4_25_1, 4_25_1"
-396,QVIDAM,"2_20_1, 4_36_2"
-14008,QVIES,1_2_2
-398,QVIS/1,"1_24_1, 2_2_1, 2_12_1, 2_12_2, 3_2_2, 4_9_1, 4_16_2, 4_20_1, 4_40_1"
-399,QVIS/2,"1_17_1, 2_0_6"
-14053,QVISQVAM,4_13_2
-14054,QVISQVE/2,"1_33_2, 2_27_1, 3_2_2, 4_0_1, 4_18_2, 4_20_1"
-400,QVISQVIS/2,2_24_2
-14057,QVIVIS,3_6_2
-14061,QVO/5,"1_28_2, 4_42_1"
-14079,QVONIAM,1_34_2
-401,QVOQVE,"1_26_2, 4_37_2"
-14136,RAPIO,4_45_1
-14147,RARVS,"1_13_2, 4_27_2"
-14152,RATIO,"1_3_2, 4_3_1"
-404,RECEDO/1,4_19_1
-14191,RECENSEO,1_16_1
-14228,RECTE,"3_2_1, 3_15_1, 4_8_2"
-14248,REDARGVO,1_30_2
-14271,REFERO,"2_15_1, 2_20_1"
-14315,REGNVM,2_1_2
-14330,RELEGO/2,4_0_3
-14339,RELINQVO,"1_6_1, 2_25_2, 3_14_2"
-14347,REMANEO,4_19_2
-14377,REMVS,4_33_1
-14405,REPENTINVS,4_46_1
-14427,REPVGNO,1_4_1
-410,RES,"1_7_1, 1_13_1, 1_35_2, 2_4_1, 2_5_1, 2_5_2, 2_18_1, 2_25_1, 2_26_1, 3_11_1, 4_3_1, 4_7_1, 4_23_2, 4_26_1, 4_32_1, 4_47_1"
-14471,RESPONDEO,"1_18_2, 1_23_1"
-412,RETINEO,"1_34_2, 2_25_2, 3_12_2"
-14516,REVS,3_17_2
-414,RIDEO,4_18_1
-14605,ROGO,"3_16_1, 3_16_2, 4_8_1"
-14610,ROMANVS/A,2_0_4
-14669,RVMOR,1_12_1
-14677,RVRSVS,"4_7_1, 4_25_2, 4_26_2, 4_45_2"
-14753,SAEPE,"1_8_2, 2_10_2, 4_28_1"
-428,SALVS,"2_28_2, 2_30_1, 4_14_2"
-14834,SALVVS,3_3_1
-14853,SANCTVS,4_4_2
-14865,SANO,4_40_2
-14869,SANVS,4_24_1
-429,SAPIENS/2,"1_7_2, 2_0_8"
-14873,SAPIENTIA,"1_10_2, 2_0_10, 4_27_1"
-14874,SAPIO,"4_12_2, 4_18_1"
-15009,SCIO,"1_3_2, 2_10_1, 4_22_2, 4_29_2"
-431,SCRIBO,4_49_1
-15119,SECVRVS,4_0_1
-434,SED,"1_23_2, 2_8_2, 2_21_2, 3_0_4, 3_18_2, 3_21_1, 4_4_1, 4_15_2, 4_23_1, 4_30_2, 4_35_2, 4_41_2"
-15142,SEGNITIES,3_5_1
-15086,SEMOVEO,2_0_9
-438,SEMPER,"1_2_1, 1_24_2, 1_38_2, 1_40_2, 2_20_1, 4_0_3, 4_1_2, 4_26_1, 4_34_2"
-15215,SENECTA,"3_9_1, 4_18_1"
-15218,SENEO,4_18_2
-15221,SENEX/2,1_16_1
-15233,SENSVS,"3_10_2, 4_18_2, 4_49_2"
-440,SEQVOR,"1_11_2, 2_27_1, 3_13_1, 3_21_2, 4_37_2"
-15297,SERMO,"1_10_2, 1_17_1, 1_27_1, 3_4_1, 3_19_1, 4_20_2"
-15324,SERVO,"1_24_2, 3_8_2, 4_17_1"
-15326,SERVVS/1,"1_8_1, 1_37_1, 3_10_1, 4_44_1"
-447,SI/2,"1_1_1, 1_5_1, 1_5_1, 1_9_2, 1_17_1, 1_23_1, 2_0_1, 2_0_2, 2_0_4, 2_0_6, 2_0_7, 2_1_1, 2_13_1, 3_10_2, 3_11_1, 3_12_2, 3_22_2, 3_23_1, 4_1_1, 4_2_2, 4_13_1, 4_16_2, 4_17_1, 4_24_1, 4_35_2"
-448,SIC,"1_11_1, 1_11_2, 1_26_2, 1_29_2, 4_12_2, 4_21_2"
-15427,SILEO,1_15_2
-452,SIMILIS,3_7_2
-453,SIMPLICITAS,3_4_2
-15462,SIMVL/1,2_19_1
-15468,SIMVLO,"1_26_1, 1_26_2, 2_18_2"
-15471,SIN,3_0_3
-454,SINE,"1_5_2, 1_7_2, 2_12_2, 3_1_2, 4_38_1, 4_46_2"
-15530,SOCIVS/2,"2_7_1, 4_15_1"
-15538,SODALIS/1,"1_34_1, 2_22_1"
-458,SOLEO,"1_30_1, 4_9_2"
-15580,SOMNIVM,2_31_1
-15581,SOMNVS,"1_2_1, 2_31_2"
-462,SORS,"2_12_1, 3_8_1"
-15648,SPECTO,"2_27_1, 2_27_2, 4_32_2"
-15662,SPERNO,"1_4_1, 3_0_3"
-15663,SPERO,"2_31_2, 4_14_2, 4_26_2"
-15664,SPES,"1_19_2, 2_25_2, 2_25_2, 4_7_2"
-15758,STATVO,2_12_2
-15854,STRVO,3_20_2
-15862,STVDIVM,"4_21_1, 4_48_1"
-15863,STVLTITIA,"2_18_2, 4_14_2"
-472,STVLTVS,"1_31_2, 2_3_1, 2_16_2"
-474,SVB,"3_12_1, 3_16_1"
-15905,SVBEO/1,4_42_2
-15914,SVBINDE,4_40_1
-15916,SVBITO,4_19_1
-16068,SVBMITTO,2_25_1
-15999,SVCCESSVS,2_23_1
-16007,SVCCVMBO,3_14_2
-16008,SVCCVRRO,1_16_2
-16030,SVFFERO,"2_13_1, 3_6_2"
-16049,SVI/1,"1_4_2, 1_9_1, 1_17_2, 1_17_2, 4_5_2"
-480,SVM/1,"1_1_1, 1_1_2, 1_2_1, 1_3_1, 1_3_2, 1_4_1, 1_6_1, 1_7_1, 1_9_2, 1_11_1, 1_11_2, 1_12_2, 1_13_2, 1_14_1, 1_18_1, 1_18_1, 1_19_1, 1_22_1, 1_24_2, 1_25_2, 1_25_2, 1_26_1, 1_28_1, 1_29_1, 1_30_2, 1_31_1, 1_31_2, 1_36_1, 1_39_1, 1_39_2, 1_40_2, 1_40_2, 2_0_7, 2_0_10, 2_1_2, 2_2_1, 2_2_2, 2_2_2, 2_3_1, 2_5_2, 2_6_1, 2_6_2, 2_10_1, 2_13_1, 2_14_1, 2_14_1, 2_15_2, 2_17_2, 2_18_1, 2_18_2, 2_19_2, 2_20_2, 2_21_2, 2_24_1, 2_28_1, 2_30_1, 2_30_1, 2_30_2, 3_0_2, 3_1_2, 3_2_2, 3_4_2, 3_8_2, 3_11_1, 3_11_1, 3_12_2, 3_13_2, 3_17_2, 3_19_1, 3_22_1, 3_22_2, 3_22_2, 3_23_1, 3_23_2, 3_24_2, 4_1_1, 4_2_2, 4_3_1, 4_3_2, 4_5_1, 4_7_2, 4_8_2, 4_9_1, 4_9_1, 4_9_2, 4_10_2, 4_11_2, 4_12_1, 4_14_1, 4_14_2, 4_15_2, 4_17_2, 4_18_2, 4_23_2, 4_24_2, 4_28_2, 4_29_2, 4_29_2, 4_30_1, 4_30_2, 4_31_2, 4_32_2, 4_33_2, 4_36_1, 4_36_1, 4_36_2, 4_40_2, 4_42_1, 4_42_1, 4_43_1, 4_43_2, 4_44_1, 4_44_2, 4_45_1, 4_46_2, 4_47_1"
-481,SVMMVS,2_18_2
-16084,SVMPTVS/2,"2_5_1, 2_17_1"
-16119,SVPERO,"1_38_1, 2_10_2, 3_9_1"
-16126,SVPERVS,3_8_1
-16164,SVSCIPIO,"4_1_2, 4_9_1"
-16172,SVSPICIO/2,"4_43_1, 4_43_2"
-484,SVVS,3_21_2
-16238,TABVLA,3_8_1
-16245,TACEO,"1_3_2, 1_12_2, 3_15_1, 3_15_2, 3_23_2, 4_31_1"
-16249,TACITVS,"1_17_1, 2_22_1, 4_20_1"
-488,TAM,3_22_2
-489,TAMEN,"2_13_1, 3_3_1, 4_44_2"
-16375,TELLVS,2_0_1
-16380,TEMERE,1_8_1
-16383,TEMNO,3_10_2
-494,TEMPVS/1,"1_6_2, 1_7_2, 2_3_1, 2_5_2, 2_8_2, 2_8_2, 2_10_1, 2_17_2, 2_18_1, 2_30_2, 3_11_2, 4_2_1, 4_22_1, 4_27_2, 4_37_1, 4_41_1"
-16404,TENDO,4_33_2
-496,TENEO,1_6_1
-16421,TENTO,"3_14_1, 3_14_2, 4_33_1"
-16488,TESTIS/1,3_3_1
-498,TIMEO,"1_22_1, 3_20_1, 3_22_1, 4_11_1, 4_11_2, 4_26_1"
-16684,TIMIDVS,4_43_2
-16821,TRANQVILLVS,4_26_1
-16910,TRIBVO,"1_19_1, 2_20_2"
-507,TV,"1_1_2, 1_4_1, 1_4_1, 1_9_2, 1_11_1, 1_11_2, 1_13_1, 1_14_1, 1_14_2, 1_14_2, 1_14_2, 1_15_2, 1_16_2, 1_19_2, 1_19_2, 1_20_1, 1_21_1, 1_23_1, 1_23_2, 1_24_1, 1_24_2, 1_26_2, 1_28_1, 1_29_2, 1_30_1, 1_32_1, 1_32_1, 1_33_2, 1_36_1, 1_37_1, 1_37_2, 1_40_2, 2_0_3, 2_0_7, 2_7_2, 2_10_1, 2_12_2, 2_12_2, 2_16_1, 2_16_1, 2_20_1, 2_21_1, 2_21_1, 2_26_1, 2_30_1, 2_30_2, 3_0_4, 3_7_2, 3_8_1, 3_9_1, 3_17_2, 3_17_2, 3_20_1, 3_22_1, 4_0_3, 4_0_3, 4_2_1, 4_9_1, 4_10_1, 4_11_1, 4_11_2, 4_12_1, 4_12_2, 4_14_1, 4_15_1, 4_15_2, 4_16_2, 4_24_1, 4_28_1, 4_29_1, 4_32_1, 4_35_2, 4_37_1, 4_40_1, 4_45_1, 4_47_1, 4_48_1"
-17030,TVEOR,4_33_2
-508,TVM,1_28_1
-510,TVRPIS,1_30_2
-17093,TVS,4_38_1
-17109,TVTVS,2_6_2
-511,TVVS,"1_14_1, 1_37_2, 3_6_1, 4_32_1"
-17339,VALEO,"2_28_1, 4_39_2"
-17424,VEL/1,"1_31_1, 2_0_6, 4_15_1, 4_15_1"
-17447,VELVM,4_33_2
-522,VENIO,"2_24_1, 4_22_1"
-17490,VENTER,4_10_2
-17493,VENTOSVS,1_25_2
-524,VENVS/N,"4_10_1, 4_30_1"
-17514,VERBER,4_6_1
-17517,VERBOSVS,1_10_1
-17518,VERBVM,"1_10_1, 1_26_1, 2_11_1, 2_11_2, 3_2_1, 3_20_1, 4_6_2, 4_49_1"
-17530,VERGILIVS/N,2_0_2
-17562,VERSO,1_33_1
-17568,VERSVS/1,4_49_1
-17582,VERVM/1,3_4_2
-528,VERVS,2_4_2
-17640,VEXO,2_16_2
-17664,VICTIMA,4_14_1
-17667,VICTOR,2_10_2
-534,VIDEO,"1_25_2, 1_31_1, 2_10_2, 2_27_1, 3_15_2, 3_21_1"
-17690,VIGILO,"1_2_1, 2_31_2"
-17700,VILIS,"1_29_1, 1_29_1"
-17716,VINCIO,2_14_2
-535,VINCO,"1_34_1, 1_38_1, 2_10_2"
-537,VINVM,2_21_2
-538,VIR,4_12_2
-543,VIRTVS,"1_3_1, 1_38_2"
-17775,VIS,"2_0_3, 2_9_1, 2_9_2, 4_12_1"
-544,VITA,"1_5_1, 1_19_1, 1_22_1, 1_22_2, 1_28_2, 1_33_1, 2_3_2, 3_0_2, 3_1_2, 3_5_1, 3_13_2, 4_0_1, 4_15_2, 4_17_2, 4_19_2, 4_22_2, 4_37_1, 4_46_2, 4_48_2"
-546,VITIVM,"1_2_2, 2_0_9, 4_0_2"
-17798,VITO,"2_13_1, 2_19_1, 4_7_1, 4_31_1, 4_47_2"
-17807,VITVLVS,4_38_1
-547,VIVO,"1_5_2, 2_0_8, 3_2_1, 3_9_2, 3_11_2, 4_17_1, 4_24_1, 4_25_2"
-17156,VLCISCOR,4_34_2
-17162,VLLVS,"1_25_1, 1_29_2"
-17168,VLTIMVS,"1_18_2, 1_22_1"
-17184,VMBRA,4_37_2
-17201,VMQVAM,"3_7_1, 3_10_2, 4_19_2"
-17213,VNDA,4_31_2
-17245,VNVS,"2_7_2, 2_25_2, 2_29_1, 4_11_2, 4_28_2"
-554,VOLO/3,"1_9_1, 1_25_2, 2_0_1, 2_29_2, 3_0_1, 3_12_2, 3_15_2, 3_19_2, 3_23_2, 3_24_2, 4_1_1, 4_24_1, 4_29_1, 4_29_2, 4_48_2"
-17851,VOLVCRIS,1_27_2
-558,VOLVPTAS,"2_28_2, 4_10_1, 4_24_2, 4_30_1"
-17249,VRBANVS,3_19_2
-17254,VRGEO,1_37_1
-17276,VSVS,"4_2_2, 4_21_2, 4_27_2, 4_44_1"
-560,VT/4,"1_1_1, 1_7_1, 1_11_1, 1_24_2, 1_37_2, 2_0_8, 2_23_2, 2_28_1, 3_6_2, 3_16_2, 4_21_2"
-17280,VTER/1,2_27_2
-17284,VTILIS,"2_1_2, 3_10_1"
-17285,VTILITAS,1_6_2
-561,VTOR,"1_24_1, 2_17_1, 3_21_1, 4_16_1"
-562,VVLNVS,4_40_2
-17305,VXOR,"1_8_1, 3_12_1, 3_23_1"
+word_id,TITLE,DCC Latin Core List,LOCALDEF,DCC FREQUENCY GROUP,DCC SEMANTIC GROUP
+6498,ET/1,67,"also, even",1,Conjunctions/Adverbs
+146,ET/2,1,and,1,Conjnctions/Adverbs
+480,SVM/1,2,"be, exist; fut. infin. often = fore, impf. subj. often = forem for essem",1,Life and Being
+395,QVI/1,3,"who, which, what",1,Pronouns/Interrogatives
+393,QVE,4,and (postpositive enclitic),1,Conjunctions/Adverbs
+218,IN,5,"in, on (+ abl.); into, onto (+ acc)",1,Place
+307,NON,6,not,1,Conjunctions/Adverbs
+200,HIC/1,7,"this, these",1,Pronouns/Interrogatives
+212,ILLE,8,that,1,Pronouns/Interrogatives
+507,TV,9,you (sing.),1,Pronouns/Interrogatives
+92,CVM/2,10,"with (prep. + abl.); when, since, although (conjunction + subj.)",1,Conjunctions/Adverbs
+93,CVM/3,10,"with (prep. + abl.); when, since, although (conjunction + subj.)",1,Conjunctions/Adverbs
+140,EGO,11,"I, me",1,Pronouns/Interrogatives
+14053,QVISQVAM,12,"any (single) person, anyone at all",1,Pronouns/Interrogatives
+229,IS,13,"he, she, it",1,Pronouns/Interrogatives
+5,AD/2,14,"to, up to, towards (+acc.)",1,Place
+560,VT/4,15,"as (+ indic.); so that, with the result that (+ subj.); (in questions) in what manner, how; (exclam.) to what an extent! how!",1,Conjunctions/Adverbs
+447,SI/2,16,if,1,Conjunctions/Adverbs
+16049,SVI/1,17,"him- her- itself, themselves",1,Pronouns/Interrogatives
+331,OMNIS,18,"all, every, as a whole",1,Measurement
+11030,NEC/2,19,"and not, nor; nec ... nec, neither ... nor; → neque",1,Conjunctions/Adverbs
+434,SED,20,but,1,Conjunctions/Adverbs
+1,AB,21,"from, by (+abl.)",1,Place
+1378,IPSE,22,him- her- itself,1,Pronouns/Interrogatives
+13132,POSSVM/1,23,be able,1,Making/Doing
+36,AVT,24,or,1,Conjunctions/Adverbs
+264,MAGNVS,25,great,1,Measurement
+147,EX,26,"out of, from (+ abl.)",1,Place
+484,SVVS,27,"his own, her own, its own",1,Pronouns/Interrogatives
+125,DO,28,give,1,Social Life
+389,QVAM/1,29,how?; (after comparative) than,1,Pronouns/Interrogatives
+344,PER,30,through (+acc.),1,Place
+534,VIDEO,31,see,1,Vision
+152,FACIO,32,"do, make",1,Making/Doing
+1027,DICO/2,33,"say; causam dīcere, plead a case; diem dīcere, appoint a day",1,Speech/Oratory
+206,IAM,34,now; already,1,Time
+751,ATQVE/1,35,"and in addition, and also, and; (after comparatives) than; simul atque, as soon as; → ac",1,Conjunctions/Adverbs
+574,AC/1,36,"and in addition, and also, and; (after comparatives) than; simul ac, as soon as; → atque",1,Conjunctions/Adverbs
+663,ALIVS,37,"other, another; ālias: at another time",1,Pronouns/Interrogatives
+410,RES,38,"thing (rēs pūblica, commonwealth; rēs familiāris, family property, estate; rēs mīlitāris, art of war; rēs novae, revolution)",1,Life and Being
+1235,HABEO,39,"have, hold",1,Other Senses
+25,ANIMVS,40,"spirit, mind",1,Life and Being
+276,MEVS,41,my,1,Pronouns/Interrogatives
+118,DEVS,42,god; goddess,1,Religion
+291,MVLTVS,43,"much, many; multō, by far",1,Measurement
+511,TVVS,44,your,1,Pronouns/Interrogatives
+155,FERO,45,"bear, carry, endure",1,Verbs of Transport
+104,DE,46,"down from, about, concerning (+ abl.)",1,Place
+1399,NE/2,47,"lest, that not",1,Conjunctions/Adverbs
+10217,MANVS/1,48,hand; band of men,1,The Body
+316,NVLLVS,49,"not any, no one",1,Pronouns/Interrogatives
+320,NVNC,50,now,1,Time
+309,NOS,51,we,1,Pronouns/Interrogatives
+310,NOSTER,52,our,1,Pronouns/Interrogatives
+17245,VNVS,53,one,1,Measurement
+1029,DIES,54,day,1,Lengths of Time
+11139,NIHIL,55,nothing; not at all,1,Measurement
+508,TVM,56,then,1,Time
+145,ENIM/2,57,"for, indeed",1,Pronouns/Interrogatives
+489,TAMEN,58,"nevertheless, still",1,Conjunctions/Adverbs
+209,IDEM,59,the same,1,Pronouns/Interrogatives
+413,REX,60,king,1,The City
+294,NAM,61,"for, indeed, really",1,Conjunctions/Adverbs
+9820,LOCVS,62,place; loca (n. pl.) region,1,Geography
+522,VENIO,63,come,1,Motion
+1355,INTER,64,"between, among; during (+ acc.)",1,Place
+12078,PARS,65,part,1,Measurement
+554,VOLO/3,66,"wish, be willing",1,Emotions
+1111,ETIAM,67,"also, even",1,Conjunctions/Adverbs
+3345,BONVS,68,good,1,Personality Traits/Characteristics
+12,AGO,69,"drive, do, act",1,Verbs of Compelling/Directing
+16459,TERRA,70,land,1,Earth and Water
+12134,PATER,71,"father, ancestor",1,The Household
+301,NEQVE,72,"and not, nor; neque ... neque, neither ... nor; → nec",1,Conjunctions/Adverbs
+1054,DOMVS,73,"house, home",1,The House
+744,AT/2,74,"but, but yet",1,Conjunctions/Adverbs
+953,CORPVS,75,body,1,The Body
+401,QVOQVE,76,"also, too",1,Conjunctions/Adverbs
+660,ALIQVIS,77,"some, any; si quis, si quid: anyone who, anything that",1,Pronouns/Interrogatives
+501,TOTVS,78,"whole, entire",1,Measurement
+448,SIC,79,"in this manner, thus; sīc ... ut: in the same way as",1,Conjunctions/Adverbs
+1250,HIC/2,80,here; hinc: from here,1,Place
+230,ISTE,81,"that, that of yours; adv. istīc or istūc: over there; istinc: from over there",1,Pronouns/Interrogatives
+17250,VRBS,82,city,1,The City
+12629,PETO,83,"seek, aim at",1,Motion
+232,IVBEO,84,"bid, order",1,Justice
+538,VIR,85,man,1,People
+783,BELLVM,86,war,1,War and Peace
+544,VITA,87,life,1,Life and Being
+1255,HOMO,88,human being,1,People
+494,TEMPVS/1,89,time,1,Time
+263,MAGIS/2,90,more,1,Conjunctions/Adverbs
+13440,PRIMVS,91,first,1,Time
+517,VBI/1,92,"where, when",1,Place
+1259,HOSTIS,93,"stranger, enemy",1,War and Peace
+679,AN,94,or (in questions); utrum ... an: whether ... or,1,Conjunctions/Adverbs
+288,MORS,95,death,1,Life and Being
+488,TAM,96,"so, so much",1,Conjunctions/Adverbs
+1092,EO/1,97,go,1,Motion
+728,ARMA,98,"arms, weapons",1,War and Peace
+16126,SVPERVS,99,"situated above, upper",1,Religion
+11162,NISI,100,"if not, unless",1,Conjunctions/Adverbs
+535,VINCO,101,conquer,2,War and Peace
+355,PONO,102,"put, place; put aside",2,Verbs of Transport
+133,DVM/2,103,while (+ indic.); until (+ subj.); provided that (+ subj.),2,Time
+454,SINE,104,without (+ abl.),2,Non–Directional Prepositions
+492,TANTVS,105,"so great, so much; (as pronoun) such a quantity, so much; tantī, at such a price, of such worth",2,Measurement
+496,TENEO,106,"hold, keep",2,Other Senses
+832,CAVSA,107,"cause, reason; causā + preceding genitive, for the sake of",2,Speech/Oratory
+440,SEQVOR,108,follow,2,Motion
+955,CREDO,109,believe,2,Education/Knowledge
+578,ACCIPIO,110,receive,2,Social Life
+543,VIRTVS,111,"valor, manliness, virtue",2,Personality Traits/Characteristics
+687,ANTE/2,112,"before, in front of (adv. and prep. + acc.)",2,Time
+388,QVAERO,113,"seek, inquire",2,Education/Knowledge
+282,MITTO,114,"send, let go",2,Verbs of Compelling/Directing
+17775,VIS,115,"force; (acc.) vim, (abl.) vī; (pl.) vīrēs, strength",2,War and Peace
+21,AMOR,116,love,2,Love
+803,CAELVM/1,117,"sky, heavens",2,Air and Fire
+474,SVB,118,"under, close to (+acc. or abl.)",2,Place
+314,NOX,119,night,2,Lengths of Time
+1385,ITA,120,"thus, so",2,Conjunctions/Adverbs
+14315,REGNVM,121,"kingship, kingdom",2,Geography
+13095,POPVLVS/1,122,people,2,The City
+768,AVTEM,123,"moreover, but, however",2,Conjunctions/Adverbs
+816,CAPVT,124,head,2,The Body
+10230,MARE,125,sea,2,Earth and Water
+396,QVIDAM,126,"a certain one, someone",2,Pronouns/Interrogatives
+268,MATER,127,mother,2,The Household
+368,PRO/1,128,"for, on behalf of, in proportion to (+abl.)",2,Non–Directional Prepositions
+400,QVISQVIS/2,129,"whoever, whichever",2,Pronouns/Interrogatives
+17875,VOS,130,"you (pl.); (gen.) vestrum/vestrī, (dat./abl.) vōbīs, (acc.) vōs",2,Pronouns/Interrogatives
+53,CAPIO/2,131,seize,2,War and Peace
+13998,QVIA,132,because,2,Conjunctions/Adverbs
+1061,DVCO,133,"lead; uxōrem dūcere, marry",2,Verbs of Compelling/Directing
+6447,ERGO/2,134,therefore,2,Conjunctions/Adverbs
+11203,NOMEN,135,name,2,Social Life
+14007,QVIDEM,136,"certainly, at least",2,Conjunctions/Adverbs
+281,MISER,137,"wretched, pitiable",2,Emotions
+167,FORTVNA,138,fortune,2,Religion
+313,NOVVS,139,new,2,Time
+190,GRAVIS,140,"heavy, serious",2,Measurement
+17424,VEL/1,141,"or else, or; even; vel ... vel: either … or",2,Conjunctions/Adverbs
+9841,LONGVS,142,"long, far",2,Measurement
+12103,PARVVS/2,143,small,2,Measurement
+14339,RELINQVO,144,abandon,2,Motion
+14753,SAEPE,145,often,2,Time
+158,FIO,146,"become, happen, be done",2,Life and Being
+334,OS/1,147,"mouth, face",2,The Body
+14,ALTER,148,other of two,2,Measurement
+438,SEMPER,149,"always, ever",2,Time
+999,DEINDE,150,"then, next",2,Time
+1277,IGNIS,151,fire,2,Air and Fire
+283,MODO/1,152,"just, just now; modo ... modo: now ... now, at one moment ... at another, sometimes ... sometimes",2,Time
+498,TIMEO,153,"to fear, to dread",2,Emotions
+430,SCELVS,154,"crime, sin",2,Justice
+989,DEBEO,155,"owe, be obliged",2,Business/Money
+547,VIVO,156,live,2,Life and Being
+1167,FATVM,157,fate; death,2,Religion
+17830,VOCO,158,call,2,Speech/Oratory
+15,ALTVS,159,"high, lofty; deep",2,Geography
+12065,PARO/2,160,"prepare, acquire; parātus -a -um, ready",2,Making/Doing
+277,MILES,161,soldier,2,War and Peace
+270,MEDIVS,162,"middle, central",2,Place
+1342,INQVIO,163,say (used with direct speech),2,Speech/Oratory
+356,POST/2,164,after (adv. and prep. +acc.),2,Time
+30,AVDIO,165,"hear, listen to",2,Other Senses
+13863,PVTO,166,"think, suppose",2,Education/Knowledge
+685,ANNVS,167,year,2,Lengths of Time
+471,STO,168,stand,2,Life and Being
+17882,VOX,169,"voice, utterance",2,Speech/Oratory
+1219,GENVS/1,170,"origin, lineage, kind",2,The Household
+14271,REFERO,171,bring back; report,2,Verbs of Transport
+15009,SCIO,172,know,2,Education/Knowledge
+273,MENS,173,mind,2,The Body
+14249,REDDO,174,"return, give back",2,Verbs of Transport
+9705,LICET/1,175,it is permitted (+ dat. + infin.),2,Justice
+15573,SOLVS,176,"only, alone",2,Measurement
+171,FVGIO,177,"flee, escape",2,Travel
+17162,VLLVS,178,"any, anyone",2,Pronouns/Interrogatives
+11070,NEMO,179,"no one (gen. nūllīus, dat. nūllī, abl. nūllō or nūllā → nūllus -a -um)",2,Pronouns/Interrogatives
+10984,NATVRA,180,nature,2,Life and Being
+290,MOS,181,"custom, habit; (pl.) character",2,Social Life
+786,BENEFICIVM,182,"service, kindness",2,Social Life
+343,PECTVS,183,"chest, breast",2,The Body
+157,FIDES/2,184,"trust, faith",2,Personality Traits/Characteristics
+341,PATIOR,185,"permit, endure",2,Verbs of Compelling/Directing
+96,CVRA,186,"care, concern",2,Love
+228,IRA,187,"wrath, anger",2,Emotions
+17518,VERBVM,188,word,2,Writing/Poetry
+13628,PROPE/2,189,"near, next; (comp.) propior, (superl.) proximus; (adv.) prope, nearly, almost",2,Place
+12048,PARENS/1,190,parent,2,The Household
+381,PVER,191,boy; slave,2,People
+10783,MOVEO,192,move,2,Motion
+6010,DOLOR,193,"pain, grief",2,Emotions
+181,GENS,194,"family, clan",2,The Household
+10693,MODVS,195,"measure, manner, kind",2,Measurement
+533,VIA,196,"way, street",2,Travel
+14054,QVISQVE/2,197,"each one, everyone",2,Pronouns/Interrogatives
+673,AMICVS/2,198,friendly; (as subst.) friend,2,Personality Traits/Characteristics
+12608,PES,199,foot,2,The Body
+1291,IMPERIVM,200,"command, power",2,War and Peace
+241,LABOR/1,201,"toil, exertion",3,Business/Money
+1333,INGENS,202,"huge, enormous",3,Measurement
+487,TALIS,203,such,3,Measurement
+340,PARVM/2,204,too little,3,Measurement
+702,APVD,205,"near, in the presence of (+acc.)",3,Place
+327,OCVLVS,206,eye,3,The Body
+17213,VNDA,207,"wave, flowing water, water",3,Earth and Water
+1388,ITAQVE,208,"and so, therefore",3,Conjunctions/Adverbs
+17901,VVLTVS,209,"look, expression, face",3,The Body
+801,CADO,210,"fall, be killed",3,Violence
+10988,NATVS/1,211,son,3,The Household
+398,QVIS/1,212,who? what? which?,3,Pronouns/Interrogatives
+16814,TRAHO,213,"drag, draw",3,Verbs of Compelling/Directing
+14862,SANGVIS,214,blood,3,The Body
+10542,METVS,215,"fear, dread",3,Emotions
+83,CONSILIVM,217,"plan; council, group of advisors",3,The City
+927,CONIVX,218,"spouse, husband, wife",3,The Household
+19,AMO,219,to love; amāns -ntis m./f.: lover,3,Love
+9644,LEVIS/1,220,"light, trivial",3,Measurement
+1063,DVO,221,two,3,Measurement
+1176,FERVS/2,222,"wild, fierce; fera -ae f.: wild animal",3,Animals/Plants
+12982,POENA,223,"penalty, punishment",3,Justice
+825,CASTRA/2,224,"fortress, (regularly plural, castra camp)",3,War and Peace
+168,FRATER,225,brother,3,The Household
+7793,HAVD,226,not,3,Conjunctions/Adverbs
+265,MALVS/3,227,"bad, evil",3,Personality Traits/Characteristics
+205,IACEO,228,lie,3,The House
+9659,LIBER/2,229,free; līberī (m. pl.): freeborn children,3,Justice
+231,ITER,230,"journey, route",3,Travel
+7003,FERRVM,231,"iron, iron weapon or implement",3,Violence
+15664,SPES,232,hope,3,Emotions
+379,PVELLA,233,girl; girl-friend,3,People
+450,SILVA,234,"forest, grove",3,Animals/Plants
+784,BENE,235,well,3,Personality Traits/Characteristics
+1185,FINIS,236,"end, boundary",3,Geography
+182,GERO,237,"bear, manage; bellum gerere, wage war",3,War and Peace
+298,NE/4,238,interrogative particle attached to the emphatic word in a question,3,Pronouns/Interrogatives
+1065,DVX,239,"leader, general",3,War and Peace
+13405,PREMO,240,"press, pursue, overwhelm",3,War and Peace
+6017,DOMINA,241,"household master, lord; mistress",3,The Household
+10743,MONS,242,mountain,3,Geography
+17281,VTERQVE,243,each of two,3,Measurement
+14765,SAEVVS,244,"fierce, raging, wrathful",3,Personality Traits/Characteristics
+9800,LITVS/2,245,shore,3,Geography
+458,SOLEO,246,be accustomed,3,Personality Traits/Characteristics
+278,MILLE,247,thousand,3,Measurement
+1100,EQVVS,248,horse,3,Animals/Plants
+6116,DVRVS,249,"hard, tough, harsh",3,Other Senses
+883,COGO,250,drive together; compel,3,Verbs of Compelling/Directing
+319,NVMQVAM,251,never,3,Time
+13439,PRIMVM,252,"at first, firstly",3,Time
+286,MORIOR,253,die,3,Life and Being
+818,CARMEN/1,254,song,3,Writing/Poetry
+16378,TELVM,255,"missile, weapon, spear",3,War and Peace
+14152,RATIO,256,"method, plan, reason",3,Education/Knowledge
+17184,VMBRA,257,"shade, shadow",3,Vision
+2731,ARS,258,skill,3,Education/Knowledge
+16788,TOT,259,so many,3,Measurement
+119,DEXTER,260,right; dextera -ae f.: right hand,3,Place
+15416,SIGNVM,261,"sign, standard, mark",3,War and Peace
+247,LAETVS/2,262,"glad, joyful",3,Emotions
+13943,QVALIS/1,263,of what kind? what?,3,Pronouns/Interrogatives
+251,LEX,264,law,3,Justice
+12443,PERICVLVM,265,danger,3,Violence
+10962,NASCOR,266,be born,3,Life and Being
+1135,EXERCITVS/1,267,army,3,War and Peace
+345,PEREO/1,268,"perish, be lost",3,Violence
+523,VENTVS,269,wind,3,Air and Fire
+758,AVDEO,270,"dare, be eager",3,Personality Traits/Characteristics
+4843,CONTRA/2,271,"against, opposite (adv. and prep. +acc.)",3,Place
+703,AQVA,272,water,3,Earth and Water
+14136,RAPIO,273,"seize, tear away",3,Violence
+15462,SIMVL/1,274,at the same time,3,Time
+16965,TRISTIS,275,"sad, solemn, grim",3,Emotions
+293,MVNVS,276,"gift, offering; duty, obligation; (pl.) gladiatorial show",3,Social Life
+238,IVVENIS/2,277,youth,3,People
+6891,FAMA,278,"rumor, fame",3,Speech/Oratory
+609,ASSVM/1,279,be present,3,Place
+17546,VERO/3,280,"in fact, certainly, without doubt",3,Conjunctions/Adverbs
+337,PAR/2,281,equal,3,Measurement
+17608,VESTER,282,your,3,Pronouns/Interrogatives
+1194,FLVMEN,283,"stream, river",3,Earth and Water
+14000,QVICVMQVE/1,284,"who-, whatever",3,Pronouns/Interrogatives
+3985,CERTVS,285,"sure, fixed",3,Measurement
+166,FORTIS,286,brave,3,Personality Traits/Characteristics
+12886,PLACEO,287,please,3,Social Life
+17574,VERTO,288,turn,3,Motion
+15324,SERVO,289,"save, watch over",3,The Household
+8001,HONOR,290,"honor, glory; office, post",3,The City
+5796,DIGNVS,291,worthy,3,Personality Traits/Characteristics
+94,CVNCTVS,292,entire all together,3,Measurement
+499,TOLLO,293,"raise up, destroy",3,Violence
+11057,NEGO,294,"deny, refuse",3,Speech/Oratory
+17634,VETVS,295,old,3,Time
+6425,EQVES,296,"horseman, knight",3,War and Peace
+16806,TRADO,297,"hand over, yield",3,Business/Money
+1188,FLAMMA,298,"flame, fire",3,Air and Fire
+262,LVX,299,light of day,3,Air and Fire
+17214,VNDE/1,300,from where,3,Place
+405,REDEO/1,301,"go back, return",4,Motion
+15237,SENTIO,302,"perceive, feel, hear, see",4,Other Senses
+767,AVRVM,303,gold,4,Business/Money
+57,CEDO/1,304,"go, move; yield",4,War and Peace
+14060,QVO/2,305,"for which reason; to or in what place; to what end, for what purpose?",4,Pronouns/Interrogatives
+14943,SAXVM,306,"rock, cliff, crag",4,Earth and Water
+17398,VE,307,or (postpositive enclitic),4,Conjunctions/Adverbs
+634,AETAS,308,"age, time of life",4,Lengths of Time
+154,FELIX,309,lucky,4,Personality Traits/Characteristics
+256,LOQVOR,310,"speak, talk",4,Speech/Oratory
+13963,QVANTVS/1,311,"(interr.) how great? (rel.) of what size, amount, etc. (as subst.) what amount? (rel.) which amount; quantī, at what price? (rel.) at which price",4,Pronouns/Interrogatives
+879,COEPIO,312,begin,4,Time
+8185,IGITVR,313,therefore,4,Conjunctions/Adverbs
+9215,IVS/1,314,"right, justice, law",4,Justice
+10903,MVTO/2,315,change,4,Making/Doing
+1369,INVENIO,316,find; discover,4,Travel
+13442,PRINCEPS/1,317,"first, chief; (as subst.) leader, person in charge",4,The City
+11714,OPS,318,"assistance, resources",4,Business/Money
+14202,RECIPIO,319,"take back, receive; sē recipere, betake oneself, go",4,Verbs of Transport
+457,SOL,320,sun,4,Air and Fire
+4793,CONSVL,321,consul,4,The City
+11740,ORBIS,322,circle; orbis terrārum: world,4,Geography
+17060,TVRBA,323,"crowd, uproar",4,The City
+649,AGER,324,field,4,Animals/Plants
+15577,SOLVO,325,"release, set sail",4,Travel
+546,VITIVM,326,"flaw, fault, crime",4,Justice
+562,VVLNVS,327,wound,4,Violence
+1313,INDE,328,"from there, from then",4,Place
+15212,SENATVS,329,senate,4,The City
+561,VTOR,330,"use, consume, employ (+ abl.)",4,Making/Doing
+945,COPIA,331,abundance; (pl.) troops,4,War and Peace
+333,OPVS/1,332,work,4,Business/Money
+75,COLO/2,333,"inhabit, cultivate",4,Animals/Plants
+17880,VOTVM,334,"solemn promise, vow; hope",4,Religion
+234,IVGVM,335,"yoke; ridge, chain of hills",4,Animals/Plants
+13901,QVA/1,336,"where, how",4,Pronouns/Interrogatives
+16375,TELLVS,337,earth,4,Earth and Water
+11301,NVMERVS,338,"number, amount",4,Measurement
+882,COGNOSCO,339,"learn, understand",4,Education/Knowledge
+17667,VICTOR,340,conqueror,4,War and Peace
+14911,SATIS/2,341,"enough, sufficient, sufficiently",4,Measurement
+12146,PATRIA,342,"fatherland, country",4,Geography
+15343,SEV/1,343,whether; seu ... seu: whether ... or → sīve,4,Conjunctions/Adverbs
+3806,CASVS,344,"a fall; chance, accident",4,Violence
+1203,FRANGO,345,"break, shatter",4,Violence
+865,CIVITAS,346,"citizenship, state",4,The City
+11235,NOSCO,347,"learn, know",4,Education/Knowledge
+13542,PROELIVM,348,battle,4,War and Peace
+1105,ERIPIO,349,"snatch away, rescue, save",4,Verbs of Transport
+10842,MVNDVS/2,350,"world, universe, heavens",10,Personality Traits/Characteristics
+5227,CVRSVS,351,"course, advance",4,Athletics
+17817,VIX,352,scarcely,4,Conjunctions/Adverbs
+296,NAVIS,353,ship,4,Travel
+9306,LACRIMA,354,tear,4,Emotions
+1261,HVMANVS,355,human,4,People
+10718,MOLLIS,356,"soft, yielding, gentle",4,Other Senses
+10182,MANEO,357,remain,4,Travel
+1995,AGMEN,358,line of march,4,War and Peace
+15398,SIDVS,359,"star, constellation",4,Air and Fire
+184,GLORIA,360,"glory, fame",4,Social Life
+1048,DIV,361,for a long time,4,Time
+15520,SIVE/1,362,whether; sīve ... sīve: whether ... or → seu,4,Conjunctions/Adverbs
+490,TAMQVAM/1,363,"so as, just as",4,Conjunctions/Adverbs
+1205,FVGA,364,"flight, route",4,Travel
+17109,TVTVS,365,"safe, protected",4,War and Peace
+765,AVRIS,366,ear,4,The Body
+2101,ALIENVS/2,367,"foreign, strange",4,Geography
+8050,HVC,368,to this place,4,Place
+16245,TACEO,369,"be silent; tacitus -a -um, silent",4,Other Senses
+9565,LEGIO,370,legion,4,War and Peace
+11827,OSTENDO,371,"show, hold out",4,Other Senses
+15530,SOCIVS/2,372,"friendly, allied; socius -ī m.: partner, comrade",4,Social Life
+13693,PROSVM/1,373,"be of use, do good, help (+ dat.)",4,Social Life
+707,ARA,374,altar,4,Religion
+9923,LVMEN,375,light,4,Vision
+16360,TEGO,376,"cover, conceal",4,Deception
+510,TVRPIS,377,"ugly, unsightly; disgraceful",4,Other Senses
+558,VOLVPTAS,378,"pleasure, enjoyment",4,Social Life
+598,ADHVC,379,"thus far, to this point",4,Place
+1229,GRATIA,380,"favor, influence, gratitude",4,Social Life
+1339,INIVRIA,381,"injustice, wrong, affront",4,Justice
+9499,LATVS/2,382,"side, flank",4,The Body
+131,DVLCIS,383,sweet,4,Other Senses
+13149,POSTQVAM,384,after,4,Time
+6814,EXTREMVS,385,"farthest, situated at the end or tip, extreme",4,Geography
+16354,TECTVM,386,"roof; building, house",4,The House
+8687,INGENIVM,387,"disposition, ability, talent",4,Education/Knowledge
+12197,PAX,388,peace,4,War and Peace
+3645,CANO,389,sing,4,Writing/Poetry
+9241,IVVO,390,"help, assist; please, delight",4,Social Life
+3615,CAMPVS/1,391,"plain, field",4,Earth and Water
+4248,CLAVDO/1,392,"close, shut",4,The House
+5987,DOCEO,393,teach,4,Education/Knowledge
+1129,EXCIPIO,394,take out,4,Verbs of Transport
+70,CLARVS,395,"clear, distinguished",4,Personality Traits/Characteristics
+1282,ILLIC/2,396,"at that place, there; illinc: from that place",4,Place
+370,PROCVL,397,at a distance,4,Place
+14728,SACER,398,"holy, sacred",4,Religion
+285,MORA,399,"delay, hindrance",4,Time
+9832,LONGE,400,"far, far off",,
+16090,SVPER/2,401,over (adv. and prep. +acc.),5,Place
+1107,ERRO/2,402,"go astray, wander",5,Travel
+436,SEDES,403,"seat, abode, habitation",5,The House
+976,CVR/1,404,why?,5,Pronouns/Interrogatives
+4419,COMA,405,"hair, tresses",5,The Body
+653,AIO,406,"say, affirm, say yes; ut āiunt: as they say",5,Speech/Oratory
+177,GAVDEO,407,rejoice,5,Emotions
+39,BEATVS,408,"happy, blessed, prosperous, fortunate",5,Personality Traits/Characteristics
+12594,PERVENIO,409,"arrive, reach",5,Travel
+528,VERVS,410,true,5,Speech/Oratory
+8471,INCIPIO,411,begin,5,Time
+12045,PARCO,412,"spare, be sparing of (+ dat.)",5,War and Peace
+531,VESTIS,413,"garment, robe, clothing",5,Life and Being
+452,SIMILIS,414,"like, similar",5,Personality Traits/Characteristics
+3469,CAEDES,415,"killing, slaughter",5,Violence
+11759,ORDO,416,"order, rank",5,War and Peace
+332,OPTO,417,"choose, select",5,Personality Traits/Characteristics
+542,VIRGO,418,"maiden, virgin, girl",5,People
+250,LEGO/2,419,"gather, choose, read",5,Writing/Poetry
+2980,AVRA,420,breeze,5,Air and Fire
+8344,IMPETVS,421,attack,5,Violence
+1200,FORMA,422,shape; beauty,5,Other Senses
+13340,PRAESTO/1,423,"excel, exhibit",5,Other Senses
+1881,AEQVOR,424,"level surface, sea, plain",5,Earth and Water
+10632,MISCEO,425,mix,5,Earth and Water
+15639,SPATIVM,426,space,5,Air and Fire
+16285,TANDEM,427,finally,5,Conjunctions/Adverbs
+1328,INFERVS,428,low; īnferior: lower; īnfimus or īmus: lowest,5,Geography
+10540,METVO,429,"to fear, to dread",5,Emotions
+16400,TEMPTO,430,"try, test",5,Making/Doing
+503,TRANSEO/1,431,go across,5,Travel
+17168,VLTIMVS,432,"farthest, final, last, ultimate",5,Geography
+1654,ADDO,433,give to,5,Social Life
+189,GRATVS,434,pleasant; grateful,5,Personality Traits/Characteristics
+9506,LAVDO,435,praise,5,Social Life
+11221,NONDVM,436,not yet,5,Conjunctions/Adverbs
+1295,IMPONO,437,"put in, put on, impose, levy upon",5,Measurement
+15581,SOMNVS,438,"sleep, slumber; (pl.) dreams",5,Life and Being
+4,ACIES,439,edge; line of battle,5,War and Peace
+14677,RVRSVS,440,"back, again",5,Place
+975,CVPIO,441,desire,5,Love
+6775,EXSPECTO,442,"watch, wait, expect",5,Vision
+4533,COMPONO,443,"build, construct, arrange",5,Making/Doing
+9523,LAVS,444,"praise, glory",5,Social Life
+3,ABSVM/1,445,"be away, absent",5,Travel
+17276,VSVS,446,"use, experience",5,Education/Knowledge
+521,VELVT/1,447,"even as, just as",5,Conjunctions/Adverbs
+892,COMES,448,"companion, comrade; attendant, follower",5,Social Life
+11351,OB,449,"against, on account of (+acc)",5,Place
+15862,STVDIVM,450,"eagerness, zeal",5,Emotions
+1161,FACILIS,451,easy,5,Personality Traits/Characteristics
+11296,NVMEN,452,"divine will, deity",5,Religion
+429,SAPIENS/2,453,"wise; (as subst.) wise man, sage, philosopher",5,Education/Knowledge
+16082,SVMO,454,take up,5,Motion
+11180,NOBILIS/2,455,"distinguished, noble; (as subst.) a nobleman or woman",5,Personality Traits/Characteristics
+14013,QVIN/1,456,"(adv.) indeed, in fact; (conjunction) so that ... not (+ subj.)",5,Conjunctions/Adverbs
+1192,FLEO,457,weep,5,Emotions
+11201,NOLO,458,be unwilling,5,Emotions
+12931,PLENVS,459,full,5,Measurement
+1787,ADVERSVS/2,460,"(adv. and prep.) facing, opposite, against, opposed (to)",5,War and Peace
+300,NEMVS,461,"grove, forest",5,Animals/Plants
+3765,CARVS,462,dear,5,Personality Traits/Characteristics
+5679,DESVM/1,463,be lacking,5,Business/Money
+9562,LEGATVS,464,"lieutenant, envoy",5,War and Peace
+5875,DISCO,465,learn,5,Education/Knowledge
+7381,FVROR/1,466,"rage, fury",5,Emotions
+675,AMNIS,467,"river, torrent",5,Earth and Water
+712,ARBOR,468,tree,5,Animals/Plants
+10784,MOX,469,soon,5,Time
+1091,EO/3,470,"(adv.) there, to that place",5,Place
+864,CIVIS,471,citizen,5,The City
+11513,OCCVPO/2,472,"seize, occupy; anticipate, do a thing first (+ infin.)",5,War and Peace
+15648,SPECTO,473,"look at, consider",5,Vision
+16450,TERGVM,474,"back, rear; ā tergō: from the rear",5,The Body
+5077,CRIMEN,475,"verdict, accusation",5,Justice
+1056,DONVM,476,"gift, present",5,Social Life
+311,NOTVS/2,477,well-known,5,Personality Traits/Characteristics
+15496,SINVS,478,"fold of a garment; lap, bay, gulf",5,Earth and Water
+151,FACIES,479,"form, appearance",5,Vision
+14670,RVMPO,480,"break, rupture",5,Violence
+272,MEMBRVM,481,"limb, member of the body",5,The Body
+17201,VMQVAM,482,ever,5,Time
+738,ASPICIO,483,"look to or at, behold",5,Vision
+13453,PRIVS,484,before,5,Time
+16394,TEMPLVM,485,consecrated ground; temple,5,Religion
+674,AMITTO,486,"let go, send away",5,Verbs of Compelling/Directing
+13125,POSCO,487,"demand, claim; inquire into",5,Speech/Oratory
+12379,PERDO,488,destroy,5,Violence
+390,QVAMVIS/1,489,however you like; although,5,Conjunctions/Adverbs
+16412,TENER,490,tender,5,Other Senses
+977,CVRRVS,491,chariot,5,Athletics
+13403,PRECOR,492,"pray, invoke",5,Religion
+24,ANIMA,493,"breath, spirit",5,Life and Being
+4835,CONTINGO/1,494,"touch, be contiguous to",5,Place
+9670,LIBERTAS,495,freedom,5,The City
+15326,SERVVS/1,496,slave,5,The Household
+461,SOROR,497,sister,5,The Household
+1193,FLVCTVS,498,"flood, billow, surf",5,Earth and Water
+14043,QVIPPE/1,499,"(adv.) indeed, surely",5,Conjunctions/Adverbs
+1136,EXIGO,500,drive out; collect,5,Verbs of Compelling/Directing
+1170,FEMINA,501,woman,6,People
+11150,NIMIVS,502,"too much, excessive",6,Personality Traits/Characteristics
+6886,FALLO,503,deceive,6,Deception
+10628,MIROR,504,"wonder at, marvel at (+ acc.)",6,Emotions
+869,CLASSIS,505,"class, division, fleet",6,War and Peace
+435,SEDEO,506,sit,6,The House
+15482,SINGVLVS,507,one each,6,Measurement
+10876,MVRVS,508,wall,6,The House
+11184,NOCEO,509,harm,6,Violence
+14079,QVONIAM,510,"since, seeing that",6,Conjunctions/Adverbs
+1168,FAX,511,torch,6,Air and Fire
+1354,INTELLIGO,512,understand,6,Education/Knowledge
+1396,IVNGO,513,join,6,Making/Doing
+641,AFFERO,514,bring to,6,Verbs of Transport
+881,COGITO,515,"think, reflect",6,Education/Knowledge
+9741,LIMEN,516,threshold,6,The House
+13771,PVBLICVS/2,517,"public, belonging to the state",6,The City
+394,QVEROR,518,"complain of, lament",6,Emotions
+6662,EXEMPLVM,519,"example, sample, copy",6,Speech/Oratory
+13412,PREX,520,"prayers, entreaties",6,Religion
+6075,DVBITO,521,"hesitate, doubt",6,Education/Knowledge
+11546,ODIVM,522,hatred,6,Emotions
+175,FVNDO/2,523,"pour, scatter",6,Earth and Water
+7364,FVNVS,524,funeral; death; dead body,6,Religion
+11111,NESCIO,525,"not know, be ignorant",6,Education/Knowledge
+13447,PRIOR,526,"earlier, preceding",6,Time
+17269,VSQVE,527,up to; continuously,6,Time
+129,DVBIVS,528,"doubtful; (as subst.) a doubt; sine dubiō, without a doubt, certainly",6,Deception
+16404,TENDO,529,"stretch, extend, direct (one’s steps or course)",6,Travel
+12211,PECVNIA,530,money,6,Business/Money
+13984,QVEMADMODVM/1,531,"in what manner, how",6,Pronouns/Interrogatives
+15629,SPARGO/2,532,scatter,6,Earth and Water
+16892,TRES,533,three,6,Measurement
+491,TANGO,534,touch,6,Other Senses
+14471,RESPONDEO,535,answer,6,Speech/Oratory
+16686,TIMOR,536,fear,6,Emotions
+373,PROPERO,537,"hasten, speed",6,Motion
+15905,SVBEO/1,538,go under; endure,6,Motion
+17339,VALEO,539,"be strong, excel, be valid, prevail; valē: farewell!",6,Social Life
+918,CONDO,540,"build, found; store up; hide, conceal",6,The City
+11051,NEFAS,541,"impiety, wickedness",6,Justice
+14078,QVONDAM,542,"formerly, once",6,Time
+770,AVXILIVM,543,"support, assistance; (pl.) auxiliary forces",6,War and Peace
+5634,DESERO/2,544,"leave, desert, abandon",6,Motion
+315,NVDVS,545,"naked, bare",6,The Body
+2930,AVCTOR,546,"originator, founder",6,Writing/Poetry
+2380,ANIMAL,547,"a living being, an animal",6,Animals/Plants
+109,DECVS,548,"beauty, grace; ornament, glory, honor",6,Personality Traits/Characteristics
+428,SALVS,549,"health, safety",6,Life and Being
+12132,PATEO,550,"lie open, extend; be evident or obvious",6,Geography
+14605,ROGO,551,ask,6,Speech/Oratory
+17305,VXOR,552,wife,6,The Household
+566,ABEO/1,553,go away,6,Motion
+14316,REGO,554,"guide, rule",6,The City
+595,ADEO/2,555,"(adv.) to such a degree, so",6,Conjunctions/Adverbs
+33,AVFERO,556,take away,6,Verbs of Transport
+13962,QVANTVM/3,557,(adv.) how much? how greatly? how much! how greatly! as much as,6,Pronouns/Interrogatives
+15222,SENEX/1,558,"old man, elder; senior, older",6,People
+170,FRONS/1,559,"forehead, brow; front",6,The Body
+13659,PROPTER/2,560,because of (+ acc.),6,Non–Directional Prepositions
+14311,REGIVS,561,"kingly, royal",6,Personality Traits/Characteristics
+98,CVRRO,562,run,6,Athletics
+12263,PELLO,563,"strike, beat, push, drive",6,Violence
+1050,DIVES,564,"rich (poet. dīs, dītis)",6,Business/Money
+1395,IVDICO,565,"judge, decide",6,Justice
+12213,PECVS/1,566,"cattle, sheep",6,Animals/Plants
+13161,POTENS,567,"able, powerful",6,Personality Traits/Characteristics
+431,SCRIBO,568,write,6,Writing/Poetry
+383,PVLCHER,569,beautiful,6,Vision
+16155,SVRGO,570,rise,6,Earth and Water
+3995,CETERVM/2,571,"for the rest, in addition, however that may be",6,Pronouns/Interrogatives
+55,CAREO,572,lack (+ abl.),6,Business/Money
+1077,EFFICIO,573,"bring about, complete; render (+ ut + subj.)",6,Making/Doing
+330,OLIM,574,"formerly, at that time",6,Time
+15297,SERMO,575,"conversation, discourse",6,Speech/Oratory
+1134,EXERCEO/2,576,"train, exercise, carry on",6,Athletics
+7626,GRADVS,577,"step, pace; grade, rank",6,War and Peace
+1994,AGITO,578,drive,6,Verbs of Compelling/Directing
+7202,FORTE,579,by chance,6,Religion
+8000,HONESTVS,580,honorable,6,Personality Traits/Characteristics
+287,MOROR/1,581,delay,6,Time
+13331,PRAESIDIVM,582,"garrison, protection",6,War and Peace
+15586,SONO/1,583,"sound, resound",6,Other Senses
+358,PRAEBEO,584,"furnish, supply, render",6,Verbs of Transport
+14310,REGIO,585,"boundary, region",6,Geography
+15234,SENTENTIA,586,"opinion, judgment",6,Education/Knowledge
+1551,ACER/2,587,"sharp, piercing",6,Other Senses
+482,SVPRA/2,588,"above, beyond (adv. and prep. +acc.)",6,Place
+794,BREVIS,589,"short, shallow, brief",6,Measurement
+4217,CITVS,590,swift; citō swiftly,6,Time
+951,CORNV,591,horn,6,Animals/Plants
+8693,INGRATVS,592,"unpleasant, disagreeable",6,Personality Traits/Characteristics
+10697,MOENIA,593,"walls, fortifications",6,The City
+536,VINCVLVM,594,"bond, fetter, tie",6,War and Peace
+596,ADEO/1,595,go to,6,Motion
+62,CETERVS,596,"the other, the others, the rest",6,Pronouns/Interrogatives
+1133,EXEO/1,597,go forth,6,Motion
+10149,MALO,598,prefer,6,Emotions
+463,SPECIES,599,"aspect, appearance",6,Vision
+17173,VLTRA/2,600,"beyond, further (adv. and prep. + acc.)",6,Place
+3984,CERTE,601,"certainly, surely",7,Measurement
+216,IMPERO,602,"command, control",7,War and Peace
+10128,MALE,603,(adv.) badly,7,Personality Traits/Characteristics
+13579,PROHIBEO,604,"restrain, keep away",7,Verbs of Compelling/Directing
+868,CLAMOR,605,"outcry, shout",7,Speech/Oratory
+127,DONO,606,present with a gift (+ acc. of person and abl. of thing),7,Social Life
+11596,OFFICIVM,607,"service, duty",7,The City
+896,COMMITTO,608,"join, entrust to (+ dat.); perform, do",7,Social Life
+90,CRESCO,609,"grow, increase",7,Animals/Plants
+627,AEQVVS,610,equal,7,Justice
+1162,FACTVM,611,"deed, accomplishment",7,Making/Doing
+802,CAEDO,612,"strike, kill, cut down",7,Violence
+6685,EXISTIMO,613,"think, believe",7,Education/Knowledge
+577,ACCEDO/1,614,approach,7,Motion
+4810,CONTEMNO,615,"despise, scorn, disdain",7,Emotions
+13781,PVDOR,616,"sense of shame, modesty, propriety",7,Personality Traits/Characteristics
+2459,ANTIQVVS,617,"ancient, old-time, former",7,Lengths of Time
+28,ARDEO,618,"blaze, glow; be eager",7,Air and Fire
+208,IBI,619,there,7,Place
+13723,PROVINCIA,620,province; official duty,7,The City
+391,QVANDO/1,621,when?; since; sī quandō: if ever,7,Pronouns/Interrogatives
+979,CVSTOS,622,guardian,7,The Household
+16125,SVPERSVM/1,623,"remain, survive; be superfluous (to)",7,Place
+5649,DESINO,624,"leave off, cease",7,Motion
+7018,FESSVS,625,"weary, tired",7,Life and Being
+13219,PRAEDA,626,"booty, prey",7,War and Peace
+10431,MEMORIA,627,"recollection, memory",7,Education/Knowledge
+1051,DIVIDO,628,"divide, separate",7,Making/Doing
+13411,PRETIVM,629,"price, worth, reward; pretium operae: a reward for trouble",7,Business/Money
+13074,PONTVS,630,"the open sea, the deep",7,Earth and Water
+515,VARIVS,631,"changing, varied, various",7,Other Senses
+17418,VEHO,632,"carry; vehor vehī vectus sum: travel, ride",7,Travel
+6889,FALSVS,633,"deceptive, false",7,Deception
+303,NIGER,634,black,7,Vision
+11703,OPPIDVM,635,town,7,The City
+13061,PONDVS,636,weight,7,Measurement
+2762,ARVVM,637,"ploughed land, field",7,Animals/Plants
+734,ARX,638,"citadel, castle; summit",7,The City
+462,SORS,639,"lot, fate, destiny; oracle",7,Religion
+537,VINVM,640,"vine, wine",7,Animals/Plants
+1049,DIVERSVS,641,"different, diverse",7,Other Senses
+11781,ORIOR,642,"arise, begin",7,Time
+136,ECCE,643,behold!,7,Vision
+13953,QVAMQVAM/2,644,"however, although",7,Conjunctions/Adverbs
+919,CONFERO,645,"collect, bring to",7,Verbs of Transport
+6853,FACINVS,646,"deed, crime",7,Justice
+412,RETINEO,647,"hold back, keep",7,Verbs of Compelling/Directing
+15663,SPERO,648,to hope,7,Emotions
+12923,PLEBS,649,the common people,7,The City
+13796,PVGNA,650,fist-fight; battle,7,Violence
+14409,REPETO,651,"demand, exact; revisit; call to mind, recollect; repeat",7,Verbs of Compelling/Directing
+934,CONSTITVO,652,"establish, put together",7,Making/Doing
+5454,DEFENDO,653,"defend, ward off",7,War and Peace
+10247,MARITVS/1,654,husband,7,The Household
+3977,CERNO,655,"discern, separate",7,Education/Knowledge
+16099,SVPERBVS/2,656,"overbearing, proud, haughty",7,Personality Traits/Characteristics
+612,ADVERSVS/1,657,"facing, opposed; unfavorable",7,War and Peace
+10761,MORBVS,658,"sickness, disease",7,The Body
+14853,SANCTVS,659,"sacred, inviolable",7,Religion
+4488,COMMVNIS,660,"common, general",7,The City
+995,DEDVCO,661,"launch, lead away",7,Travel
+14583,RIPA,662,bank of a river,7,Earth and Water
+908,CONCEDO/1,663,"yield, withdraw",7,War and Peace
+203,HORA,664,hour,7,Lengths of Time
+17626,VETO,665,forbid,7,Verbs of Compelling/Directing
+4354,COHORS,666,"cohort, band, troop",7,War and Peace
+7554,GIGNO,667,"beget, bear, bring forth",7,Life and Being
+16119,SVPERO,668,"overcome, surpass, defeat",7,War and Peace
+10081,MAESTVS,669,"sad, sorrowful; depressing",7,Emotions
+10423,MEMINI,670,"remember, recollect",7,Education/Knowledge
+8353,IMPLEO,671,"fill in, fill up",7,Earth and Water
+10106,MAGNITVDO,672,"greatness, size",7,Measurement
+17319,VACVVS,673,empty,7,Measurement
+512,VAGVS,674,"wandering, shifting",7,Travel
+17891,VVLGVS,675,the common people,7,The City
+110,DEFICIO,676,"fail, give out; revolt from",7,War and Peace
+11514,OCCVRRO,677,run to meet; come into one’s mind,7,Education/Knowledge
+15758,STATVO,678,"set up, determine",7,Justice
+1275,IDEO,679,for this reason,7,Conjunctions/Adverbs
+359,PRAEMIVM,680,"bounty, reward",7,Business/Money
+13356,PRAETEREA,681,"besides, moreover",7,Conjunctions/Adverbs
+16476,TERTIVS,682,third,7,Measurement
+16141,SVPPLICIVM,683,"punishment, penalty",7,Justice
+17390,VATES,684,"poet, bard",7,Writing/Poetry
+741,ASTRVM,685,star; constellation,7,Air and Fire
+550,VNDIQVE,686,"from all sides, on all sides",7,Place
+812,CANIS,687,dog,7,Animals/Plants
+6202,EDO/1,688,"put forth, state, explain",7,Speech/Oratory
+6929,FATEOR,689,"admit, confess; profess, declare; assent, say yes",7,Justice
+672,AMICITIA,690,friendship,7,Social Life
+762,AVREVS/2,691,golden; splendid,7,Business/Money
+47,CANDIDVS,692,"white, fair",7,Vision
+1360,INTERIM,693,meanwhile,7,Time
+7299,FRVSTRA,694,in vain,7,Conjunctions/Adverbs
+9464,LATEO,695,"lie hidden, be hidden",7,Deception
+11805,OS/2,696,bone,7,The Body
+15119,SECVRVS,697,"free from care, tranquil; careless",7,Personality Traits/Characteristics
+4879,CONVENIO,698,"assemble, meet; agree",7,Social Life
+1359,INTERFICIO,699,kill,7,Violence
+699,APPELLO/1,700,"call, address, name",7,Social Life
+1053,DOLVS,701,"artifice, device, trick",8,Deception
+12478,PERMITTO,702,"yield, allow, permit",8,Verbs of Compelling/Directing
+15684,SPIRITVS,703,"breath, life, spirit",8,Life and Being
+1366,INTRA/2,704,within (+ acc.),8,Place
+16462,TERREO,705,"terrify, frighten",8,Emotions
+1197,FONS,706,"spring, fountain",8,Earth and Water
+1370,INVIDIA,707,"envy, jealousy, hatred",8,Emotions
+13801,PVGNO,708,fight,8,Violence
+2952,AVGEO,709,increase,8,Making/Doing
+9792,LITTERA,710,"letter, (pl.) literature",8,Writing/Poetry
+10733,MONEO,711,"warn, advise",8,Speech/Oratory
+5980,DIVITIAE,712,"riches, wealth",8,Business/Money
+1143,EXPERIOR,713,"try thoroughly, test, experience",8,Education/Knowledge
+16110,SVPERI,714,"those above, i.e. the gods",8,Religion
+11857,OTIVM,715,leisure,8,Social Life
+17611,VESTIGIVM,716,"footstep, footprint, track",8,Travel
+15489,SINO,717,"allow, let go",8,Verbs of Compelling/Directing
+5403,DECET,718,"it is right, proper, fitting (+ acc. + infin.)",8,Personality Traits/Characteristics
+6239,EFFVNDO/2,719,pour out,8,Earth and Water
+13605,PROMITTO,720,"send forth, offer",8,Verbs of Compelling/Directing
+1184,FINGO,721,shape; invent,8,Making/Doing
+14467,RESPICIO,722,"look back, regard, consider",8,Vision
+8327,IMPERATOR,723,commander,8,War and Peace
+17315,VACO,724,"be empty, open, unoccupied",8,Measurement
+888,COLOR,725,color,8,Vision
+1040,DISCEDO/1,726,"go away, depart",8,Travel
+178,GAVDIVM,727,"delight, joy, pleasure",8,Emotions
+3467,CAECVS,728,"blind, unseeing; dark, obscure",8,Vision
+9674,LIBET,729,it is pleasing (+ dat. + infin.),8,Social Life
+60,CENTVM,730,one hundred,8,Measurement
+84,CONSTO,731,"agree; constat, it is established that (+ acc. and infin.)",8,Speech/Oratory
+9757,LINGVA,732,tongue; language,8,The Body
+10824,MVLTITVDO,733,"multitude, number",8,Measurement
+635,AETERNVS,734,"everlasting, eternal",8,Lengths of Time
+67,CIRCA/2,735,around (adv. and prep. +acc.),8,Place
+11734,ORATIO,736,"speech, address",8,Speech/Oratory
+357,POTESTAS,737,power,8,The City
+16312,TARDVS,738,"slow, sluggish, lingering",8,Time
+1198,FOR,739,"report, say",8,Speech/Oratory
+204,HVMVS,740,ground; humī: on the ground,8,Earth and Water
+16488,TESTIS/1,741,witness,8,Justice
+8639,INFERO,742,"bring upon, against; bellum īnferre: make war on",8,War and Peace
+97,CVRO,743,"watch over, look after, care for (+ acc.)",8,Love
+1896,AES,744,"copper, bronze",8,Business/Money
+833,CELER,745,swift,8,Time
+13493,PROCEDO/1,746,"go forth, advance",8,Motion
+10456,MENSA,747,table,8,The House
+12877,PIVS,748,"dutiful, devoted, just, pious",8,Personality Traits/Characteristics
+1394,IVDICIVM,749,"judgment, decision, trial",8,Justice
+17669,VICTORIA,750,victory,8,War and Peace
+5329,DAMNO,751,condemn,8,Justice
+14147,RARVS,752,"wide apart, loose, thin; rare, seldom",8,Measurement
+16390,TEMPESTAS,753,"period of time, season; bad weather, storm",8,Lengths of Time
+8258,IMAGO,754,"image, form, figure",8,Vision
+11789,ORO,755,pray,8,Religion
+13354,PRAETER/2,756,"by, along, past; besides, except (+ acc.)",8,Place
+4796,CONSVLO,757,"consult, plan (+ acc.); consider the interests of (+dat)",8,The City
+1390,ITERVM,758,again,8,Time
+13111,PORTA,759,gate,8,The City
+8975,INTERSVM/1,760,"to be between; take part in, attend (+dat.); interest, it is in the interest of (+ gen.)",8,Place
+253,LIBIDO,761,"passion, lust",8,Love
+16178,SVSTINEO,762,"hold up, sustain",8,Social Life
+659,ALIQVANDO,763,"at some time, at length",8,Time
+10122,MAIORES,764,ancestors,8,The Household
+14407,REPERIO,765,"find, find out",8,Education/Knowledge
+1367,INTRO/1,766,enter,8,Motion
+12786,PIETAS,767,"sense of duty, devotion, esp. between parents and children",8,The Household
+3129,BARBARVS/2,768,"foreigner, barbarian",8,War and Peace
+5161,CVLPA,769,"guilt, fault, blame",8,Justice
+236,IVSTVS,770,"right, just, fair",8,Justice
+1055,DONEC,771,until,8,Time
+7147,FLVO,772,flow,8,Earth and Water
+11035,NECESSE,773,necessary,8,Business/Money
+14392,REOR,774,"think, imagine, suppose, deem",8,Education/Knowledge
+495,TENEBRAE,775,"darkness, the shadows",8,Vision
+14751,SAECVLVM,776,"generation, age, century",8,Lengths of Time
+5822,DIMITTO,777,send away,8,Verbs of Compelling/Directing
+9704,LICET/3,778,even though,8,Justice
+66,CINIS,779,"ashes, embers",8,Air and Fire
+4752,CONSISTO,780,"take position; consist in, be composed of",8,Speech/Oratory
+14190,RECENS/1,781,"fresh, new",8,Time
+662,ALITER,782,"otherwise, differently",8,Conjunctions/Adverbs
+245,LAEDO,783,"injure by striking, hurt",8,Violence
+13486,PROBO,784,"approve, prove; convince one (dat.) of a thing (acc.)",8,Verbs of Compelling/Directing
+6002,DOLEO,785,"feel pain or grief, grieve",8,Emotions
+13968,QVARE/1,786,how? why?,8,Pronouns/Interrogatives
+2435,ANTEQVAM,787,before,8,Time
+14342,RELIQVVS,788,"remaining, rest",8,Measurement
+437,SEMEL,789,once,8,Time
+11542,ODI,790,hate,8,Emotions
+449,SICVT/1,791,just as,8,Conjunctions/Adverbs
+12203,PECCO,792,"commit a wrong, injure",8,Justice
+15233,SENSVS,793,"feeling, emotion, sense",8,Emotions
+1137,EXSILIVM,794,"exile, banishment",8,Travel
+86,COR,795,"heart; cordī est, it is pleasing to (+ dat.)",8,The Body
+5574,DENIQVE,796,finally,8,Time
+14873,SAPIENTIA,797,wisdom,8,Education/Knowledge
+15751,STATIM,798,immediately,8,Time
+1522,ACCIDO/1,799,fall; happen,8,Motion
+5398,DECERNO,800,"determine, decide",8,Education/Knowledge
+11497,OCCIDO/2,801,"kill, cut down",9,Violence
+115,DESCENDO,802,"climb down, descend",9,Travel
+202,HIEMS,803,winter,9,Lengths of Time
+4833,CONTINEO,804,"contain, restrain",9,Verbs of Compelling/Directing
+996,DEFERO,805,"carry away, report",9,Verbs of Transport
+11693,OPORTET,806,"it is proper, right (+ acc. + infin.)",9,Social Life
+16909,TRIBVNVS,807,"tribune, title of various Roman officials, as mīlitum, plēbis, aerāriī",9,The City
+791,BOS,808,ox; gen. pl. boum,9,Animals/Plants
+9101,IRASCOR,809,grow angry; īrātus -a -um: angry,9,Emotions
+1827,AEGER/2,810,sick,9,Life and Being
+7212,FORVM/1,811,"market-place, forum",9,The City
+11590,OFFERO,812,"present, offer, expose",9,Verbs of Transport
+14532,REVOCO,813,"call back, recall",9,Social Life
+858,CINGO,814,"encircle, surround, gird",9,War and Peace
+8888,INTEGER,815,"untouched, fresh, complete, whole",9,Personality Traits/Characteristics
+17351,VALIDVS,816,strong,9,Personality Traits/Characteristics
+664,ALO,817,nourish,9,Life and Being
+161,FLOS,818,"flower, bloom",9,Animals/Plants
+8160,ICTVS,819,"blow, stroke",9,Violence
+885,COLLIGO/3,820,"gather together, collect",9,Verbs of Compelling/Directing
+12430,PERGO,821,"continue, proceed; awaken",9,Motion
+13321,PRAESENS,822,"present, in person, ready",9,Place
+14234,RECTVS,823,"straight, direct",9,Measurement
+9500,LATVS/1,824,"broad, wide",9,Measurement
+13200,PRAECEPTVM,825,"rule, precept; command",9,Justice
+404,RECEDO/1,826,"step back, recoil, recede, withdraw",9,Motion
+17295,VTRVM,827,whether; utrum ... an: whether ... or,9,Conjunctions/Adverbs
+1164,FAMES,828,"hunger, famine",9,Life and Being
+12055,PARIO/2,829,"bring forth, give birth to; accomplish",9,Life and Being
+698,APPAREO,830,"appear, become visible",9,Vision
+14075,QVOMODO/1,831,"in what way, how?",9,Pronouns/Interrogatives
+6463,ERROR,832,"wandering; error, mistake",9,Travel
+7200,FORSITAN,833,"perhaps, perchance",9,Conjunctions/Adverbs
+943,CONVERTO,834,"turn about, turn, change",9,Motion
+13557,PROFICISCOR,835,"set forth, go",9,Travel
+15115,SECVNDVS/1,836,following; favorable; (as numeral) second,9,Measurement
+696,APERIO,837,open,9,The House
+826,CASTVS/2,838,"pure, spotless, chaste",9,Personality Traits/Characteristics
+1393,IVDEX,839,"judge, juror",9,Justice
+9418,LAPIS,840,stone,9,Earth and Water
+304,NIMIS,841,excessively,9,Personality Traits/Characteristics
+11659,ONVS,842,"load, burden",9,Measurement
+11667,OPERA,843,"labor, activity, work",9,Business/Money
+342,PAVPER,844,"poor, lowly",9,Business/Money
+8,AER,845,air,9,Air and Fire
+11063,NEGOTIVM,846,business,9,Business/Money
+12052,PAREO,847,obey,9,Verbs of Compelling/Directing
+15916,SVBITO,848,"suddenly, unexpectedly",9,Time
+720,ARGENTVM,849,"silver, money",9,Business/Money
+17284,VTILIS,850,useful,9,Making/Doing
+1933,AETHER,851,"pure upper air, ether, heaven, sky",9,Air and Fire
+10484,MEREO,852,"deserve, merit; serve as a soldier",9,Business/Money
+13120,PORTO,853,carry a load,9,Measurement
+376,PROPRIVS,854,"one’s own, peculiar",9,Pronouns/Interrogatives
+35,AVIS,855,bird,9,Animals/Plants
+513,VANVS,856,"empty; false, deceitful",9,Deception
+269,MATERIA,857,"material, subject matter; timber, lumber",9,Speech/Oratory
+12163,PAVCI,858,"few, a few",9,Measurement
+556,VOLVNTAS,859,"wish, desire",9,Emotions
+6253,EGREGIVS,860,"distinguished, uncommon",9,Personality Traits/Characteristics
+5778,DIFFICILIS,861,"not easy, hard, difficult",9,Personality Traits/Characteristics
+1221,GLADIVS,862,sword,9,War and Peace
+853,CIBVS,863,food,9,Life and Being
+843,CERTO/1,864,"decide by contest; fight, compete, vie",9,Athletics
+8726,INITIVM,865,beginning,9,Time
+12576,PERTINEO,866,"extend over, reach; refer to, pertain to, be the business of",9,Education/Knowledge
+13981,QVATVOR,867,four,9,Measurement
+17064,TVRBO/2,868,"disturb, confuse",9,Speech/Oratory
+937,CONSVMO,869,"to use up, consume",9,Life and Being
+4973,CORRVMPO,870,"break up, destroy, ruin",9,Violence
+1307,INCIDO/1,871,"fall upon, fall into; happen",9,Motion
+12171,PAVLO,872,"to only a small extent, slightly, a little",9,Measurement
+1257,HOSPES,873,"guest, guest-friend; stranger; host",9,Social Life
+414,RIDEO,874,"laugh, laugh at",9,Emotions
+639,AEVVM,875,"eternity; lifetime, age",9,Lengths of Time
+2940,AVDAX,876,"bold, daring; reckless",9,Personality Traits/Characteristics
+13139,POSTERVS,877,"next, later",9,Time
+13371,PRAETOR,878,"praetor, one of the chief Roman magistrates",9,The City
+14678,RVS,879,country,9,Geography
+1030,DIFFERO,880,"scatter; publish, divulge; differ; defer, postpone",9,Making/Doing
+17798,VITO,881,"avoid, shun",9,Social Life
+13456,PRIVATVS,882,"personal, private",9,Social Life
+15320,SERVIO,883,"be a slave, serve (+ dat.)",9,The Household
+17527,VEREOR,884,"fear, stand in awe of",9,Emotions
+8696,INGREDIOR,885,"step in, enter",9,Motion
+594,ADDVCO,886,"lead to, induce",9,Verbs of Compelling/Directing
+1256,HORTOR,887,"urge strongly, advise, exhort",9,Speech/Oratory
+14516,REVS,888,defendant,9,Justice
+15002,SCILICET,889,"certainly, of course",9,Conjunctions/Adverbs
+76,COMPARO/2,890,"get ready, provide; compare",9,Business/Money
+12512,PERPETVVS,891,"unbroken, perpetual",9,Lengths of Time
+5643,DESIDERO,892,"long for, desire greatly",9,Love
+58,CELEBRO,893,"frequent, throng, crowd",9,The City
+4639,CONFICIO,894,"complete, accomplish; destroy, kill, consume",9,Violence
+8903,INTENDO,895,"stretch out, strain",9,Motion
+9213,IVRO,896,"take an oath, swear; iūs iūrandum, oath",9,Justice
+15570,SOLVM/2,897,"only, merely",9,Measurement
+29,AVCTORITAS,898,"influence, clout, authority",9,Social Life
+8117,IACIO,899,"throw, hurl",9,Athletics
+9276,LABORO,900,"toil, work; be in trouble or distress",9,Business/Money
+9661,LIBER/1,901,book,10,Writing/Poetry
+261,LVNA,902,moon,10,Air and Fire
+13707,PROTINVS,903,"at once, forthwith",10,Time
+1873,AEQVE,904,equally,10,Justice
+82,CONOR,905,"try, attempt",10,Making/Doing
+974,CVPIDO,906,"desire, eagerness, craving",10,Love
+6979,FERE,907,almost,10,Conjunctions/Adverbs
+1352,INSVLA,908,island,10,Geography
+1182,FILIA,909,daughter; son,10,The Household
+1183,FILIVS,909,daughter; son,10,The Household
+10959,NARRO,910,"relate, recount",10,Speech/Oratory
+11037,NECESSITAS,911,"necessity, need",10,Business/Money
+141,EGREDIOR,912,"stride out, depart, disembark from (+ abl.)",10,Travel
+12987,POETA,913,poet,10,Writing/Poetry
+106,DECEM,914,ten,10,Measurement
+2295,AMPLVS,915,"large, spacious",10,Measurement
+2547,APTVS,916,"fit, suitable",10,Personality Traits/Characteristics
+932,CONSEQVOR,917,"follow up, overtake, attain",10,Motion
+7248,FREQVENS,918,"in large numbers, often",10,Measurement
+11322,NVNTIVS/1,919,messenger; news,10,Travel
+917,CONDICIO,920,"agreement, condition",10,Business/Money
+4900,CONVIVIVM,921,"banquet, feast",10,Social Life
+1195,FOEDVS/2,922,foul,10,Other Senses
+7298,FRVOR,923,"enjoy the produce of, profit by, use (+ abl.)",10,Emotions
+11291,NVM,924,interrogative particle implying negative answer,10,Pronouns/Interrogatives
+13,ALBVS,925,white,10,Vision
+5331,DAMNVM,926,"damage, injury",10,Violence
+1204,FRVCTVS,927,"fruit, crops; enjoyment, delight",10,Animals/Plants
+3928,CENSEO,928,"assess, rate; think, decide",10,Education/Knowledge
+13538,PRODO,929,"publish, hand down; give over, betray",10,Verbs of Transport
+375,PROPONO,930,"put forth, propose, present",10,Speech/Oratory
+1351,INSTITVO,931,undertake; equip,10,Making/Doing
+1389,ITEM,932,likewise,10,Conjunctions/Adverbs
+10087,MAGISTER,933,"master, chief",10,Education/Knowledge
+15762,STELLA,934,star,10,Air and Fire
+1076,EDVCO/2,935,lead forth,10,Verbs of Compelling/Directing
+7296,FRVMENTVM,936,grain,10,Animals/Plants
+16164,SVSCIPIO,937,take up,10,Verbs of Transport
+13973,QVASI/1,938,as if,10,Conjunctions/Adverbs
+14730,SACERDOS,939,"priest, priestess",10,Religion
+17660,VICINVS/2,940,"neighboring, near",10,Geography
+56,CAVEO,941,"be on guard, beware",10,Violence
+144,ELIGO/3,942,"pick out, select",10,The City
+6893,FAMILIA,943,"household, family",10,The Household
+11906,PAENE,944,almost,10,Conjunctions/Adverbs
+13205,PRAECIPIO,945,"anticipate, advise, warn",10,Speech/Oratory
+14869,SANVS,946,"sound, sane",10,Life and Being
+13171,POTIS,947,"powerful, able",10,Personality Traits/Characteristics
+13446,PRINCIPIVM,948,beginning,10,Time
+15269,SEPVLCRVM,949,"place of burial, tomb, grave",10,Life and Being
+10772,MORTALIS/2,950,"liable to death, mortal; (as subst.) a mortal",10,Life and Being
+6413,EPISTOLA,951,letter,10,Writing/Poetry
+8722,INIMICVS/2,952,unfriendly; (as subst.) enemy,10,Personality Traits/Characteristics
+1364,INTERROGO,953,"put a question to, ask (+ acc.)",10,Speech/Oratory
+4791,CONSVETVDO,954,"custom, habit",10,Personality Traits/Characteristics
+8236,ILLVC,955,to that place,10,Place
+1032,DIGNITAS,956,"worth, reputation, honor",10,Personality Traits/Characteristics
+172,FVGO,957,put to flight,10,Travel
+11,AFFICIO,958,"affect, visit with (+ abl.)",10,Social Life
+1673,ADHIBEO,959,apply,10,Making/Doing
+3481,CAELESTIS,960,"from or of heaven; caelestēs, the gods",10,Air and Fire
+10803,MVLIER,961,woman,10,People
+5986,DIVVS/1,962,"divine, godlike; (as subst.) a god",10,Religion
+711,ARBITROR,963,"consider, think",10,Education/Knowledge
+13133,POSTEA,964,afterwards,10,Time
+1803,AEDES,965,building; (pl.) house,10,The House
+6840,FABVLA/1,966,"account, tale, story",10,Writing/Poetry
+3904,CELERITER,967,quickly,10,Time
+12933,PLERVSQVE,968,"the greater part, very many, most, the majority",10,Measurement
+14009,QVIESCO,969,keep quiet; sleep,10,Life and Being
+14085,QVOTIENS/2,970,"interr. how many times? how often? rel. as often as, whenever",10,Pronouns/Interrogatives
+15001,SCIENTIA,971,knowledge,10,Education/Knowledge
+4650,CONFITEOR,972,"admit (a fact), confess (a crime); reveal, disclose",10,Justice
+5807,DILIGO/3,973,"choose, cherish, love",10,Love
+354,PLERVMQVE,974,generally,10,Measurement
+1057,DORMIO,975,sleep,10,Life and Being
+17851,VOLVCRIS,976,bird,10,Animals/Plants
+17850,VOLVCER,977,flying,10,Animals/Plants
+956,CREO,978,"produce, create; elect, choose",10,Making/Doing
+156,FIDELIS/2,979,faithful,10,Personality Traits/Characteristics
+1316,INDICO/1,980,"point out, show, make known",10,Speech/Oratory
+1254,HODIE,981,today,10,Lengths of Time
+5872,DISCIPLINA,982,"training, instruction; learning, discipline",10,Education/Knowledge
+17522,VERE,983,truly,10,Speech/Oratory
+1834,AEGRE,984,with difficulty,10,Life and Being
+1212,FVTVRVM,985,0,10,Life and Being
+1788,ADVERTO,986,turn towards,10,Motion
+611,ADVENIO,987,"come to, arrive at",10,Travel
+12282,PENDO,988,"weigh, hang, suspend; pay",10,Business/Money
+15859,STVDEO,989,"be eager, be zealous, care for (+ dat.)",10,Emotions
+736,ASCENDO,990,"climb up, ascend",10,Travel
+17889,VVLGO/2,991,commonly,10,The City
+7197,FORS/1,993,chance,10,Religion
+14524,REVERTO,995,turn back,10,Motion
+1073,EDICO/2,996,declare,10,Speech/Oratory
+292,MVNDVS/1,997,"clean, neat, elegant",4,Earth and Water
+16295,TANTVM/2,216,only,3,Measurement
+16296,TANTVMMODO,216,only,3,Measurement
