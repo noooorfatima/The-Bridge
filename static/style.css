@@ -36,7 +36,18 @@ body {
   vertical-align: baseline;
   line-height: 25px;
 }
-
+hr {
+    display: block;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-width: 2px;
+    border-top: 2px solid #ccc;
+}
+br{
+  line-height: 120%;
+}
 #background.custom-background {
   background-image: url("http://iris.haverford.edu/bridge/files/2015/10/Pont_du_Gard_BLS-11.jpg");
   background-repeat: no-repeat;
@@ -1737,7 +1748,12 @@ Began: 5/24/17;
  #resizetxt {
     font-size: 18px;
  }
-
+ #filtering_note {
+    font-size: 18px;
+ }
+ #resizetxt2 {
+    font-size: 18px;
+ }
 /*================= Changing Buttons */
 .type_of_txt_btn_group .btn {
   width: 23%;

@@ -6,7 +6,7 @@
 <body class = "home blog custom-background img-responsive" data-title="words_page">
     {% include "navbar.html" %}
     <div id="background" class = "custom-background img-responsive">
-    <div class="page-wrap">
+      <div class="page-wrap">
         <div class="alert alert-info word-load-alert" id="word_load_info" role="alert">
             <strong>  Loading vocab: </strong>{{ text_from_formatted}}{{ text_to_formatted }}; <strong>{{ add_remove_formatted }}</strong>: {{ bookslist_formatted }}.
         </div>
@@ -16,25 +16,6 @@
         </div>
         <div class="alert alert-danger word-load-alert" id="word_load_failure" role="alert" style="display: none;">
            <strong> Error! </strong>Failure to find your selection {{ text_from_formatted}}{{ text_to_formatted }}; <strong>{{ add_remove_formatted }}</strong>: {{ bookslist_formatted }} within The Bridge database. Please try again.
-        </div>
-        <!--img id="loading_gif" src="/static/images/loading.gif"-->
-        <div id="slideout-container" data-stowed=true style="width: 360px; overflow-y: scroll;">
-            <div id="slideout-pulltab" style="right: 313px;">
-                <div>
-                    <div>
-                        <span class="glyphicon glyphicon-chevron-left"></span>
-                    </div>
-                    <!--div>
-                        filters
-                    </div-->
-                    <div>
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </div>
-                </div>
-            </div>
-            <div id="slideout-panel" data-state="stowed" style="right: 0px;">
-                {% include "slideout_panel.html" %}
-            </div>
         </div>
         <div id="big_wrap">
             <div class="row">
@@ -77,12 +58,12 @@
                                 <th class="lemma" data-fieldname='display_lemma' data-fieldtype='Dictionary Entry' data-radio=true data-visible=false>Dictionary Entry (macrons)</th>
 
                                 {% if loc_def %}
-                                <th id="latinBasicDef" class="def" data-fieldname='english_core' data-fieldtype='Definitions' data-radio=true data-visible=true>Basic English</th>
-                                <th class="def" data-fieldname='english_extended' data-fieldtype='Definitions' data-radio=true  data-visible=false>Full English</th>
-                                 <th class="def" data-fieldname='local_def' data-fieldtype='Definitions' data-radio=true data-visible=false>Text-Specific</th>
+                                  <th id="latinBasicDef" class="def" data-fieldname='english_core' data-fieldtype='Definitions' data-radio=true data-visible=false>Basic English</th>
+                                  <th class="def" data-fieldname='english_extended' data-fieldtype='Definitions' data-radio=true  data-visible=false>Full English</th>
+                                  <th class="def" data-fieldname='local_def' data-fieldtype='Definitions' data-radio=true data-visible=true>Text-Specific</th>
                                 {% else %}
-                                <th id="latinBasicDef" class="def" data-fieldname='english_core' data-fieldtype='Definitions' data-radio=true data-visible=true>Basic English</th>
-                                <th class="def" data-fieldname='english_extended' data-fieldtype='Definitions' data-radio=true  data-visible=false>Full English</th>
+                                  <th id="latinBasicDef" class="def" data-fieldname='english_core' data-fieldtype='Definitions' data-radio=true data-visible=true>Basic English</th>
+                                  <th class="def" data-fieldname='english_extended' data-fieldtype='Definitions' data-radio=true  data-visible=false>Full English</th>
                                 {% endif %}
 
                                 <th class="Appearance" data-fieldname='position' data-fieldtype='check' data-radio=false data-visible=false>First Appearance</th>
@@ -100,19 +81,34 @@
                             </tr>
                         </thead>
                         {% endif %}
+                        <div id="slideout-container" data-stowed=true style="width: 360px; overflow-y: scroll;">
+                            <div id="slideout-pulltab" style="right: 313px;">
+                                <div>
+                                    <div>
+                                        <span class="glyphicon glyphicon-chevron-left"></span>
+                                    </div>
+                                    <div>
+                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="slideout-panel" data-state="stowed" style="right: 0px;">
+                                {% include "slideout_panel.html" %}
+                            </div>
+                          </div>
                     </table>
+                  </div>
+                    <a href="#top" id ="backToTopBtn"><button class="btn btn-default" id="back_to_top"><span class="glyphicon glyphicon-chevron-up"></span><br/>Back to Top</button></a>
+              </div>
                 </div>
+              </div>
             </div>
-        </div>
+            <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
+            </body>
         <script type="text/javascript">
             console.log("{% autoescape on %}{{language}}","{{text}}","{{text_comp}}","{{bookslist_comp}}","{{text_from}}","{{text_to}}","{{add_remove}}{% endautoescape %}")
             setVocabMetadata("{% autoescape on %}{{language}}","{{text}}","{{text_comp}}","{{bookslist_comp}}","{{text_from}}","{{text_to}}","{{add_remove}}{% endautoescape %}");
         </script>
-        <a href="#top" id ="backToTopBtn"><button class="btn btn-default" id="back_to_top"><span class="glyphicon glyphicon-chevron-up"></span><br/>Back to Top</button></a>
 
-    </div>
-</div>
-</div>
-<iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
-</body>
+
 {% include "footer.html" %}

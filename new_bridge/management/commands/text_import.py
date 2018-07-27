@@ -62,6 +62,7 @@ def add_word_appearances(is_greek, appearance_list, loc_list, text_name,listifie
         local_def_dict = {}
         for entry in listified_csv[1:]:
            local_def_dict[entry[0]]=entry[3]
+        print('made local def dict')
         for appearance in appearance_list:
             if appearance[0].strip() != loc_list[loc_list_index].strip():
                 print('changing loc_list_index, with these two:', appearance[0].strip(), loc_list[loc_list_index].strip())
@@ -70,7 +71,7 @@ def add_word_appearances(is_greek, appearance_list, loc_list, text_name,listifie
                 entry = WordAppearencesGreek(text_name=text_name, text_name_for_computers=TextMetadata.objects.get(name_for_humans=text_name).name_for_computers,
                         word_id=appearance[1].strip(),mindiv=loc_list_index, appearance= loc_list[loc_list_index].replace('_','.'),local_def=local_def_dict[appearance[1]] )
             else:
-
+                print(appearance[1])
                 entry = WordAppearencesLatin(text_name=text_name, text_name_for_computers=TextMetadata.objects.get(name_for_humans=text_name).name_for_computers,
                         word_id=appearance[1].strip(),
                         mindiv=loc_list_index,

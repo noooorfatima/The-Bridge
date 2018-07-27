@@ -214,10 +214,10 @@ $(document).ready(function() {
             if (clicked.attr("class").indexOf("active") === -1) {
                 if (clicked.text().includes("EXCLUD") ||  clicked.text().includes("xclud")){
                   var text = clicked.text().trim().substr(0, 6) +
-                      "ing words from:";
+                      "ing Words From...";
                 }
                 else{
-                  var text = "Matching words from"
+                  var text = "Matching Words From..."
                 }
 
                 $("#headingThree .panel-title").text(text);
@@ -749,13 +749,13 @@ if (wrapper0.id == "reading wrapper") {
   //I highly recommend opening this file with an editor that will wrap lines that go over 80 characters
   $(wrapper0).append('<br class = "'+text_name+' '+div_count+'"><div class="thumbnail" id="'+text_name+' '+div_count+'"> <fieldset class="default_fieldset" name="book" value="'+text_name+'" data-toggle="tooltip" data-placement="bottom" title=" "> <div class="'+text_name+'"> '+text_name+'</div></fieldset>')
 
-  $(wrapper0).append('<div class="input-group-container" id="'+text_name+' '+div_count+' input-group-container">  <div class="input-group"><input type="text" class="form-control" name="'+text_name+' reading from" placeholder="'+subsection_for_this_text+'" aria-describedby="sizing-addon3"><span class="input-group-addon" id="sizing-addon3">to</span><input type="text" class="form-control" name="'+text_name+' reading to" placeholder="'+subsection_for_this_text+'" aria-describedby="sizing-addon3"></div></div></div></div></div> <br class = "'+text_name+' '+div_count+'"> <p id = "description for '+text_name+' '+div_count+'">Optional: select a section of this work. Leave blank for all the words in the work. Want multiple non-contiguous sections of the same work? Just click "Add Work" again and define the new section. </p>');
-    $(wrapper0).append('<div> <button type=button  id="delete '+text_name+' '+div_count+'" class="btn-default add-work" onclick = "delete_add(this.id)"> Remove Work </button> <br class = "'+text_name+' '+div_count+'"></div>');
+  $(wrapper0).append('<div class="input-group-container" id="'+text_name+' '+div_count+' input-group-container">  <div class="input-group"><input type="text" class="form-control" name="'+text_name+' reading from" style= "text-align : right" placeholder="'+subsection_for_this_text+'" aria-describedby="sizing-addon3"><span class="input-group-addon" id="sizing-addon3">to</span><input type="text" class="form-control" name="'+text_name+' reading to" placeholder="'+subsection_for_this_text+'" aria-describedby="sizing-addon3"></div></div></div></div></div> <br class = "'+text_name+' '+div_count+'"> <p class = "description for '+text_name+' '+div_count+'">Optional: select a section of this work. Leave blank for all the words in the work. To add non-contiguous sections of the same work, select a section; then click Add Word again to define the next section. </p>');
+    $(wrapper0).append('<div> <button type=button  id="delete '+text_name+' '+div_count+'" class="btn-default add-work" onclick = "delete_add(this.id)"> Remove Work </button> <br class = "'+text_name+' '+div_count+'"></div><hr style="text-align : center" class = "'+text_name+' '+div_count+'">');
 } else {
   $(wrapper0).append('<br class = "'+text_name+' '+div_count+'"><div class="thumbnail" id="'+text_name+' '+div_count+'"> <fieldset class="default_fieldset" name="book_read" value="'+text_name+'" data-toggle="tooltip" data-placement="bottom" title=" "> <div class="'+text_name+'"> '+text_name+'</div></fieldset>')
 
-  $(wrapper0).append('<div class="input-group-container" id="'+text_name+' '+div_count+' input-group-container">  <div class="input-group"><input type="text" class="form-control" name="'+text_name+' from" placeholder="'+subsection_for_this_text+'" aria-describedby="sizing-addon3"><span class="input-group-addon" id="sizing-addon3">to</span><input type="text" class="form-control" name="'+text_name+' to" placeholder="'+subsection_for_this_text+'" aria-describedby="sizing-addon3"></div></div></div></div></div> <br class = "'+text_name+' '+div_count+'"> <p id = "description for '+text_name+' '+div_count+'">Optional: select a section of this work. Leave blank for all the words in the work. Want multiple non-contiguous sections of the same work? Just click "Add Work" again and define the new section. </p>');
-    $(wrapper0).append('<div> <button type=button  id="delete '+text_name+' '+div_count+'" class="btn-default add-work" onclick = "delete_add(this.id)"> Remove Work </button> <br class = "'+text_name+' '+div_count+'"></div>');
+  $(wrapper0).append('<div class="input-group-container" id="'+text_name+' '+div_count+' input-group-container">  <div class="input-group"><input type="text" class="form-control" name="'+text_name+' from" style= "text-align : right" placeholder="'+subsection_for_this_text+'" aria-describedby="sizing-addon3"><span class="input-group-addon" id="sizing-addon3">to</span><input type="text" class="form-control" name="'+text_name+' to" placeholder="'+subsection_for_this_text+'" aria-describedby="sizing-addon3"></div></div></div></div></div> <br class = "'+text_name+' '+div_count+'"> <p class = "description for '+text_name+' '+div_count+'">Optional: select a section of this work. Leave blank for all the words in the work. To add non-contiguous sections of the same work, select a section; then click Add Word again to define the next section. </p>');
+    $(wrapper0).append('<div> <button type=button  id="delete '+text_name+' '+div_count+'" class="btn-default add-work" onclick = "delete_add(this.id)"> Remove Work </button> <br class = "'+text_name+' '+div_count+'"></div><hr class = "'+text_name+' '+div_count+'" style="color : black; size : 10;">');
 }
 
 clicked_id = "";
@@ -767,9 +767,10 @@ clicked= clicked.slice(7);
 console.log(textlist, 'reading')
 console.log($('div[id*="'+clicked+'"]')), 'about to be deleted';
 $('div[id*="'+clicked+'"]').remove();
-$('p[id*="'+clicked+'"]').remove();
+$('p[class*="'+clicked+'"]').remove();
 $('button[id*="'+clicked+'"]').remove();
 $('br[class*= "'+clicked+'"]').remove();
+$('hr[class*= "'+clicked+'"]').remove();
   console.log(clicked, "clicked");
   console.log(readlist, 'read')
   console.log(textlist, 'reading')
@@ -872,6 +873,7 @@ function configureForm(e) {
         $('p[id*="'+textlist[i].slice(0, -2)+'"]').remove();
         $('button[id*="'+textlist[i].slice(0, -2)+'"]').remove();
         $('br[class*= "'+textlist[i].slice(0, -2)+'"]').remove();
+        $('hr[class*= "'+textlist[i].slice(0, -2)+'"]').remove();
       }
         textlist =[]
 
@@ -891,6 +893,7 @@ else {
       $('p[id*="'+readlist[l].slice(0, -2)+'"]').remove();
       $('button[id*="'+readlist[l].slice(0, -2)+'"]').remove();
       $('br[class*= "'+readlist[l].slice(0, -2)+'"]').remove();
+      $('hr[class*= "'+textlist[i].slice(0, -2)+'"]').remove();
 
     }
 

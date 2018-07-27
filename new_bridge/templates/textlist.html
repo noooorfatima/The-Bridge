@@ -33,7 +33,7 @@
                     <div class="panel-heading" role="tab" id="headingTwo">
                         <div class="row">
                             <div class="panel-title">
-                                What are you reading?
+                                What Are You Reading?
                               </div>
                                 <div class="panel-contents" value = "" id= "textlist_id" style="display: none; color: rgb(0, 0, 0); border: 1px solid black; overflow : hidden; ">
                                 </div>
@@ -43,9 +43,8 @@
                 </a>
                 <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                     <div class="panel-body">
-                        <p id="resizetxt" data-toggle="tooltip" data-placement="bottom" title="Choose a text that you are currently reading">
-                            <span class="glyphicon glyphicon-info-sign"></span>
-                            Start typing to see the lists, texts, & textbooks available.
+                        <p id="resizetxt">
+                            1. Start typing to see the lists, texts, & textbooks available.
                         </p>
                        <div class="toggle-container col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" id="all_or_selection">
 
@@ -60,13 +59,14 @@
                               {{ greek_books_form.media }}
                         </div>
 
+                        <p id="resizetxt2" style= "text-align : left">
+                            2. Once you have found your work, click <strong>Add Work</strong> (required). You may then select a section of your work. Repeat for as many works or sections as you wish.
+
+                        </p>
                         <button id="choose_book" class = "btn-default add-work" type="button"
                         onclick="get_text_name(this.id)"> Add Work </button>
-                        <p id="resizetxt2" data-toggle="tooltip" data-placement="bottom" title="Add the text to generate words you will need to know for that text.">
-                            <span class="glyphicon glyphicon-info-sign"></span>
-                            Once you have found what you are reading, click Add Work (required). You may then select a section of the work. Repeat for as many works or sections as you wish.
-                        </p>
 
+                        <hr>
                              <div id= "reading wrapper">
 
                              </div>
@@ -86,16 +86,16 @@
                 <div class="panel-heading" role="tab" id="headingThree">
                     <div class="row">
                         <div id="excludePanelTitle" class="panel-title">
-                          What have you read? (optional) </div>
+                          Exclude or Match Words in Other Works? (optional) </div>
 
                     </div>
                 </div>
             </a>
             <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                 <div class="panel-body">
-                    <p id="filtering_note" data-toggle="tooltip" data-placement="bottom" title="Choose a text/texts that you have read to remove words you already know."><span class="glyphicon glyphicon-info-sign"></span>
+                    <p id="filtering_note">
+                      1. Choose <strong>exclude</strong> to show words that only appear reading(s) you selected above but not in the other work(s) that you will select; or choose <strong>match</strong> to show words that only appear in all the works you select.
 
-                      You can create a list that <strong>excludes</strong> the all words in one or more works (or selections of one or more works) from your reading; <strong>or</strong> a list with all the words that <strong>match</strong> in your reading & one or more works (or selections of one or more works). Choose <strong>exclude</strong> to show words you need to learn, or choose <strong>match</strong> to show words you already know.
                     </p>
 
                     <div class="toggle-container col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" id="include_or_exclude">
@@ -109,7 +109,7 @@
                         </div>
                     </div>
 
-
+                    <hr>
                         <div class="toggle-container col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" id="all_or_selection">
 
                          <div class= "latinbooks" name = "textlist">
@@ -122,14 +122,14 @@
                                {{ greek_books_form.as_p }}
                                {{ greek_books_form.media }}
                          </div>
+                         <p id="resizetxt2" style= "text-align : left">
+	                          2.	Now add one or more works (or selections of one or more works), just as you did above. Be sure to <strong>Add Work</strong> for each work.
+
+                         </p>
                          <button id="exclude" class = "btn-default add-work" type="button"
                          onclick="get_text_name(this.id)"> Add Work </button>
-                         <p id="resizetxt2" data-toggle="tooltip" data-placement="bottom" title="Add the text to generate words you will need to know for that text.">
-                             <span class="glyphicon glyphicon-info-sign"></span>
-                             Click Add Work. You may then select a section of your work.
-                         </p>
 
-
+                          <hr>
                               <div id= "read_wrapper">
 
                               </div>
@@ -158,14 +158,15 @@
                           </div>
                         </div>
                     </div>
+                    <div id="parentSubmitRow" class="row">
+                        <div id="colSubmit" class="col-xs-8 col-xs-offset-2 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
+                            <button class="btn btn-lg btn-block hidden" type="submit" value="Submit" id="giant_form_submit">Create &nbsp<span class="glyphicon glyphicon-share-alt"></span></button>
+                        </div>
+
+                    </div>
                   </div>
 
 
-<div id="parentSubmitRow" class="row">
-    <div id="colSubmit" class="col-xs-8 col-xs-offset-2 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
-        <button class="btn btn-lg btn-block hidden" type="submit" value="Submit" id="giant_form_submit">Create &nbsp<span class="glyphicon glyphicon-share-alt"></span></button>
-    </div>
 
-</div>
     </form>
 </body>
