@@ -15,10 +15,10 @@
             <div class="btn-group">
              <a id="tag4exportAll">
                <button type="button" class="btn btn-default export-table" id="exportAllRows" value="tab_delim_export" data-toggle="tooltip" data-placement="bottom" title="Save as a .tsv file - can be uploaded into Anki or Mnemosyne">Export All</button></a>
-            </div> 
+            </div>
             <!--<div class="btn-group">
                 <a class="tab_export"><button type="button" class="btn btn-default export-table" id="tab_delim_export" value="tab_delim_export"
-                        data-toggle="tooltip" data-placement="bottom" 
+                        data-toggle="tooltip" data-placement="bottom"
                         title="Save as a .tsv file - can be uploaded into Anki or Mnemosyne">Download</button></a>
             </div>-->
         </div>
@@ -161,7 +161,7 @@
                             <input type="radio" name="verb_select"  value="none" checked=false>None</input>
                         </label>
                     </div>
-                    <div class="pos-subcategory-box" id="verb_conj_box"> 
+                    <div class="pos-subcategory-box" id="verb_conj_box">
                         <label> Select by Conjugation: </label>
                         <div class="checkdiv">
                             <div class="checkdiv-checkbox" name="verb_conj" id="Verb_1" value="Verb_1" data-state=true>
@@ -352,16 +352,16 @@
                     </div>
                     <div class="checkdiv-label">Data Missing</div>
                 </div>
- 
+
                 <br/>
             </div>
         </div>
-            <hr />  
+            <hr />
 
             <div class="filters_container">
                 {% if language == "latin" %}
                 <h3 class="etc">et cetera</h3>
-                {% else %} 
+                {% else %}
                 <h3 class="etc">καὶ τὰ λοιπά</h3>
                 {% endif %}
                 <div>
@@ -388,6 +388,12 @@
                             <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                         </div>
                         <div class="checkdiv-label">Proper Nouns</div>
+                    </div>
+                    <div class="checkdiv">
+                        <div class="checkdiv-checkbox POS-toggler" name="Stop Words" id="stop_words" value="1" data-state=true>
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                        </div>
+                        <div class="checkdiv-label">Stop Words</div>
                     </div>
                   </div>
                 </div>

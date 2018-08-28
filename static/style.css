@@ -1747,9 +1747,11 @@ Began: 5/24/17;
 /* a very small change tbh */
  #resizetxt {
     font-size: 18px;
+    padding-left: 1em;
  }
  #filtering_note {
     font-size: 18px;
+    padding-left: 1em;
  }
  #resizetxt2 {
     font-size: 18px;

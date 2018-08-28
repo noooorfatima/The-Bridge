@@ -1341,6 +1341,16 @@ function initTable() {
                   "data" : "fields."+$(this).data("fieldname"),
                   "visible" : false,
                 });
+	   } else if ($(this).data("fieldname") == "forcellini_link"){
+		 columns.push({
+                  "name": $(this).data("fieldname"),
+                  "data" : "fields."+$(this).data("fieldname"),
+                  "render" : function ( data, type, full, meta ) {
+                     return '<a target="_blank" href="'+data+'">Forcellini</a>';
+                   },
+                  "visible" : $(this).data("visible")
+		});
+
            } else if ($(this).data("fieldname") == "corpus_rank") {
                 columns.push({
                   "name": $(this).data("fieldname"),
@@ -1370,10 +1380,6 @@ function initTable() {
                "width": "50%"
              });
           }
-
-
-
-
               //a second row for the full unrendered logeion URL is pushed.
               /*columns.push({
                  "name": "FullUrl",
@@ -1572,10 +1578,10 @@ function buildCheckdivs(field_options) {
     });
     container.append("<h4>Other Information</h4>")
     // Build a checkdiv from attr.s of each <th>:
-    //console.log("legnh of field options: " + field_options.length);
+    console.log("field options: " + field_options.length);
     var proto_checkdiv = $('#prototype_container .checkdiv');
     for (var i=0; i<field_options.length; i++) {
-        //console.log("field options positon " + i + ": " + field_options[i]);
+        console.log("field options positon " + i + ": " + field_options[i]);
         var field = $(field_options[i]);
         if (field.hasClass('logUrl2')) {
            continue; //don't build checkbox!
@@ -1583,8 +1589,7 @@ function buildCheckdivs(field_options) {
         var checkdiv = proto_checkdiv.clone(true); //'true' keeps event binding
         var checkdiv_checkbox = checkdiv.find(".checkdiv-checkbox").first();
         checkdiv_checkbox.attr('value',field.data('fieldname'));
-        //console.log(field.data('fieldname')); //debug
-        //console.log(field[i]);
+        console.log(field.data('fieldname')); //debug
         checkdiv_checkbox.attr('name',field.data('fieldtype'));
         checkdiv.find('.checkdiv-label').text(field.text());
         checkdiv.attr("data-state", "false");
@@ -1730,6 +1735,7 @@ function filterWordData(pos_list) {
   "": [],
   "CATCH_BAD" : [],
   "Noun_" : [],
+  "stop_words" : [],
     };
 
 
@@ -1747,6 +1753,10 @@ function filterWordData(pos_list) {
           pos_dictionary['Proper_nouns'].push('Proper_nouns')
           // this should do nothing, but might make them visible.
         }
+        if (key == 'stop_words'){
+        pos_dictionary['stop_words'].push('stop_words')
+      }
+
 
 
         // These things aren't 'real' parts of speech, so they would
@@ -1898,6 +1908,9 @@ function loadWordData(data) {
             pos = "Proper_nouns"
            //console.log("trying to make a proper noun in load word data", word)
 
+        }
+        if(word.fields['stopword'] ==1){
+          pos = 'stop_words'
         }
         // Add declension or conjugation to part of speech:
         if (pos == "Noun" || pos == "Adjective") {

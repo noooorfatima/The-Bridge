@@ -112,7 +112,9 @@ class WordPropertyLatin(models.Model):
     dcc_frequency_group = models.CharField(max_length=2, blank=True)
     dcc_semantic_group = models.CharField(max_length=34, blank=True)
     logeion_url = models.URLField(max_length=200, blank=True, null=True)
+    forcellini_link = models.URLField(max_length=200, blank=True, null=True)
     corpus_rank = models.IntegerField(blank=True, null=True)
+    stopword = models.BooleanField(default=False)
     def __unicode__(self):
         return self.title
     def __str__(self):
@@ -144,6 +146,7 @@ class WordPropertyGreek(models.Model):
     dcc_semantic_group = models.CharField(max_length=500, blank=True, null=True)
     logeion_url = models.URLField(max_length=200, blank=True, null=True)
     corpus_rank = models.IntegerField(blank=True, null=True)
+    stopword = models.BooleanField(default=False)
     def __unicode__(self):
         return self.title
     def __str__(self): #for greek it probably should use unicode, since it does not use the latin alphabet, but this is a django 1 to 2 thing.

@@ -75,8 +75,8 @@ class Command(BaseCommand):
 				updated2=True
 			elif item == 'LOGEIONDEF':
 				wanted_list = wanted_list + [index]
-			#elif item == 'LOGEION LINK':
-				#wanted_list = wanted_list + [index]
+			elif item == 'FORCELLINI LINK':
+				wanted_list = wanted_list + [index]
 			index = index + 1
 		print(wanted_list)
 
@@ -141,12 +141,15 @@ class Command(BaseCommand):
 						'display_lemma_macronless' : item['DISPLAY LEMMA MACRONLESS'],
 						'english_core' : item[english_core],
 						'english_extended' : item[english_extended],
+						'stopword' : item['STOPWORD'],
 						'decl' : item['Decl'],
 						'conj' : item['Conj'],
 						'reg_adj_adv' : item['Reg Adj/Adv'] ,
 						'proper' : item['Proper'],
 						'part_of_speech' : item['Part Of Speech'] ,
                     	'logeion_url' : item['LOGEION LINK'],
+						'forcellini_link' : item['FORCELLINI LINK']
+
 			    			}
 						)
 					else:
@@ -197,6 +200,7 @@ class Command(BaseCommand):
 					'logeion_def' : item['LOGEIONDEF'],
 					'decl' : item['DECL'],
 					'idiom' : item['IDIOM'],
+					'stopword' : item['STOPWORD'],
 					'reg_adj_adv' : item['REG ADJ/ADV'],
 					'proper' : item['PROPER'],
 					'part_of_speech' : item['PART-OF-SPEECH'],
