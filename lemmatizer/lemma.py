@@ -43,6 +43,7 @@ class LemmaReplacer(object):  # pylint: disable=too-few-public-methods
             module = loader.load_module()
         except MemoryError:
             # the dict was too big
+            print("SOMETIHNG WENT TERRIBLY WRONG")
             return {}
         lemmata = module.LEMMATA
         return lemmata
