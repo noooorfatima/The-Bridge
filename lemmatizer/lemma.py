@@ -36,9 +36,20 @@ class LemmaReplacer(object):  # pylint: disable=too-few-public-methods
                                 self.language,
                                 'model',model_filename,
                                 'lemmata',lemmata_filename)
-        path = os.path.expanduser(rel_path)
+        if self.language == 'latin':
+            if include_ambiguous:
+                path = '/var/www/cltk_data/latin/model/latin_models_cltk/lemmata/latin_lemmata_cltk.py'
+            else:
+                path = '/var/www/cltk_data/latin/model/latin_models_cltk/lemmata/latin_unambiguous_lemmata_cltk.py'
+        else:
+            if include_ambiguous:
+                path = '/var/www/cltk_data/greek/model/greek_models_cltk/lemmata/greek_lemmata_cltk.py'
+            else:
+                path = '/var/www/cltk_data/greek/model/greek_models_cltk/lemmata/greek_unambiguous_lemmata_cltk.py'
+        #os.path.expanduser(rel_path)
         print(path)
         loader = importlib.machinery.SourceFileLoader(module_name, path)
+        print(loader, "loader")
         try:
             module = loader.load_module()
         except MemoryError:
