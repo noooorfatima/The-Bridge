@@ -9,8 +9,8 @@ from os.path import normpath, splitext, commonprefix, basename
 # openpyxl.readthedocs.io
 import openpyxl
 from openpyxl import Workbook, load_workbook
-from openpyxl.writer.write_only import WriteOnlyCell
-from openpyxl.styles import Font
+#from openpyxl.writer.write_only import WriteOnlyCell
+#from openpyxl.styles import Font
 
 from column import *
 
@@ -257,10 +257,7 @@ def appendColumnHeadersToWorksheet(columns, worksheet, *, use_bold=True):
     """
     headers = [None] * max(column.number for column in columns)
     for column in columns:
-        cell = WriteOnlyCell(worksheet, value = column.name)
-        if use_bold:
-            cell.font = Font(bold = True)
-        headers[column.number - 1] = cell
+        headers[column.number - 1] = column.name
     worksheet.append(headers)
 
 def appendDataToWorksheet(worksheet, data, columns, *, verbose=True):

@@ -67,7 +67,6 @@ def IndexView(request):
 
 
 		subsection_data[model.text_name] = ns
-	#print(subsection_data)
 	name_for_humans_to_name_for_computers = {}
 	for model in models.TextMetadata.objects.all():
 		name_for_humans_to_name_for_computers[model.name_for_humans] = model.name_for_computers

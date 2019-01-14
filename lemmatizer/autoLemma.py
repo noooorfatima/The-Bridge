@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python
 # coding=utf-8
 
@@ -227,7 +228,16 @@ def changeGraveAccents(string):
     Returns:
         (str): `string` with acute accents in place of graves
     """
-    return regex.sub('\\u0300', '\\u0301', string)
+    str = regex.split('\\u0300', string)
+    out = ''
+    for x in range(0,len(str),1):
+        #y = str[x+1] if len(str) > x+1 else  ''
+        out += str[x]  + u'\u0301' #+ y
+    #if not len(str)%2==0:
+        #out+=str[len(str)-1]+ u'\u0301' 
+    return out
+    #print(regex.sub('\\u0300', '\\u0301', string))
+   # return regex.sub('\\u0300', '\\u0301', string)
 
 def sectionFromWord(word):
     """
@@ -318,15 +328,20 @@ def lemmatizeToken(token, lemmatizer):
         ValueError if `token` contains non-alphabetic characters,
             multiple lemmata, or only whitespace
     """
+
     token = token.lower()
+#see below
+    if not token=='́':
+        lemmata = lemmatizer.lemmatize(token) #, default = '')
+    else:
+        return None
 
-
-    lemmata = lemmatizer.lemmatize(token)#, default = '')
     if len(lemmata) > 1:
-        raise ValueError("'{}' contains multiple lemmata".format(token))
+        raise ValueError("\'{}\' contains multiple lemmata".format(token))
     elif len(lemmata) == 0:
-        raise ValueError("'{}' is empty or nonalphabetic.".format(token))
+        raise ValueError("\'{}\' is empty or nonalphabetic.".format(token))
 
+   # if token != '́' and not token.isspace():
     lemma = lemmata[0]
     if not lemma:
         # To prevent problems with case (which should be fixed in CLTK with the lemmatizer rewrite)
@@ -335,6 +350,8 @@ def lemmatizeToken(token, lemmatizer):
         lemma = ""         # For some known bugs with CLTK
 
     return lemma if lemma else None
+    #else:
+        #return None
 
 def locationsFromFile(file, *, use_line_numbers = False):
     """
@@ -416,8 +433,11 @@ def wordsFromFile(file, lemmatizer, *, use_line_numbers = False):
                     if form == ',' or form == '.' or form == ':' or form == '(' or form == ')' or form == ';' or form == ']' or form == '[' or form == '?':
                         pass
                     else:
-                        lemma = lemmatizeToken(form, lemmatizer)
-                        yield Word(form, lemma, location)
+                        if not token=='́':
+                            lemma = lemmatizeToken(form, lemmatizer)
+                            yield Word(form, lemma, location)
+                        else: 
+                            continue
                 except ValueError:
                     # token contains non-alphabetic characters which
                     # aren't leading or trailing, or contains no

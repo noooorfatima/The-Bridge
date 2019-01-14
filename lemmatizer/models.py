@@ -34,8 +34,8 @@ class lemmmatizer(models.Model):
 	language = models.CharField(max_length = 5, choices=LANGUAGE_CHOICES, default=LATIN)
 	
 	created_at = models.DateTimeField(auto_now_add=True)
-
-	file = models.FileField(blank=True, storage=FileSystemStorage(location='/tmp/lematizer_temp_file.txt'))
+#changed the below line
+	file = models.FileField(blank=False, storage=FileSystemStorage(location='/tmp/lematizer_temp_file.txt'))
 	
 	text = models.TextField(default='', blank=True)
 

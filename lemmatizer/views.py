@@ -53,14 +53,12 @@ def parseEquation(strInput):
 
 #this is the main view for the lemmatizer
 def lemmatizer(request):
-
     if request.method == 'POST':
         form = PostText(request.POST, request.FILES)
         captcha = str(form['question'].value())
         answer = parseEquation(captcha)
 
         print(answer)
-
         if form.is_valid() and answer != False:
 
             #write the uploaded file to a temporary file on the server in /tmp
@@ -86,20 +84,23 @@ def lemmatizer(request):
                 lem_format = str(form['lem_format'].value())
                 out_format = str(form['out_format'].value())
                 lem_level = str(form['lem_level'].value())
+                print("lem format " + lem_format + " out format " + out_format +" lem level " +  lem_level)
+                print(out_format == 'Excel')
 
                 #pass variables to lemmatize function and Bret's scripts
                 print((language,filename,lem_format,lem_level))
                 easy_lem.lemmatize(language,filename,lem_format,lem_level)
 
-                #uncomment to save form data to db
-                #form.save(commit=True)
-
+                #return render(request, 'lemmatized.html', {'form': form, 'output_file': f.name.split('/')[-1].replace('txt','xlsx')})  # ,{'test'='hi1'})
+                #Carter's new code below
+                
                 if out_format == 'Excel':
-                #Here we send the output file to lemmatized.html (tmpEDoVlX_Input.xlsx)
+                
+#                 AM we're doing the same thing in both clauses...?
+#                Here we send the output file to lemmatized.html (tmpEDoVlX_Input.xlsx)
                     if lem_format == 'bridge':
                         output_file = str(f.name).split('.')[0] + '.xlsx'
                         output_file = output_file.split('/')[2]
-
                     elif lem_format == 'morpheus':
                         output_file = str(f.name).split('.')[0] + '.xlsx'
                         output_file = output_file.split('/')[2]
@@ -138,15 +139,20 @@ def lemmatizer(request):
                         your_csv_file.close()
                         output_file = 'lemmatized.csv'
                 #Remove the tempary txt file, but keep the csv and xlsx output
-                os.unlink(filename)
-                assert not os.path.exists(filename)
-
+                    os.unlink(filename)
+                    assert not os.path.exists(filename)
             return render(request, 'lemmatized.html',{'form':form, 'output_file':output_file})#,{'test'='hi1'})
-        else:
-            print((form.errors))
+    #Remove the tempary txt file, but keep the csv and xlsx output
+       # os.unlink(filename)
+       # assert not os.path.exists(filename)
+
+#endCarter's new code
+
+        #else:
+        #    print((form.errors))
     else:
         form = PostText()
-    return render(request, 'lemmatizer.html',{'form':form}) # {'form': form, 'test':'hi2'})
+        return render(request, 'lemmatizer.html',{'form':form}) # {'form': form, 'test':'hi2'})
 
 #def lemmatize_file(request):
 #    if request.method == 'POST':
@@ -160,7 +166,6 @@ def lemmatizer(request):
   #  return render(request, 'lemmatized.html', {'form': form,test:'hi4'})
  #   return render(request, 'lemmatize.html', {'form': form})
 def formatlemmatizedtext(request):
-
 
     if request.method == 'POST':
         cheese = FormatFile(request.POST, request.FILES)
@@ -228,12 +233,6 @@ def formatlemmatizedtext(request):
                     your_csv_file.close()
                     output_file = 'formatted.csv'
 
-
-
-                #Remove the tempary txt file, but keep the csv and xlsx output
-                os.unlink(filename)
-                assert not os.path.exists(filename)
-
             return render(request, 'formatted.html',{'cheese':cheese, 'output_file':output_file})#,{'test'='hi1'})
         else:
             print ('Hi, I got to line 238')
@@ -243,3 +242,8 @@ def formatlemmatizedtext(request):
 
         cheese = FormatFile()
     return render(request, 'format.html',{'cheese':cheese}) # {'form': form, 'test':'hi2'})
+def memory_usage_psutil():
+    # return the memory usage in percentage like top
+    process = psutil.Process(os.getpid())
+    mem = process.memory_percent()
+    return mem

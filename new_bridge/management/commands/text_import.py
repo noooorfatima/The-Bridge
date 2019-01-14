@@ -94,10 +94,15 @@ def add_word_appearances(is_greek, appearance_list, loc_list, text_name,listifie
                 #print(loc_list_index)
                 #print(loc_list[loc_list_index])
                 #print("adding word appearance: for apperarnce ", loc_list[loc_list_index].replace('_','.'), "with mindiv ", loc_list_index)
-                entry = WordAppearencesLatin(text_name=text_name,
-                        word_id=appearance[1].strip(),
-                        mindiv=loc_list_index,
-                        appearance= loc_list[loc_list_index].replace('_','.'))
+                try:
+                    entry = WordAppearencesLatin(text_name=text_name,
+                            word_id=appearance[1].strip(),
+                            mindiv=loc_list_index,
+                            appearance= loc_list[loc_list_index].replace('_','.'))
+                except Exception as e:
+                    print("THIS ONE CAUSES AN ERROR")
+                    print(e)
+
             #print(entry)
             entry.save()
         print("added word apps")

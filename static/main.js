@@ -738,7 +738,7 @@ else {
 
 console.log("I HAVE BEEN CLICKED!!!");
 subsection_for_this_text = important_secret_stuff[name_for_humans_to_name_for_computers[text_name]];
-
+console.log(important_secret_stuff)
 if (! subsection_for_this_text) {
     console.log("NO SUBSECTION DATA");
     console.log('this is probably an error in our data base. Please tell us which text this is so we can fix it');
