@@ -37,6 +37,8 @@ class post_text(forms.Form):
     language = models.CharField(max_length = 5, choices=LANGUAGE_CHOICES, default=LATIN)
     created_at = models.DateTimeField(auto_now_add=True)
     file = models.FileField(null=True, storage=FileSystemStorage(location='/tmp/'))
+    #print(
+    #print(file)
     text = models.TextField(default='')
     ALL = 'all'
     ONLY_UN = 'oun'
@@ -46,6 +48,9 @@ class post_text(forms.Form):
     MORPHEUS = 'morpheus'
     FORMAT_CHOICES = ((BRIDGE, 'Bridge'), (MORPHEUS, 'Morpheus'))
     lem_format = models.CharField(max_length = 8, choices=FORMAT_CHOICES, default=BRIDGE)
+    
+   # def getFile():
+   #     return file
 
 class PostText(forms.ModelForm):
 

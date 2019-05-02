@@ -231,13 +231,8 @@ def changeGraveAccents(string):
     str = regex.split('\\u0300', string)
     out = ''
     for x in range(0,len(str),1):
-        #y = str[x+1] if len(str) > x+1 else  ''
-        out += str[x]  + u'\u0301' #+ y
-    #if not len(str)%2==0:
-        #out+=str[len(str)-1]+ u'\u0301' 
+        out += str[x]  + u'\u0301'  
     return out
-    #print(regex.sub('\\u0300', '\\u0301', string))
-   # return regex.sub('\\u0300', '\\u0301', string)
 
 def sectionFromWord(word):
     """
@@ -335,12 +330,15 @@ def lemmatizeToken(token, lemmatizer):
         lemmata = lemmatizer.lemmatize(token) #, default = '')
     else:
         return None
-
-    if len(lemmata) > 1:
-        raise ValueError("\'{}\' contains multiple lemmata".format(token))
-    elif len(lemmata) == 0:
-        raise ValueError("\'{}\' is empty or nonalphabetic.".format(token))
-
+    # so the thing is lemmata can be none and there does not seem to be protection against that
+    if lemmata:
+        if len(lemmata) > 1:
+            raise ValueError("\'{}\' contains multiple lemmata".format(token))
+        elif len(lemmata) == 0:
+            raise ValueError("\'{}\' is empty or nonalphabetic.".format(token))
+    else:
+        return None
+    #see if this works
    # if token != '́' and not token.isspace():
     lemma = lemmata[0]
     if not lemma:
