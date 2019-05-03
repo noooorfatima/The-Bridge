@@ -5,6 +5,5 @@ sudo tail -100 /var/log/uwsgi/app/bridge3.log > /var/log/uwsgi/app/snaplog.txt
 sudo touch /var/log/uwsgi/app/message.txt
 sudo chmod 777 /var/log/uwsgi/app/message.txt
 sudo echo "Hello, here's the last 100 lines of the bridge uwsgi log" > /var/log/uwsgi/app/message.txt
-mutt -s "Bridge Log" -a /var/log/uwsgi/app/snaplog.txt -- amaryam@haverford.edu < /var/log/uwsgi/app/message.txt
-#mutt -s "Bridge Log" -a /var/log/uwsgi/app/snaplog.txt -- bmulliga@haverford.edu < /var/log/uwsgi/app/message.txt
+mutt -s "Bridge Log" -a /var/log/uwsgi/app/snaplog.txt -- bmulliga@haverford.edu < /var/log/uwsgi/app/message.txt
 sudo chmod 770 /var/log/uwsgi/app/snaplog.txt
