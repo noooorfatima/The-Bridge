@@ -257,5 +257,7 @@ if __name__ == '__main__':
                                   lemmata_column = args.lemmata_column)
 
         print(("Saving changes to {}".format(args.file_path)))
+        print("Finished.")
+
         workbook.save(args.file_path)
         print("Finished.")
