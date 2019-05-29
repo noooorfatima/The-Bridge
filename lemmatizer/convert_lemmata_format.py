@@ -258,6 +258,5 @@ if __name__ == '__main__':
 
         print(("Saving changes to {}".format(args.file_path)))
         print("Finished.")
-
         workbook.save(args.file_path)
         print("Finished.")
