@@ -256,7 +256,8 @@ if __name__ == '__main__':
                                   args.output_format, include_ambiguous = False,
                                   lemmata_column = args.lemmata_column)
 
-        print(("Saving changes to {}".format(args.file_path)))
-        print("Finished.")
+       # print(("Saving changes to {}".format(args.file_path)))
+      
         workbook.save(args.file_path)
         print("Finished.")
+        print(("Saving changes to {}".format(args.file_path)))
