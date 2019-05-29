@@ -121,7 +121,7 @@ def convertLemma(lemma, output_format, equivalencies, include_ambiguous = False)
             lemmata are found when `include_ambiguous` is False
     """
     equivalent_lemmata = []
-    for neighbor in breadthFirstTraversal(equivalencies, lemma, False):
+    for neighbor in breadthFirstTraversal(equivalencies, lemma, True):
         if neighbor.format == output_format:
             if include_ambiguous:
                 return lemma.display
