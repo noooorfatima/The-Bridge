@@ -167,7 +167,7 @@ def convertLemmatizedWorkbook(workbook, equivalencies, source_format,
         try:
             lemma = Lemma(cell.value, source_format)
             cell.value = convertLemma(lemma, output_format,
-                                      equivalencies, include_ambiguous).display
+                                      equivalencies, include_ambiguous=False).display
             lemmata_converted += 1
         except (ValueError, NetworkXError):
             # no (unique) equivalent lemma found
