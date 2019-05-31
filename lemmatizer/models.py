@@ -56,6 +56,12 @@ class lemmmatizer(models.Model):
         FORMAT_CHOICES = ((CSV, 'csv'), (EXCEL, 'Excel'))
 
         out_format = models.CharField(max_length = 5, choices=FORMAT_CHOICES, default=EXCEL)
+	
+	CSV = 'csv'
+	EXCEL = 'Excel'
+	FORMAT_CHOICES = ((CSV, 'csv'), (EXCEL, 'Excel'))
+
+	in_format = models.CharField(max_length = 5, choices=FORMAT_CHOICES, default=EXCEL)
     
         question = models.CharField(max_length=15, default=romanMath())
 
