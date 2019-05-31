@@ -56,7 +56,7 @@ class PostText(forms.ModelForm):
 
     class Meta:
         model = lemmmatizer
-        fields = ('file','language','out_format','lem_format','lem_level','question')
+        fields = ('file','language','in_format','out_format','lem_format','lem_level','question')
         file = forms.FileField(label='')
 
 class FormatFile(forms.Form):
