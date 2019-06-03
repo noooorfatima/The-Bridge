@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # coding=utf-8
-
 """
 Creates an excel spreadsheet formatted for Bridge input from a spreadsheet of
 lemmatized forms in the format used by autoLemma.py.
@@ -33,7 +32,7 @@ from itertools import islice
 from autoLemma import OUTPUT_COLUMNS as INPUT_COLUMNS
 
 # https://github.com/docopt/docopt
-import docopt
+from docopt import *
 
 # openpyxl.readthedocs.io
 from openpyxl import load_workbook
