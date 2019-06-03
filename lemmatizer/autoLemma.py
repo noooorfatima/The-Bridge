@@ -42,7 +42,7 @@ Options:
     --formulae                   also populate cells with formulae
     --split-into (files|sheets)  split output by (section) into sheets or files
     --text-name <title>          text name (for multiple input or output files)
-    --output-sheet <name>        sheet name for output [default: LEMMATA MATCH]
+    --output-sheet <name>        sheet name for output [default: TEXT]
     --use-line-numbers           include line numbers in word locations
     --use-sections               include column with simple section numbers
     --use-detailed-sections      include column with full location w/o line #s
