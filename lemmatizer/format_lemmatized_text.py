@@ -133,11 +133,11 @@ def lemmataFromLemmatizedWorkbook(workbook, *, include_duplicates=True):
             if lemma is None:
                 print(row)
                 # raise ValueError("Row {} is missing a lemma.".format(i))
-                exit("Row {} is missing a lemma.".format(i))
+                exit("Row {} is missing the title.".format(i))
             section = row[section_col.number - 1].value
             if section is None:
                 # raise ValueError("Row {} is missing a section.".format(i))
-                exit("Row {} is missing a section.".format(i))
+                exit("Row {} is missing a location.".format(i))
             location = row[location_col.number - 1].value
             if include_duplicates:
                 final_lemma_dictionary[lemma].append(location)
