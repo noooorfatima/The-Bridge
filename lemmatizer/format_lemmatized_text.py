@@ -104,7 +104,7 @@ def lemmataFromLemmatizedWorkbook(workbook, *, include_duplicates=True):
 
     lemmata_col = excel.getColumnByName(INPUT_COLUMNS, "TITLE")
     location_col = excel.getColumnByName(INPUT_COLUMNS, "LOCATION")
-    section_col = excel.getColumnByName(INPUT_COLUMNS, "LOCATION")
+    section_col = excel.getColumnByName(INPUT_COLUMNS, "SECTION")
 
     def isValidWorksheet(worksheet, verbose=True):
         
@@ -134,11 +134,11 @@ def lemmataFromLemmatizedWorkbook(workbook, *, include_duplicates=True):
                 print(row)
                 # raise ValueError("Row {} is missing a lemma.".format(i))
                 exit("Row {} is missing the title.".format(i))
-            section = row[section_col.number - 1].value
-            if section is None:
+            location = row[location_col.number - 1].value
+            if location is None:
                 # raise ValueError("Row {} is missing a section.".format(i))
                 exit("Row {} is missing a location.".format(i))
-            location = row[location_col.number - 1].value
+            section = row[section_col.number - 1].value
             if include_duplicates:
                 final_lemma_dictionary[lemma].append(location)
             elif lemma not in sections_dictionary[section]:
