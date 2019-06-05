@@ -110,9 +110,9 @@ def lemmataFromLemmatizedWorkbook(workbook, *, include_duplicates=True):
         
         for i in range (2, worksheet._max_row):
 	        if worksheet.cell(row=i, column= lemmata_col).value is None:
-		        print(“A cell is empty”)
+		        print("A cell is empty")
 	        else: 
-		        print(“All good”)
+		        print("All good")
 
         headers = next(worksheet.rows)
         for column in [lemmata_col, location_col, section_col]:
