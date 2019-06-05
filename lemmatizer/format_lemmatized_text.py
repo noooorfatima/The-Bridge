@@ -107,6 +107,13 @@ def lemmataFromLemmatizedWorkbook(workbook, *, include_duplicates=True):
     section_col = excel.getColumnByName(INPUT_COLUMNS, "LOCATION")
 
     def isValidWorksheet(worksheet, verbose=True):
+        
+        for i in range (2, worksheet._max_row):
+	        if worksheet.cell(row=i, column= lemmata_col).value is None:
+		        print(“A cell is empty”)
+	        else: 
+		        print(“All good”)
+
         headers = next(worksheet.rows)
         for column in [lemmata_col, location_col, section_col]:
             if headers[column.number - 1].value != column.name:
