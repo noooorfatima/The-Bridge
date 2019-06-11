@@ -47,7 +47,7 @@ Options:
     --use-sections               include column with simple section numbers
     --use-detailed-sections      include column with full location w/o line #s
 """
-
+import nltk
 from sys import exit
 from os.path import normpath, splitext, commonprefix, basename
 from mimetypes import guess_type
@@ -483,6 +483,26 @@ def autoLemma(args, *, lemmatizer=None, wordsFromPathList=wordsFromPathList):
         wordsFromPathList (Callable): returns an iterable over Word tuples from
             file paths
     """
+    filepath=args['<file>']
+    print(filepath[0])
+    wordcount = 0
+    #lettercount=0
+    with open(filepath[0], 'r') as f:
+    	read_data = f.read()
+    	lettercount = len(regex.findall('[A-Za-z]', read_data))
+    with open(filepath[0], 'r') as k:
+        for line in k:
+                words = line.split()
+                wordcount+=len(words)
+    print("Total letters are: {}".format(lettercount))
+    print("Total words are: {}".format(wordcount))
+    sentences = regex.split(r'[!?]+|(?<!\.)\.(?!\.)', read_data.replace('\n',''))
+    sentences = sentences[:-1]
+    sentence_count = len(sentences)
+    print("Total sentences in the file are: {}".format(sentence_count))
+    avgSent=wordcount/sentence_count
+    print("The average sentence length is {} words per sentence".format(round(avgSent,2)))
+    print("The average word length is {} letters per word".format(round(lettercount/wordcount,2)))
     print("I AM NOT DEAD YET")
     if lemmatizer is None:
         lemmatizer = LemmaReplacer('latin' if args['latin'] else 'greek', include_ambiguous=args['--include-ambiguous'])
