@@ -407,6 +407,8 @@ def wordsFromFile(file, lemmatizer, *, use_line_numbers = False):
     Yields:
         word (Word): a Word tuple of the next form to appear in `file`
     """
+    count=0
+    totaltokens=0
     jv_replacer = JVReplacer()
     try:
         tokenizer = WordTokenizer(lemmatizer.language)
@@ -432,7 +434,10 @@ def wordsFromFile(file, lemmatizer, *, use_line_numbers = False):
                     else:
                         if not token=='́':
                             lemma = lemmatizeToken(form, lemmatizer)
-                            yield Word(form, lemma, location)
+                            yield Word(form, lemma, location) 
+                            totaltokens+=1
+                            if lemma!='NONE':
+                            	count+=1
                         else: 
                             continue
                 except ValueError:
@@ -440,7 +445,9 @@ def wordsFromFile(file, lemmatizer, *, use_line_numbers = False):
                     # aren't leading or trailing, or contains no
                     # alphabetic characters
                     continue
-    
+    print("Percentage lemmatized is {}%".format(round(count/totaltokens,3)*100)) 
+    print("Total token count:{}".format(totaltokens))
+    print("Automatically lemmatized count:{}".format(count))
 
 def wordsFromPathList(paths, lemmatizer, **kwargs):
     """
@@ -455,7 +462,7 @@ def wordsFromPathList(paths, lemmatizer, **kwargs):
     Yields:
         word (Word): the next Word tuple to appear in the files in `paths`
     """
-    while len(paths) > 0:
+    while len(paths) > 0: 
         path = paths.pop(0)
         file_type = guess_type(path)[0]
         if file_type != 'text/plain':
@@ -468,7 +475,7 @@ def wordsFromPathList(paths, lemmatizer, **kwargs):
                 yield from words
         except IOError:
             exit("Could not find file in path {}".format(path))
-
+     
 def autoLemma(args, *, lemmatizer=None, wordsFromPathList=wordsFromPathList):
     """
     Generates lemmatized spreadsheets from command-line arguments given by
@@ -485,6 +492,7 @@ def autoLemma(args, *, lemmatizer=None, wordsFromPathList=wordsFromPathList):
     """
     filepath=args['<file>']
     wordcount = 0
+    charcount=0
     with open(filepath[0], 'r') as f:
     	read_data = f.read()
     	lettercount = len(regex.findall('[A-Za-z]', read_data))
@@ -492,6 +500,8 @@ def autoLemma(args, *, lemmatizer=None, wordsFromPathList=wordsFromPathList):
         for line in k:
                 words = line.split()
                 wordcount+=len(words)
+                charcount+=sum(len(word) for word in words)
+    print("Total characters(without spaces) are {}".format(charcount))
     print("Total letters are: {}".format(lettercount))
     print("Total words are: {}".format(wordcount))
     sentences = regex.split(r'[!?]+|(?<!\.)\.(?!\.)', read_data.replace('\n',''))
