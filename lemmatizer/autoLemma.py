@@ -323,7 +323,6 @@ def lemmatizeToken(token, lemmatizer):
         ValueError if `token` contains non-alphabetic characters,
             multiple lemmata, or only whitespace
     """
-
     token = token.lower()
 #see below
     if not token=='́':
@@ -441,6 +440,7 @@ def wordsFromFile(file, lemmatizer, *, use_line_numbers = False):
                     # aren't leading or trailing, or contains no
                     # alphabetic characters
                     continue
+    
 
 def wordsFromPathList(paths, lemmatizer, **kwargs):
     """
@@ -484,9 +484,7 @@ def autoLemma(args, *, lemmatizer=None, wordsFromPathList=wordsFromPathList):
             file paths
     """
     filepath=args['<file>']
-    print(filepath[0])
     wordcount = 0
-    #lettercount=0
     with open(filepath[0], 'r') as f:
     	read_data = f.read()
     	lettercount = len(regex.findall('[A-Za-z]', read_data))
