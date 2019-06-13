@@ -151,8 +151,6 @@ OUTPUT_COLUMNS = [
            lambda __, row: LONGDEF_FORMULA.format(LEMMA_COLUMN_LETTER, row)),
     Column("LOCALDEF", 10,
            lambda __, row: LOCALDEF_FORMULA.format(LEMMA_COLUMN_LETTER, row))
-    Column("SENTENCE", 11,
-           lambda word, __: word.location),
 ]
 
 OUTPUT_COLUMNS_WITHOUT_FORMULAE = [
