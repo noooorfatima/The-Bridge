@@ -79,7 +79,8 @@ def IndexView(request):
 # Below code is modified from the GAM
 
 
-
+def Oracle(request):
+	return render(request,'oracle.html')
 
 def AboutView(request):
 	return render(request,'newabout.html')
