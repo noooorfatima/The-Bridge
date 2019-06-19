@@ -395,7 +395,7 @@ def locationsFromFile(file, *, use_line_numbers = False):
             text, line_number = '', line_number + 1
 
     yield Location(getFormattedLabel(), text)
-datafile=open("/tmp/savedata.txt" ,'w')
+#datafile=open("/tmp/savedata.txt" ,'w')
 def wordsFromFile(file, lemmatizer, *, use_line_numbers = False):
     """
     Extracts words as Word tuples from the text file `file`.
@@ -449,7 +449,7 @@ def wordsFromFile(file, lemmatizer, *, use_line_numbers = False):
     print("Percentage lemmatized is {}%".format(round(count/totaltokens,3)*100)) 
     print("Total token count:{}".format(totaltokens))
     print("Automatically lemmatized count:{}".format(count)) 
-    datafile.write("Percentage lemmatized is {}%".format(round(count/totaltokens,3)*100))
+    #datafile.write("Percentage lemmatized is {}%".format(round(count/totaltokens,3)*100))
 def wordsFromPathList(paths, lemmatizer, **kwargs):
     """
     Extracts words as Word tuples from the files given by `paths`. Note:
@@ -476,7 +476,7 @@ def wordsFromPathList(paths, lemmatizer, **kwargs):
                 yield from words
         except IOError:
             exit("Could not find file in path {}".format(path))
-dataf=open("/tmp/savedata.txt",'a') 
+#dataf=open("/tmp/savedata.txt",'a') 
 def autoLemma(args, *, lemmatizer=None, wordsFromPathList=wordsFromPathList):
     """
     Generates lemmatized spreadsheets from command-line arguments given by
@@ -513,7 +513,7 @@ def autoLemma(args, *, lemmatizer=None, wordsFromPathList=wordsFromPathList):
     print("The average sentence length is {} words per sentence".format(round(avgSent,2)))
     print("The average word length is {} letters per word".format(round(lettercount/wordcount,2)))
     print("I AM NOT DEAD YET")
-    dataf.write('\n'+"The average sentence length is {} words per sentence".format(round(avgSent,2))+'\n' +"The average word length is {} letters per word".format(round(lettercount/wordcount,2)))
+    #dataf.write('\n'+"The average sentence length is {} words per sentence".format(round(avgSent,2))+'\n' +"The average word length is {} letters per word".format(round(lettercount/wordcount,2)))
     if lemmatizer is None:
         lemmatizer = LemmaReplacer('latin' if args['latin'] else 'greek', include_ambiguous=args['--include-ambiguous'])
     print('set lemmatizer')
