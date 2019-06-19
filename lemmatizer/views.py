@@ -110,9 +110,9 @@ def lemmatizer(request):
                     print('entered the if statement for excel')
                 # Here we send the output file to lemmatized.html (tmpEDoVlX_Input.xlsx)
                     if lem_format == 'bridge':
-                        output_file = str(newname).split('.')[0] + '.xlsx'
-                        #output_file = output_file.split('/')[2]
-                        print('created output_file: added .xlsx to a temporary file if lemformat is bridge')
+                        output_file = str(f.name).split('.')[0] + '.xlsx'
+                        output_file = output_file.split('/')[2]
+                        print('created output_file:{}'.format(output_file))
 
 
 
@@ -121,7 +121,7 @@ def lemmatizer(request):
                     elif lem_format == 'morpheus':
                         output_file = str(f.name).split('.')[0] + '.xlsx'
                         output_file = output_file.split('/')[2]
-                        print('created outout_file if lem format is morpheus')
+                        print(output_file)
 
 
                         #output_file = out_name + '.xlsx'
