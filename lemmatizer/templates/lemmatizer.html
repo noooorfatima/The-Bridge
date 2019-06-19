@@ -14,17 +14,12 @@
 	padding-bottom:10px;
 }
 
-
-
 #PostBlock {
 	background:rgba(255,255,255,0.85);
 	padding:5px;
 	margin: 5px;
 	border-radius: 2.5px;
 }
-
-
-
 </style>
 
 
@@ -39,27 +34,19 @@
 	text-align: left;
     padding-left: 15px;
     padding-right: 15px;">
-		<!--<h1 id="PostBlock" style="display:inline-block;"> Lemmatizer </h1>
-			<br> -->
-			<p id="PostBlock">
-				<!--The lemmatizer is currently broken. If you need a text lemmatized, please contact Bret Mulligan
-				<a href="mailto:bmulliga@haverford.edu"> bmulliga@haverford.edu </a> or click on the envelope on the bottom right of the screen.
-				We are trying to fix it and it should be up by December 2018!-->
-				<!--The Lemmatizer is mostly functional. If you need a text lemmatized and the Lemmatizer does not do the job, please contact Bret Mulligan
-				<a href="mailto:bmulliga@haverford.edu"> bmulliga@haverford.edu </a> or click on the envelope on the bottom right of the screen.
-				With this tool you can input a Greek or Latin text file. The lemmatizer will match the text with either the Bridge or Morpheus lemmata system and create a spreadsheet file in either CSV or Excel (xlsx) format. To prove your <i>humanitas</i>, please answer the math question using Roman numerals.</p> -->
-				With <i>Bridge/Tools</i> you can create a lemmatization spreadsheet for a Latin or Greek text. <br>
-				<font size="3"> You can chose to lemmatize only those words whose forms match a single dictionary 
-				lemma, leaving the rest for you to complete by hand (unambiguous lemmatization)—or allow the lemmatizer to guess at the lemmata for all words (ambiguous lemmatization). 
+			
+    <p id="PostBlock">		
+				With <i>BridgeTools</i> you can create a lemmatization spreadsheet for a Latin or Greek text. <br>
+				 You can chose to lemmatize only those words whose forms match a single dictionary 
+				lemma, leaving the rest for you to complete by hand (unambiguous lemmatization) — or allow the lemmatizer to guess the lemmata for all words (ambiguous lemmatization). 
 				You can select the format of the lemmata (morpheus or Bridge) and the format of the file to download (csv or Excel). 
 				The lemmatization process will also produce a set of readability statistics for your text (word count, average word length, average sentence length, percent lemmatized). 
-					With <i>BridgeTools</i> you can also format a lemmatization spreadsheet for input into <i>The Bridge</i>. </font>
-				<br>
-				Currently in development. Anticipated launch summer 2019. </p>
-			<form id="post_text" style="display:inline-block;" method="post" action="Lemmatizer" enctype="multipart/form-data">
+					With <i>BridgeTools</i> you can also format a lemmatization spreadsheet for input into <i>The Bridge</i>.</p>   
+<p id = "PostBlock">Currently in development. Anticipated launch summer 2019. </p>
+    
+<form id="post_text" style="display:inline-block;" method="post" action="Lemmatizer" enctype="multipart/form-data">
       		{% csrf_token %}
       		<div id="PostBlock" style="text-align:center;">
-
       		{{ form.file }}<br>
       		<p>Text Langugage: {{ form.language }}</p>	
       		<p>Output format: {{ form.out_format }}</p>
