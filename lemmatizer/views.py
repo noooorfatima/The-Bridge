@@ -85,7 +85,7 @@ def lemmatizer(request):
                 #I'm not sure why we need this, but autoLemma will read the temporary file but not find any lemmas unless we save it and reopen it.
                 
                 newname = "/tmp/" + out_name + ".txt"
-                print('creating newname:outname+.txt')
+                print('created newname:outname+.txt')
                 commentFile = open(newname,"w+")
                 with open(filename) as f:
                     for line in f:
@@ -107,11 +107,12 @@ def lemmatizer(request):
                 #return render(request, 'lemmatized.html', {'form': form, 'output_file': f.name.split('/')[-1].replace('txt','xlsx')})  # ,{'test'='hi1'})
                 #Carter's new code below
                 if out_format == 'Excel':
+                    print('entered the if statement for excel')
                 # Here we send the output file to lemmatized.html (tmpEDoVlX_Input.xlsx)
                     if lem_format == 'bridge':
                         output_file = str(f.name).split('.')[0] + '.xlsx'
                         output_file = output_file.split('/')[2]
-                        print('created output_file: added .xlsx to a temporary file')
+                        print('created output_file: added .xlsx to a temporary file if lemformat is bridge')
 
 
 
@@ -120,11 +121,13 @@ def lemmatizer(request):
                     elif lem_format == 'morpheus':
                         output_file = str(f.name).split('.')[0] + '.xlsx'
                         output_file = output_file.split('/')[2]
+                        print('created outout_file if lem format is morpheus')
 
 
                         #output_file = out_name + '.xlsx'
 
                 if out_format == 'csv':
+                    print('entered the if statement for csv')
                     if lem_format == 'bridge':
                         output_file = str(f.name).split('.')[0] + '.xlsx'
                         #output_file = out_name + '.xlsx'
