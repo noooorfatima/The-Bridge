@@ -111,7 +111,7 @@ def lemmatizer(request):
                 # Here we send the output file to lemmatized.html (tmpEDoVlX_Input.xlsx)
                     if lem_format == 'bridge':
                         output_file = str(f.name).split('.')[0] + '.xlsx'
-                        output_file = output_file.split('/')[2]
+                        #output_file = output_file.split('/')[2]
                         print('created output_file:{}'.format(output_file))
 
 
