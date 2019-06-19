@@ -59,6 +59,8 @@ def lemmatizer(request):
             name = request.FILES[filename].name
         name = name.split('.')[0]
         out_name = name + '_lemmatized'
+        print('created outname')
+
 
         captcha = str(form['question'].value())
         answer = parseEquation(captcha)
@@ -81,7 +83,9 @@ def lemmatizer(request):
                 print(filename)
                 f.close()
                 #I'm not sure why we need this, but autoLemma will read the temporary file but not find any lemmas unless we save it and reopen it.
+                
                 newname = "/tmp/" + out_name + ".txt"
+                print('creating newname:outname+.txt')
                 commentFile = open(newname,"w+")
                 with open(filename) as f:
                     for line in f:
@@ -107,6 +111,7 @@ def lemmatizer(request):
                     if lem_format == 'bridge':
                         output_file = str(f.name).split('.')[0] + '.xlsx'
                         output_file = output_file.split('/')[2]
+                        print('created output_file: added .xlsx to a temporary file')
 
 
 
