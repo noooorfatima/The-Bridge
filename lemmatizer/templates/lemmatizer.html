@@ -4,7 +4,6 @@
 <html>
 <head>
 </head -->
-
 <style>
 #PostText {
 	min-width:200px;
@@ -35,19 +34,19 @@
     padding-left: 15px;
     padding-right: 15px;">
 			
-    <p id="PostBlock">		
-				With <i>BridgeTools</i> you can create a lemmatization spreadsheet for a Latin or Greek text. <br>
-				 You can chose to lemmatize only those words whose forms match a single dictionary 
-				lemma, leaving the rest for you to complete by hand (unambiguous lemmatization) — or allow the lemmatizer to guess the lemmata for all words (ambiguous lemmatization). 
-				You can select the format of the lemmata (morpheus or Bridge) and the format of the file to download (csv or Excel). 
-				The lemmatization process will also produce a set of readability statistics for your text (word count, average word length, average sentence length, percent lemmatized). 
-					With <i>BridgeTools</i> you can also format a lemmatization spreadsheet for input into <i>The Bridge</i>.</p>   
+<p id="PostBlock">		
+With <i>BridgeTools</i> you can create a lemmatization spreadsheet for a Latin or Greek text. <br>
+You can chose to lemmatize only those words whose forms match a single dictionary 
+lemma, leaving the rest for you to complete by hand (unambiguous lemmatization) — or allow the lemmatizer to guess the lemmata for all words (ambiguous lemmatization). 
+You can select the format of the lemmata (morpheus or Bridge) and the format of the file to download (csv or Excel). 
+The lemmatization process will also produce a set of readability statistics for your text (word count, average word length, average sentence length, percent lemmatized). 
+With <i>BridgeTools</i> you can also format a lemmatization spreadsheet for input into <i>The Bridge</i>.</p>   
 <p id = "PostBlock">Currently in development. Anticipated launch summer 2019. </p>
     
 <form id="post_text" style="display:inline-block;" method="post" action="Lemmatizer" enctype="multipart/form-data">
-      		{% csrf_token %}
-      		<div id="PostBlock" style="text-align:center;">
-      		{{ form.file }}<br>
+	{% csrf_token %}
+	<div id="PostBlock" style="text-align:center;">
+		{{ form.file }}<br>
       		<p>Text Langugage: {{ form.language }}</p>	
       		<p>Output format: {{ form.out_format }}</p>
       		<p>Lemmata Format: {{ form.lem_format }}</p>
@@ -57,9 +56,9 @@
       		<input type="submit" name="submit" value="Submit"> <br><p>To format a lemmatized text click <a href='/format'>here</a></div>
  		</form>
   	</div>
-
-
- </div>
+	</div>
+	</div>
+	</div>
 </div>
-</div></div></div> <!--- Close everything that should be closed but goodness knows is not. If you have some free time and good spirit you could try to find where these actually go -->
+</div> 
 {% include "footer.html" %}
