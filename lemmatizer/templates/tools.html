@@ -1,12 +1,28 @@
 {% include "head.html" %}
 {% load staticfiles %}
 {% csrf_token %}
-<title>The Bridge: Lemmatizer</title>
+<style type="text/css">
+    .btn {
+        background-color:green;
+        cursor:pointer;
+        color:white;
+        font-size:30px;
+        font-family:Calibri;
+        width:300px;
+        height:100px;
+      border-radius: 12px;
+    }
+</style>
+<title>The Bridge: Tools</title>
 <body id="body" data-title="index" class = "home">
 	{% include "navbar.html" %}
 	{% include "about.html" %}
 <div id="background" class = "custom-background img-responsive">
-  <div class="page-wrap">
+ <a href="bridge.haverford.edu/lemmatizer" class="btn">Lemmatize a text</a>
+
+<a href="bridge.haverford.edu/format" class="btn">Format a lemmatized text</a>
+  
+<div class="page-wrap">
 <!--{% debug %}-->
 <div style="text-align:center;padding-top:30px;">
 </div>
