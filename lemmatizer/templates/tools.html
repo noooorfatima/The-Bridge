@@ -2,14 +2,14 @@
 {% load staticfiles %}
 {% csrf_token %}
 <style type="text/css">
-    #btn {
+input.btn {
         background-color: #1E9E6B;      
 	cursor:pointer;
         color:white;
         font-size:25px;
-        font-family:Inherit;
+        font-family:Helvetica Neue;
         width:195px;
-        height:105px;
+        height:110px;
         border-radius: 8px;
 	border: 1px solid transparent;
 	text-align: center;
@@ -17,17 +17,18 @@
 	touch-action: manipulation;
 	overflow: visible;
 	white-space: normal;
-	    
-    }
+}
+        input.btn:hover {
+        background: #069059;
+        color:white;
+}
 	#PostBlock {
 	padding:5px;
 	margin: 5px;
 	border-radius: 2.5px;
 		
 }
-	#btn: hover {
-	background: #069059;
-	}
+
 
 </style>
 <title>The Bridge: Tools</title>
@@ -39,8 +40,8 @@
 	<div class="page-wrap">
 		<div style="text-align:center;padding-top:30px;">
 <h1 style="font-size:55px; color:white; font-weight:700; font-family:Helvetica Neue;">SELECT A TOOL</h1>
- <p id="PostBlock"> <a id="btn" role="button" href="/lemmatizer">Lemmatize a text</a> 
-	 <button type="button" id="btn"  role="button" href="/format">Format a lemmatized text </button> </p>
+ <p id="PostBlock"> <input class="btn" type="button" value="Lemmatize a Text" onclick="window.location.href='/lemmatizer'" </> 
+&nbsp;	<input class="btn" type="button" value="Format a Lemmatized Text" onclick="window.location.href='/format'" </>
 
 
  
