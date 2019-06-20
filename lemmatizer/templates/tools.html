@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% csrf_token %}
 <style type="text/css">
-    .btn {
+    #btn {
         background-color: #1E9E6B;      
 	cursor:pointer;
         color:white;
@@ -16,6 +16,8 @@
         vertical-align: middle;
 	touch-action: manipulation;
 	overflow: visible;
+	white-space: normal;
+	word-wrap: break-word;
 	    
     }
 	#PostBlock {
@@ -34,8 +36,8 @@
 	<div class="page-wrap">
 		<div style="text-align:center;padding-top:30px;">
 <h1 style="font-size:55px; color:white; font-weight:700; font-family:Helvetica Neue;">SELECT A TOOL</h1>
- <p id="PostBlock"> <button style="white-space:normal;word-wrap: break-word;" type="button" class="btn" <a href="/lemmatizer">Lemmatize a text</a> </button>
-	<button type="button" class="btn" <a href="/lemmatizer">Format a lemmatized text</a> </button> </p>
+ <p id="PostBlock"> <button type="button" id="btn" <a href="/lemmatizer">Lemmatize a text</a> </button>
+	<button type="button" id="btn" <a href="/lemmatizer">Format a lemmatized text</a> </button> </p>
 
 
  
