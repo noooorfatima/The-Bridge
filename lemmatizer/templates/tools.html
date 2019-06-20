@@ -12,14 +12,19 @@
         height:100px;
       border-radius: 12px;
     }
+	#PostBlock {
+	padding:5px;
+	margin: 5px;
+	border-radius: 2.5px;
+}
 </style>
 <title>The Bridge: Tools</title>
 <body id="body" data-title="index" class = "home">
 	{% include "navbar.html" %}
 	{% include "about.html" %}
 <div id="background" class = "custom-background img-responsive">
- <a class="btn" role="button" href="/lemmatizer">Lemmatize a text</a>
-	 <a class="btn" role="button" href="/format">Format a lemmatized text</a>
+ <p id="PostBlock"> <a class="btn" role="button" href="/lemmatizer">Lemmatize a text</a>
+	 <a class="btn" role="button" href="/format">Format a lemmatized text</a> </p>
 
 
   
