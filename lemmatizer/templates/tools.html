@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% csrf_token %}
 <style type="text/css">
-    #btn {
+    a.button {
         background-color: #1E9E6B;      
 	cursor:pointer;
         color:white;
@@ -25,6 +25,10 @@
 	border-radius: 2.5px;
 		
 }
+	a.button: hover {
+	background: #069059;
+	}
+
 </style>
 <title>The Bridge: Tools</title>
 <body id="body" data-title="index" class = "home">
@@ -35,7 +39,7 @@
 	<div class="page-wrap">
 		<div style="text-align:center;padding-top:30px;">
 <h1 style="font-size:55px; color:white; font-weight:700; font-family:Helvetica Neue;">SELECT A TOOL</h1>
- <p id="PostBlock"> <a id="btn" role="button" href="/lemmatizer">Lemmatize a text</a> 
+ <p id="PostBlock"> <a role="button" href="/lemmatizer">Lemmatize a text</a> 
 	<button type="button" id="btn" <a href="/lemmatizer">Format a lemmatized text</a> </button> </p>
 
 
