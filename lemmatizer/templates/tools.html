@@ -3,10 +3,10 @@
 {% csrf_token %}
 <style type="text/css">
 input.btn {
-        background-color: #1E9E6B;      
+        background-color: #337ab7;      
 	cursor:pointer;
         color:white;
-        font-size:25px;
+        font-size:18px;
         font-family:Helvetica Neue;
         width:195px;
         height:110px;
@@ -19,7 +19,7 @@ input.btn {
 	white-space: normal;
 }
         input.btn:hover {
-        background: #069059;
+        background:#286090;
         color:white;
 }
 	#PostBlock {
@@ -28,7 +28,9 @@ input.btn {
 	border-radius: 2.5px;
 		
 }
-
+	#description{
+	font-size:10px;
+}
 
 </style>
 <title>The Bridge: Tools</title>
@@ -40,8 +42,8 @@ input.btn {
 	<div class="page-wrap">
 		<div style="text-align:center;padding-top:30px;">
 <h1 style="font-size:55px; color:white; font-weight:700; font-family:Helvetica Neue;">SELECT A TOOL</h1>
- <p id="PostBlock"> <input class="btn" type="button" value="Lemmatize a Text" onclick="window.location.href='/lemmatizer'" </> 
-&nbsp;	<input class="btn" type="button" value="Format a Lemmatized Text" onclick="window.location.href='/format'" </>
+ <p id="PostBlock"> <input class="btn" type="button" value="LEMMATIZER (Lemmatize a Text)" onclick="window.location.href='/lemmatizer'" </> 
+&nbsp;	<input class="btn" type="button" value="FORMATTER (Format a Lemmatization Sheet)" onclick="window.location.href='/format'" </>
 
 
  

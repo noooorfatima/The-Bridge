@@ -40,7 +40,8 @@
     padding-right: 15px;">  
 		<h1 id="PostBlock" style="display:inline-block;"> Format Lemmatized Text </h1>
 			<br>
-			<p id="PostBlock">Use this tool to format a lemmatized spreadsheet. To prove your <i>humanitas</i>, please answer the math question using Roman numerals.  </p>
+			<p id="PostBlock">Use this tool to format a lemmatized spreadsheet.Your lemmatization sheet <b>must</b> have 5 columns (A–E) with these headings: CHECK, TITLE, TEXT, LOCATION, SECTION. Data in TITLE and LOCATION will be used to create the input sheet. Additional data in Columns F and following will be ignored by the formatter.
+			 To prove your <i>humanitas</i>, please answer the math question using Roman numerals.  </p>
 			
 			<form id="formatlemmatizedtext" style="display:inline-block;" method="post" action="" enctype="multipart/form-data">
       		{% csrf_token %}
