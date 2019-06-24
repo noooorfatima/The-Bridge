@@ -59,7 +59,7 @@ def lemmatizer(request):
             name = request.FILES[filename].name
         name = name.split('.')[0]
         out_name = name + '_lemmatized'
-        print('created outname')
+        print('created outname:{}'.format(out_name))
 
 
         captcha = str(form['question'].value())
@@ -67,34 +67,14 @@ def lemmatizer(request):
         
         if form.is_valid() and answer:
 
-            #write the uploaded file to a temporary file on the server in /tmp
-            with tempfile.NamedTemporaryFile(suffix='.txt', dir='/tmp/', delete=False) as f:
+            language = str(form['language'].value())
 
-                f.write(form['file'].value().read()) #.encode("utf-8"))
-                #f.close
-                #TODO: Handle data from textfield
-                #f.write(form['text'].value().encode("utf-8"))
-                #with .read() gives'unicode' object has no attribute 'read'
-                #without gives 'ascii' codec can't encode character u'\u2014' in position 182: ordinal not in range(128)
-                #language, filename and format variables from form to pass to easy_lem
-                language = str(form['language'].value())
-              
-                filename = f.name
-                print(filename)
-                f.close()
-                #I'm not sure why we need this, but autoLemma will read the temporary file but not find any lemmas unless we save it and reopen it.
+            filename = '/tmp/new_lemmatized.txt'
+            with open(filename, 'wb') as f:
+                """We open a named temporary file from the data in the form. We change the name """
+                f.write(form['file'].value().read())
                 
-                newname = "/tmp/" + out_name + ".txt"
-                print('created newname:outname+.txt')
-                commentFile = open(newname,"w+")
-                with open(filename) as f:
-                    for line in f:
-                        if line.startswith("#"):
-                            continue
-                        commentFile.write(line)
-                filename = commentFile.name
-             #end attempt.
-            #filename = commentFile.name;
+                
             with open(filename) as f:
                 f.read()
                 lem_format = str(form['lem_format'].value())
