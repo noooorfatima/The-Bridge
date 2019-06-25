@@ -69,7 +69,7 @@ def lemmatizer(request):
 
             language = str(form['language'].value())
 
-            filename = '/tmp/new_lemmatized.txt'
+            filename = '/tmp/'+out_name+'.txt'
             with open(filename, 'wb') as f:
                 """We open a named temporary file from the data in the form. We change the name """
                 f.write(form['file'].value().read())

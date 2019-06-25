@@ -29,8 +29,8 @@ urlpatterns = [
     path('about', views.AboutView),
     path('tools/', views.Tools),
     path('oracle/', views.Oracle),
-    path('lemmatizer/', lemviews.lemmatizer, name='lemmatizer'),
-    path('lemmatizer/Lemmatizer', lemviews.lemmatizer, name='lemmatized'),
+    path('lemmatize/', lemviews.lemmatizer, name='lemmatize'),
+    path('lemmatize/Lemmatizer', lemviews.lemmatizer, name='lemmatized'),
     path('format/', lemviews.formatlemmatizedtext, name='format'),
     path('formatted/', lemviews.formatlemmatizedtext, name='formatted'),
 ]

@@ -808,6 +808,8 @@ def myimport(request):
 			print(fileName)
 			with open('temp_csv_for_importing.csv','wb') as f:
 				f.write(the_file.read())
+			#TODO add this line after June 28th, 2019
+			# os.chown('temp_csv_for_importing.csv', 'www-data', 'www-data')
 			#print('wrote the binary file')
 			#this is capturing the output of management.call_command, which can only be a string
 			out = StringIO()

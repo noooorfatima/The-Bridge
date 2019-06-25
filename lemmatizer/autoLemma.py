@@ -430,7 +430,7 @@ def wordsFromFile(file, lemmatizer, *, use_line_numbers = False):
             for form in regex.split(r'(?:\P{L},.+)', token):
                 # split around punctuation
                 try:
-                    if form == ',' or form == '.' or form == ':' or form == '(' or form == ')' or form == ';' or form == ']' or form == '[' or form == '?':
+                    if form == ',' or form == '!' or form == '.' or form == ':' or form == '(' or form == ')' or form == ';' or form == ']' or form == '[' or form == '?':
                         pass
                     else:
                         if not token=='́':
@@ -515,7 +515,8 @@ def autoLemma(args, *, lemmatizer=None, wordsFromPathList=wordsFromPathList):
     print("I AM NOT DEAD YET")
     #dataf.write('\n'+"The average sentence length is {} words per sentence".format(round(avgSent,2))+'\n' +"The average word length is {} letters per word".format(round(lettercount/wordcount,2)))
     if lemmatizer is None:
-        lemmatizer = LemmaReplacer('latin' if args['latin'] else 'greek', include_ambiguous=args['--include-ambiguous'])
+    	lemmatizer = LemmaReplacer('latin' if args['latin'] else 'greek', include_ambiguous=args['--include-ambiguous'])
+    print(args['--include-ambiguous'])
     print('set lemmatizer')
     # Find name of text
     if args['--output']:
