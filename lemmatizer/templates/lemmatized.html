@@ -1,5 +1,12 @@
 {% include "head.html" %}
-
+<style>
+#PostBlock {
+	background:rgba(255,255,255,0.85);
+	padding:5px;
+	margin: 5px;
+	border-radius: 2.5px;
+}
+</style>
 
 
 
@@ -15,9 +22,7 @@
 <!--{% debug %}-->
 <div style="text-align:center;padding-top:30px;">
 
-<!--<font color="white"><p> There were __ tokens and __ sentences in {{form.file.value}}. </p>
-<font color="white"><p> The average sentence length was __ and the average word length was __.</p>
-<font color="white"><p> __% of the tokens were lemmatized. </p> -->
+
 <font color="white"><p> Filename: {{form.file.value}} </p>
 <font color="white"><p> Format: {{form.lem_format.value}} </p>
 <font color="white"><p> Language: {{form.language.value}} </p>
@@ -26,7 +31,8 @@
 
 <a class="btn btn-primary" style="margin:10px;" role="button" href="/lemmatize">Lemmatize Another</a>
 <a class="btn btn-primary" style="margin:10px;" role="button" href="/format">Format Bridge Sheet</a>
-
+<font color= "black"><p style="text-align:left;" id="PostBlock">Additional resources to help with your lemmatization — including spreadsheets with core lists, the Bridge Dictionary and Lexicon, several textbooks, and a few texts — are available on <a href="https://github.com/GitClassical/Bridge">Github.</a><br>
+Full instructions and videos on how to lemmatize — including how to link your lemmatization sheet to other sheets — are available on the <a href="http://iris.haverford.edu/bridge/collaboration-tools/">Create</a> page.</p>
 </div>
 
 </div>

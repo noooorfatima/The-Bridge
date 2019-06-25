@@ -6,10 +6,10 @@ input.btn {
         background-color: #337ab7;      
 	cursor:pointer;
         color:white;
-        font-size:18px;
+        font-size:25px;
         font-family:Helvetica Neue;
-        width:195px;
-        height:110px;
+        width:180px;
+        height:105px;
         border-radius: 8px;
 	border: 1px solid transparent;
 	text-align: center;
@@ -31,7 +31,20 @@ input.btn {
 	#description{
 	font-size:10px;
 }
-
+	#Block{
+	background:rgba(255,255,255,0.85);
+	font-color:black;
+	border-radius: 2.5px;
+	font-size:15px;
+	padding:5px;
+}
+p span { 
+background:rgba(255,255,255,0.85);
+font-color:black;
+font-size:15px;
+border:2.5px;
+padding:5px;
+}
 </style>
 <title>The Bridge: Tools</title>
 <body id="body" data-title="index" class = "home">
@@ -42,10 +55,9 @@ input.btn {
 	<div class="page-wrap">
 		<div style="text-align:center;padding-top:30px;">
 <h1 style="font-size:55px; color:white; font-weight:700; font-family:Helvetica Neue;">SELECT A TOOL</h1>
- <p id="PostBlock"> <input class="btn" type="button" value="LEMMATIZER (Lemmatize a Text)" onclick="window.location.href='/lemmatize'" </> 
-&nbsp;	<input class="btn" type="button" value="FORMATTER (Format a Lemmatization Sheet)" onclick="window.location.href='/format'" </>
-
-
+ <p id="PostBlock"> <input class="btn" type="button" value="LEMMATIZE" onclick="window.location.href='/lemmatize'" </> 
+&nbsp;	<input class="btn" type="button" value="FORMAT" onclick="window.location.href='/format'" </>
+<p style="margin-left:40px;"><span>Lemmatize a Text</span> <&nbsp> <span>Format Lemmatized Sheet</span></p>
  
 </div>
 
