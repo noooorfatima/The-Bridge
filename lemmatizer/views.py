@@ -148,7 +148,10 @@ def lemmatizer(request):
                 #Remove the tempary txt file, but keep the csv and xlsx output
                     os.unlink(filename)
                     assert not os.path.exists(filename)
-            return render(request, 'lemmatized.html',{'form':form, 'output_file':output_file})#,{'test'='hi1'})
+            statsfile=open('/tmp/savedata.txt','r')
+            contents=statsfile.read()
+            statsfile.close()
+            return render(request, 'lemmatized.html',{'form':form, 'output_file':output_file,'contents':contents})#,{'test'='hi1'})
     #Remove the tempary txt file, but keep the csv and xlsx output
        # os.unlink(filename)
        # assert not os.path.exists(filename)

@@ -408,6 +408,7 @@ def wordsFromFile(file, lemmatizer, *, use_line_numbers = False):
     Yields:
         word (Word): a Word tuple of the next form to appear in `file`
     """
+    datafile=open("/tmp/savedata.txt" ,'w')
     count=0
     totaltokens=0
     jv_replacer = JVReplacer()
@@ -449,7 +450,7 @@ def wordsFromFile(file, lemmatizer, *, use_line_numbers = False):
     print("Percentage lemmatized is {}%".format(round(count/totaltokens,3)*100)) 
     print("Total token count:{}".format(totaltokens))
     print("Automatically lemmatized count:{}".format(count)) 
-    #datafile.write("Percentage lemmatized is {}%".format(round(count/totaltokens,3)*100))
+    datafile.write("Percentage lemmatized is {}%.".format(round(count/totaltokens,3)*100))
 def wordsFromPathList(paths, lemmatizer, **kwargs):
     """
     Extracts words as Word tuples from the files given by `paths`. Note:
@@ -491,6 +492,7 @@ def autoLemma(args, *, lemmatizer=None, wordsFromPathList=wordsFromPathList):
         wordsFromPathList (Callable): returns an iterable over Word tuples from
             file paths
     """
+    dataf=open("/tmp/savedata.txt",'a')
     filepath=args['<file>']
     wordcount = 0
     charcount=0
@@ -513,7 +515,7 @@ def autoLemma(args, *, lemmatizer=None, wordsFromPathList=wordsFromPathList):
     print("The average sentence length is {} words per sentence".format(round(avgSent,2)))
     print("The average word length is {} letters per word".format(round(lettercount/wordcount,2)))
     print("I AM NOT DEAD YET")
-    #dataf.write('\n'+"The average sentence length is {} words per sentence".format(round(avgSent,2))+'\n' +"The average word length is {} letters per word".format(round(lettercount/wordcount,2)))
+    dataf.write("The average sentence length is {} words per sentence.".format(round(avgSent,2)) +"The average word length is {} letters per word.".format(round(lettercount/wordcount,2)))
     if lemmatizer is None:
     	lemmatizer = LemmaReplacer('latin' if args['latin'] else 'greek', include_ambiguous=args['--include-ambiguous'])
     print(args['--include-ambiguous'])
