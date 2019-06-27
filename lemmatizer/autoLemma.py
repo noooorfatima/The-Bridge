@@ -450,7 +450,7 @@ def wordsFromFile(file, lemmatizer, *, use_line_numbers = False):
     print("Percentage lemmatized is {}%".format(round(count/totaltokens,3)*100)) 
     print("Total token count:{}".format(totaltokens))
     print("Automatically lemmatized count:{}".format(count)) 
-    datafile.write("Percentage lemmatized is {}%.".format(round(count/totaltokens,3)*100))
+    datafile.write("Percentage lemmatized is {}%.".format(round((count/totaltokens)*100,2)))
 def wordsFromPathList(paths, lemmatizer, **kwargs):
     """
     Extracts words as Word tuples from the files given by `paths`. Note:
