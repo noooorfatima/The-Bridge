@@ -504,15 +504,26 @@ def autoLemma(args, *, lemmatizer=None, wordsFromPathList=wordsFromPathList):
                 words = line.split()
                 wordcount+=len(words)
                 charcount+=sum(len(word) for word in words)
+    fout=open('/tmp/withoutnames.txt','w')
+    namesintext=0
+    with open(filepath[0], 'r') as l:
+        names=['A.', 'D.', 'C.', 'Cn.', 'L.', 'M’.', 'M.', 'N.', 'P.', 'Q.', 'Ser.', 'Sex.', 'Sp.', 'Ti.', 'T.']
+        for line in l:
+                for word in names:
+                        line = line.replace(word,'')
+                fout.write(line)
     print("Total characters(without spaces) are {}".format(charcount))
     print("Total letters are: {}".format(lettercount))
     print("Total words are: {}".format(wordcount))
+    fout=open('/tmp/withoutnames.txt','r')
     reg=regex.compile('\[(.*?)\]')
-    result = regex.findall(reg, read_data)
+    result = regex.findall(reg, fout.read())
     dots=0
     for i in range(0,len(result)):
         dots+=(result[i].count('.'))
-    sentences = regex.split(r'[!?]+|(?<!\.)\.(?!\.)', read_data.replace('\n',''))
+    with open('/tmp/withoutnames.txt','r') as j:
+        newdata=j.read()
+    sentences = regex.split(r'[!?]+|(?<!\.)\.(?!\.)', newdata.replace('\n',''))
     sentences = sentences[:-1]
     sentence_count = len(sentences)
     sentence_count +=read_data.count(';')-dots
