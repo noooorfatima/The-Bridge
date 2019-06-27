@@ -431,7 +431,7 @@ def wordsFromFile(file, lemmatizer, *, use_line_numbers = False):
             for form in regex.split(r'(?:\P{L},.+)', token):
                 # split around punctuation
                 try:
-                    if form == ',' or form == '!' or form == '.' or form == ':' or form == '(' or form == ')' or form == ';' or form == ']' or form == '[' or form == '?':
+                    if form == ',' or form.isnumeric() or form == '!' or form == '.' or form == ':' or form == '(' or form == ')' or form == ';' or form == ']' or form == '[' or form == '?':
                         pass
                     else:
                         if not token=='́':
