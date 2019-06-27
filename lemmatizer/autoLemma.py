@@ -492,6 +492,8 @@ def autoLemma(args, *, lemmatizer=None, wordsFromPathList=wordsFromPathList):
         wordsFromPathList (Callable): returns an iterable over Word tuples from
             file paths
     """
+    #args['<file>'][0]=args['<file>'][0].replace(' ','')
+    print('arg file is{}'.format(args['<file>']))
     dataf=open("/tmp/savedata.txt",'a')
     filepath=args['<file>']
     wordcount = 0

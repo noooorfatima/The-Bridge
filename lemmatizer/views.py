@@ -1,3 +1,4 @@
+
 import os
 import xlrd
 import csv
@@ -57,6 +58,10 @@ def lemmatizer(request):
         #using top answer with minor revision: https://stackoverflow.com/questions/3111779/how-can-i-get-the-file-name-from-request-files
         for filename, file in request.FILES.items():
             name = request.FILES[filename].name
+	#name='"'+name.split('.')[0]+'"'+name.split('.')[1]
+        #print('the name is {}'.format(name))
+        name=name.replace(" ", "")
+        print('the name is {} now'.format(name))
         name = name.split('.')[0]
         out_name = name + '_lemmatized'
         print('created outname:{}'.format(out_name))
