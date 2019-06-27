@@ -507,9 +507,15 @@ def autoLemma(args, *, lemmatizer=None, wordsFromPathList=wordsFromPathList):
     print("Total characters(without spaces) are {}".format(charcount))
     print("Total letters are: {}".format(lettercount))
     print("Total words are: {}".format(wordcount))
+    reg=regex.compile('\[(.*?)\]')
+    result = regex.findall(reg, read_data)
+    dots=0
+    for i in range(0,len(result)):
+        dots+=(result[i].count('.'))
     sentences = regex.split(r'[!?]+|(?<!\.)\.(?!\.)', read_data.replace('\n',''))
     sentences = sentences[:-1]
     sentence_count = len(sentences)
+    sentence_count +=read_data.count(';')-dots
     print("Total sentences in the file are: {}".format(sentence_count))
     avgSent=wordcount/sentence_count
     print("The average sentence length is {} words per sentence".format(round(avgSent,2)))
