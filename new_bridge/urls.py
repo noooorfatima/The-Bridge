@@ -28,6 +28,7 @@ urlpatterns = [
     path('get_words/<language>/<text>/<bookslist>/<text_from>/<text_to>/<add_remove>/', views.get_words),
     path('about', views.AboutView),
     path('tools/', views.Tools),
+    path('scribe/', views.Scribe),
     path('oracle/', views.Oracle),
     path('lemmatize/', lemviews.lemmatizer, name='lemmatize'),
     path('lemmatize/Lemmatizer', lemviews.lemmatizer, name='lemmatized'),

@@ -77,7 +77,8 @@ def IndexView(request):
 
 #^^^ pre-autocomplete index view
 # Below code is modified from the GAM
-
+def Scribe(request):
+	return render(request,'scribe.html')
 def Tools(request):
 	return render(request,'tools.html')
 def Oracle(request):

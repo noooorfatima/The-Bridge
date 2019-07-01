@@ -1,0 +1,38 @@
+{% include "head.html" %}
+{% load staticfiles %}
+<style>
+#PostText {
+	min-width:200px;
+	max-width:350px;
+	margin:auto;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+#PostBlock {
+	<!––background:rgba(255,255,255,0.85);-->
+	padding:5px;
+	margin: 5px;
+	border-radius: 2.5px;
+}
+</style>
+<title>The Bridge: Scribe</title>
+<body id="body" data-title="index" class = "home">
+	{% include "navbar.html" %}
+	{% include "about.html" %}
+
+<div id="background" class = "custom-background img-responsive">
+  <div class="page-wrap">
+	<div style="
+	text-align: left;
+    padding-left: 15px;
+    padding-right: 15px;">
+		<p style="float: left;"><img src="{% static "/images/roman_writing_computer.jpg" %}" height="150px" width="150px" border="5px" style="padding: 0 15px;" ></p>
+		<p style="margin-top: 20px;"> </p>
+		<p id="PostBlock"> <font color ="white"><i>Bridge/Scribe</i> will markup a text to reveal familiar and/or new vocabulary. For example, 
+if you used the Bridge to create a list of new vocabulary in the first sentence of Caesar's
+<i>Bellum Gallicum</i> excluding the words in the DCC Latin Core, you would see:<br><b>Gallia</b> est omnis divisa in partes tres, quarum unam <b>incolunt Belgae</b>, aliam 
+<b>Aquitani</b>, tertiam qui ipsorum lingua <b>Celtae</b>, nostra <b>Galli</b> appellantur.<br><br>Currently in development; anticipated launch 2021. </p> </font>
+</div>
+</div>
+</div>
+{% include "footer.html" %}
