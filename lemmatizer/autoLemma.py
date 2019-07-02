@@ -126,12 +126,12 @@ LONGDEF_FORMULA = "=VLOOKUP({}{},'LEMMATA-Vocab'!C:F,4,FALSE)"
 LOCALDEF_FORMULA = "=VLOOKUP({}{},'LEMMATA-Vocab'!C:G,5,FALSE)"
 
 FORMULAE_COLUMNS = [
-    "CHECK", "DISPLAY LEMMA", "SHORTDEF", "LONGDEF", "LOCALDEF"
+     "DISPLAY LEMMA", "SHORTDEF", "LONGDEF", "LOCALDEF"
 ]
 
 OUTPUT_COLUMNS = [
     Column("CHECK", 1,
-           lambda __, row: CHECK_FORMULA.format(LEMMA_COLUMN_LETTER, row)),
+           lambda __, row:''),
     Column("TITLE", 2,
            lambda word, __: word.lemma if word.lemma is not None else ''),
     Column("TEXT", 3,
@@ -139,7 +139,7 @@ OUTPUT_COLUMNS = [
     Column("LOCATION", 4,
            lambda word, __: word.location),
     Column("SECTION", 5,
-           lambda word, __: word.location),
+           lambda word, __:''),
     Column("RUNNING COUNT", 6,
            lambda __, row: str(row)),
     Column("DISPLAY LEMMA", 7,
@@ -580,11 +580,11 @@ def autoLemma(args, *, lemmatizer=None, wordsFromPathList=wordsFromPathList):
     else:
         columns = OUTPUT_COLUMNS_WITHOUT_FORMULAE
 
-    if args['--use-detailed-sections']:
-        replaceColumnFunction(columns, "SECTION",
-                                    lambda word, __: detailedSectionFromWord(word))
-    elif not args['--use-sections']:
-        columns = [ column for column in columns if column.name != "SECTION" ]
+    #if args['--use-detailed-sections']:
+        #replaceColumnFunction(columns, "SECTION",
+                                    #lambda word, __: detailedSectionFromWord(word))
+    #elif not args['--use-sections']:
+        #columns = [ column for column in columns if column.name != "SECTION" ]
 
     if args['--force-lowercase-lemmata']:
         wrapColumnFunction(columns, "TITLE", lambda lemma: lemma.lower())
