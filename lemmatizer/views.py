@@ -58,7 +58,7 @@ def lemmatizer(request):
         #using top answer with minor revision: https://stackoverflow.com/questions/3111779/how-can-i-get-the-file-name-from-request-files
         for filename, file in request.FILES.items():
             name = request.FILES[filename].name
-	#name='"'+name.split('.')[0]+'"'+name.split('.')[1]
+        #name='"'+name.split('.')[0]+'"'+name.split('.')[1]
         #print('the name is {}'.format(name))
         name=name.replace(" ", "")
         print('the name is {} now'.format(name))
@@ -76,8 +76,12 @@ def lemmatizer(request):
 
             filename = '/tmp/'+out_name+'.txt'
             with open(filename, 'wb') as f:
-                """We open a named temporary file from the data in the form. We change the name """
-                f.write(form['file'].value().read())
+                #for line in f:
+                        #if line[0]=="#":
+                           #continue
+                        #else:
+                #We open a named temporary file from the data in the form. We change the name """
+                 f.write(form['file'].value().read())
                 
                 
             with open(filename) as f:
